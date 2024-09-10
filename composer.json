@@ -14,7 +14,6 @@
         "laravel/ui": "^4.5"
     },
     "require-dev": {
-        "bayuly94/crud-generator": "dev-main",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
