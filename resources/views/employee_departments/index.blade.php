@@ -2,7 +2,7 @@
 
 
 @section('page_title')
-    Companies
+    {{ __($page_title) }}
 @stop
 
 @section('table_header')

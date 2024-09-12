@@ -2,7 +2,11 @@
 
 
 @section('page_title')
-    @yield('page_title')
+    @if (isset($page_title))
+        {{ __($page_title) }}
+    @else
+        @yield('page_title')
+    @endif
 @stop
 
 @section('content')

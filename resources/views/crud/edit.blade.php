@@ -2,7 +2,7 @@
 
 
 @section('page_title')
-    @yield('page_title')
+    {{ __($page_title) }}
 @stop
 
 @section('content')

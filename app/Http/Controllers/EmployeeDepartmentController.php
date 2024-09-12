@@ -11,5 +11,6 @@ class EmployeeDepartmentController extends Controller
     use CrudTrait;
 
     public $model = EmployeeDepartment::class;
-    public $route = 'employee_departments'; 
+    public $route = 'employee-departments'; 
+    public $page_title = 'Employee Department';
 }

@@ -33,7 +33,7 @@ class EmployeeDepartment extends Model
         'company_id'  => 'required',
         'name'  => 'required',
         'description'  => 'required',
-        'head_departmen_id'  => 'required',
+        'head_departmen_id'  => '',
     ];
 
 

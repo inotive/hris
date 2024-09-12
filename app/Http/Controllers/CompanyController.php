@@ -12,4 +12,5 @@ class CompanyController extends Controller
 
     public $model = Company::class;
     public $route = 'companies';
+    public $page_title = 'Companies';
 }

@@ -70,7 +70,7 @@ return [
                 ],
                 [
                     'label' => 'Employees',
-                    'route' => '',
+                    'route' => 'employees.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                 ],
             ],
