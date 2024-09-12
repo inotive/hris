@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\ChangeLanguageController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,3 +25,15 @@ Route::get('/', function () {
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 Auth::routes();
+Route::middleware(['auth'])->group(function () {
+
+    Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
+
+    
+    Route::resource('/users', UserController::class);
+    Route::resource('/companies', CompanyController::class);
+
+    Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
+
+
+});

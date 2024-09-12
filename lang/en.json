@@ -1,0 +1,20 @@
+{
+    "Name" : "Name",
+    "First Name" : "First Name",
+    "Last Name" : "Last Name",
+    "Address": "Addrss",
+    "Telephone": "Telephone",
+    "Phone": "Phone",
+    "Yes": "Yes",
+    "No": "No",
+    "Save": "Save",
+    "Cancel": "Cancel",
+    "General Pay Date" : "General Pay Date",
+    "Data Saved Successfully": "Data Saved Successfully",
+    "Data Deleted Successfully": "Data Deleted Successfully",
+    "Are you sure?" : "Are you sure?",
+    "You won't be able to revert this!" : "You won't be able to revert this!",
+    "Yes, delete it!" :"Yes, delete it!",
+    "Deleted!" : "Deleted!",
+    "Your item has been deleted.":"Your item has been deleted."
+}
