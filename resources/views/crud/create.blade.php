@@ -11,7 +11,7 @@
     <div class="post d-flex flex-column-fluid" id="kt_post">
 
         <div id="kt_content_container" class="container-xxl">
-            <form action="{{ route(explode('.',Route::currentRouteName())[0] . '.store') }}" method="POST">
+            <form id="crud-form" action="{{ route(explode('.',Route::currentRouteName())[0] . '.store') }}" method="POST">
                 @csrf
                 <div class="card">
                     <div class="card-body">

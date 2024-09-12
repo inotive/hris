@@ -39,7 +39,13 @@ trait CrudTrait
             'success'   => __('Data Saved Successfully')
         ]);
 
-        return redirect()->route($this->route . '.index');
+        // return redirect()->route($this->route . '.index');
+
+        return [
+            'success'   => true,
+            'message'   => __('Data Saved Successfully'),
+            'redirect'  => route($this->route . '.index'),
+        ];
     }
 
     public function edit($id, Request $request)
@@ -62,7 +68,14 @@ trait CrudTrait
             'success'   => __('Data Saved Successfully')
         ]);
 
-        return redirect()->route($this->route . '.index');
+        // return redirect()->route($this->route . '.index');
+
+
+        return [
+            'success'   => true,
+            'message'   => __('Data Saved Successfully'),
+            'redirect'  => route($this->route . '.index'),
+        ];
     }
 
     public function destroy($id)

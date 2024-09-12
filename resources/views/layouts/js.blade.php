@@ -11,6 +11,63 @@
 
 
 <script>
+    $("#crud-form").on('submit', function(event){
+        event.preventDefault(); 
+        var action = $(this).attr('action');
+        $.ajax({
+            url: action,
+            type: 'POST',
+            data: $(this).serialize(), // Serialize the form data
+            success: function(response) {
+                console.log(response);
+                // Handle the success response
+                // alert('Item deleted successfully!');
+                // Optionally, redirect or update the page
+
+                if (response.success == true) {
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toastr-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                        };
+
+                        toastr.success(response.message);
+
+                        setTimeout(function() {
+                            console.log('This message is shown after 2 seconds');
+                            window.location.href = response.redirect;
+                        }, 1000); // 2000 milliseconds = 2 seconds
+
+                     
+                } else {
+                    Swal.fire({
+                        title:'{{ __("Error!") }}',
+                        text: response.message,
+                        icon: 'error'
+                    })
+                }
+                // window.location.reload();
+            },
+            error: function(xhr) {
+                // Handle the error response
+                alert('An error occurred while deleting the item.');
+            }
+        });
+    });
+</script>
+<script>
 $(".delete-button").click(function(e) {
 
     var delete_url = $(this).data('delete-url');
@@ -27,15 +84,6 @@ $(".delete-button").click(function(e) {
     }).then((result) => {
         if (result.isConfirmed) {
             
-            
-            // // Proceed with the delete action
-            // console.log('Item deleted');
-            // Swal.fire(
-            //     '{{ __("Deleted!") }}',
-            //     '{{ __("Your item has been deleted.") }}',
-            //     'success'
-            // );
-
             $.ajax({
                 url: delete_url,
                 type: 'POST',
