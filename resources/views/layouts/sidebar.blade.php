@@ -28,17 +28,27 @@
                 </svg>
               </span>
             </span>
-            <span class="menu-title">Dashboards</span>
+            <span class="menu-title">Menu Test</span>
             <span class="menu-arrow"></span>
           </span>
           <div class="menu-sub menu-sub-accordion menu-active-bg">
 
             <div class="menu-item">
-              <a class="menu-link" href="../../demo1/dist/index.html">
+              <a class="menu-link" href="{{ route('companies.index') }}">
                 <span class="menu-bullet">
                   <span class="bullet bullet-dot"></span>
                 </span>
-                <span class="menu-title">Multipurpose</span>
+                <span class="menu-title">Company</span>
+              </a>
+            </div>
+
+
+            <div class="menu-item">
+              <a class="menu-link" href="{{ route('users.index') }}">
+                <span class="menu-bullet">
+                  <span class="bullet bullet-dot"></span>
+                </span>
+                <span class="menu-title">Users</span>
               </a>
             </div>
             

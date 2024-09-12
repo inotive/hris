@@ -15,6 +15,7 @@
 
     <link href="{{asset('template/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('template/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script>
       var defaultThemeMode = "light";
@@ -56,6 +57,7 @@
 				<div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
 					@include('layouts.header')
 					<div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+            @include('layouts.toolbar')
             @yield('content')
 					</div>
           @include('layouts.footer')

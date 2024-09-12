@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4e40d8a1e783c46a9981a0223205713",
+    "content-hash": "4a5c682bb51cd053fd4b6a4e31d5ee58",
     "packages": [
         {
             "name": "brick/math",
@@ -5991,65 +5991,6 @@
     ],
     "packages-dev": [
         {
-            "name": "bayuly94/crud-generator",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bayuly94/crud-generator.git",
-                "reference": "d34714432dc5c9e663154cca7be500ce13d0e524"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bayuly94/crud-generator/zipball/d34714432dc5c9e663154cca7be500ce13d0e524",
-                "reference": "d34714432dc5c9e663154cca7be500ce13d0e524",
-                "shasum": ""
-            },
-            "require": {
-                "laravel/framework": "^9.0",
-                "php": "^8.0"
-            },
-            "default-branch": true,
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Bayuly94\\CrudGenerator\\CrudServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Bayuly94\\CrudGenerator\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bayu",
-                    "email": "bayuly94@gmail.com"
-                }
-            ],
-            "description": "Laravel CRUD Generator reference ibex/crud-generator",
-            "keywords": [
-                "alpine js",
-                "bootstrap css",
-                "crud",
-                "crud generator",
-                "laravel",
-                "laravel crud generator",
-                "laravel package",
-                "tailwind css"
-            ],
-            "support": {
-                "issues": "https://github.com/bayuly94/crud-generator/issues",
-                "source": "https://github.com/bayuly94/crud-generator/tree/main"
-            },
-            "time": "2024-09-10T03:05:21+00:00"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "2.0.0",
             "source": {
@@ -6303,6 +6244,71 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
+        },
+        {
+            "name": "ibex/crud-generator",
+            "version": "v1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/awais-vteams/laravel-crud-generator.git",
+                "reference": "3c9220d73d846f6553806e746886062e554c6102"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/awais-vteams/laravel-crud-generator/zipball/3c9220d73d846f6553806e746886062e554c6102",
+                "reference": "3c9220d73d846f6553806e746886062e554c6102",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.5|^6.20.42|^7.0|^8.0|^9.0|^10.0|^11.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Ibex\\CrudGenerator\\CrudServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ibex\\CrudGenerator\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "M Awais",
+                    "email": "asargodha@gmail.com"
+                }
+            ],
+            "description": "Laravel Crud Generator",
+            "keywords": [
+                "bootstrap css",
+                "crud",
+                "crud generator",
+                "laravel",
+                "laravel crud generator",
+                "laravel package"
+            ],
+            "support": {
+                "issues": "https://github.com/awais-vteams/laravel-crud-generator/issues",
+                "source": "https://github.com/awais-vteams/laravel-crud-generator/tree/v1.6"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/awais-vteams",
+                    "type": "github"
+                },
+                {
+                    "url": "https://ko-fi.com/mawais",
+                    "type": "ko_fi"
+                }
+            ],
+            "time": "2024-03-17T04:37:32+00:00"
         },
         {
             "name": "laravel/pint",
@@ -8596,9 +8602,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "bayuly94/crud-generator": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
