@@ -62,7 +62,11 @@
             },
             error: function(xhr) {
                 // Handle the error response
-                alert('An error occurred while deleting the item.');
+                Swal.fire({
+                        title:'{{ __("Error!") }}',
+                        text: 'Error',
+                        icon: 'error'
+                    })
             }
         });
     });
@@ -117,7 +121,11 @@ $(".delete-button").click(function(e) {
                 },
                 error: function(xhr) {
                     // Handle the error response
-                    alert('An error occurred while deleting the item.');
+                    Swal.fire({
+                        title:'{{ __("Error!") }}',
+                        text: 'Error',
+                        icon: 'error'
+                    })
                 }
             });
         }
