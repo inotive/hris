@@ -4,7 +4,7 @@
     
 
         <div class="{{ $name }}_preview_div">
-        <img id="{{ $name }}_preview" src="{{ old($name, $value ?? '') }}" height="100" class="mt-2 mb-2 border" />
+        <img id="{{ $name }}_preview" src="{{ old($name, $value ?? '') != null ? Storage::url(old($name, $value ?? '')) : '' }}" height="100" class="mt-2 mb-2 border" />
         </div>
 
         <div class="input-group mb-3">
@@ -60,7 +60,6 @@
         const imagePreview = $("#{{ $name }}_preview");
         const imagePreviewDiv = $("#{{ $name }}_preview_div");
 
-        imagePreviewDiv.hide();
 
         var modal = $('#{{ $name }}_modal');
     
@@ -70,8 +69,7 @@
             modal.modal('show');
 
             pickerUpload.attr('disabled', 'disabled');
-            imagePreviewDiv.hide();
-            imagePreview.attr("src","");
+     
         });
     
         // input file change

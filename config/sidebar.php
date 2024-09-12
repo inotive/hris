@@ -49,7 +49,7 @@ return [
             'children' => [
                 [
                     'label' => 'Employee Departments',
-                    'route' => '',
+                    'route' => 'employee-departments.index',
                     'roles' => ['superadmin', 'admin'],
                 ],
                 [

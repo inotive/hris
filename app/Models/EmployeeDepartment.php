@@ -35,4 +35,15 @@ class EmployeeDepartment extends Model
         'description'  => 'required',
         'head_departmen_id'  => 'required',
     ];
+
+
+    public function head_department()
+    {
+        return $this->belongsTo(Employee::class,'head_departmen_id','id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class,'company_id','id');
+    }
 }

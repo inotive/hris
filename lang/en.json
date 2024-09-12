@@ -29,5 +29,10 @@
     "You won't be able to revert this!" : "You won't be able to revert this!",
     "Yes, delete it!" :"Yes, delete it!",
     "Deleted!" : "Deleted!",
-    "Your item has been deleted.":"Your item has been deleted."
+    "Your item has been deleted.":"Your item has been deleted.",
+    "Head Department"  : "Head Department",
+    "Department"  : "Department",
+    "Company":"Company",
+    "Description":"Description",
+    "Select an option":"Select an option"
 }

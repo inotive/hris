@@ -29,7 +29,6 @@ class Company extends Model
         'address',
         'telphone',
         'email',
-        'phone',
         'logo',
         'general_pay_date',
         'is_overtime_request'
@@ -43,7 +42,7 @@ class Company extends Model
             'required',
             'email',
         ],
-        'phone'  => 'required',
+
         'logo'  => '',
         'general_pay_date'  => 'required',
         'is_overtime_request'  => 'required',

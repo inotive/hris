@@ -3,6 +3,7 @@
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/users', UserController::class);
     Route::resource('/companies', CompanyController::class);
     Route::resource('/employees', EmployeeController::class);
+    Route::resource('/employee-departments', EmployeeDepartmentController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 
