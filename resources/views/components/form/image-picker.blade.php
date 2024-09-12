@@ -3,9 +3,9 @@
         <label for="image" class="form-label">{{ $label }}</label>
     
 
-
-            <img id="{{ $name }}_preview" src="{{ old($name, $value ?? '') }}" height="100" class="mt-2 mb-2 border" />
-
+        <div class="{{ $name }}_preview_div">
+        <img id="{{ $name }}_preview" src="{{ old($name, $value ?? '') }}" height="100" class="mt-2 mb-2 border" />
+        </div>
 
         <div class="input-group mb-3">
             <input type="text" readonly name="{{ $name }}" id="{{ $name }}" 
@@ -19,16 +19,21 @@
     
         {!! $errors->first($name, '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
     
+
+
         <!-- Modal -->
-        <div class="modal fade" id="{{ $name }}_modal" tabindex="-1" role="dialog"
+        <div class="modal fade" 
+        data-bs-backdrop="static" 
+            data-bs-keyboard="false"
+        id="{{ $name }}_modal" tabindex="-1" role="dialog"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Upload File</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i aria-hidden="true" class="ki ki-close"></i>
+                        </button> --}}
                     </div>
                     <div class="modal-body">
                         <img id="{{ $name }}_file_preview" src="" width="100%" class="border mb-2">
@@ -37,8 +42,9 @@
                         <div id="{{ $name }}_upload_progress"></div>
                     </div>
                     <div class="modal-footer">
-    
-                        <button type="button" id="{{ $name }}_picker_upload" class="btn btn-primary btn-block">Unggah</button>
+                        <button type="button" class="btn btn-light-primary font-weight-bold" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                        <button type="button" id="{{ $name }}_picker_upload" class="btn btn-primary btn-block">{{ __('Upload') }}</button>
+
                     </div>
                 </div>
             </div>
@@ -48,18 +54,24 @@
     @section('js')
     <script>
         // Get the input element
-        const input = document.getElementById('{{ $name }}_picker');
+        const input = $('#{{ $name }}_picker');
         const inputFile = document.getElementById('{{ $name }}_file');
-        const pickerUpload = document.getElementById('{{ $name }}_picker_upload');
+        const pickerUpload = $('#{{ $name }}_picker_upload');
         const imagePreview = $("#{{ $name }}_preview");
+        const imagePreviewDiv = $("#{{ $name }}_preview_div");
 
-        imagePreview.hide();
+        imagePreviewDiv.hide();
 
         var modal = $('#{{ $name }}_modal');
     
         // Add a click event listener
-        input.addEventListener('click', function() {
+        input.on('click', function() {
+            console.log('asdasd');
             modal.modal('show');
+
+            pickerUpload.attr('disabled', 'disabled');
+            imagePreviewDiv.hide();
+            imagePreview.attr("src","");
         });
     
         // input file change
@@ -71,13 +83,15 @@
                 
                 reader.onload = function(e) {
                     $('#{{ $name }}_file_preview').attr('src', e.target.result).show(); // Set the image source and display it
+                    pickerUpload.removeAttr('disabled');    
+                    imagePreviewDiv.show();
                 }
                 
                 reader.readAsDataURL(file); // Read the file as a data URL
             }
         });
     
-        pickerUpload.addEventListener('click', function() {
+        pickerUpload.on('click', function() {
             var fileInput = $("#{{ $name }}_file")[0];
             var file = fileInput.files[0];
     
@@ -101,7 +115,8 @@
     
                         if (response.file != null) {
                             $("#{{ $name }}").val(response.file);
-                            imagePreview.attr('src',response.url).show();
+                            imagePreview.attr('src',response.url)
+                            imagePreviewDiv.show();
     
     
                             modal.modal('hide');

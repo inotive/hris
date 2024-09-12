@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 trait CrudTrait 
 {
 
-
     public function index(Request $request)
     {
         $search = $request->search;
@@ -69,7 +68,7 @@ trait CrudTrait
     public function destroy($id)
     {
         try{
-            
+
             $this->model::where('id', $id)->delete();
         
             return [

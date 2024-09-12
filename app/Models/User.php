@@ -32,12 +32,16 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'role',
+        'image'
     ];
 
     public $rules = [
+        'image' => '',
         'first_name' => 'required',
         'last_name' => 'required',
         'email' => 'required',
+        'role'  => 'required',
     ];
 
     /**
@@ -58,4 +62,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function role_options()
+    {
+        return [
+            'superadmin'    => __('Superadmin'),
+            'admin'    => __('Admin'),
+            'finance'    => __('Finance'),
+            'content'    => __('Content'),
+        ];
+    } 
 }
