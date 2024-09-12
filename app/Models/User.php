@@ -5,11 +5,15 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Traits\SearchTrait;
+use Faker\Core\Uuid as CoreUuid;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Ramsey\Uuid\Uuid;
+
+use function Ramsey\Uuid\v4;
 
 class User extends Authenticatable
 {
@@ -72,4 +76,18 @@ class User extends Authenticatable
             'content'    => __('Content'),
         ];
     } 
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($row){
+          if ($row->password == null)  $row->password = bcrypt(rand(100000,999999) . uniqid());
+        });
+    }
+
+    public function role_label()
+    {
+        return self::role_options()[$this->role] ?? '-';
+    }
 }
