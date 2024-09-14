@@ -20,14 +20,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return redirect()->route('dashboard');
 });
 
 
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
 
