@@ -65,7 +65,7 @@ return [
                 ],
                 [
                     'label' => 'Employee Shifts',
-                    'route' => '',
+                    'route' => 'employee-shifts.index',
                     'roles' => ['superadmin', 'admin'],
                 ],
                 [
