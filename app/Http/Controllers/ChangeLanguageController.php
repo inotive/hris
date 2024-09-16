@@ -10,10 +10,14 @@ class ChangeLanguageController extends Controller
 {
     public function changeLang($locale)
     {
-        if (in_array($locale, ['en', 'id'])) {
-            session(['app_locale' => $locale]);
+        $app_locale = collect(config('locale.locales'))->where('code', $locale)->first();
+
+        if ($app_locale != null) {
+        
+            session(['app_locale' => $app_locale]);
             App::setLocale($locale);
         }
+
         return redirect()->back();
     }
 }

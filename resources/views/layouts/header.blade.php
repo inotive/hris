@@ -55,7 +55,7 @@
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">
-                            <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">My Profile</a>
+                            <a href="../../demo1/dist/account/overview.html" class="menu-link px-5">{{ __('My Profile') }}</a>
                         </div>
                         <div class="menu-item px-5">
                             <a href="#" class="menu-link px-5">
@@ -68,32 +68,27 @@
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start">
                             <a href="#" class="menu-link px-5">
-                                <span class="menu-title position-relative">Language
+                                <span class="menu-title position-relative">{{ __('Language') }}
                                     <span
-                                        class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">{{ App::currentLocale() }}
+                                        class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">{{ session('app_locale')['language'] }}
                                         <img class="w-15px h-15px rounded-1 ms-2"
-                                            src="{{ asset('template/media/flags/united-states.svg') }}" alt=""></span></span>
+                                            src="{{ asset(session('app_locale')['flag'] ?? '') }}" alt=""></span></span>
                             </a>
                             <!--begin::Menu sub-->
                             <div class="menu-sub menu-sub-dropdown w-175px py-4" style="">
-                                <!--begin::Menu item-->
-                                <div class="menu-item px-3">
-                                    <a href="{{ route('change-language', 'en') }}"
-                                        class="menu-link d-flex px-5 {{ App::isLocale('en') ? ' active ' : '' }}">
-                                        <span class="symbol symbol-20px me-4">
-                                            <img class="rounded-1" src="{{ asset('template/media/flags/united-states.svg') }}"
-                                                alt="">
-                                        </span>English</a>
-                                </div>
 
-                                <div class="menu-item px-3">
-                                  <a href="{{ route('change-language', 'id') }}"
-                                      class="menu-link d-flex px-5 {{ App::isLocale('id') ? ' active ' : '' }}">
-                                      <span class="symbol symbol-20px me-4">
-                                          <img class="rounded-1" src="{{ asset('template/media/flags/indonesia.svg') }}"
-                                              alt="">
-                                      </span>Indonesia</a>
-                              </div>
+                                @foreach (config('locale.locales') as $key => $value)
+                                    <div class="menu-item px-3">
+                                        <a href="{{ route('change-language', $value['code']) }}"
+                                            class="menu-link d-flex px-5 {{ session('app_locale') == $value['code'] ? ' active ' : '' }}">
+                                            <span class="symbol symbol-20px me-4">
+                                                <img class="rounded-1" src="{{ asset($value['flag'] ?? '') }}"
+                                                    alt="">
+                                            </span>{{ $value['language'] }}</a>
+                                    </div>
+                                @endforeach
+                   
+                                
                                 <!--end::Menu item-->
                               
                             </div>
@@ -102,8 +97,7 @@
 
                         <div class="menu-item px-5">
                             <a href="{{ route('logout') }}" class="menu-link px-5"
-                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">Sign
-                                Out</a>
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Sign Out') }}</a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
 

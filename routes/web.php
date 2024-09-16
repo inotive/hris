@@ -2,8 +2,15 @@
 
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeDepartmentController;
+use App\Http\Controllers\EmployeeEmergencyContactController;
+use App\Http\Controllers\EmployeeLevelController;
+use App\Http\Controllers\EmployeePositionController;
+use App\Http\Controllers\EmployeeShiftController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
+use App\Models\EmployeeEmergencyContact;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,20 +25,26 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('dashboard');
+    return redirect()->route('dashboard');
 });
 
 
-Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-
 Auth::routes();
 Route::middleware(['auth'])->group(function () {
+
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
     Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
 
     
     Route::resource('/users', UserController::class);
     Route::resource('/companies', CompanyController::class);
+    Route::resource('/employees', EmployeeController::class);
+    Route::resource('/employee-departments', EmployeeDepartmentController::class);
+    Route::resource('/employee-positions', EmployeePositionController::class);
+    Route::resource('/employee-levels', EmployeeLevelController::class);
+    Route::resource('/employee-shifts', EmployeeShiftController::class);
+    Route::resource('/employee-emergency-contacts', EmployeeEmergencyContactController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 

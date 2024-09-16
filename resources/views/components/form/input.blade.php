@@ -4,11 +4,12 @@
     'value' => null,
     'placeholder'   => '',
     'type'  => 'text',
+    'required'  => false,
 ])
 
 <div class="fv-row mb-7 fv-plugins-icon-container">
 
-    <label class="required fs-6 fw-bold mb-2">{{ $label }}</label>
+    <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ $label }}</label>
 
     <input type="{{ $type }}" class="form-control form-control-solid" placeholder="{{ $placeholder }}" name="{{ $name }}"
         value="{{ $value ?? '' }}">

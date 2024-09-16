@@ -2,7 +2,7 @@
 
 
 @section('page_title')
-    @yield('page_title')
+    {{ __($page_title) }}
 @stop
 
 @section('content')
@@ -11,7 +11,7 @@
     <div class="post d-flex flex-column-fluid" id="kt_post">
 
         <div id="kt_content_container" class="container-xxl">
-            <form action="{{ route(explode('.',Route::currentRouteName())[0] . '.update', $form->id) }}" method="POST">
+            <form id="crud-form" action="{{ route(explode('.',Route::currentRouteName())[0] . '.update', $form->id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="card">
