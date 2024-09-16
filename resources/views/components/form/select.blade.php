@@ -3,11 +3,12 @@
     'label' => '',
     'value' => null,
     'list' => [],
+    'required'  => false,
 ])
 
 <div class="fv-row mb-7 fv-plugins-icon-container">
 
-    <label class="required fs-6 fw-bold mb-2">{{ $label }}</label>
+    <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ $label }}</label>
 
 
     <select class="form-select form-select-solid" name="{{ $name }}" data-control="select2" data-placeholder="{{ __('Select an option') }}">

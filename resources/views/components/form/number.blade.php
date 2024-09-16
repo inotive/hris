@@ -5,11 +5,12 @@
     'placeholder'   => '',
     'min'   => '',
     'max'   => '',
+    'required'  => false,
 ])
 
 <div class="fv-row mb-7 fv-plugins-icon-container">
 
-    <label class="required fs-6 fw-bold mb-2">{{ $label }}</label>
+    <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ $label }}</label>
 
     <input type="number" min="{{ $min }}" max="{{ $max }}" class="form-control form-control-solid" placeholder="{{ $placeholder }}" name="{{ $name }}"
         value="{{ $value }}">

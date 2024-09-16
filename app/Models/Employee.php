@@ -38,6 +38,7 @@ class Employee extends Model
         'sallary',
         'image',
         'reimbursement_limit',
+        'birth_date'
     ];
 
     public $rules = [

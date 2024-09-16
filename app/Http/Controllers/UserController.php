@@ -13,4 +13,6 @@ class UserController extends Controller
 
     public $model = User::class;
     public $route = 'users';
+
+    public $page_title = "Users";
 }
