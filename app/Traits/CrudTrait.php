@@ -15,8 +15,13 @@ trait CrudTrait
         $r =  $this->route;
         $r = str_replace("-","_", $r);
 
+        $filter = $request->filter;
+
+        // dd($filter);
+
         $search = $request->search;
         $list = $this->model::search($search)
+            ->filter($filter)
             ->paginate();
 
         return view($r . '.index',[
@@ -29,6 +34,12 @@ trait CrudTrait
     {
         $r =  $this->route;
         $r = str_replace("-","_", $r);
+
+
+        if ($request->redirect != null) {
+            session()->flash('redirect', $request->redirect);
+        } 
+
         return view('crud.create',[
             'page_title'    => __('Add') . ' ' . $this->page_title,
             'view'  => $r . '.form',
@@ -48,10 +59,12 @@ trait CrudTrait
 
         // return redirect()->route($this->route . '.index');
 
+        $redirect = session()->redirect ?? null;
+
         return [
             'success'   => true,
             'message'   => __('Data Saved Successfully'),
-            'redirect'  => route($this->route . '.index'),
+            'redirect'  => $redirect ?? route($this->route . '.index'),
         ];
     }
 
@@ -59,6 +72,11 @@ trait CrudTrait
     {
         $r =  $this->route;
         $r = str_replace("-","_", $r);
+
+
+        if ($request->redirect != null) {
+            session()->flash('redirect', $request->redirect);
+        } 
 
         $form = $this->model::find($id);
         return view('crud.edit', [
@@ -84,11 +102,12 @@ trait CrudTrait
 
         // return redirect()->route($this->route . '.index');
 
+        $redirect = session()->redirect ?? null;
 
         return [
             'success'   => true,
             'message'   => __('Data Saved Successfully'),
-            'redirect'  => route($this->route . '.index'),
+            'redirect'  => $redirect ?? route($this->route . '.index'),
         ];
     }
 

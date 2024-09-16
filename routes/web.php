@@ -4,11 +4,13 @@ use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDepartmentController;
+use App\Http\Controllers\EmployeeEmergencyContactController;
 use App\Http\Controllers\EmployeeLevelController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\EmployeeShiftController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
+use App\Models\EmployeeEmergencyContact;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/employee-positions', EmployeePositionController::class);
     Route::resource('/employee-levels', EmployeeLevelController::class);
     Route::resource('/employee-shifts', EmployeeShiftController::class);
+    Route::resource('/employee-emergency-contacts', EmployeeEmergencyContactController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 

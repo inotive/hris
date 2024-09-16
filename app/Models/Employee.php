@@ -59,6 +59,12 @@ class Employee extends Model
     ];
 
 
+    public function getFullNameAttribute()
+    {
+        return collect($this->first_name, $this->last_name)->join(' ');
+    }
+
+
     public function company()
     {
         return $this->belongsTo(Company::class,'company_id','id');

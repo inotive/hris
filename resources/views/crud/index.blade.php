@@ -46,7 +46,7 @@
 
 
                             {{-- ADD BUTTON --}}
-                            <x-table.add-button :href="route(explode('.',Route::currentRouteName())[0] . '.create')"/>
+                            <x-table.add-button />
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->
