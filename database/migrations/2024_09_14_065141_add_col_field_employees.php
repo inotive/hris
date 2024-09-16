@@ -31,6 +31,7 @@ return new class extends Migration
         Schema::table('employees', function (Blueprint $table) {
             //
             $table->dropColumn('birth_date');
+            $table->dropColumn('employees_employee_id_foreign');
 
         });
     }

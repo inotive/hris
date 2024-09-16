@@ -54,13 +54,13 @@ return [
                 ],
                 [
                     'label' => 'Employee Positions',
-                    'route' => 'companies.index',
+                    'route' => 'employee-positions.index',
                     'roles' => ['superadmin', 'admin'],
                 ],
 
                 [
                     'label' => 'Employee Levels',
-                    'route' => '',
+                    'route' => 'employee-levels.index',
                     'roles' => ['superadmin', 'admin'],
                 ],
                 [

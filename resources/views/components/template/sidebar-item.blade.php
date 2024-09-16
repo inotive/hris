@@ -23,7 +23,7 @@
                     @foreach ($menu['children'] as $key => $value)
                         @if (isset($value['roles']) && in_array(auth()->user()->role, $value['roles']))
                             <div class="menu-item">
-                                <a class="menu-link"
+                                <a class="menu-link "
                                     href="{{ isset($value['route']) != null && strlen($value['route']) > 0 ? route($value['route']) : $value['url'] ?? '#' }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
