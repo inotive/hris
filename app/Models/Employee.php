@@ -47,7 +47,6 @@ class Employee extends Model
         'last_name'  => 'required',
         'employee_shift_id'  => 'required',
         'email'  => 'required',
-        'password'  => 'required',
         'phone'  => 'required',
         'department_id'  => 'required',
         'employee_position_id'  => 'required',
@@ -56,5 +55,28 @@ class Employee extends Model
         'sallary'  => 'required',
         'image'  => 'required',
         'reimbursement_limit'  => 'required',
+        'birth_date'  => 'required',
     ];
+
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class,'company_id','id');
+    }
+
+    public function department()
+    {
+        return $this->belongsTo(EmployeeDepartment::class,'department_id','id');
+    }
+
+
+    public function position()
+    {
+        return $this->belongsTo(EmployeePosition::class,'employee_position_id','id');
+    }
+
+    public function level()
+    {
+        return $this->belongsTo(EmployeeLevel::class,'employee_level_id','id');
+    }
 }

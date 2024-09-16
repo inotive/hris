@@ -12,5 +12,5 @@ class EmployeeController extends Controller
 
     public $model = Employee::class;
     public $route = 'employees'; 
-    public $page_title = 'Companies';
+    public $page_title = 'Employee';
 }
