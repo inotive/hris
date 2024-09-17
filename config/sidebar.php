@@ -164,7 +164,7 @@ return [
                 ],
                 [
                     'label' => 'Payslips',
-                    'route' => '',
+                    'route' => 'employee-payslip-details.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                 ],
             ],

@@ -6,7 +6,7 @@
     'required'  => false,
 ])
 
-<div class="fv-row mb-7 fv-plugins-icon-container">
+<div class="fv-row mb-7 fv-plugins-icon-container" id="{{ $name }}_div">
 
     <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ $label }}</label>
 

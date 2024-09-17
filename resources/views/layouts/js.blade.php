@@ -131,3 +131,16 @@ $(".delete-button").click(function(e) {
     });
 });
 </script>
+
+<script>
+$('#role').on('change', function() {
+    var val = $(this).val();
+
+    if (val == "admin") {
+        $("#company_id_div").show();
+    } else {
+        $("#company_id_div").hide();
+    }
+});
+$("#role").trigger('change');
+</script>

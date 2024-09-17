@@ -7,8 +7,9 @@
 
     <x-form.input type="email" :label="__('Email')" name="email" :value="old('email', $form->email ?? '')" />
 
-    <x-company-dropdown :value="old('company_id', $form->company_id ?? '')" />
 
     <x-role-dropdown :value="old('role', $form->role ?? '')" />
+    <x-company-dropdown :value="old('company_id', $form->company_id ?? '')" />
 
 </div>
+

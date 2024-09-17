@@ -47,7 +47,7 @@ class User extends Authenticatable
         'last_name' => 'required',
         'email' => 'required',
         'role'  => 'required',
-        'company_id'  => 'required',
+        'company_id'  => '',
     ];
 
     /**
