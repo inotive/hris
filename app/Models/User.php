@@ -37,7 +37,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'image'
+        'image',
+        'company_id',
     ];
 
     public $rules = [
@@ -46,6 +47,7 @@ class User extends Authenticatable
         'last_name' => 'required',
         'email' => 'required',
         'role'  => 'required',
+        'company_id'  => 'required',
     ];
 
     /**
@@ -89,5 +91,11 @@ class User extends Authenticatable
     public function role_label()
     {
         return self::role_options()[$this->role] ?? '-';
+    }
+
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

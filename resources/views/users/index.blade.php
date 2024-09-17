@@ -11,6 +11,7 @@
     <th class="min-w-125px">{{ __('Last Name') }}</th>
     <th class="min-w-125px">{{ __('Email') }}</th>
     <th class="min-w-125px">{{ __('Role') }}</th>
+    <th class="min-w-125px">{{ __('Company') }}</th>
     <th class="text-end min-w-70px">Actions</th>
 @stop
 
@@ -23,6 +24,7 @@
             <td>{{ $value->last_name }}</td>
             <td>{{ $value->email }}</td>
             <td>{{ $value->role_label() }}</td>
+            <td>{{ $value->company->name ?? '-' }}</td>
             
             <td class="text-end">
                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
