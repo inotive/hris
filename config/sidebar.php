@@ -159,7 +159,7 @@ return [
             'children' => [
                 [
                     'label' => 'Master Category Payslips',
-                    'route' => '',
+                    'route' => 'employee-payslip-masters.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                 ],
                 [

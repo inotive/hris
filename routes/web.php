@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeEmergencyContactController;
 use App\Http\Controllers\EmployeeLevelController;
+use App\Http\Controllers\EmployeePayslipMasterController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\EmployeeShiftController;
 use App\Http\Controllers\UploadController;
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/employee-levels', EmployeeLevelController::class);
     Route::resource('/employee-shifts', EmployeeShiftController::class);
     Route::resource('/employee-emergency-contacts', EmployeeEmergencyContactController::class);
+    Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 
