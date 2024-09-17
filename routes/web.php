@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CompanyPayoutSettingController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeEmergencyContactController;
@@ -39,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
     
     Route::resource('/users', UserController::class);
     Route::resource('/companies', CompanyController::class);
+    Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
     Route::resource('/employees', EmployeeController::class);
     Route::resource('/employee-departments', EmployeeDepartmentController::class);
     Route::resource('/employee-positions', EmployeePositionController::class);

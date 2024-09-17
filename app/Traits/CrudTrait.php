@@ -40,6 +40,7 @@ trait CrudTrait
             session()->flash('redirect', $request->redirect);
         } 
 
+
         return view('crud.create',[
             'page_title'    => __('Add') . ' ' . $this->page_title,
             'view'  => $r . '.form',
@@ -59,7 +60,7 @@ trait CrudTrait
 
         // return redirect()->route($this->route . '.index');
 
-        $redirect = session()->redirect ?? null;
+        $redirect = session()->get('redirect') ?? null;
 
         return [
             'success'   => true,
@@ -102,7 +103,7 @@ trait CrudTrait
 
         // return redirect()->route($this->route . '.index');
 
-        $redirect = session()->redirect ?? null;
+        $redirect = session()->get('redirect') ?? null;
 
         return [
             'success'   => true,
