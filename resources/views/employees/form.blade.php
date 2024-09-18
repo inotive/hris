@@ -1,13 +1,8 @@
-<div>
+<div class="row">
 
+    <x-company-dropdown :value="old('company_id', $form->company_id ?? '')" />
 
-    <x-company-dropdown :value="old('company_id', $form->company_id ?? '')"/>
-
-    <x-form.image-picker 
-        :label="__('Image')" 
-        name="image" 
-        folder="employees"
-        :value="old('image', $form->image ?? '')" />
+    <x-form.image-picker :label="__('Image')" name="image" folder="employees" :value="old('image', $form->image ?? '')" />
 
 
     <x-form.input type="text" :label="__('First Name')" name="first_name" :value="old('first_name', $form->first_name ?? '')" />
@@ -21,11 +16,11 @@
     <x-form.input type="email" :label="__('Email')" name="email" :value="old('email', $form->email ?? '')" />
     <x-form.phone :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')" />
 
-    <x-employee-department-dropdown :value="old('department_id', $form->department_id ?? '')"  />
-    <x-employee-position-dropdown :value="old('employee_position_id', $form->employee_position_id ?? '')"  />
-    <x-employee-level-dropdown :value="old('employee_level_id', $form->employee_level_id ?? '')"  />
-    <x-employee-shift-dropdown :value="old('employee_shift_id', $form->employee_shift_id ?? '')"  />
+    <x-employee-department-dropdown :value="old('department_id', $form->department_id ?? '')" />
+    <x-employee-position-dropdown :value="old('employee_position_id', $form->employee_position_id ?? '')" />
+    <x-employee-level-dropdown :value="old('employee_level_id', $form->employee_level_id ?? '')" />
+    <x-employee-shift-dropdown :value="old('employee_shift_id', $form->employee_shift_id ?? '')" />
 
 
-  
+
 </div>

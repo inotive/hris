@@ -46,7 +46,7 @@
 
 
                             {{-- ADD BUTTON --}}
-                            <x-table.add-button />
+                            <x-table.add-button label="{{ __('Add') . ' ' . __($page_title) }}" />
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->

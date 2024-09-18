@@ -1,4 +1,4 @@
-<div>
+<div class="col-12 col-lg-6 mb-4">
     <div class="form-group mb-2 mb20">
         <label for="image" class="form-label">{{ $label }}</label>
     

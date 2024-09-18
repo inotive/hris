@@ -1,4 +1,4 @@
-<div>
+<div class="row">
 
 
     <x-company-dropdown :value="old('company_id', $form->company_id ?? '')" />

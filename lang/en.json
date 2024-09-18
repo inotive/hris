@@ -42,8 +42,10 @@
     "Deleted!" : "Deleted!",
     "Your item has been deleted.":"Your item has been deleted.",
     "Head Department"  : "Head Department",
+    "Head"  : "Head",
     "Department"  : "Department",
     "Company":"Company",
     "Description":"Description",
-    "Select an option":"Select an option"
+    "Select an option":"Select an option",
+    "Employee Department":"Employee Department"
 }
