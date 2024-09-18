@@ -184,7 +184,7 @@ return [
             'children' => [
                 [
                     'label' => 'Banners',
-                    'route' => '',
+                    'route' => 'banners.index',
                     'roles' => ['superadmin', 'admin', 'content'],
                 ],
                 [

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyPayoutSettingController;
@@ -51,6 +52,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/employee-emergency-contacts', EmployeeEmergencyContactController::class);
     Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
     Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
+
+    Route::resource('/banners', BannerController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 
