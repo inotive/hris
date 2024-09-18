@@ -28,7 +28,6 @@
            
             <td class="text-end">
                 <x-table.actions>
-                    <x-table.action-button label="Emergency Contact" :href="route('employee-emergency-contacts.index',['filter'=> ['employee_id'=> $value->id]])" />
                     <x-table.edit-button :id="$value->id" />
                     <x-table.delete-button :id="$value->id" />
                 </x-table.actions>

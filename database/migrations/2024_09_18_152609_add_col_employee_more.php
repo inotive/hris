@@ -29,9 +29,9 @@ return new class extends Migration
             $table->string('district')->nullable();
             $table->string('sub_district')->nullable();
             $table->string('zip_code')->nullable();
-            $table->string('join_date')->nullable();
+            $table->date('join_date')->nullable();
             $table->string('document_id')->nullable();
-            $table->string('document_expiry')->nullable();
+            $table->date('document_expiry')->nullable();
             $table->string('tax_registered_name')->nullable();
             $table->string('tax_number')->nullable();
 

@@ -1,6 +1,9 @@
 <x-form.index 
     :title="__('Add Emergency Contact')"
-    :action="route('emergency-contact.store', $employee)" >
+    :action="route('emergency-contact.store', $employee)" 
+    :cancel="route('emergency-contact.index', $employee)" 
+    
+    >
 
 
     <x-slot name="body">
