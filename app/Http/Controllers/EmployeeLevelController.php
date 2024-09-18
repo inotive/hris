@@ -15,9 +15,4 @@ class EmployeeLevelController extends Controller
     public $page_title = 'Employee Level';
 
 
-    public function generate_dummy(Request $request)
-    {
-
-        return redirect()-
-    }
 }
