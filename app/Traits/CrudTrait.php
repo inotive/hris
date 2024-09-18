@@ -13,12 +13,33 @@ trait CrudTrait
 
     public function index(Request $request)
     {
+        $rows_count = $this->model::count();
+
+        if ($request->generate_dummy == 1) {
+         
+            if ($rows_count == 0) {
+                // can generate if zero data
+                $inserts = $this->model::dummy_data() ?? [];
+                if (count($inserts) > 0) {
+                    foreach($inserts as $key => $value) {
+                        $this->model::create($value);
+                    }  
+                    
+                    session()->flash('messages', [
+                        'success'   =>  __('Generate Dummy Successfully')
+                    ]);
+                }
+
+
+                return redirect()->route($this->route . '.index');
+            
+            }
+        }
         $r =  $this->route;
         $r = str_replace("-","_", $r);
 
         $filter = $request->filter;
 
-        // dd($filter);
 
         $search = $request->search;
         $list = $this->model::search($search)
@@ -29,6 +50,7 @@ trait CrudTrait
             'list'  => $list,
             'page_title'    => $this->page_title,
             'action_title'    => $this->action_title ?? $this->page_title,
+            'rows_count'    => $rows_count,
         ]);
     }
 
@@ -132,4 +154,6 @@ trait CrudTrait
             ];
         }
     }
+
+  
 }

@@ -12,7 +12,7 @@
     <th class="min-w-125px">{{ __('Department') }}</th>
     <th class="min-w-125px">{{ __('Position') }}</th>
     <th class="min-w-125px">{{ __('Level') }}</th>
-    <th class="text-end min-w-70px">Actions</th>
+    <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
 
 @section('table_body')

@@ -12,5 +12,5 @@ class EmployeePositionController extends Controller
 
     public $model = EmployeePosition::class;
     public $route = 'employee-positions'; 
-    public $page_title = 'Employee Positions';
+    public $page_title = 'Employee Position';
 }
