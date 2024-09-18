@@ -35,7 +35,7 @@ Route::get('/', function () {
 
 
 Auth::routes();
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'password.changed'])->group(function () {
 
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
@@ -43,6 +43,12 @@ Route::middleware(['auth'])->group(function () {
 
     
     Route::resource('/users', UserController::class);
+    Route::get('/users/{id}/change-password', [UserController::class, 'changePassword'])->name('users.change-password');
+    Route::put('/users/{id}/change-password', [UserController::class, 'changePasswordUpdate'])->name('users.change-password.update');
+
+    Route::get('/user/change-password', [UserController::class, 'changePasswordMe'])->name('user.change-password');
+    Route::put('/user/change-password/{id}', [UserController::class, 'changePasswordMeUpdate'])->name('user.change-password.update');
+
     Route::resource('/companies', CompanyController::class);
     Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
     Route::resource('/employees', EmployeeController::class);

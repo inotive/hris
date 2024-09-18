@@ -39,6 +39,7 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+        'password_updated_at',
         'role',
         'image',
         'company_id',
@@ -102,6 +103,8 @@ class User extends Authenticatable
             Mail::to($row->email)->send(new NewPasswordMail($row->email, $new_pass));
 
         });
+
+    
     }
 
     public function role_label()

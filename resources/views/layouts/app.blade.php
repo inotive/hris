@@ -15,7 +15,7 @@
 
     <link href="{{asset('template/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('template/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
- 
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script>
       var defaultThemeMode = "light";

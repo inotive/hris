@@ -108,7 +108,7 @@ trait CrudTrait
         return view('crud.edit', [
             'view'  => $r . '.form',
             'form'  => $form,
-            'page_title'    => __('Add') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
+            'page_title'    => __('Edit') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
         ]);
     }
 

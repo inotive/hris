@@ -14,7 +14,9 @@
         value="{{ $value ?? '' }}">
 
 
-    @error($name)
-            <div class="fv-plugins-message-container invalid-feedback">{{ $message }}</div>
-    @enderror
+        <div class="fv-plugins-message-container invalid-feedback {{ $name }}-error">
+            @error($name)
+                {{ $message }}
+            @enderror
+        </div>
 </div>

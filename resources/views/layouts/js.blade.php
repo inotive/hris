@@ -82,19 +82,36 @@
                 }
                 // window.location.reload();
             },
-            error: function(xhr) {
-                // Handle the error response
-                Swal.fire({
-                        title:'{{ __("Error!") }}',
-                        text: 'Error',
-                        icon: 'error',
-                        customClass: {
-                            confirmButton: "btn btn-primary",
-                        },
+            error: function(xhr, status, error) {
+
+                // Handle validation errors
+                var errors = xhr.responseJSON.errors;
+
+                if (errors != null) {
+                    $.each(errors, function (key, value) {
+                        $('.' + key + '-error').html('');
+                    });
+                    // Display errors
+                    $.each(errors, function (key, value) {
+                        $('.' + key + '-error').append('<p>' + value + '</p>');
                     });
 
+                }else {
+                    // Handle the error response
+                    Swal.fire({
+                            title:'{{ __("Error!") }}',
+                            text: 'Error',
+                            icon: 'error',
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            },
+                        });
+                }
+             
+
                     submitButton.prop('disabled',false);
-            }
+            },
+            
         });
     });
 </script>

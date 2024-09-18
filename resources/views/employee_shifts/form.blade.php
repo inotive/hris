@@ -8,5 +8,8 @@
     <x-form.time type="time" :label="__('End Time')" name="end_time" :value="old('end_time', $form->end_time ?? '')" />
 
     <x-form.switch label="Default" name="default" :value="old('default', $form->default ?? '')"/>
-</div>
+
+
+
+    </div>
 
