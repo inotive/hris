@@ -25,7 +25,11 @@ class CompanyDropdown extends Component
      */
     public function render()
     {
-        $list = Company::orderBy('name','asc')->pluck('name','id');
+        $list = Company::orderBy('name','asc')
+            ->when(auth()->user()->company_id != null, function ($query){
+                $query->where('id', auth()->user()->company_id);
+            })
+            ->pluck('name','id');
 
         return view('components.form.select',[
             'list'  => $list,

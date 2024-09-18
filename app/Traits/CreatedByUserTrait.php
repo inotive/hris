@@ -7,9 +7,9 @@ trait CreatedByUserTrait
 {
     protected $traitFillable = ['created_by_user_id'];
 
-    public static function boot()
+    public static function bootCreatedByUserTrait()
     {
-        parent::boot();
+
 
         static::booted(function ($model) {
             $model->fillable = array_merge($model->fillable, (new static)->traitFillable);
