@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 trait CrudTrait 
 {
 
+
     public function index(Request $request)
     {
         $r =  $this->route;
@@ -55,7 +56,7 @@ trait CrudTrait
         $this->model::create($validated);
 
         session()->flash('messages', [
-            'success'   => __('Data Saved Successfully')
+            'success'   =>  __($this->created_message ?? 'Data Saved Successfully')
         ]);
 
         // return redirect()->route($this->route . '.index');

@@ -4,12 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Mail\NewPasswordMail;
 use App\Traits\SearchTrait;
 use Faker\Core\Uuid as CoreUuid;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\HasApiTokens;
 use Ramsey\Uuid\Uuid;
 
@@ -84,7 +86,17 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function($row){
-          if ($row->password == null)  $row->password = bcrypt(rand(100000,999999) . uniqid());
+          if ($row->password == null)  {
+            $new_pass = rand(100000,999999) . uniqid();
+            $row->password = bcrypt($new_pass);
+
+          }
+        });
+
+        static::created(function($row){
+            $new_pass = rand(100000,999999) . uniqid();
+            Mail::to($row->email)->send(new NewPasswordMail($row->email, $new_pass));
+
         });
     }
 

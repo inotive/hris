@@ -12,6 +12,10 @@
 <script>
     $("#crud-form").on('submit', function(event){
         event.preventDefault(); 
+
+        var submitButton = $("button[type='submit']");
+        submitButton.prop('disabled',true);
+
         var action = $(this).attr('action');
         $.ajax({
             url: action,
@@ -55,7 +59,9 @@
                         title:'{{ __("Error!") }}',
                         text: response.message,
                         icon: 'error'
-                    })
+                    });
+
+                    submitButton.prop('disabled',false);
                 }
                 // window.location.reload();
             },
@@ -65,7 +71,9 @@
                         title:'{{ __("Error!") }}',
                         text: 'Error',
                         icon: 'error'
-                    })
+                    });
+
+                    submitButton.prop('disabled',false);
             }
         });
     });
