@@ -1,9 +1,6 @@
 @extends('crud.index')
 
 
-@section('page_title')
-    Users
-@stop
 
 @section('table_header')
     <th class="min-w-125px">{{ __('Image') }}</th>
@@ -18,8 +15,10 @@
 @section('table_body')
     @foreach ($list as $key => $value)
         <tr>
-            <td><img class="rounded" src="{{ Storage::url($value->image) }}"
-                onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50" /></td>
+            <td>
+                <img class="rounded" src="{{ Storage::url($value->image) }}"
+                onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50" />
+            </td>
             <td>{{ $value->first_name }}</td>
             <td>{{ $value->last_name }}</td>
             <td>{{ $value->email }}</td>

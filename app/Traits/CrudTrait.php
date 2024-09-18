@@ -28,6 +28,7 @@ trait CrudTrait
         return view($r . '.index',[
             'list'  => $list,
             'page_title'    => $this->page_title,
+            'action_title'    => $this->action_title,
         ]);
     }
 
@@ -43,7 +44,7 @@ trait CrudTrait
 
 
         return view('crud.create',[
-            'page_title'    => __('Add') . ' ' . $this->page_title,
+            'page_title'    => __('Add') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
             'view'  => $r . '.form',
         ]);
     }
@@ -84,7 +85,7 @@ trait CrudTrait
         return view('crud.edit', [
             'view'  => $r . '.form',
             'form'  => $form,
-            'page_title'    => __('Add') . ' ' . $this->page_title,
+            'page_title'    => __('Add') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
         ]);
     }
 

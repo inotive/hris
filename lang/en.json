@@ -47,5 +47,9 @@
     "Company":"Company",
     "Description":"Description",
     "Select an option":"Select an option",
-    "Employee Department":"Employee Department"
+    "Employee Department":"Employee Department",
+    "Management User":"Management User",
+    "User":"User",
+    "Subscription":"Subscription",
+     "Dashboard":"Dashboard"
 }

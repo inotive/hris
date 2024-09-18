@@ -31,25 +31,23 @@
                     <!--begin::Menu wrapper-->
                     <div class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
                         data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
-                        <span class="svg-icon svg-icon-1">
 
-                                        <img class="w-20px h-20px rounded-1 ms-2"
-                                            src="{{ asset(session('app_locale')['flag'] ?? '') }}"
-                                            alt="">
-                        </span>
-                        <!--end::Svg Icon-->
+                            <img class="w-20px h-20px rounded-1 ms-2"
+                                src="{{ asset(session('app_locale')['flag'] ?? '') }}" alt="">
+
                     </div>
                     <!--begin::Menu-->
                     <div class="menu menu-sub menu-sub-dropdown menu-column w-200px" data-kt-menu="true" style="">
 
                         @foreach (config('locale.locales') as $key => $value)
-                            <div class="menu-item px-3 py-2">
+                            <div class="menu-item px-3 py-2 bg-hover-light">
                                 <a href="{{ route('change-language', $value['code']) }}"
                                     class="menu-link d-flex px-5 {{ session('app_locale') == $value['code'] ? ' active ' : '' }}">
                                     <span class="symbol symbol-20px me-4">
                                         <img class="rounded-1" src="{{ asset($value['flag'] ?? '') }}" alt="">
-                                    </span>{{ $value['language'] }}</a>
+                                    </span>
+                                    <span class="text-black">{{ $value['language'] }}</span>
+                                </a>
                             </div>
                         @endforeach
 
@@ -95,7 +93,7 @@
                         </div>
                         <div class="menu-item px-5">
                             <a href="#" class="menu-link px-5">
-                                <span class="menu-text">Subscription</span>
+                                <span class="menu-text">{{ __('Subscription') }}</span>
                                 <span class="menu-badge">
                                     <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>
                                 </span>

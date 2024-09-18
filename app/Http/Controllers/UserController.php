@@ -16,4 +16,5 @@ class UserController extends Controller
 
     public $created_message = "User created. Password send to email";
     public $page_title = "Management User";
+    public $action_title = "User";
 }

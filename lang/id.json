@@ -46,5 +46,10 @@
     "Department" : "Departemen",
     "Company": "Perusahaan",
     "Description": "Deskripsi",
-    "Select an option": "Pilih opsi"
+    "Select an option": "Pilih opsi",
+    "Employee Department": "Departemen Karyawan",
+    "Management User": "Pengelolaan Pengguna",
+    "User":"Pengguna",
+     "Subscription":"Langganan",
+     "Dashboard":"Dasbor"
 }

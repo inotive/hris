@@ -15,7 +15,7 @@
                             @endif
                         </span>
                     </span>
-                    <span class="menu-title">{{ $menu['label'] }}</span>
+                    <span class="menu-title">{{ __($menu['label']) }}</span>
                     <span class="menu-arrow"></span>
                 </span>
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
@@ -28,7 +28,7 @@
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">{{ $value['label'] }}</span>
+                                    <span class="menu-title">{{ __($value['label']) }}</span>
                                 </a>
                             </div>
                         @endif
@@ -49,7 +49,7 @@
                         </span>
                     </span>
 
-                    <span class="menu-title">{{ $menu['label'] }}</span>
+                    <span class="menu-title">{{ __($menu['label']) }}</span>
                 </a>
             </div>
 
