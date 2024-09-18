@@ -14,6 +14,7 @@
     <x-form.number min="1" max="31" :label="__('General Pay Date')" name="general_pay_date" :value="old('general_pay_date', $form->general_pay_date ?? '')" />
 
     <x-form.select label="Overtime Request" name="is_overtime_request" :list="['1' => __('Yes'), '0' => __('No')]" :value="old('is_overtime_request', $form->is_overtime_request ?? '')" />
+    <x-form.select label="Status" name="status" :list="['1' => __('Yes'), '0' => __('No')]" :value="old('status', $form->status ?? '')" />
 
 
 </div>
