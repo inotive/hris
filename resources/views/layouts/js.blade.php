@@ -9,6 +9,19 @@
 
 
 <script>
+    $.fn.serializeWithUnchecked = function() {
+        var form = this;
+
+        // Serialize the form, including unchecked checkboxes as "unchecked"
+        var formData = form.serializeArray();
+
+        // Find unchecked checkboxes and add them to formData
+        form.find('input[type=checkbox]:not(:checked)').each(function() {
+            formData.push({ name: this.name, value: '0' });
+        });
+
+        return formData;
+    };
     $("#crud-form").on('submit', function(event){
         event.preventDefault(); 
 
@@ -16,10 +29,12 @@
         submitButton.prop('disabled',true);
 
         var action = $(this).attr('action');
+
+
         $.ajax({
             url: action,
             type: 'POST',
-            data: $(this).serialize(), // Serialize the form data
+            data: $(this).serializeWithUnchecked(), // Serialize the form data
             success: function(response) {
                 console.log(response);
                 // Handle the success response
@@ -50,7 +65,7 @@
                         setTimeout(function() {
                             console.log('This message is shown after 2 seconds');
                             window.location.href = response.redirect;
-                        }, 1000); // 2000 milliseconds = 2 seconds
+                        }, 500); 
 
                      
                 } else {
