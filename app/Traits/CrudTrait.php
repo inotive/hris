@@ -28,7 +28,7 @@ trait CrudTrait
         return view($r . '.index',[
             'list'  => $list,
             'page_title'    => $this->page_title,
-            'action_title'    => $this->action_title,
+            'action_title'    => $this->action_title ?? $this->page_title,
         ]);
     }
 
