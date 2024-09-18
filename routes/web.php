@@ -51,12 +51,16 @@ Route::middleware(['auth', 'password.changed'])->group(function () {
 
     Route::resource('/companies', CompanyController::class);
     Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
+
     Route::resource('/employees', EmployeeController::class);
+    Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
+
     Route::resource('/employee-departments', EmployeeDepartmentController::class);
     Route::resource('/employee-positions', EmployeePositionController::class);
     Route::resource('/employee-levels', EmployeeLevelController::class);
     Route::resource('/employee-shifts', EmployeeShiftController::class);
-    Route::resource('/employee-emergency-contacts', EmployeeEmergencyContactController::class);
+    
+
     Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
     Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
 

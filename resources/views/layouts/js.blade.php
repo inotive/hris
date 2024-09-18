@@ -86,6 +86,7 @@
 
                 // Handle validation errors
                 var errors = xhr.responseJSON.errors;
+                var message = xhr.responseJSON.message;
 
                 if (errors != null) {
                     $.each(errors, function (key, value) {
@@ -96,11 +97,11 @@
                         $('.' + key + '-error').append('<p>' + value + '</p>');
                     });
 
-                }else {
+                }  else {
                     // Handle the error response
                     Swal.fire({
                             title:'{{ __("Error!") }}',
-                            text: 'Error',
+                            text: message ?? 'Error',
                             icon: 'error',
                             customClass: {
                                 confirmButton: "btn btn-primary",

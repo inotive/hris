@@ -1,4 +1,8 @@
 <div class="row">
+    @if ($form != null)
+        <x-employee-edit-tab  :employeeid="$form->id" :tab="'edit'"/>
+    @endif
+
 
     <x-company-dropdown :value="old('company_id', $form->company_id ?? '')" />
 

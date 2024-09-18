@@ -28,6 +28,7 @@
                 </div>
             @endif
 
+            @yield('header')
 
             <!--begin::Card-->
             <div class="card">
@@ -51,9 +52,9 @@
                             @yield('toolbar')
 
                             {{-- GENERATE DUMMY --}}
-                            <x-table.generate-dummy-button rows_count="{{ $rows_count }}" />
+                            <x-table.generate-dummy-button rows_count="{{ $rows_count ?? '0' }}" />
                             {{-- ADD BUTTON --}}
-                            <x-table.add-button label="{{ __('Add') . ' ' . __($action_title ?? $page_title) }}" />
+                            <x-table.add-button :href="$add_button_href??null" label="{{ __('Add') . ' ' . __($action_title ?? $page_title) }}" />
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->

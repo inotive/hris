@@ -47,11 +47,15 @@ trait CrudTrait
             ->filter($filter)
             ->paginate();
 
-        return view($r . '.index',[
+
+        $add_button_href = $this->addButtonHref();
+
+        return view( ($this->view_folder ?? $r) . '.index',[
             'list'  => $list,
             'page_title'    => $this->page_title,
             'action_title'    => $this->action_title ?? $this->page_title,
             'rows_count'    => $rows_count,
+            'add_button_href'  => $add_button_href ?? null,
         ]);
     }
 
@@ -158,5 +162,9 @@ trait CrudTrait
         }
     }
 
-  
+    // change create button link
+    public function addButtonHref()
+    {
+        return null;
+    }
 }
