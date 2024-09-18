@@ -12,6 +12,7 @@ use App\Http\Controllers\EmployeePayslipDetailController;
 use App\Http\Controllers\EmployeePayslipMasterController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\EmployeeShiftController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Models\EmployeeEmergencyContact;
@@ -54,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
 
     Route::resource('/banners', BannerController::class);
+    Route::resource('/posts', PostController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 

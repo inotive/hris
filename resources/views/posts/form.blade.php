@@ -6,7 +6,6 @@
     <x-form.image-picker :label="__('Image')" name="image" folder="banners" :value="old('image', $form->image ?? '')" />
 
     <x-form.input type="text" :label="__('Title')" name="title" :value="old('title', $form->title ?? '')" />
-    <x-form.textarea :label="__('Link')" name="link" :value="old('link', $form->link ?? '')" />
+    <x-form.textarea :label="__('Description')" name="description" :value="old('description', $form->description ?? '')" />
 
 </div>
-

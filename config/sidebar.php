@@ -189,7 +189,7 @@ return [
                 ],
                 [
                     'label' => 'Post',
-                    'route' => '',
+                    'route' => 'posts.index',
                     'roles' => ['superadmin', 'admin', 'content'],
                 ],
                 [
