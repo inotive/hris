@@ -57,7 +57,10 @@
                     Swal.fire({
                         title:'{{ __("Error!") }}',
                         text: response.message,
-                        icon: 'error'
+                        icon: 'error',
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                        },
                     });
 
                     submitButton.prop('disabled',false);
@@ -69,7 +72,10 @@
                 Swal.fire({
                         title:'{{ __("Error!") }}',
                         text: 'Error',
-                        icon: 'error'
+                        icon: 'error',
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                        },
                     });
 
                     submitButton.prop('disabled',false);
@@ -87,8 +93,10 @@ $(".delete-button").click(function(e) {
         text: '{{ __("You won`t be able to revert this!") }}',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        customClass: {
+            confirmButton: "btn btn-primary",
+            cancelButton: "btn btn-danger"
+        },
         confirmButtonText: '{{ __("Yes, delete it!") }}',
         cancelButtonText: '{{ __("Cancel") }}'
     }).then((result) => {
