@@ -1,10 +1,10 @@
-<div>
+<div class="col-12 col-lg-6 mb-4">
     <div class="form-group mb-2 mb20">
         <label for="image" class="form-label">{{ $label }}</label>
     
 
-        <div class="{{ $name }}_preview_div">
-        <img id="{{ $name }}_preview" src="{{ old($name, $value ?? '') != null ? Storage::url(old($name, $value ?? '')) : '' }}" height="100" class="mt-2 mb-2 border" />
+        <div id="{{ $name }}_preview_div">
+        <img id="{{ $name }}_preview" onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" src="{{ old($name, $value ?? '') != null ? Storage::url(old($name, $value ?? '')) : '' }}" height="100" class="mt-2 mb-2 border" />
         </div>
 
         <div class="input-group mb-3">
@@ -60,7 +60,11 @@
         const imagePreview = $("#{{ $name }}_preview");
         const imagePreviewDiv = $("#{{ $name }}_preview_div");
 
-
+        @if (old($name, $value ?? ''))
+            imagePreviewDiv.show();
+        @else
+            imagePreviewDiv.hide();
+        @endif
         var modal = $('#{{ $name }}_modal');
     
         // Add a click event listener
@@ -82,7 +86,7 @@
                 reader.onload = function(e) {
                     $('#{{ $name }}_file_preview').attr('src', e.target.result).show(); // Set the image source and display it
                     pickerUpload.removeAttr('disabled');    
-                    imagePreviewDiv.show();
+                 
                 }
                 
                 reader.readAsDataURL(file); // Read the file as a data URL

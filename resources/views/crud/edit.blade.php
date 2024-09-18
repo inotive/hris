@@ -19,7 +19,7 @@
                         @include($view)
                     </div>
 
-                    <div class="modal-footer flex-center">
+                    <div class="card-footer text-end">
                         <a href="{{ route(explode('.',Route::currentRouteName())[0] . '.index') }}" class="btn btn-light me-3">{{ __('Cancel') }}</a>
 
                         <button type="submit" id="kt_modal_add_customer_submit" class="btn btn-primary">

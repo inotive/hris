@@ -2,7 +2,11 @@
 
 
 @section('page_title')
-    @yield('page_title')
+    @if (isset($page_title))
+        {{ __($page_title) }}
+    @else
+        @yield('page_title')
+    @endif
 @stop
 
 @section('content')
@@ -46,7 +50,7 @@
 
 
                             {{-- ADD BUTTON --}}
-                            <x-table.add-button />
+                            <x-table.add-button label="{{ __('Add') . ' ' . __($action_title ?? $page_title) }}" />
                         </div>
                         <!--end::Toolbar-->
                         <!--begin::Group actions-->

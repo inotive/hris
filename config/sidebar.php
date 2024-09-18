@@ -159,12 +159,12 @@ return [
             'children' => [
                 [
                     'label' => 'Master Category Payslips',
-                    'route' => '',
+                    'route' => 'employee-payslip-masters.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                 ],
                 [
                     'label' => 'Payslips',
-                    'route' => '',
+                    'route' => 'employee-payslip-details.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                 ],
             ],
@@ -184,12 +184,12 @@ return [
             'children' => [
                 [
                     'label' => 'Banners',
-                    'route' => '',
+                    'route' => 'banners.index',
                     'roles' => ['superadmin', 'admin', 'content'],
                 ],
                 [
                     'label' => 'Post',
-                    'route' => '',
+                    'route' => 'posts.index',
                     'roles' => ['superadmin', 'admin', 'content'],
                 ],
                 [

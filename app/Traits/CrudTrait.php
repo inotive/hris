@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 trait CrudTrait 
 {
 
+
     public function index(Request $request)
     {
         $r =  $this->route;
@@ -27,6 +28,7 @@ trait CrudTrait
         return view($r . '.index',[
             'list'  => $list,
             'page_title'    => $this->page_title,
+            'action_title'    => $this->action_title ?? $this->page_title,
         ]);
     }
 
@@ -40,8 +42,9 @@ trait CrudTrait
             session()->flash('redirect', $request->redirect);
         } 
 
+
         return view('crud.create',[
-            'page_title'    => __('Add') . ' ' . $this->page_title,
+            'page_title'    => __('Add') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
             'view'  => $r . '.form',
         ]);
     }
@@ -54,12 +57,12 @@ trait CrudTrait
         $this->model::create($validated);
 
         session()->flash('messages', [
-            'success'   => __('Data Saved Successfully')
+            'success'   =>  __($this->created_message ?? 'Data Saved Successfully')
         ]);
 
         // return redirect()->route($this->route . '.index');
 
-        $redirect = session()->redirect ?? null;
+        $redirect = session()->get('redirect') ?? null;
 
         return [
             'success'   => true,
@@ -82,7 +85,7 @@ trait CrudTrait
         return view('crud.edit', [
             'view'  => $r . '.form',
             'form'  => $form,
-            'page_title'    => __('Add') . ' ' . $this->page_title,
+            'page_title'    => __('Add') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
         ]);
     }
 
@@ -102,7 +105,7 @@ trait CrudTrait
 
         // return redirect()->route($this->route . '.index');
 
-        $redirect = session()->redirect ?? null;
+        $redirect = session()->get('redirect') ?? null;
 
         return [
             'success'   => true,

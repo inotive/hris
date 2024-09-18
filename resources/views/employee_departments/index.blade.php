@@ -15,10 +15,6 @@
 @section('table_body')
     @foreach ($list as $key => $value)
         <tr>
-
-            <td><img class="rounded" src="{{ Storage::url($value->image) }}"
-                    onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50" /></td>
-            
             <td>{{ $value->company->name ?? '-' }}</td>
             <td>{{ $value->name }}</td>
             <td>{{ $value->head_department->first_name ?? '' }}</td>

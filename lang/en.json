@@ -28,6 +28,12 @@
     "Employee Level": "Employee Level",
     "General Pay Date" : "General Pay Date",
     "Family Relation": "Family Relation",
+    "Earnings":"Earnings",
+    "Deductions":"Deductions",
+    "Main":"Main",
+    "Additional":"Additional",
+    "Master Type":"Master Type",
+    "Type":"Type",
     "Data Saved Successfully": "Data Saved Successfully",
     "Data Deleted Successfully": "Data Deleted Successfully",
     "Are you sure?" : "Are you sure?",
@@ -36,8 +42,14 @@
     "Deleted!" : "Deleted!",
     "Your item has been deleted.":"Your item has been deleted.",
     "Head Department"  : "Head Department",
+    "Head"  : "Head",
     "Department"  : "Department",
     "Company":"Company",
     "Description":"Description",
-    "Select an option":"Select an option"
+    "Select an option":"Select an option",
+    "Employee Department":"Employee Department",
+    "Management User":"Management User",
+    "User":"User",
+    "Subscription":"Subscription",
+     "Dashboard":"Dashboard"
 }
