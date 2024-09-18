@@ -12,7 +12,7 @@
     <th class="min-w-125px">{{ __('Email') }}</th>
     <th class="min-w-125px">{{ __('General Pay Date') }}</th>
     <th class="min-w-125px">{{ __('Overtime Request') }}</th>
-    <th class="text-end min-w-70px">Actions</th>
+    <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
 
 @section('table_body')

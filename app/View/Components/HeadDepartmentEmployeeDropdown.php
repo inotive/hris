@@ -31,7 +31,7 @@ class HeadDepartmentEmployeeDropdown extends Component
 
         return view('components.form.select',[
             'list'  => $list,
-            'name'  => 'head_deparmen_id',
+            'name'  => 'head_departmen_id',
             'label' => __('Head'),
         ]);
     }

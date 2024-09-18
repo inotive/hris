@@ -9,7 +9,7 @@
     <th class="min-w-125px">{{ __('Company') }}</th>
     <th class="min-w-125px">{{ __('Title') }}</th>
 
-    <th class="text-end min-w-70px">Actions</th>
+    <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
 
 @section('table_body')

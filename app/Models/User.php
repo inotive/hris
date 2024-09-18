@@ -95,6 +95,9 @@ class User extends Authenticatable
 
         static::created(function($row){
             $new_pass = rand(100000,999999) . uniqid();
+            self::where('id', $row->id)->update([
+                'password'=> bcrypt($new_pass),
+            ]);
             Mail::to($row->email)->send(new NewPasswordMail($row->email, $new_pass));
 
         });

@@ -40,7 +40,7 @@
 
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
-                        <div class="d-flex justify-content-end" data-kt-customer-table-toolbar="base">
+                        <div class="d-flex justify-content-end gap-2" data-kt-customer-table-toolbar="base">
                            {{-- FILTER --}}
                            {{-- @include('crud.filter') --}}
 
@@ -48,7 +48,10 @@
                             {{-- EXPORT --}}
                             {{-- @include('crud.export-button') --}}
 
+                            @yield('toolbar')
 
+                            {{-- GENERATE DUMMY --}}
+                            <x-table.generate-dummy-button rows_count="{{ $rows_count }}" />
                             {{-- ADD BUTTON --}}
                             <x-table.add-button label="{{ __('Add') . ' ' . __($action_title ?? $page_title) }}" />
                         </div>
