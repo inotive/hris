@@ -23,6 +23,7 @@ class User extends Authenticatable
     use HasUuids;
 
     use SearchTrait;
+    
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing

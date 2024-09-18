@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CreatedByUserTrait;
+use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,7 @@ class Banner extends Model
 
     use SearchTrait;
     use CreatedByUserTrait;
+    use HasCompany;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -37,9 +39,4 @@ class Banner extends Model
         'link'  => 'required',
     ];
 
-
-    public function company()
-    {
-        return $this->belongsTo(Company::class,'company_id','id');
-    }
 }
