@@ -20,11 +20,12 @@ class CheckPasswordChanged
         $user = auth()->user();
 
         // Check if the user is authenticated and their password has been changed
-        $route = [
+        $except = [
             'user.change-password',
             'user.change-password.update',
+            'login',
         ];
-        if ($user && $user->password_updated_at == null && in_array(\Route::currentRouteName(), $route) == false) {
+        if ($user && $user->password_updated_at == null && in_array(\Route::currentRouteName(), $except) == false) {
             // Redirect to a password change page if the password has not been changed
             return redirect()->route('user.change-password');
         }
