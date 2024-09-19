@@ -8,6 +8,7 @@ use Illuminate\View\Component;
 
 class HeadDepartmentEmployeeDropdown extends Component
 {
+    public $label;
     /**
      * Create a new component instance.
      *
@@ -32,7 +33,7 @@ class HeadDepartmentEmployeeDropdown extends Component
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'head_departmen_id',
-            'label' => __('Head'),
+            'label' =>  __($this->label ??'Head'),
         ]);
     }
 }

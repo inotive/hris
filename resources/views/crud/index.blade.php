@@ -35,8 +35,9 @@
                 <!--begin::Card header-->
                 <div class="card-header border-0 pt-6">
                     <!--begin::Card title-->
-                    <div class="card-title">
+                    <div class="card-title gap-2">
                         <x-table.search />
+                        @yield('toolbar_left')
                     </div>
 
                     <div class="card-toolbar">

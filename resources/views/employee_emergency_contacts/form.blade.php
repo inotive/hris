@@ -14,7 +14,7 @@
     <x-form.input type="text" label="City" name="city" :value="$form->city??''" />
     <x-form.input type="text" label="District" name="district" :value="$form->district??''" />
     <x-form.input type="text" label="Sub District" name="sub_district" :value="$form->sub_district??''" />
-    <x-form.input type="text" label="Zip Code" name="zip_code" :value="$form->zip_code??''" />
+    <x-form.input type="text" label="Postal Code" name="zip_code" :value="$form->zip_code??''" />
 
 
 

@@ -101,7 +101,8 @@
                     // Handle the error response
                     Swal.fire({
                             title:'{{ __("Error!") }}',
-                            text: message ?? 'Error',
+                            text: message ?? 'Error
+                            ',
                             icon: 'error',
                             customClass: {
                                 confirmButton: "btn btn-primary",
@@ -191,4 +192,15 @@ $('#role').on('change', function() {
     }
 });
 $("#role").trigger('change');
+</script>
+
+<script>
+    var dropdown = $('.table-filter');
+    dropdown.select2({
+        placeholder: dropdown.data('placeholder'), // Placeholder text
+        allowClear: true // Enable the clear button
+    });
+    dropdown.on('change', function() {
+        $(this).parent('form').submit();
+    });
 </script>
