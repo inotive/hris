@@ -55,67 +55,74 @@ class EmployeeDepartment extends Model
             'company_id'    => $company_id,
             'name'  =>  'Departemen Sumber Daya Manusia (HRD)',
             'description'   => '',
+            'prefix'    => 'hrd',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Keuangan',
             'description'   => '',
+            'prefix'    => 'keuangan',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Pemasaran (Marketing)',
             'description'   => '',
+            'prefix'    => 'marketing',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Penjualan (Sales)',
             'description'   => '',
+            'prefix'    => 'sales',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Produksi',
             'description'   => '',
+            'prefix'    => 'produksi',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen IT (Teknologi Informasi)',
             'description'   => '',
+            'prefix'    => 'it',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Operasional',
             'description'   => '',
+            'prefix'    => 'operasional',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Pengadaan (Procurement)',
             'description'   => '',
+            'prefix'    => 'procurement',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Hukum (Legal)',
             'description'   => '',
+            'prefix'    => 'legal',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Riset dan Pengembangan (R&D)',
             'description'   => '',
+            'prefix'    => 'riset-development',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'name'  =>  'Departemen Layanan Pelanggan (Customer Service)',
             'description'   => '',
+            'prefix'    => 'cs',
         ];
 
         $data[] = [
             'company_id'    => $company_id,
-            'name'  =>  'Departemen Kesehatan dan Keselamatan Kerja (K3)',
-            'description'   => '',
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
             'name'  =>  'Departemen Public Relations (PR)',
             'description'   => '',
+            'prefix'    => 'pr',
         ];
 
 

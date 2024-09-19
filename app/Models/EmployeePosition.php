@@ -53,7 +53,7 @@ class EmployeePosition extends Model
         $data = [];
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'hrd',
             'department_id'    => '',
             'name'  =>  'HR Manager',
             'description'  =>  '',
@@ -61,156 +61,356 @@ class EmployeePosition extends Model
 
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'hrd',
             'department_id'    => '',
             'name'  =>  'HR Specialist',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'hrd',
             'department_id'    => '',
             'name'  =>  'Recruiter',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'hrd',
             'department_id'    => '',
             'name'  =>  'Training & Development Officer',
             'description'  =>  '',
         ];
+
+
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'keuangan',
             'department_id'    => '',
             'name'  =>  'Payroll Officer',
             'description'  =>  '',
         ];
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'keuangan',
             'department_id'    => '',
             'name'  =>  'CFO (Chief Financial Officer)',
             'description'  =>  '',
         ];
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'keuangan',
             'department_id'    => '',
             'name'  =>  'Finance Manager',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'keuangan',
             'department_id'    => '',
             'name'  =>  'Accounting Supervisor',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'keuangan',
             'department_id'    => '',
             'name'  =>  'Financial Analyst',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'keuangan',
             'department_id'    => '',
             'name'  =>  'Tax Officer',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'marketing',
             'department_id'    => '',
-            'name'  =>  'CMO (Chief Marketing Officer)',
+            'name'  =>  'CMO (Chief Marketing Officer) ',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'marketing',
             'department_id'    => '',
             'name'  =>  'Marketing Manager',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'marketing',
             'department_id'    => '',
             'name'  =>  'Digital Marketing Specialist',
             'description'  =>  '',
         ];
+
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'marketing',
             'department_id'    => '',
             'name'  =>  'Content Creator',
             'description'  =>  '',
         ];
+
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'marketing',
             'department_id'    => '',
             'name'  =>  'Market Research Analyst',
             'description'  =>  '',
         ];
+
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'sales',
             'department_id'    => '',
             'name'  =>  'Sales Manager',
             'description'  =>  '',
         ];
+
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'sales',
             'department_id'    => '',
             'name'  =>  'Sales Executive',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'sales',
             'department_id'    => '',
             'name'  =>  'Sales Representative',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'sales',
             'department_id'    => '',
             'name'  =>  'Key Account Manager',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'produksi',
             'department_id'    => '',
             'name'  =>  'Production Manager',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'produksi',
             'department_id'    => '',
             'name'  =>  'Quality Control Manager',
             'description'  =>  '',
         ];
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'produksi',
             'department_id'    => '',
             'name'  =>  'Production Supervisor',
             'description'  =>  '',
         ];
+
         $data[] = [
             'company_id'    => $company_id,
-            'prefix'    => '',
+            'prefix'    => 'produksi',
             'department_id'    => '',
             'name'  =>  'Machine Operator',
+            'description'  =>  '',
+        ];
+
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'produksi',
+            'department_id'    => '',
+            'name'  =>  'Quality Control Inspector',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'it',
+            'department_id'    => '',
+            'name'  =>  'CTO (Chief Technology Officer)',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'it',
+            'department_id'    => '',
+            'name'  =>  'IT Manager',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'it',
+            'department_id'    => '',
+            'name'  =>  'Software Engineer',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'it',
+            'department_id'    => '',
+            'name'  =>  'System Administrator',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'it',
+            'department_id'    => '',
+            'name'  =>  'IT Support Specialist',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'operasional',
+            'department_id'    => '',
+            'name'  =>  'COO (Chief Operating Officer)',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'operasional',
+            'department_id'    => '',
+            'name'  =>  'Operations Manager',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'operasional',
+            'department_id'    => '',
+            'name'  =>  'Logistic Coordinator',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'operasional',
+            'department_id'    => '',
+            'name'  =>  'Supply Chain Analyst',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'procurement',
+            'department_id'    => '',
+            'name'  =>  'Procurement Manager',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'procurement',
+            'department_id'    => '',
+            'name'  =>  'Procurement Officer',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'procurement',
+            'department_id'    => '',
+            'name'  =>  'Purchasing Assistant',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'legal',
+            'department_id'    => '',
+            'name'  =>  'Legal Counsel',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'legal',
+            'department_id'    => '',
+            'name'  =>  'Legal Assistant',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'cs',
+            'department_id'    => '',
+            'name'  =>  'Customer Service Manager',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'cs',
+            'department_id'    => '',
+            'name'  =>  'Customer Service Representative',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'cs',
+            'department_id'    => '',
+            'name'  =>  'Helpdesk Support',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'pr',
+            'department_id'    => '',
+            'name'  =>  'Manajer Public Relations',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'pr',
+            'department_id'    => '',
+            'name'  =>  'Supervisor Public Relations',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'pr',
+            'department_id'    => '',
+            'name'  =>  'Spesialis Public Relations',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'pr',
+            'department_id'    => '',
+            'name'  =>  'Koordinator Komunikasi',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'pr',
+            'department_id'    => '',
+            'name'  =>  'Juru Bicara Perusahaan',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'pr',
+            'department_id'    => '',
+            'name'  =>  'Analis Media dan Komunikasi',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'prefix'    => 'pr',
+            'department_id'    => '',
+            'name'  =>  'Spesialis Hubungan Media',
             'description'  =>  '',
         ];
 
