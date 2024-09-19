@@ -35,7 +35,10 @@ Route::get('/', function () {
 
 
 Auth::routes();
-Route::middleware(['auth', 'password.changed'])->group(function () {
+Route::middleware([
+    'auth', 
+    'password.changed'
+])->group(function () {
 
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 

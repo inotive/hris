@@ -8,6 +8,7 @@
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 
 
+
 <script>
     $.fn.serializeWithUnchecked = function() {
         var form = this;
@@ -34,7 +35,7 @@
         $.ajax({
             url: action,
             type: 'POST',
-            data: $(this).serializeWithUnchecked(), // Serialize the form data
+            data: $(this).serializeArray(), // Serialize the form data
             success: function(response) {
                 console.log(response);
                 // Handle the success response
@@ -101,8 +102,7 @@
                     // Handle the error response
                     Swal.fire({
                             title:'{{ __("Error!") }}',
-                            text: message ?? 'Error
-                            ',
+                            text: message ?? 'Error',
                             icon: 'error',
                             customClass: {
                                 confirmButton: "btn btn-primary",

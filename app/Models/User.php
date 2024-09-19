@@ -90,17 +90,20 @@ class User extends Authenticatable
         static::creating(function($row){
           if ($row->password == null)  {
             $new_pass = rand(100000,999999) . uniqid();
+            session()->flash('user',[
+                'new_pass'  => $new_pass,
+            ]);
             $row->password = bcrypt($new_pass);
 
           }
         });
 
         static::created(function($row){
-            $new_pass = rand(100000,999999) . uniqid();
-            self::where('id', $row->id)->update([
-                'password'=> bcrypt($new_pass),
-            ]);
-            Mail::to($row->email)->send(new NewPasswordMail($row->email, $new_pass));
+            if (session('user.new_pass') != null) {
+                $new_pass = session('user.new_pass');
+                Mail::to($row->email)->send(new NewPasswordMail($row->email, $new_pass));
+            }
+           
 
         });
 
