@@ -30,6 +30,7 @@ class Banner extends Model
         'title',
         'image',
         'link',
+        'status',
     ];
 
     public $rules = [
@@ -37,6 +38,13 @@ class Banner extends Model
         'title'  => 'required',
         'image'  => 'required',
         'link'  => 'required',
+        'status'  => '',
     ];
+
+
+    public static function dummy_data() : array
+    {
+        return [];
+    }
 
 }

@@ -36,7 +36,7 @@
         $.ajax({
             url: action,
             type: 'POST',
-            data: $(this).serializeArray(), // Serialize the form data
+            data: $(this).serializeWithUnchecked(), // Serialize the form data
             success: function(response) {
                 console.log(response);
                 // Handle the success response

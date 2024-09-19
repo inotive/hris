@@ -78,6 +78,7 @@ trait CrudTrait
         return view('crud.create',[
             'page_title'    => __('Add') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
             'view'  => $r . '.form',
+            'form'  => null,
         ]);
     }
 

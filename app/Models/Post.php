@@ -31,6 +31,7 @@ class Post extends Model
         'title',
         'description',
         'image',
+        'status',
 
     ];
 
@@ -39,8 +40,13 @@ class Post extends Model
         'title'  => 'required',
         'description'  => 'required',
         'image'  => 'required',
+        'status'  => '',
 
     ];
 
 
+    public static function dummy_data() : array
+    {
+        return [];
+    }
 }

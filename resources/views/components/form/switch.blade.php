@@ -11,7 +11,7 @@
 
     <div class="form-check form-switch form-check-custom form-check-solid">
         <input class="form-check-input" type="checkbox" id="{{ $name }}" name="{{ $name }}" value="1"
-            {{ $value == 1 ? ' selected ' : '' }} />
+            {{ $value == 1 ? ' checked ' : '' }} />
         
     </div>
 
