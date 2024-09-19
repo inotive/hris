@@ -8,7 +8,9 @@
     <th class="min-w-125px">{{ __('Last Name') }}</th>
     <th class="min-w-125px">{{ __('Email') }}</th>
     <th class="min-w-125px">{{ __('Role') }}</th>
+    @if (auth()->user()->company_id == null)
     <th class="min-w-125px">{{ __('Company') }}</th>
+    @endif
     <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
 
@@ -23,7 +25,9 @@
             <td>{{ $value->last_name }}</td>
             <td>{{ $value->email }}</td>
             <td>{{ $value->role_label() }}</td>
+            @if (auth()->user()->company_id == null)
             <td>{{ $value->company->name ?? '-' }}</td>
+            @endif
             
             <td class="text-end">
                 <x-table.actions>

@@ -24,6 +24,10 @@ class CompanyFilter extends Component
      */
     public function render()
     {
+        if (auth()->user()->company_id != null) {
+            return null;
+        }
+
         $list = Company::orderBy('name','asc')
         ->when(auth()->user()->company_id != null, function ($query){
             $query->where('id', auth()->user()->company_id);

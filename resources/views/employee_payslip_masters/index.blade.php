@@ -6,7 +6,9 @@
 @stop
 
 @section('table_header')
+    @if (auth()->user()->company_id == null)
     <th class="min-w-125px">{{ __('Company') }}</th>
+    @endif
     <th class="min-w-125px">{{ __('Name') }}</th>
     <th class="min-w-125px">{{ __('Master Type') }}</th>
     <th class="min-w-125px">{{ __('Type') }}</th>
@@ -18,7 +20,9 @@
         <tr>
 
 
+            @if (auth()->user()->company_id == null)
             <td>{{ $value->company->name ?? '-' }}</td>
+            @endif
 
             <td>{{ $value->name ?? '-' }}</td>
             <td>{{ $value->master_type_name ?? '-' }}</td>
