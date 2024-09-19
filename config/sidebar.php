@@ -194,7 +194,7 @@ return [
                 ],
                 [
                     'label' => 'Announcement',
-                    'route' => '',
+                    'route' => 'announcements.index',
                     'roles' => ['superadmin', 'admin', 'content'],
                 ],
             ],
