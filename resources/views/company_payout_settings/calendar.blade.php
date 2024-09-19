@@ -18,7 +18,7 @@
                 <div class="col-12 col-sm-6 col-lg-4 col-xl-3 mb-10">
 
 
-                        <div class="card shadow-sm">
+                        <div class="card">
                             <div class="card-body p-3">
                                 <div id="inline-datepicker-{{ $key }}" class="text-center" data-date="{{ $value->date }}"></div>
 
