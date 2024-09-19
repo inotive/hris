@@ -59,6 +59,8 @@ class Employee extends Model
         'tax_registered_name',
         'tax_number',
         'username',
+        'bank_account_name',
+        'bank_account_number',
     ];
 
     public $rules = [
@@ -95,6 +97,8 @@ class Employee extends Model
         'tax_registered_name' => '',
         'tax_number' => '',
         'username' => '',
+        'bank_account_name' => '',
+        'bank_account_number' => '',
     ];
 
 
