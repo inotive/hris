@@ -14,7 +14,9 @@ trait CrudTrait
 
     public function index(Request $request)
     {
-        $rows_count = $this->model::count();
+        $rows_count = $this->model::when(auth()->user()->company_id != null, function($query){
+            $query->where('company_id', auth()->user()->company_id);
+        })->count();
 
         if ($request->generate_dummy == 1) {
          

@@ -36,7 +36,7 @@ return [
 
                 [
                     'label' => 'My Company',
-                    'route' => '',
+                    'route' => 'companies.index',
                     'roles' => ['admin'],
                 ],
             ],

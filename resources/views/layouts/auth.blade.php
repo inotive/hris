@@ -15,7 +15,7 @@
 
     <link href="{{asset('template/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('template/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
   <body id="kt_body" class="bg-body">
     <div id="app">

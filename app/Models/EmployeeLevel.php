@@ -45,22 +45,19 @@ class EmployeeLevel extends Model
         $data = [];
         $data[] = [
             'company_id'    => $company_id,
-            'name'  =>  'Junior',
+            'name'  =>  'Eksekutif',
         ];
 
         $data[] = [
             'company_id'    => $company_id,
-            'name'  =>  'Middle',
+            'name'  =>  'Manajemen Menengah',
         ];
 
         $data[] = [
             'company_id'    => $company_id,
-            'name'  =>  'Senior',
+            'name'  =>  'Staf',
         ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  =>  'Manager',
-        ];
+       
         return $data;
     }
 

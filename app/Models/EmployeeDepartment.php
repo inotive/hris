@@ -29,6 +29,7 @@ class EmployeeDepartment extends Model
         'name',
         'description',
         'head_departmen_id',
+        'prefix',
     ];
 
     public $rules = [
@@ -116,6 +117,13 @@ class EmployeeDepartment extends Model
             'name'  =>  'Departemen Public Relations (PR)',
             'description'   => '',
         ];
+
+
+
+        foreach($data as $key => $value) {
+            $value['prefix'] = $value['prefix'] ?? 'other' . $key;
+            $data[$key] = $value;
+        }
 
   
         return $data;
