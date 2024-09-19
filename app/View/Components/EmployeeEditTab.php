@@ -49,6 +49,11 @@ class EmployeeEditTab extends Component
                 'route' => route('education.index', $this->employeeid),
                 'label' => __('Education'),
             ],
+            [
+                'code'  => 'organization_experience',
+                'route' => route('organization-experience.index', $this->employeeid),
+                'label' => __('Organization Experience'),
+            ],
         ];
         return view('components.tab',[
             'tabs'  => $tabs,
