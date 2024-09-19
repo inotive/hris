@@ -29,8 +29,17 @@ class FamilyRelationDropdown extends Component
         $list = [
             'Ayah'  => 'Ayah',
             'Ibu'  => 'Ibu',
-            'Adik'  => 'Adik',
-            'Kakak'  => 'Kakak',
+            'Kakak Laki-laki'  => 'Kakak Laki-laki',
+            'Kakak Perempuan'  => 'Kakak Perempuan',
+            'Adik Laki-laki'  => 'Adik Laki-laki',
+            'Adik Perempuan'  => 'Adik Perempuan',
+            'Kakek'  => 'Kakek',
+            'Nenek'  => 'Nenek',
+            'Sepupu Laki-laki'  => 'Sepupu Laki-laki',
+            'Sepupu Perempuan'  => 'Sepupu Perempuan',
+            'Tante'  => 'Tante',
+            'Paman'  => 'Paman',
+            'Lainnya'  => 'Lainnya',
         ];
         return view('components.form.select',[
             'list'  => $list,

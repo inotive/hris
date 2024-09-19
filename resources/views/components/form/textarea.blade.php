@@ -12,7 +12,9 @@
 
     <textarea class="form-control form-control-solid" rows="5" placeholder="{{ $placeholder }}" name="{{ $name }}">{{ $value }}</textarea>
 
-    @error($name)
-            <div class="fv-plugins-message-container invalid-feedback">{{ $message }}</div>
-    @enderror
+    <div class="fv-plugins-message-container invalid-feedback {{ $name }}-error">
+        @error($name)
+            {{ $message }}
+        @enderror
+    </div>
 </div>

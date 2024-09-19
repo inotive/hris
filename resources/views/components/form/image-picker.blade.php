@@ -17,7 +17,11 @@
         </div>
     
     
-        {!! $errors->first($name, '<div class="invalid-feedback" role="alert"><strong>:message</strong></div>') !!}
+        <div class="fv-plugins-message-container invalid-feedback {{ $name }}-error">
+            @error($name)
+                {{ $message }}
+            @enderror
+        </div>
     
 
 

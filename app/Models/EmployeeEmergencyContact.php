@@ -26,13 +26,13 @@ class EmployeeEmergencyContact extends Model
         'family_relation',
         'name',
         'phone',
-    ];
-
-    public $rules = [
-        'employee_id'  => 'required',
-        'family_relation'  => 'required',
-        'name'  => 'required',
-        'phone'  => 'required',
+        'address',
+        'country',
+        'province',
+        'city',
+        'district',
+        'sub_district',
+        'zip_code',
     ];
 
     public function employee()

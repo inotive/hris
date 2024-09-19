@@ -88,7 +88,7 @@
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">
-                            <a href="../../demo1/dist/account/overview.html"
+                            <a href="{{ route('user.change-password') }}"
                                 class="menu-link px-5">{{ __('My Profile') }}</a>
                         </div>
                         <div class="menu-item px-5">

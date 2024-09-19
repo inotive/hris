@@ -12,6 +12,7 @@
     <th class="min-w-125px">{{ __('Email') }}</th>
     <th class="min-w-125px">{{ __('General Pay Date') }}</th>
     <th class="min-w-125px">{{ __('Overtime Request') }}</th>
+    <th class="min-w-125px">{{ __('Status') }}</th>
     <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
 
@@ -24,7 +25,8 @@
             <td><a href="tel:{{ $value->telphone ?? '' }}" target="_blank">{{ $value->telphone ?? '' }}</a></td>
             <td><a href="mailto:{{ $value->email ?? '' }}" target="_blank">{{ $value->email ?? '' }}</a></td>
             <td>{{ $value->general_pay_date ?? '' }}</td>
-            <td>{{ $value->is_overtime_request == 1 ? __('YES') : __('No') }}</td>
+            <td>{{ $value->is_overtime_request ? __('YES') : __('No') }}</td>
+            <td>{{ $value->status ? __('YES') : __('No') }}</td>
             <td class="text-end">
                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary"
                     data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">{{ __('Actions') }}

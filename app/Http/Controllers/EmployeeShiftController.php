@@ -12,5 +12,5 @@ class EmployeeShiftController extends Controller
 
     public $model = EmployeeShift::class;
     public $route = 'employee-shifts'; 
-    public $page_title = 'Employee Shifts';
+    public $page_title = 'Employee Shift';
 }

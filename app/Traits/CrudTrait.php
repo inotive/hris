@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 trait CrudTrait 
 {
@@ -46,11 +47,15 @@ trait CrudTrait
             ->filter($filter)
             ->paginate();
 
-        return view($r . '.index',[
+
+        $add_button_href = $this->addButtonHref();
+
+        return view( ($this->view_folder ?? $r) . '.index',[
             'list'  => $list,
             'page_title'    => $this->page_title,
             'action_title'    => $this->action_title ?? $this->page_title,
             'rows_count'    => $rows_count,
+            'add_button_href'  => $add_button_href ?? null,
         ]);
     }
 
@@ -107,7 +112,7 @@ trait CrudTrait
         return view('crud.edit', [
             'view'  => $r . '.form',
             'form'  => $form,
-            'page_title'    => __('Add') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
+            'page_title'    => __('Edit') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
         ]);
     }
 
@@ -118,6 +123,8 @@ trait CrudTrait
         
         $validate = (new $this->model)->rules;
         $validated = $request->validate($validate);
+
+        // Log::info($request->all());
 
         $this->model::where('id', $id)->update($validated);
 
@@ -155,5 +162,9 @@ trait CrudTrait
         }
     }
 
-  
+    // change create button link
+    public function addButtonHref()
+    {
+        return null;
+    }
 }

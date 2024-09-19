@@ -1,10 +1,8 @@
 @props([
     'name' => '',
     'label' => '',
-    'value' => '',
+    'value' => null,
     'placeholder'   => '',
-    'min'   => '',
-    'max'   => '',
     'required'  => false,
 ])
 
@@ -12,8 +10,8 @@
 
     <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ $label }}</label>
 
-    <input type="number" min="{{ $min }}" max="{{ $max }}" class="form-control form-control-solid" placeholder="{{ $placeholder }}" name="{{ $name }}"
-        value="{{ $value }}">
+    <input type="time" step="1" class="form-control form-control-solid" placeholder="{{ $placeholder }}" name="{{ $name }}"
+        value="{{ $value ?? '' }}">
 
 
         <div class="fv-plugins-message-container invalid-feedback {{ $name }}-error">

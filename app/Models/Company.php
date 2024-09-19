@@ -31,7 +31,8 @@ class Company extends Model
         'email',
         'logo',
         'general_pay_date',
-        'is_overtime_request'
+        'is_overtime_request',
+        'status',
     ];
 
     public $rules = [
@@ -46,10 +47,12 @@ class Company extends Model
         'logo'  => '',
         'general_pay_date'  => 'required',
         'is_overtime_request'  => 'required',
+        'status'  => 'required',
     ];
 
     public $casts = [
         'is_overtime_request'   => 'boolean',
+        'status'   => 'boolean',
         'general_pay_date'   => 'integer',
     ];
 }

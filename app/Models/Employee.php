@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CreatedByUserTrait;
+use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,6 +16,7 @@ class Employee extends Model
 
     use SearchTrait;
     use CreatedByUserTrait;
+    use HasCompany;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -34,11 +36,31 @@ class Employee extends Model
         'department_id',
         'employee_position_id',
         'employee_level_id',
-        'hire_date',
+        'join_date',
         'sallary',
         'image',
         'reimbursement_limit',
-        'birth_date'
+        'birth_date',
+        'address',
+        'country',
+        'province',
+        'city',
+        'district',
+        'sub_district',
+        'zip_code',
+        'birth_place',
+        'religion',
+        'marital_status',
+        'birth_place',
+        'gender',
+        'nationality',
+        'document_id',
+        'document_expiry',
+        'tax_registered_name',
+        'tax_number',
+        'username',
+        'bank_account_name',
+        'bank_account_number',
     ];
 
     public $rules = [
@@ -51,23 +73,38 @@ class Employee extends Model
         'department_id'  => 'required',
         'employee_position_id'  => 'required',
         'employee_level_id'  => 'required',
-        'hire_date'  => 'required',
-        'sallary'  => 'required',
-        'image'  => 'required',
-        'reimbursement_limit'  => 'required',
-        'birth_date'  => 'required',
+        'join_date'  => '',
+        'sallary'  => '',
+        'image'  => '',
+        'reimbursement_limit'  => '',
+        'birth_date'  => '',
+        'birth_place'  => '',
+        'address' => '',
+        'country' => '',
+        'province' => '',
+        'city' => '',
+        'district' => '',
+        'sub_district' => '',
+        'zip_code' => '',
+        'birth_place' => '',
+        'religion' => '',
+        'marital_status' => '',
+        'birth_place' => '',
+        'gender' => '',
+        'nationality' => '',
+        'document_id' => '',
+        'document_expiry' => '',
+        'tax_registered_name' => '',
+        'tax_number' => '',
+        'username' => '',
+        'bank_account_name' => '',
+        'bank_account_number' => '',
     ];
 
 
     public function getFullNameAttribute()
     {
         return collect($this->first_name, $this->last_name)->join(' ');
-    }
-
-
-    public function company()
-    {
-        return $this->belongsTo(Company::class,'company_id','id');
     }
 
     public function department()

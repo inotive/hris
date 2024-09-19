@@ -6,10 +6,22 @@
 <script src="{{asset('template/js/widgets.bundle.js')}}"></script>
 <script src="{{asset('template/js/custom/widgets.js')}}"></script>
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
 
 <script>
+    $.fn.serializeWithUnchecked = function() {
+        var form = this;
+
+        // Serialize the form, including unchecked checkboxes as "unchecked"
+        var formData = form.serializeArray();
+
+        // Find unchecked checkboxes and add them to formData
+        form.find('input[type=checkbox]:not(:checked)').each(function() {
+            formData.push({ name: this.name, value: '0' });
+        });
+
+        return formData;
+    };
     $("#crud-form").on('submit', function(event){
         event.preventDefault(); 
 
@@ -17,10 +29,12 @@
         submitButton.prop('disabled',true);
 
         var action = $(this).attr('action');
+
+
         $.ajax({
             url: action,
             type: 'POST',
-            data: $(this).serialize(), // Serialize the form data
+            data: $(this).serializeWithUnchecked(), // Serialize the form data
             success: function(response) {
                 console.log(response);
                 // Handle the success response
@@ -51,30 +65,54 @@
                         setTimeout(function() {
                             console.log('This message is shown after 2 seconds');
                             window.location.href = response.redirect;
-                        }, 1000); // 2000 milliseconds = 2 seconds
+                        }, 500); 
 
                      
                 } else {
                     Swal.fire({
                         title:'{{ __("Error!") }}',
                         text: response.message,
-                        icon: 'error'
+                        icon: 'error',
+                        customClass: {
+                            confirmButton: "btn btn-primary",
+                        },
                     });
 
                     submitButton.prop('disabled',false);
                 }
                 // window.location.reload();
             },
-            error: function(xhr) {
-                // Handle the error response
-                Swal.fire({
-                        title:'{{ __("Error!") }}',
-                        text: 'Error',
-                        icon: 'error'
+            error: function(xhr, status, error) {
+
+                // Handle validation errors
+                var errors = xhr.responseJSON.errors;
+                var message = xhr.responseJSON.message;
+
+                if (errors != null) {
+                    $.each(errors, function (key, value) {
+                        $('.' + key + '-error').html('');
+                    });
+                    // Display errors
+                    $.each(errors, function (key, value) {
+                        $('.' + key + '-error').append('<p>' + value + '</p>');
                     });
 
+                }  else {
+                    // Handle the error response
+                    Swal.fire({
+                            title:'{{ __("Error!") }}',
+                            text: message ?? 'Error',
+                            icon: 'error',
+                            customClass: {
+                                confirmButton: "btn btn-primary",
+                            },
+                        });
+                }
+             
+
                     submitButton.prop('disabled',false);
-            }
+            },
+            
         });
     });
 </script>
@@ -88,8 +126,10 @@ $(".delete-button").click(function(e) {
         text: '{{ __("You won`t be able to revert this!") }}',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
+        customClass: {
+            confirmButton: "btn btn-primary",
+            cancelButton: "btn btn-danger"
+        },
         confirmButtonText: '{{ __("Yes, delete it!") }}',
         cancelButtonText: '{{ __("Cancel") }}'
     }).then((result) => {
