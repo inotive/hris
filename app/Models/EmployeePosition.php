@@ -45,7 +45,7 @@ class EmployeePosition extends Model
         return $this->belongsTo(EmployeeDepartment::class,'department_id','id');
     }
 
-
+   // data array to show button dummy data
     public static function dummy_data() : array
     {
         $company_id = auth()->user()->company_id ?? null;

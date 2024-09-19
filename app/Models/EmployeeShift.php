@@ -53,4 +53,36 @@ class EmployeeShift extends Model
         });
     }
 
+    // data array to show button dummy data
+    public static function dummy_data() : array
+    {
+        $company_id = auth()->user()->company_id ?? null;
+
+        $data = [];
+        $data[] = [
+            'company_id'    => $company_id,
+            'name'    => 'Regular shift',
+            'start_time'    => '09:00:00',
+            'end_time'    => '17:00:00',
+            'default'  =>  1,
+        ];
+
+        $data[] = [
+            'company_id'    => $company_id,
+            'name'    => 'Morning shift',
+            'start_time'    => '04:00:00',
+            'end_time'    => '12:00:00',
+            'default'  =>  0,
+        ];
+
+        $data[] = [
+            'company_id'    => $company_id,
+            'name'    => 'Night shift',
+            'start_time'    => '20:00:00',
+            'end_time'    => '04:00:00',
+            'default'  =>  0,
+        ];
+
+        return $data;
+    }
 }
