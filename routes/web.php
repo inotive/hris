@@ -6,7 +6,9 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyPayoutSettingController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDepartmentController;
+use App\Http\Controllers\EmployeeEducationController;
 use App\Http\Controllers\EmployeeEmergencyContactController;
+use App\Http\Controllers\EmployeeFamilyInfoController;
 use App\Http\Controllers\EmployeeLevelController;
 use App\Http\Controllers\EmployeePayslipDetailController;
 use App\Http\Controllers\EmployeePayslipMasterController;
@@ -59,6 +61,8 @@ Route::middleware([
 
     Route::resource('/employees', EmployeeController::class);
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
+    Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
+    Route::resource('/employees/{employee}/education', EmployeeEducationController::class);
 
     Route::resource('/employee-departments', EmployeeDepartmentController::class);
     Route::resource('/employee-positions', EmployeePositionController::class);

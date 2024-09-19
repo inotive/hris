@@ -62,7 +62,6 @@ class Employee extends Model
         'username',
         'bank_account_name',
         'bank_account_number',
-        'is_overtime_request'
     ];
 
     public $rules = [
@@ -102,7 +101,6 @@ class Employee extends Model
         'username' => '',
         'bank_account_name' => '',
         'bank_account_number' => '',
-        'is_overtime_request' => '',
     ];
 
 

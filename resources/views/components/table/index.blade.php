@@ -33,8 +33,22 @@
             <div class="card">
 
 
+                @if ( isset($header)  || isset($header_toolbar))
+                    <div class="card-header pt-6">
+                        <div class="card-title gap-2">
+                        {{ $header ?? '' }}
+                        </div>
+
+                        <div class="card-toolbar">
+                            <div class="d-flex justify-content-end gap-2">
+                            {{ $header_toolbar ?? '' }}
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                 <div class="card-body">
-                    {{ $header ?? '' }}
+            
 
                     <!--begin::Card header-->
                     <div class="row">
