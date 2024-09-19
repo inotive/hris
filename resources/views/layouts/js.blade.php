@@ -36,7 +36,7 @@
         $.ajax({
             url: action,
             type: 'POST',
-            data: $(this).serializeArray(), // Serialize the form data
+            data: $(this).serializeWithUnchecked(), // Serialize the form data
             success: function(response) {
                 console.log(response);
                 // Handle the success response
@@ -206,3 +206,31 @@ $("#role").trigger('change');
     });
 </script>
 
+<script>
+$(".datepicker").daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        maxYear: parseInt(moment().format("YYYY"),12),
+        locale: {
+            format: "Y-MM-DD"
+        }
+    }, function(start, end, label) {
+        var years = moment().diff(start, "years");
+    }
+);
+
+$(".datetimepicker").daterangepicker({
+        singleDatePicker: true,
+        timePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        maxYear: parseInt(moment().format("YYYY"),12),
+        locale: {
+            format: "Y-MM-DD HH:mm:ss"
+        }
+    }, function(start, end, label) {
+        var years = moment().diff(start, "years");
+    }
+);
+</script>

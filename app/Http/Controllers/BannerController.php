@@ -13,4 +13,5 @@ class BannerController extends Controller
     public $model = Banner::class;
     public $route = 'banners';
     public $page_title = 'Banners';
+    public $action_title = 'Banner';
 }

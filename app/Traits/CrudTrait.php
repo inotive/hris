@@ -16,7 +16,7 @@ trait CrudTrait
     {
         $show_dummy_button = false;
         $rows_count = $this->model::count();
-        if ($rows_count == 0 && count($this->model::dummy_data() ?? []) > 0)
+        if ($rows_count == 0 && method_exists($this->model,'dummy_data') && count($this->model::dummy_data() ?? []) > 0)
         {
             $show_dummy_button = true;
         }
@@ -78,6 +78,7 @@ trait CrudTrait
         return view('crud.create',[
             'page_title'    => __('Add') . ' ' . ($this->action_title ?? $this->page_title ?? ''),
             'view'  => $r . '.form',
+            'form'  => null,
         ]);
     }
 

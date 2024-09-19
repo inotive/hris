@@ -15,7 +15,7 @@
     <x-form.input type="text" :label="__('First Name')" name="first_name" :value="old('first_name', $form->first_name ?? '')" />
     <x-form.input type="text" :label="__('Last Name')" name="last_name" :value="old('last_name', $form->last_name ?? '')" />
     <x-gender-dropdown :value="old('gender', $form->gender ?? '')" />
-    <x-form.input type="date" :label="__('Birth Date')" name="birth_date" :value="old('birth_date', $form->birth_date ?? '')" />
+    <x-form.datepicker :label="__('Birth Date')" name="birth_date" :value="old('birth_date', $form->birth_date ?? '')" />
     <x-form.input type="text" :label="__('Birth Place')" name="birth_place" :value="old('birth_place', $form->birth_place ?? '')" />
     <x-religion-dropdown :value="old('religion', $form->religion ?? '')" />
     <x-marital-status-dropdown :value="old('marital_status', $form->marital_status ?? '')" />
@@ -49,7 +49,7 @@
 
     <x-form.input type="text" label="Bank Account Number" name="bank_account_number" :value="$form->bank_account_number ?? ''" />
     <x-form.input type="text" label="Bank Account Name" name="bank_account_name" :value="$form->bank_account_name ?? ''" />
-    <x-form.input type="date" :label="__('Join Date')" name="join_date" :value="old('join_date', $form->join_date ?? '')" />
+    <x-form.datepicker :label="__('Join Date')" name="join_date" :value="old('join_date', $form->join_date ?? '')" />
     <x-form.input type="number" :label="__('Salary')" name="sallary" :value="old('sallary', $form->sallary ?? '')" />
     <x-form.input type="number" :label="__('Reimbursement Limit')" name="reimbursement_limit" :value="old('reimbursement_limit', $form->reimbursement_limit ?? '')" />
 
@@ -59,7 +59,7 @@
     <hr>
 
     <x-form.input type="text" label="Document Number" name="document_id" :value="$form->document_id ?? ''" />
-    <x-form.input type="date" label="Document Expiry" name="document_expiry" :value="$form->document_expiry ?? ''" />
+    <x-form.datepicker label="Document Expiry" name="document_expiry" :value="$form->document_expiry ?? ''" />
     <x-form.input type="text" label="Tax Number" name="tax_number" :value="$form->tax_number ?? ''" />
     <x-form.input type="text" label="Tax Registered Name" name="tax_registered_name" :value="$form->tax_registered_name ?? ''" />
 

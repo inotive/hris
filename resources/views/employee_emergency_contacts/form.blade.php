@@ -1,7 +1,7 @@
 <div class="row">
 
 
-    <x-employee-dropdown :value="old('employee_id', $form->employee_id ?? $employee->id ?? '')" />
+    <x-form.hidden name="employee_id" :value="old('employee_id', $employee->id ?? '')" />
     <x-family-relation-dropdown :value="old('family_relation', $form->family_relation ?? '')" />
 
     <x-form.input type="text" :label="__('Name')" name="name" :value="old('name', $form->name ?? '')" />

@@ -17,7 +17,7 @@
 @section('table_body')
     @foreach ($list as $key => $value)
         <tr>
-            <td>{{ $key+1 }}</td>
+             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
             <td>{{ $value->department->name ?? '-' }}</td>
             <td>{{ $value->name ?? '-' }}</td>
             <td>{{ $value->description ?? '-' }}</td>
