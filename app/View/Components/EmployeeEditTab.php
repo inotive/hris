@@ -38,7 +38,7 @@ class EmployeeEditTab extends Component
                 'label' => __('Emergency Contact'),
             ],
         ];
-        return view('components.employee-edit-tab',[
+        return view('components.tab',[
             'tabs'  => $tabs,
         ]);
     }

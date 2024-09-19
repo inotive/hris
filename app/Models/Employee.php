@@ -122,4 +122,10 @@ class Employee extends Model
     {
         return $this->belongsTo(EmployeeLevel::class,'employee_level_id','id');
     }
+
+
+    public static function dummy_data() : array 
+    {
+        return [];
+    }
 }

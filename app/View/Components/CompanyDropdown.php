@@ -13,7 +13,7 @@ class CompanyDropdown extends Component
      *
      * @return void
      */
-    public function __construct(public $value)
+    public function __construct()
     {
         //
     }
@@ -25,6 +25,15 @@ class CompanyDropdown extends Component
      */
     public function render()
     {
+        // if user has company_id
+        // use input hide 
+        if (auth()->user()->company_id != null) {
+            return view('components.form.hidden',[
+                'name'  => 'company_id',
+                'value' => auth()->user()->company_id,
+            ]);
+        }
+
         $list = Company::orderBy('name','asc')
             ->when(auth()->user()->company_id != null, function ($query){
                 $query->where('id', auth()->user()->company_id);
@@ -35,7 +44,6 @@ class CompanyDropdown extends Component
             'list'  => $list,
             'name'  => 'company_id',
             'label' => __('Company'),
-            'value' => $this->value,
         ]);
     }
 }
