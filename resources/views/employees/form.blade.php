@@ -42,7 +42,7 @@
     <x-employee-position-dropdown :value="old('employee_position_id', $form->employee_position_id ?? '')" />
     <x-employee-level-dropdown :value="old('employee_level_id', $form->employee_level_id ?? '')" />
     <x-employee-shift-dropdown :value="old('employee_shift_id', $form->employee_shift_id ?? '')" />
-    <x-head-department-employee-dropdown label="Manager" :value="$form->head_departmen_id" />
+    <x-head-department-employee-dropdown label="Manager" :value="$form->head_departmen_id??''" />
 
     <h4>{{ __('Payroll Information') }}</h4>
     <hr>
