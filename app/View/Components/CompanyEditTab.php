@@ -36,7 +36,7 @@ class CompanyEditTab extends Component
                 'label' => __('Payout Setting'),
             ],
         ];
-        return view('components.company-edit-tab',[
+        return view('components.tab',[
             'tabs'  => $tabs,
         ]);
 

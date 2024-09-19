@@ -27,12 +27,18 @@ class Company extends Model
     public $fillable = [
         'name',
         'address',
-        'telphone',
+        'phone',
         'email',
         'logo',
         'cut_off_payroll_date',
         'is_overtime_request',
         'status',
+        'country',
+        'province',
+        'city',
+        'district',
+        'sub_district',
+        'zip_code',
     ];
 
     public $rules = [

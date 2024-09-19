@@ -15,7 +15,8 @@
 
     <link href="{{asset('template/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('template/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
       var defaultThemeMode = "light";
