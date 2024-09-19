@@ -1,4 +1,8 @@
 <div class="row">
+    @if (isset($form))
+        <x-company-edit-tab :companyid="$form->id" :tab="'edit'" />
+    @endif
+
 
 
     <x-form.image-picker :label="__('Logo')" name="logo" folder="companies" :value="old('logo', $form->logo ?? '')" />

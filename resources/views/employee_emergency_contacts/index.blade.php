@@ -40,6 +40,8 @@
                     @endforeach
                 </x-slot>
             </x-table.table>
+
+            {{ $list->links() }}
         </div>
 
     </x-slot>
