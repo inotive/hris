@@ -8,7 +8,7 @@
 
 <div class="col-12 col-lg-6 mb-4" id="{{ $name }}_div">
 
-    <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ $label }}</label>
+    <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ __($label) }}</label>
 
 
     <select class="form-select form-select-solid" id="{{ $name }}" name="{{ $name }}" data-control="select2" data-placeholder="{{ __('Select an option') }}">
