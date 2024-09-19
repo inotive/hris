@@ -19,7 +19,7 @@ class CompanyPayoutSettingController extends Controller
 
     public function calendar(Company $company, $year, Request $request)
     {
-        $general_pay_date = $company->general_pay_date;
+        $cut_off_payroll_date = $company->cut_off_payroll_date;
 
         $payouts = [];
         for($i = 1; $i <= 12; $i++) {
@@ -27,7 +27,7 @@ class CompanyPayoutSettingController extends Controller
             if ($setting == null) {
                 $setting = new CompanyPayoutSetting();
                 $setting->company_id = $company->id;
-                $setting->date = $year . '-' . str_pad($i, 2, "0", STR_PAD_LEFT) . '-' . str_pad($general_pay_date, 2, "0", STR_PAD_LEFT);
+                $setting->date = $year . '-' . str_pad($i, 2, "0", STR_PAD_LEFT) . '-' . str_pad($cut_off_payroll_date, 2, "0", STR_PAD_LEFT);
                 $setting->save();
             }
             $payouts[] = $setting;

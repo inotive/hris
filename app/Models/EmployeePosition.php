@@ -43,4 +43,19 @@ class EmployeePosition extends Model
     {
         return $this->belongsTo(EmployeeDepartment::class,'department_id','id');
     }
+
+
+    public static function dummy_data() : array
+    {
+        $company_id = auth()->user()->company_id ?? null;
+
+        $data = [];
+        // $data[] = [
+        //     'company_id'    => $company_id,
+        //     'department_id'    => '',
+        //     'name'  =>  '',
+        //     'description'  =>  '',
+        // ];
+        return $data;
+    }
 }

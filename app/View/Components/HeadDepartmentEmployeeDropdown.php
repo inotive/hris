@@ -8,7 +8,8 @@ use Illuminate\View\Component;
 
 class HeadDepartmentEmployeeDropdown extends Component
 {
-    public $label;
+    // public $label = null;
+    public $value = null;
     /**
      * Create a new component instance.
      *
@@ -30,10 +31,13 @@ class HeadDepartmentEmployeeDropdown extends Component
             ->orderBy('name', 'asc')
             ->pluck('name', 'id');
 
+            $label = __($this->label ?? 'Head');
+
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'head_departmen_id',
-            'label' =>  __($this->label ??'Head'),
+            'label' =>  $label,
+            'value' => $this->value,
         ]);
     }
 }
