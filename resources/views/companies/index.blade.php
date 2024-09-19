@@ -10,7 +10,7 @@
     <th class="min-w-125px">{{ __('Name') }}</th>
     <th class="min-w-125px">{{ __('Telephone') }}</th>
     <th class="min-w-125px">{{ __('Email') }}</th>
-    <th class="min-w-125px">{{ __('General Pay Date') }}</th>
+    <th class="min-w-125px">{{ __('Cut Off Payroll Date') }}</th>
     <th class="min-w-125px">{{ __('Overtime Request') }}</th>
     <th class="min-w-125px">{{ __('Status') }}</th>
     <th class="text-end min-w-70px">{{ __('Action') }}</th>
@@ -24,7 +24,7 @@
             <td>{{ $value->name }}</td>
             <td><a href="tel:{{ $value->telphone ?? '' }}" target="_blank">{{ $value->telphone ?? '' }}</a></td>
             <td><a href="mailto:{{ $value->email ?? '' }}" target="_blank">{{ $value->email ?? '' }}</a></td>
-            <td>{{ $value->general_pay_date ?? '' }}</td>
+            <td>{{ $value->cut_off_payroll_date ?? '' }}</td>
             <td>{{ $value->is_overtime_request ? __('YES') : __('No') }}</td>
             <td>{{ $value->status ? __('YES') : __('No') }}</td>
             <td class="text-end">

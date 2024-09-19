@@ -30,7 +30,7 @@ class Company extends Model
         'telphone',
         'email',
         'logo',
-        'general_pay_date',
+        'cut_off_payroll_date',
         'is_overtime_request',
         'status',
     ];
@@ -45,7 +45,7 @@ class Company extends Model
         ],
 
         'logo'  => '',
-        'general_pay_date'  => 'required',
+        'cut_off_payroll_date'  => 'required',
         'is_overtime_request'  => 'required',
         'status'  => 'required',
     ];
@@ -53,6 +53,6 @@ class Company extends Model
     public $casts = [
         'is_overtime_request'   => 'boolean',
         'status'   => 'boolean',
-        'general_pay_date'   => 'integer',
+        'cut_off_payroll_date'   => 'integer',
     ];
 }

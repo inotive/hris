@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Jobs\NewPasswordJob;
 use App\Mail\NewPasswordMail;
 use App\Traits\SearchTrait;
 use Faker\Core\Uuid as CoreUuid;
@@ -101,7 +102,7 @@ class User extends Authenticatable
         static::created(function($row){
             if (session('user.new_pass') != null) {
                 $new_pass = session('user.new_pass');
-                Mail::to($row->email)->send(new NewPasswordMail($row->email, $new_pass));
+                NewPasswordJob::dispatch($row->email, $new_pass);
             }
            
 
