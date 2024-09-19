@@ -185,7 +185,7 @@ $(".delete-button").click(function(e) {
 $('#role').on('change', function() {
     var val = $(this).val();
 
-    if (val == "admin") {
+    if (val != "superadmin") {
         $("#company_id_div").show();
     } else {
         $("#company_id_div").hide();
