@@ -51,7 +51,6 @@
                     <!--end::Menu item-->
                     <!--begin::Menu item-->
 
-                    <x-table.action-button label="Payout Setting" href="{{ route('company-payout-settings.index', ['filter'=>['company_id'=> $value->id]]) }}" />
                     <x-table.edit-button :id="$value->id"/>
                     <x-table.delete-button :id="$value->id"/>
                     

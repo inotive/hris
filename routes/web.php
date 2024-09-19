@@ -50,7 +50,9 @@ Route::middleware(['auth', 'password.changed'])->group(function () {
     Route::put('/user/change-password/{id}', [UserController::class, 'changePasswordMeUpdate'])->name('user.change-password.update');
 
     Route::resource('/companies', CompanyController::class);
-    Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
+    Route::get('/companies/{company}/payout-setting/{year}', [CompanyPayoutSettingController::class, 'calendar'])->name('companies.payout-setting');
+    Route::post('/companies/{company}/payout-setting/{year}', [CompanyPayoutSettingController::class, 'calendarUpdate'])->name('companies.payout-setting.update');
+    // Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
 
     Route::resource('/employees', EmployeeController::class);
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
