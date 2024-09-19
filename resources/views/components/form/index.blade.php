@@ -72,3 +72,9 @@
     <!--end::Post-->
 
 @endsection
+
+
+
+@section('js')
+    {{ $js ?? '' }}
+@stop
