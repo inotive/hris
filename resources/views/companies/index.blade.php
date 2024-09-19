@@ -22,10 +22,9 @@
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
             <td><img class="rounded" src="{{ Storage::url($value->logo) }}" onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50"/></td>
             <td>{{ $value->name }}</td>
-            <td><a href="tel:{{ $value->telphone ?? '' }}" target="_blank">{{ $value->telphone ?? '' }}</a></td>
+            <td><a href="tel:{{ $value->phone ?? '' }}" target="_blank">{{ $value->phone ?? '' }}</a></td>
             <td><a href="mailto:{{ $value->email ?? '' }}" target="_blank">{{ $value->email ?? '' }}</a></td>
             <td>{{ $value->cut_off_payroll_date ?? '' }}</td>
-            <td>{{ $value->is_overtime_request ? __('YES') : __('No') }}</td>
             <td>{{ $value->status ? __('YES') : __('No') }}</td>
             <td class="text-end">
                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary"

@@ -206,3 +206,17 @@ $("#role").trigger('change');
     });
 </script>
 
+<script>
+$(".datepicker").daterangepicker({
+        singleDatePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        maxYear: parseInt(moment().format("YYYY"),12),
+        locale: {
+            format: "Y-MM-DD"
+        }
+    }, function(start, end, label) {
+        var years = moment().diff(start, "years");
+    }
+);
+</script>

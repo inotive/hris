@@ -44,7 +44,7 @@ class Company extends Model
     public $rules = [
         'name'  => 'required',
         'address'  => 'required',
-        'telphone'  => 'required',
+        'phone'  => 'required',
         'email'  => [
             'required',
             'email',
@@ -52,8 +52,8 @@ class Company extends Model
 
         'logo'  => '',
         'cut_off_payroll_date'  => 'required',
-        'is_overtime_request'  => 'required',
-        'status'  => 'required',
+        'is_overtime_request'  => '',
+        'status'  => '',
     ];
 
     public $casts = [
