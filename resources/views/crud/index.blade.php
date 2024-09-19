@@ -53,7 +53,7 @@
                             @yield('toolbar')
 
                             {{-- GENERATE DUMMY --}}
-                            <x-table.generate-dummy-button rows_count="{{ $rows_count ?? '0' }}" />
+                            <x-table.generate-dummy-button show_dummy_button="{{ $show_dummy_button ?? false }}" />
                             {{-- ADD BUTTON --}}
                             <x-table.add-button :href="$add_button_href??null" label="{{ __('Add') . ' ' . __($action_title ?? $page_title) }}" />
                         </div>

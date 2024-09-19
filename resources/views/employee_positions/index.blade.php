@@ -7,7 +7,9 @@
     <th class="min-w-125px">{{ __('Department') }}</th>
     <th class="min-w-125px">{{ __('Name') }}</th>
     <th class="min-w-125px">{{ __('Description') }}</th>
+    @if (auth()->user()->company_id == null)
     <th class="min-w-125px">{{ __('Company') }}</th>
+    @endif
 
     <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
@@ -19,7 +21,9 @@
             <td>{{ $value->department->name ?? '-' }}</td>
             <td>{{ $value->name ?? '-' }}</td>
             <td>{{ $value->description ?? '-' }}</td>
+            @if (auth()->user()->company_id == null)
             <td>{{ $value->company->name ?? '-' }}</td>
+            @endif
 
             <td class="text-end">
                 <x-table.actions>

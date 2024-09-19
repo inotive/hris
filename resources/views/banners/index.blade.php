@@ -6,7 +6,9 @@
 @stop
 
 @section('table_header')
+    @if (auth()->user()->company_id == null)
     <th class="min-w-125px">{{ __('Company') }}</th>
+    @endif
     <th class="min-w-125px">{{ __('Title') }}</th>
     <th class="min-w-125px">{{ __('Link') }}</th>
     <th class="text-end min-w-70px">{{ __('Action') }}</th>
@@ -17,7 +19,9 @@
         <tr>
 
 
+            @if (auth()->user()->company_id == null)
             <td>{{ $value->company->name ?? '-' }}</td>
+            @endif
             <td>{{ $value->title ?? '-' }}</td>
             <td>{{ $value->link ?? '-' }}</td>
             

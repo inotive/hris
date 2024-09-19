@@ -14,7 +14,9 @@
     <th class="min-w-50px">{{ __('No') }}</th>
     <th class="min-w-125px">{{ __('Image') }}</th>
     <th class="min-w-125px">{{ __('Full Name') }}</th>
+    @if (auth()->user()->company_id == null)
     <th class="min-w-125px">{{ __('Company') }}</th>
+    @endif
     <th class="min-w-125px">{{ __('Department') }}</th>
     <th class="min-w-125px">{{ __('Position') }}</th>
     <th class="min-w-125px">{{ __('Phone') }}</th>

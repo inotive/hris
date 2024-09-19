@@ -14,7 +14,12 @@ trait CrudTrait
 
     public function index(Request $request)
     {
+        $show_dummy_button = false;
         $rows_count = $this->model::count();
+        if ($rows_count == 0 && count($this->model::dummy_data() ?? []) > 0)
+        {
+            $show_dummy_button = true;
+        }
 
         if ($request->generate_dummy == 1) {
          
@@ -54,7 +59,7 @@ trait CrudTrait
             'list'  => $list,
             'page_title'    => $this->page_title,
             'action_title'    => $this->action_title ?? $this->page_title,
-            'rows_count'    => $rows_count,
+            'show_dummy_button'    => $show_dummy_button,
             'add_button_href'  => $add_button_href ?? null,
         ]);
     }

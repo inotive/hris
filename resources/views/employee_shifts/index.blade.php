@@ -11,7 +11,9 @@
     <th class="min-w-125px">{{ __('Time') }}</th>
 
     <th class="min-w-125px">{{ __('Default') }}</th>
+    @if (auth()->user()->company_id == null)
     <th class="min-w-125px">{{ __('Company') }}</th>
+    @endif
     <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
 
@@ -23,7 +25,9 @@
             <td>{{ $value->name ?? '-' }}</td>
             <td>{{ $value->start_time ?? '-' }} - {{ $value->end_time ?? '-' }}</td>
             <td>{{ $value->default == 1 ? __('YES') : __('No') }}</td>
+            @if (auth()->user()->company_id == null)
             <td>{{ $value->company->name ?? '-' }}</td>
+            @endif
             
             <td class="text-end">
                 <x-table.actions>
