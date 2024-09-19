@@ -219,4 +219,18 @@ $(".datepicker").daterangepicker({
         var years = moment().diff(start, "years");
     }
 );
+
+$(".datetimepicker").daterangepicker({
+        singleDatePicker: true,
+        timePicker: true,
+        showDropdowns: true,
+        minYear: 1901,
+        maxYear: parseInt(moment().format("YYYY"),12),
+        locale: {
+            format: "Y-MM-DD HH:mm:ss"
+        }
+    }, function(start, end, label) {
+        var years = moment().diff(start, "years");
+    }
+);
 </script>

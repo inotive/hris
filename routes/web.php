@@ -5,6 +5,7 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyPayoutSettingController;
+use App\Http\Controllers\CompanySubscriptionController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeEducationController;
@@ -75,6 +76,8 @@ Route::middleware([
 
     Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
     Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
+
+    Route::resource('/company-subscriptions', CompanySubscriptionController::class);
 
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);

@@ -47,17 +47,19 @@
             </div>
             <!--end::Image input-->
 
+
+            @error($name)
+                <div class="fv-plugins-message-container invalid-feedback {{ $name }}-error">
+
+                    {{ $message }}
+
+                </div>
+            @enderror
         </div>
 
 
 
-        @error($name)
-            <div class="fv-plugins-message-container invalid-feedback {{ $name }}-error">
 
-                {{ $message }}
-
-            </div>
-        @enderror
 
 
     </div>
