@@ -36,7 +36,20 @@
                 <!--begin::Card-->
                 <div class="card">
 
+                    @if ( isset($header)  || isset($toolbar))
+                    <div class="card-header pt-6">
+                        <div class="card-title gap-2">
+                        {{ $header ?? '' }}
+                        </div>
 
+                        <div class="card-toolbar">
+                            <div class="d-flex justify-content-end gap-2">
+                            {{ $toolbar ?? '' }}
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    
                     <div class="card-body">
                         {{ $body ?? '' }}
                     </div>

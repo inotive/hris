@@ -4,9 +4,12 @@
 >
     <x-slot name="title">{{ __('Payout Settings') }}</x-slot>
 
+    <x-slot name="toolbar"> 
+        <x-company-edit-tab :companyid="$company->id" tab="payout_setting" />
+    </x-slot>
     <x-slot name="body">    
 
-        <x-company-edit-tab :companyid="$company->id" tab="payout_setting" />
+
 
        <x-tab :tabs="$tabs" :tab="$active_tab"/>
 

@@ -6,12 +6,12 @@
 @stop
 
 @section('table_header')
+    <th class="min-w-50px">{{ __('No') }}</th>
     <th class="min-w-125px">{{ __('Logo') }}</th>
     <th class="min-w-125px">{{ __('Name') }}</th>
-    <th class="min-w-125px">{{ __('Telephone') }}</th>
+    <th class="min-w-125px">{{ __('Phone') }}</th>
     <th class="min-w-125px">{{ __('Email') }}</th>
-    <th class="min-w-125px">{{ __('Cut Off Payroll Date') }}</th>
-    <th class="min-w-125px">{{ __('Overtime Request') }}</th>
+    <th class="min-w-125px">{{ __('City') }}</th>
     <th class="min-w-125px">{{ __('Status') }}</th>
     <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
@@ -19,7 +19,7 @@
 @section('table_body')
     @foreach ($list as $key => $value)
         <tr>
-
+            <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
             <td><img class="rounded" src="{{ Storage::url($value->logo) }}" onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50"/></td>
             <td>{{ $value->name }}</td>
             <td><a href="tel:{{ $value->telphone ?? '' }}" target="_blank">{{ $value->telphone ?? '' }}</a></td>
