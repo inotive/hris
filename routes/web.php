@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
@@ -77,6 +78,7 @@ Route::middleware([
 
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);
+    Route::resource('/announcements', AnnouncementController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 

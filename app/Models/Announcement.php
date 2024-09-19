@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Banner extends Model
+class Announcement extends Model
 {
     use HasFactory;
 
@@ -27,16 +27,25 @@ class Banner extends Model
 
     public $fillable = [
         'company_id',
+        'for_employee_id',
         'title',
-        'image',
-        'link',
+        'content',
+        'reference',
+        'created_by_employee_id',
     ];
 
     public $rules = [
         'company_id'  => 'required',
+        'for_employee_id'  => 'required',
         'title'  => 'required',
-        'image'  => 'required',
-        'link'  => 'required',
+        'content'  => 'required',
+        'reference'  => '',
+        'created_by_employee_id'  => '',
     ];
 
+
+    public static function dummy_data() : array
+    {
+        return [];
+    }
 }
