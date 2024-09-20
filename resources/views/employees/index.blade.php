@@ -42,6 +42,7 @@
            
             <td class="text-end">
                 <x-table.actions>
+                    <x-table.employee-resend-password :employee="$value" />
                     <x-table.edit-button :id="$value->id" />
                     <x-table.delete-button :id="$value->id" />
                 </x-table.actions>

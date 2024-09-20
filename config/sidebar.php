@@ -82,7 +82,7 @@ return [
             'children' => [
                 [
                     'label' => 'Attendances',
-                    'route' => '',
+                    'route' => 'attendances.index',
                     'roles' => ['superadmin', 'admin'],
                 ],
                 [

@@ -39,6 +39,7 @@ class Company extends Model
         'district',
         'sub_district',
         'zip_code',
+        'time_zone',
     ];
 
     public $rules = [
@@ -54,6 +55,7 @@ class Company extends Model
         'cut_off_payroll_date'  => 'required',
         'is_overtime_request'  => '',
         'status'  => '',
+        'time_zone'  => '',
     ];
 
     public $casts = [
