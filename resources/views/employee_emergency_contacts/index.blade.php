@@ -3,6 +3,10 @@
 
 
     <x-slot name="header">
+        {{ $employee->full_name ?? '' }}
+    </x-slot>
+    
+    <x-slot name="header_toolbar">
         <x-employee-edit-tab :employeeid="$employee->id" tab="emergency_contact"/>
     </x-slot>
     
@@ -17,6 +21,7 @@
         <div class="table-responsive">
             <x-table.table>
                 <x-slot name="header">
+                    <th>{{ __('No') }}</th>
                     <th>{{ __('Family Relation') }}</th>
                     <th>{{ __('Name') }}</th>
                     <th>{{ __('Phone') }}</th>
@@ -26,6 +31,7 @@
                 <x-slot name="body">
                     @foreach ($list as $key => $value)
                         <tr>
+                            <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
                             <td>{{ $value->family_relation ?? '' }}</td>
                             <td>{{ $value->name ?? '' }}</td>
                             <td>{{ $value->phone }}</td>

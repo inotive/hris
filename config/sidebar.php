@@ -25,8 +25,8 @@ return [
             'children' => [
                 [
                     'label' => 'Company Subscriptions',
-                    'route' => '',
-                    'roles' => ['superadmin'],
+                    'route' => 'company-subscriptions.index',
+                    'roles' => ['superadmin','admin'],
                 ],
                 [
                     'label' => 'Companies',
@@ -194,7 +194,7 @@ return [
                 ],
                 [
                     'label' => 'Announcement',
-                    'route' => '',
+                    'route' => 'announcements.index',
                     'roles' => ['superadmin', 'admin', 'content'],
                 ],
             ],

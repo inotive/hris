@@ -1,13 +1,18 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyPayoutSettingController;
+use App\Http\Controllers\CompanySubscriptionController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDepartmentController;
+use App\Http\Controllers\EmployeeEducationController;
 use App\Http\Controllers\EmployeeEmergencyContactController;
+use App\Http\Controllers\EmployeeFamilyInfoController;
 use App\Http\Controllers\EmployeeLevelController;
+use App\Http\Controllers\EmployeeOrganizationExperienceController;
 use App\Http\Controllers\EmployeePayslipDetailController;
 use App\Http\Controllers\EmployeePayslipMasterController;
 use App\Http\Controllers\EmployeePositionController;
@@ -59,6 +64,9 @@ Route::middleware([
 
     Route::resource('/employees', EmployeeController::class);
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
+    Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
+    Route::resource('/employees/{employee}/education', EmployeeEducationController::class);
+    Route::resource('/employees/{employee}/organization-experience', EmployeeOrganizationExperienceController::class);
 
     Route::resource('/employee-departments', EmployeeDepartmentController::class);
     Route::resource('/employee-positions', EmployeePositionController::class);
@@ -69,8 +77,11 @@ Route::middleware([
     Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
     Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
 
+    Route::resource('/company-subscriptions', CompanySubscriptionController::class);
+
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);
+    Route::resource('/announcements', AnnouncementController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 

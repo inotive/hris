@@ -13,5 +13,6 @@ class PostController extends Controller
     public $model = Post::class;
     public $route = 'posts';
     public $page_title = 'Posts';
+    public $action_title = 'Post';
 
 }

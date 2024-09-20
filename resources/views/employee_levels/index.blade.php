@@ -18,7 +18,7 @@
     @foreach ($list as $key => $value)
         <tr>
 
-            <td>{{ $key+1 }}</td>
+             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
             <td>{{ $value->name ?? '-' }}</td>
             @if (auth()->user()->company_id == null)
             <td>{{ $value->company->name ?? '-' }}</td>
