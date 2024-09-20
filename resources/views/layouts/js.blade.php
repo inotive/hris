@@ -85,34 +85,43 @@
                 // window.location.reload();
             },
             error: function(xhr, status, error) {
-
-                // Handle validation errors
-                var errors = xhr.responseJSON.errors;
-                var message = xhr.responseJSON.message;
-
-                if (errors != null) {
-                    $.each(errors, function (key, value) {
-                        $('.' + key + '-error').html('');
-                    });
-                    // Display errors
-                    $.each(errors, function (key, value) {
-                        $('.' + key + '-error').append('<p>' + value + '</p>');
-                    });
-
-                }  else {
-                    // Handle the error response
+                if (xhr.status == 403) {
                     Swal.fire({
                             title:'{{ __("Error!") }}',
-                            text: message ?? 'Error',
+                            text: '{{ __("Not Authorized") }}',
                             icon: 'error',
                             customClass: {
                                 confirmButton: "btn btn-primary",
                             },
                         });
-                }
-             
+                } else {
+                    // Handle validation errors
+                    var errors = xhr.responseJSON.errors;
+                    var message = xhr.responseJSON.message;
 
-                    submitButton.prop('disabled',false);
+                    if (errors != null) {
+                        $.each(errors, function (key, value) {
+                            $('.' + key + '-error').html('');
+                        });
+                        // Display errors
+                        $.each(errors, function (key, value) {
+                            $('.' + key + '-error').append('<p>' + value + '</p>');
+                        });
+
+                    }  else {
+                        // Handle the error response
+                        Swal.fire({
+                                title:'{{ __("Error!") }}',
+                                text: message ?? 'Error',
+                                icon: 'error',
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                },
+                            });
+                    }
+                }
+
+                submitButton.prop('disabled',false);
             },
             
         });
@@ -242,9 +251,11 @@ $(".delete-button").click(function(e) {
                 },
                 error: function(xhr) {
                     // Handle the error response
+
+
                     Swal.fire({
                         title:'{{ __("Error!") }}',
-                        text: 'Error',
+                        text: xhr.responseJSON.message ?? 'Error',
                         icon: 'error'
                     })
                 }
