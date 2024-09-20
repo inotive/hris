@@ -134,5 +134,9 @@
     "Education Level": "Education Level",
     "Institution": "Institution",
     "Change Password": "Change Password",
-    "You have not changed your password yet, please change your password first.": "You have not changed your password yet, please change your password first."
+    "Send Password To Email Successfully":"Send Password To Email Successfully",
+    "Reset Password":"Reset Password",
+    "You have not changed your password yet, please change your password first.": "You have not changed your password yet, please change your password first.",
+
+    "Are you sure want to send password, to employee?":"Are you sure want to send password, to employee?"
 }

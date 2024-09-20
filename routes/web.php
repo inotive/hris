@@ -63,6 +63,7 @@ Route::middleware([
     // Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
 
     Route::resource('/employees', EmployeeController::class);
+    Route::put('/employees/reset-password/{id}',[ EmployeeController::class,'resetPassword'])->name('employee-reset-password');
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
     Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
     Route::resource('/employees/{employee}/education', EmployeeEducationController::class);

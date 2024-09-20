@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\NewPasswordJob;
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
@@ -102,6 +103,34 @@ class Employee extends Model
         'bank_account_name' => '',
         'bank_account_number' => '',
     ];
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($row){
+          if ($row->password == null)  {
+            $new_pass = rand(100000,999999) . uniqid();
+            session()->flash('user',[
+                'new_pass'  => $new_pass,
+            ]);
+            $row->password = bcrypt($new_pass);
+
+          }
+        });
+
+        static::created(function($row){
+            if (session('user.new_pass') != null) {
+                $new_pass = session('user.new_pass');
+                NewPasswordJob::dispatch($row->email, $new_pass);
+            }
+           
+
+        });
+
+    
+    }
 
 
     public function getFullNameAttribute()
