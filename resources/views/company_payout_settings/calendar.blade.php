@@ -7,7 +7,9 @@
     <x-slot name="toolbar"> 
         <x-company-edit-tab :companyid="$company->id" tab="payout_setting" />
     </x-slot>
-    <x-slot name="body">    
+    <x-slot name="body">  
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
+      
 
 
 

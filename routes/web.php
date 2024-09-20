@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AttendanceContrller;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
@@ -63,6 +64,7 @@ Route::middleware([
     // Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
 
     Route::resource('/employees', EmployeeController::class);
+    Route::put('/employees/reset-password/{id}',[ EmployeeController::class,'resetPassword'])->name('employee-reset-password');
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
     Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
     Route::resource('/employees/{employee}/education', EmployeeEducationController::class);
@@ -79,6 +81,7 @@ Route::middleware([
 
     Route::resource('/company-subscriptions', CompanySubscriptionController::class);
 
+    Route::resource('/attendances', AttendanceContrller::class);
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);
     Route::resource('/announcements', AnnouncementController::class);
