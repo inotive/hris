@@ -29,8 +29,8 @@
          
             <td>{{ $value->emlpoyee->name ?? '-' }}</td>
             <td>{{ $value->date ?? '-' }}</td>
-            <td>{{ $value->checkin_time ?? '-' }}</td>
-            <td>{{ $value->checkout_time ?? '-' }}</td>
+            <td>{{ $value->clockin_time ?? '-' }}</td>
+            <td>{{ $value->clockout_time ?? '-' }}</td>
             <td class="text-end">
                 <x-table.actions>
                     <x-table.edit-button :id="$value->id" />
