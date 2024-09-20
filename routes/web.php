@@ -43,7 +43,8 @@ Route::get('/', function () {
 Auth::routes();
 Route::middleware([
     'auth', 
-    'password.changed'
+    'password.changed',
+    'role'
 ])->group(function () {
 
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
@@ -51,7 +52,7 @@ Route::middleware([
     Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
 
     
-    Route::resource('/users', UserController::class);
+    Route::resource('/users', UserController::class)->middleware(['role:superadmin']);
     Route::get('/users/{id}/change-password', [UserController::class, 'changePassword'])->name('users.change-password');
     Route::put('/users/{id}/change-password', [UserController::class, 'changePasswordUpdate'])->name('users.change-password.update');
 

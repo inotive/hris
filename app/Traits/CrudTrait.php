@@ -157,13 +157,15 @@ trait CrudTrait
         
             return [
                 'success'   => true,
-                'meessage'  => 'Deleted',
+                'message'  => 'Deleted',
             ];
         }catch(Exception $e) {
-
+            Log::error($e);
+            $message = $e->errorInfo[2] ?? 'Error';
             return [
                 'success'   => false,
-                'meessage'  => 'Error',
+                'error' => $e,
+                'message'  => $message,
             ];
         }
     }

@@ -18,6 +18,7 @@ class UserController extends Controller
     public $page_title = "Management User";
     public $action_title = "User";
 
+
     // untuk view change password
     private function _changePass($id, Request $request, $action = null, $back_route = null)
     {
