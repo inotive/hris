@@ -292,6 +292,7 @@ $(".datepicker").daterangepicker({
     }
 );
 
+
 $(".datetimepicker").daterangepicker({
         singleDatePicker: true,
         timePicker: true,

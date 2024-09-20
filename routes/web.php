@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\AttendanceContrller;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
@@ -80,6 +81,7 @@ Route::middleware([
 
     Route::resource('/company-subscriptions', CompanySubscriptionController::class);
 
+    Route::resource('/attendances', AttendanceContrller::class);
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);
     Route::resource('/announcements', AnnouncementController::class);
