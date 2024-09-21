@@ -34,8 +34,8 @@
                             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
                             <td>{{ $value->company_name ?? '' }}</td>
                             <td>{{ $value->company_location ?? '' }}</td>
-                            <td>{{ $value->start_period ?? '' }}</td>
-                            <td>{{ $value->end_period ?? '' }}</td>
+                            <td>{{ \Carbon\Carbon::parse($value->start_period)->format('d/m/Y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($value->end_period)->format('d/m/Y') }}</td>
                             <td class="text-end">
                                 <x-table.actions>
 

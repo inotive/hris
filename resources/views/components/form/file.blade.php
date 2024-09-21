@@ -131,7 +131,7 @@
                     },
                     error: function(response) {
                         alert('Failed to upload the image.');
-                        upload_progrss.html("");
+                        // upload_progrss.html("");
                         console.log(response);
                     },
                     xhr: function() {

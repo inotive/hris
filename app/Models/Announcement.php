@@ -16,7 +16,6 @@ class Announcement extends Model
     use HasUuids;
 
     use SearchTrait;
-    use CreatedByUserTrait;
     use HasCompany;
 
 
@@ -27,11 +26,14 @@ class Announcement extends Model
 
     public $fillable = [
         'company_id',
-        'for_employee_id',
+        'employee_id',
+        'manager_id',
         'title',
         'content',
         'reference',
-        'created_by_employee_id',
+        'type',
+        'module',
+        'module_id',
     ];
 
     public $rules = [

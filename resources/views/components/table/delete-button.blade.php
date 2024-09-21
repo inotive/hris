@@ -6,7 +6,7 @@
 
 @if (\App\Services\AuthService::isValid($route_name))
 <div class="menu-item px-3">
-<a  href="{{ $href ?? route($route_name, $id)  }}"  class="menu-link px-3">{{ __('Delete') }}</a>
+<a  href="#" data-delete-url="{{ $href ?? route($route_name, $id)  }}"  class="menu-link px-3 delete-button">{{ __('Delete') }}</a>
 </div>
 @else
 

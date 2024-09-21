@@ -3,6 +3,8 @@
     'label' => '',
     'value' => '',
     'placeholder'   => '',
+    'min'   => '',
+    'max'   => '',
     'required'  => false,
 ])
 
@@ -10,7 +12,7 @@
 
     <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ $label }}</label>
 
-    <input type="phone" min="6"  class="form-control form-control-solid phone" placeholder="{{ $placeholder }}" name="{{ $name }}"
+    <input type="text" min="{{ $min }}" max="{{ $max }}" class="form-control form-control-solid currency" placeholder="{{ $placeholder }}" name="{{ $name }}"
         value="{{ $value }}">
 
 

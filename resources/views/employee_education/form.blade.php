@@ -7,8 +7,8 @@
     <x-form.input type="text" :label="__('Institution')" name="institution" :value="$form->institution ?? ''" />
     <x-form.input type="text" :label="__('Faculty')" name="faculty" :value="$form->faculty ?? ''" />
     <x-form.input type="text" :label="__('Major')" name="major" :value="$form->major ?? ''" />
-    <x-form.input type="number" :label="__('Start Year')" name="start_year" :value="$form->start_year ?? ''" />
-    <x-form.input type="number" :label="__('End Year')" name="end_year" :value="$form->end_year ?? ''" />
+    <x-form.number min="1900" :label="__('Start Year')" name="start_year" :value="$form->start_year ?? ''" />
+    <x-form.number min="1900" :label="__('End Year')" name="end_year" :value="$form->end_year ?? ''" />
     <x-form.input type="number" :label="__('GPA')" name="gpa" :value="$form->gpa ?? ''" />
     <x-form.input type="number" :label="__('GPA Scale')" name="gpa_scale" :value="$form->gpa_scale ?? ''" />
     <x-form.input type="text" :label="__('Country')" name="country" :value="$form->country ?? ''" />

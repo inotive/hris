@@ -5,9 +5,10 @@
     'placeholder' => '',
     'type' => 'text',
     'required' => false,
+    'class' => 'col-12 col-lg-6 mb-4',
 ])
 
-<div class="col-12 col-lg-6 mb-4">
+<div class="{{  $class }}">
 
     <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ __($label) }}</label>
 
