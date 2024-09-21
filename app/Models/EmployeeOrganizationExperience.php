@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\SearchTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -43,8 +44,16 @@ class EmployeeOrganizationExperience extends Model
         'reference_position',
     ];
 
+    public $casts = [
+        'start_period'=> 'date:Y-m-d',
+        'end_period'=> 'date:Y-m-d',
+    ];
+    
+
     public function employee()
     {
         return $this->belongsTo(Employee::class,'employee_id','id');
     }
+
+
 }

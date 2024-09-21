@@ -39,6 +39,7 @@ Route::get('/', function () {
     return redirect()->route('dashboard');
 });
 
+Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
 
 Auth::routes();
 Route::middleware([
@@ -49,7 +50,7 @@ Route::middleware([
 
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-    Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
+ 
 
     
     Route::resource('/users', UserController::class)->middleware(['role:superadmin']);

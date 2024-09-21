@@ -132,7 +132,10 @@ trait CrudTrait
 
         // Log::info($request->all());
 
-        $this->model::where('id', $id)->update($validated);
+        // $this->model::where('id', $id)->update($validated);
+        $form = $this->model::where('id', $id)->first();
+        $form->fill($validated);
+        $form->save();
 
         session()->flash('messages', [
             'success'   => __('Data Saved Successfully')

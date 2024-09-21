@@ -67,22 +67,35 @@ return [
                     'label' => 'Employee Departments',
                     'route' => 'employee-departments.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'employee-departments.*' => ['superadmin','admin'],
+                    ],
                 ],
                 [
                     'label' => 'Employee Positions',
                     'route' => 'employee-positions.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'employee-positions.*' => ['superadmin','admin'],
+                    ],
                 ],
 
                 [
                     'label' => 'Employee Levels',
                     'route' => 'employee-levels.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'employee-levels.*' => ['superadmin','admin'],
+                    ],
                 ],
                 [
                     'label' => 'Employee Shifts',
                     'route' => 'employee-shifts.index',
                     'roles' => ['superadmin', 'admin'],
+
+                    'routes'    => [
+                        'employee-shifts.*' => ['superadmin','admin'],
+                    ],
                 ],
                 [
                     'label' => 'Employees',
@@ -90,6 +103,10 @@ return [
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes' => [
                         'employees.*'   => ['superadmin', 'admin', 'finance'],
+                        'emergency-contact.*'   => ['superadmin', 'admin', 'finance'],
+                        'family-info.*'   => ['superadmin', 'admin', 'finance'],
+                        'organization-experience.*'   => ['superadmin', 'admin', 'finance'],
+                        'education.*'   => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
             ],
@@ -103,6 +120,9 @@ return [
                     'label' => 'Attendances',
                     'route' => 'attendances.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'attendances.*' => ['superadmin','admin'],
+                    ],
                 ],
                 [
                     'label' => 'Report Attendances',
@@ -180,11 +200,17 @@ return [
                     'label' => 'Master Category Payslips',
                     'route' => 'employee-payslip-masters.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'employee-payslip-masters.*'    => ['superadmin', 'admin', 'finance'],
+                    ],
                 ],
                 [
                     'label' => 'Payslips',
                     'route' => 'employee-payslip-details.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'employee-payslip-details.*'    => ['superadmin', 'admin', 'finance'],
+                    ],
                 ],
             ],
         ],
@@ -205,16 +231,25 @@ return [
                     'label' => 'Banners',
                     'route' => 'banners.index',
                     'roles' => ['superadmin', 'admin', 'content'],
+                    'routes'    => [
+                        'banners.*' => ['superadmin','admin','content'],
+                    ],
                 ],
                 [
                     'label' => 'Post',
                     'route' => 'posts.index',
                     'roles' => ['superadmin', 'admin', 'content'],
+                    'routes'    => [
+                        'posts.*' => ['superadmin','admin','content'],
+                    ],
                 ],
                 [
                     'label' => 'Announcement',
                     'route' => 'announcements.index',
                     'roles' => ['superadmin', 'admin', 'content'],
+                    'routes'    => [
+                        'announcements.*' => ['superadmin','admin','content'],
+                    ],
                 ],
             ],
         ],

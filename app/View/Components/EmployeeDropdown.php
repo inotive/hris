@@ -12,6 +12,8 @@ use Illuminate\View\Component;
 
 class EmployeeDropdown extends Component
 {
+
+    public $value;
     /**
      * Create a new component instance.
      *
@@ -40,6 +42,7 @@ class EmployeeDropdown extends Component
             'list'  => $list,
             'name'  => 'employee_id',
             'label' => __('Employee'),
+            'value' => $this->value,
         ]);
     }
 }

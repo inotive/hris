@@ -23,6 +23,7 @@
                     <th>{{ __('No') }}</th>
                     <th>{{ __('Education Level') }}</th>
                     <th>{{ __('Institution') }}</th>
+                    <th>{{ __('Year') }}</th>
                     <th class="text-end">{{ __('Actions') }}</th>
                 </x-slot>
 
@@ -32,6 +33,7 @@
                             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
                             <td>{{ $value->education_level ?? '' }}</td>
                             <td>{{ $value->institution ?? '' }}</td>
+                            <td>{{ $value->start_year  }} - {{ $value->end_year }}</td>
                             <td class="text-end">
                                 <x-table.actions>
 

@@ -27,7 +27,8 @@
                 <td>{{ $value->employee->company->name ?? '-' }}</td>
             @endif
          
-            <td>{{ $value->emlpoyee->name ?? '-' }}</td>
+            <td>{{ $value->employee->full_name ?? '-' }}</td>
+            <td>{{ $value->employee_shift->name ?? '-' }}</td>
             <td>{{ $value->date ?? '-' }}</td>
             <td>{{ $value->clockin_time ?? '-' }}</td>
             <td>{{ $value->clockout_time ?? '-' }}</td>

@@ -21,7 +21,7 @@
     <x-form.input type="text" label="City" name="city" :value="$form->city ?? ''" />
     <x-form.input type="text" label="Province" name="province" :value="$form->province ?? ''" />
     <x-form.input type="text" label="Country" name="country" :value="$form->country ?? ''" />
-    <x-form.input type="text" label="Postal Code" name="zip_code" :value="$form->zip_code ?? ''" />
+    <x-form.number type="text" label="Postal Code" name="zip_code" :value="$form->zip_code ?? ''" />
 
     <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')"/>
 </div>
