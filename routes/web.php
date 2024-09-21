@@ -18,6 +18,8 @@ use App\Http\Controllers\EmployeePayslipDetailController;
 use App\Http\Controllers\EmployeePayslipMasterController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\EmployeeShiftController;
+use App\Http\Controllers\LeaveRequestController;
+use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
@@ -87,6 +89,10 @@ Route::middleware([
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);
     Route::resource('/announcements', AnnouncementController::class);
+
+
+    Route::resource('/leave-types', LeaveTypeController::class);
+    Route::resource('/leave-requests', LeaveRequestController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 

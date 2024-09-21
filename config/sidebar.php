@@ -139,13 +139,19 @@ return [
             'children' => [
                 [
                     'label' => 'Master Leave Types',
-                    'route' => '',
+                    'route' => 'leave-types.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'leave-types.*' => ['superadmin','admin'],
+                    ],
                 ],
                 [
                     'label' => 'Leave Requests',
-                    'route' => '',
+                    'route' => 'leave-requests.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'leave-requests.*' => ['superadmin','admin','finance'],
+                    ],
                 ],
             ],
         ],

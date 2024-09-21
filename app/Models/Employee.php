@@ -138,6 +138,13 @@ class Employee extends Model
         return collect($this->first_name, $this->last_name)->join(' ');
     }
 
+
+    public function head_department()
+    {
+        return $this->belongsTo(Employee::class,'head_departmen_id','id');
+    }
+
+
     public function department()
     {
         return $this->belongsTo(EmployeeDepartment::class,'department_id','id');

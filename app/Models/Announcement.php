@@ -16,7 +16,6 @@ class Announcement extends Model
     use HasUuids;
 
     use SearchTrait;
-    use CreatedByUserTrait;
     use HasCompany;
 
 
