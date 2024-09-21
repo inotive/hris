@@ -16,6 +16,10 @@ return [
             'label' => 'User',
             'route' => 'users.index',
             'roles' => ['superadmin'],
+            'routes' => [
+                'users.*'   => ['superadmin'],
+                'user.*'   => ['superadmin','admin', 'finance','content'],
+            ],
         ],
 
         [
@@ -27,17 +31,29 @@ return [
                     'label' => 'Company Subscriptions',
                     'route' => 'company-subscriptions.index',
                     'roles' => ['superadmin','admin'],
+                    'routes'    => [
+                        'company-subscriptions.index'   => ['superadmin', 'admin'],
+                        'company-subscriptions.create'   => ['superadmin'],
+                        'company-subscriptions.store'   => ['superadmin'],
+                        'company-subscriptions.edit'   => ['superadmin'],
+                        'company-subscriptions.update'   => ['superadmin'],
+                        'company-subscriptions.destroy'   => ['superadmin'],
+                    ],
                 ],
                 [
                     'label' => 'Companies',
                     'route' => 'companies.index',
-                    'roles' => ['superadmin'],
-                ],
-
-                [
-                    'label' => 'My Company',
-                    'route' => 'companies.index',
-                    'roles' => ['admin'],
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'companies.index'   => ['superadmin', 'admin'],
+                        'companies.create'   => ['superadmin'],
+                        'companies.store'   => ['superadmin'],
+                        'companies.edit'   => ['superadmin','admin'],
+                        'companies.update'   => ['superadmin','admin'],
+                        'companies.destroy'   => ['superadmin'],
+                        'companies.payout-setting'   => ['superadmin','admin'],
+                        'companies.payout-setting.*'   => ['superadmin','admin'],
+                    ],
                 ],
             ],
         ],
@@ -72,6 +88,9 @@ return [
                     'label' => 'Employees',
                     'route' => 'employees.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes' => [
+                        'employees.*'   => ['superadmin', 'admin', 'finance'],
+                    ],
                 ],
             ],
         ],

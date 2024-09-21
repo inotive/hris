@@ -8,6 +8,8 @@ use Illuminate\View\Component;
 
 class CompanyDropdown extends Component
 {
+
+
     /**
      * Create a new component instance.
      *
@@ -16,6 +18,8 @@ class CompanyDropdown extends Component
     public function __construct()
     {
         //
+
+
     }
 
     /**
