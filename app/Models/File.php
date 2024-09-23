@@ -32,6 +32,8 @@ class File extends Model
         'url',
         'extension',
         'size',
+        'employee_id',
+        'module_id',
     ];
 
 

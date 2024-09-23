@@ -1,6 +1,6 @@
 @props([
     'name' => '',
-    'label' => '',
+    'label' => __('Manager'),
     'value' => null,
     'list' => [],
     'required'  => false,
