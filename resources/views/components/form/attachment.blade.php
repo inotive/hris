@@ -40,24 +40,28 @@
     
         // input file change
         inputFile.addEventListener('change', function(event) {
-            var file = event.target.files[0]; // Get the first file
-            console.log(file);
-            if (file) {
-                var reader = new FileReader();
-                
-                reader.onload = function(e) {
-                    uploadFile(); 
-                 
+
+            console.log(event.target.files.length);
+
+
+            for(var i = 0; i < event.target.files.length; i++) {
+                var file = event.target.files[i]; // Get the first file
+                console.log(file);
+                if (file) {
+                    var reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        uploadFile(file); 
+                    
+                    }
+                    
+                    reader.readAsDataURL(file); // Read the file as a data URL
                 }
-                
-                reader.readAsDataURL(file); // Read the file as a data URL
             }
         });
     
-        function uploadFile()
+        function uploadFile(file)
         {
-            var fileInput = $("#{{ $name }}_file")[0];
-            var file = fileInput.files[0];
     
             if (file) {
     

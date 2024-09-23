@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LeaveRequest extends Model
+class OvertimeRequest extends Model
 {
     use HasFactory;
 
@@ -28,10 +28,12 @@ class LeaveRequest extends Model
         'company_id',
         'employee_id',
         'manager_id',
-        'leave_type_id',
-        'date',
+        'overtime_shift_request_id',
+        'start_shift_date_time',
+        'end_shift_date_time',
         'status',
-        'reason',
+        'compensation',
+        'work_note',
 
     ];
 
@@ -39,10 +41,11 @@ class LeaveRequest extends Model
         'company_id'  => 'required',
         'employee_id'  => 'required',
         'manager_id'  => '',
-        'leave_type_id'  => '',
-        'date'  => '',
-        'status'  => '',
-        'reason'  => '',
+        'overtime_shift_request_id'  => '',
+        'start_shift_date_time'  => '',
+        'end_shift_date_time'  => '',
+        'compensation'  => '',
+        'work_note'  => '',
 
     ];
 
@@ -68,11 +71,11 @@ class LeaveRequest extends Model
                 'company_id'    => $row->company_id,
                 'employee_id'    => $row->employee_id,
                 'manager_id'    => $row->manager_id,
-                'title'    => 'Leave Request',
-                'content'    => 'Leave Request. Need Approve',
+                'title'    => 'Overtime Request',
+                'content'    => 'Overtime Request. Need Approve',
                 'reference'    => $row->id,
                 'type'  => 'pending',
-                'module'  => 'leave',
+                'module'  => 'overtime',
                 'module_id'  => $row->id,
             ]);
         });
@@ -89,6 +92,18 @@ class LeaveRequest extends Model
 
     }
 
+    public function getHoursAttribute()
+    {
+        // Assuming you have two DateTime instances
+        $start = Carbon::parse($this->start_shift_date_time);
+        $end = Carbon::parse($this->end_shift_date_time);
+
+        // Calculate the difference in hours
+        $hoursDifference = $start->diffInHours($end);
+
+        return $hoursDifference;
+    }
+
 
     public function employee()
     {
@@ -101,13 +116,8 @@ class LeaveRequest extends Model
     }
 
 
-    public function leave_type()
+    public function overtime_shift_request()
     {
-        return $this->belongsTo(LeaveType::class,'leave_type_id','id');
-    }
-
-    public function files()
-    {
-        return $this->hasMany(File::class,'module_id','id')->get();
+        return $this->belongsTo(OvertimeShiftRequest::class,'overtime_shift_request_id','id');
     }
 }

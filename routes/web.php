@@ -20,6 +20,8 @@ use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\EmployeeShiftController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
+use App\Http\Controllers\OvertimeRequestController;
+use App\Http\Controllers\OvertimeShiftRequestController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
@@ -93,7 +95,10 @@ Route::middleware([
 
     Route::resource('/leave-types', LeaveTypeController::class);
     Route::resource('/leave-requests', LeaveRequestController::class);
-
+    
+    Route::resource('/overtime-requests', OvertimeRequestController::class);
+    Route::resource('/overtime-shift-requests', OvertimeShiftRequestController::class);
+  
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 
 
