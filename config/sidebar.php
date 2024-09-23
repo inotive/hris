@@ -171,7 +171,7 @@ return [
                 ],
                 [
                     'label' => 'Overtime Requests',
-                    'route' => '',
+                    'route' => 'overtime-requests.index',
                     'roles' => ['superadmin', 'admin'],
                     'routes' => [
                         'overtime-requests.*' => ['superadmin','admin'],
