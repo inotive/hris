@@ -4,19 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\File;
 use App\Models\LeaveRequest;
+use App\Models\OvertimeRequest;
 use App\Models\Post;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class LeaveRequestController extends Controller
+class OvertimeRequestController extends Controller
 {
     use CrudTrait;
 
-    public $model = LeaveRequest::class;
-    public $route = 'leave-requests';
-    public $page_title = 'Leave Requests';
-    public $action_title = 'Leave Request';
+    public $model = OvertimeRequest::class;
+    public $route = 'overtime-requests';
+    public $page_title = 'Overtime Requests';
+    public $action_title = 'Overtime Request';
 
     public function store(Request $request)
     {
@@ -39,7 +40,7 @@ class LeaveRequestController extends Controller
     
             File::create([
                 'company_id'    => $request->company_id,
-                'module'    => 'leave',
+                'module'    => 'overtime',
                 'name'  => $row->file,
                 'file'  => $row->file,
                 'url'   => $row->url,
@@ -69,7 +70,7 @@ class LeaveRequestController extends Controller
         $r = str_replace("-","_", $r);
 
 
-        $files = File::leave($id)->get()->map(function($row){
+        $files = File::overtime($id)->get()->map(function($row){
             return [
                 'file'  => $row->file,
                 'url'  => $row->url,
@@ -109,14 +110,14 @@ class LeaveRequestController extends Controller
 
         $files = $request->all()['files'] ?? [];
 
-        File::leave($id)->delete();
+        File::overtime($id)->delete();
         foreach($files as $key => $value) {
             $row = json_decode($value);
 
     
             File::create([
                 'company_id'    => $request->company_id,
-                'module'    => 'leave',
+                'module'    => 'overtime',
                 'name'  => $row->file,
                 'file'  => $row->file,
                 'url'   => $row->url,

@@ -163,13 +163,19 @@ return [
             'children' => [
                 [
                     'label' => 'Master Overtime Shifts',
-                    'route' => '',
+                    'route' => 'overtime-shift-requests.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'overtime-shift-requests.*' => ['superadmin', 'admin'],
+                    ],
                 ],
                 [
                     'label' => 'Overtime Requests',
-                    'route' => '',
+                    'route' => 'overtime-requests.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes' => [
+                        'overtime-requests.*' => ['superadmin','admin'],
+                    ],
                 ],
             ],
         ],

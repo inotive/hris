@@ -8,6 +8,7 @@ use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File as FacadesFile;
 
 class File extends Model
 {
@@ -36,6 +37,39 @@ class File extends Model
         'module_id',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($row){
+            $filePath = $row->file ?? null;
+            if ($filePath != null && FacadesFile::exists($filePath)) {
+               
+                // Get file extension
+                $extension = FacadesFile::extension($filePath);
+            
+                // Get file size in bytes
+                $sizeInBytes = FacadesFile::size($filePath);
+            
+                // Convert size to KB
+                $sizeInKB = $sizeInBytes / 1024;
+
+                $row->extension = $extension;
+                $row->size = round($sizeInKB, 2);
+            
+               
+            }
+        });
+    }
+
+    public function scopeLeave($query, $module_id)
+    {
+        return $query->where('module', 'leave')->where('module_id', $module_id);
+    }
 
 
+    public function scopeOvertime($query, $module_id)
+    {
+        return $query->where('module', 'overtime')->where('module_id', $module_id);
+    }
 }
