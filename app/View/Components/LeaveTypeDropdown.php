@@ -7,12 +7,14 @@ use App\Models\EmployeeDepartment;
 use App\Models\EmployeeLevel;
 use App\Models\EmployeePosition;
 use App\Models\EmployeeShift;
+use App\Models\LeaveType;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
-class EmployeeDropdown extends Component
+class LeaveTypeDropdown extends Component
 {
 
+    public $value;
     /**
      * Create a new component instance.
      *
@@ -30,17 +32,18 @@ class EmployeeDropdown extends Component
      */
     public function render()
     {
-        $list = Employee::select([
-            DB::raw('CONCAT(first_name, " ", last_name, " (" , username , ")") as name'),
+        $list = LeaveType::select([
+            'name',
             'id'
         ])
-            ->orderBy('first_name','asc')
+            ->orderBy('name','asc')
             ->pluck('name','id');
             
         return view('components.form.select',[
             'list'  => $list,
-            'name'  => 'employee_id',
-            'label' => __('Employee'),
+            'name'  => 'leave_type_id',
+            'label' => __('Leave Type'),
+            'value' => $this->value,
         ]);
     }
 }

@@ -10,7 +10,7 @@ use App\Models\EmployeeShift;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
 
-class EmployeeDropdown extends Component
+class ManagerDropdown extends Component
 {
 
     /**
@@ -39,8 +39,7 @@ class EmployeeDropdown extends Component
             
         return view('components.form.select',[
             'list'  => $list,
-            'name'  => 'employee_id',
-            'label' => __('Employee'),
+            'name'  => 'manager_id',
         ]);
     }
 }

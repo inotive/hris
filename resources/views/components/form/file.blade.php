@@ -14,7 +14,7 @@
                 class="form-control form-control-solid @error($name) is-invalid @enderror" value="{{ old($name, $value) }}"
                 placeholder="{{ $label }}">
             <div class="input-group-append">
-                <button class="btn btn-primary" id="{{ $name }}_picker" type="button">{{ __('Choose File') }}</button>
+                <button class="btn btn-primary" id="{{ $name }}_picker" type="button">{{ __('Upload') }}</button>
             </div>
         </div>
     
@@ -131,7 +131,7 @@
                     },
                     error: function(response) {
                         alert('Failed to upload the image.');
-                        upload_progrss.html("");
+                        // upload_progrss.html("");
                         console.log(response);
                     },
                     xhr: function() {

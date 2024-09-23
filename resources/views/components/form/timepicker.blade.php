@@ -11,7 +11,7 @@
     <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ __($label) }}</label>
 
     <input type="time" class="form-control form-control-solid timepicker" placeholder="{{ $placeholder }}"
-        name="{{ $name }}" value="{{ old($name, $value ?? '') }}">
+        name="{{ $name }}" step="1" value="{{ old($name, $value ?? '') }}">
 
 
 

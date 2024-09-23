@@ -15,14 +15,14 @@
     <x-currency-dropdown label="Initial Currency" name="initial_currency" :value="old('initial_currency', $form->initial_currency ?? '')" />
 
 
-    <x-form.input type="integer" :label="__('Initial Salary')" name="initial_sallary" :value="$form->initial_sallary ?? ''" />
+    <x-form.currency :label="__('Initial Salary')" name="initial_sallary" :value="$form->initial_sallary ?? ''" />
 
 
     <x-period-dropdown label="Initial Period" name="initial_period" :value="old('initial_period', $form->initial_period ?? '')" />
     <x-currency-dropdown label="Last Currency" name="last_currency" :value="old('last_currency', $form->last_currency ?? '')" />
 
 
-    <x-form.input type="text" :label="__('Last Salary')" name="last_sallary" :value="$form->last_sallary ?? ''" />
+    <x-form.currency :label="__('Last Salary')" name="last_sallary" :value="$form->last_sallary ?? ''" />
 
 
     <x-period-dropdown label="Last Period" name="last_period" :value="old('last_period', $form->last_period ?? '')" />

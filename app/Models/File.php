@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CreatedByUserTrait;
+use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,8 @@ class File extends Model
     use HasUuids;
 
     use SearchTrait;
+
+    use HasCompany;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -29,5 +32,10 @@ class File extends Model
         'url',
         'extension',
         'size',
+        'employee_id',
+        'module_id',
     ];
+
+
+
 }

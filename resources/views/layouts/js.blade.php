@@ -9,7 +9,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 
-
 <script>
     $.fn.serializeWithUnchecked = function() {
         var form = this;
@@ -22,10 +21,43 @@
             formData.push({ name: this.name, value: '0' });
         });
 
+        $(".datepicker").each(function() {
+            var name = $(this).attr("name");
+            // Get the current value
+            var dateStr = $(this).val();
+            // Split the date by "/"
+            var parts = dateStr.split("/");
+            // Rearrange to YYYY-MM-DD
+            if (parts.length === 3) {
+                var formattedDate = parts[2] + '-' + parts[1] + '-' + parts[0];
+                // Update the input value
+                // $(this).val(formattedDate);
+
+                let index = formData.findIndex(d => d.name === name);
+                if (index !== -1) {
+                    formData[index] = { name: name, value: formattedDate }
+                }
+            }
+        });
+
+        $("input.currency").each(function(){
+            var name = $(this).attr("name");
+            var val = $(this).val();
+            val = val.replace(/\./g, '');
+            val = val.replace(/\,/g, '.');
+            
+            let index = formData.findIndex(d => d.name === name);
+            if (index !== -1) {
+                formData[index] = { name: name, value: val }
+            }
+        });
+
         return formData;
     };
     $("#crud-form").on('submit', function(event){
         event.preventDefault(); 
+
+
 
         var submitButton = $("button[type='submit']");
         submitButton.prop('disabled',true);
@@ -296,8 +328,8 @@ $(".datepicker").daterangepicker({
         minYear: 1901,
         maxYear: parseInt(moment().format("YYYY"),12),
         locale: {
-            format: "Y-MM-DD"
-        }
+            format: "DD/MM/Y"
+        },
     }, function(start, end, label) {
         var years = moment().diff(start, "years");
     }
@@ -317,4 +349,55 @@ $(".datetimepicker").daterangepicker({
         var years = moment().diff(start, "years");
     }
 );
+</script>
+
+
+<script>
+    // cureency
+    function formatted(selector)
+    {
+        let value = $(selector).val();
+        
+        // Remove any non-numeric characters except for dot (.)
+        value = value.replace(/[^0-9]/g, '');
+        
+        // Format the number with a thousands separator
+        let formattedValue = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        
+        // Update the input field with the formatted value
+        $(selector).val(formattedValue);
+    }
+   $('.currency').on('keyup', function(e) {
+        formatted(this);
+    });
+
+    $(".currency").each(function(){
+        formatted(this);
+    });
+</script>
+
+
+
+<script>
+
+    function formatted(selector)
+    {
+        let value = $(selector).val();
+        
+        // Remove any non-numeric characters
+        value = value.replace(/[^0-9]/g, '');
+        
+        // Format the number with a thousands separator
+        let formattedValue = value.replace(/\B(?=(\d{4})+(?!\d))/g, '-');
+        
+        // Update the input field with the formatted value
+        $(selector).val(formattedValue);
+    }
+   $('.phone').on('keyup', function(e) {
+        formatted(this);
+    });
+
+    $(".phone").each(function(){
+        formatted(this);
+    });
 </script>

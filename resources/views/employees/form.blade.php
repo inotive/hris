@@ -31,7 +31,7 @@
     <x-form.input type="text" label="City" name="city" :value="$form->city ?? ''" />
     <x-form.input type="text" label="Province" name="province" :value="$form->province ?? ''" />
     <x-form.input type="text" label="Country" name="country" :value="$form->country ?? ''" />
-    <x-form.input type="text" label="Postal Code" name="zip_code" :value="$form->zip_code ?? ''" />
+    <x-form.number type="text" label="Postal Code" name="zip_code" :value="$form->zip_code ?? ''" />
 
 
 
@@ -50,7 +50,7 @@
     <x-form.input type="text" label="Bank Account Number" name="bank_account_number" :value="$form->bank_account_number ?? ''" />
     <x-form.input type="text" label="Bank Account Name" name="bank_account_name" :value="$form->bank_account_name ?? ''" />
     <x-form.datepicker :label="__('Join Date')" name="join_date" :value="old('join_date', $form->join_date ?? '')" />
-    <x-form.input type="number" :label="__('Salary')" name="sallary" :value="old('sallary', $form->sallary ?? '')" />
+    <x-form.currency :label="__('Salary')" name="sallary" :value="old('sallary', $form->sallary ?? '')" />
     <x-form.input type="number" :label="__('Reimbursement Limit')" name="reimbursement_limit" :value="old('reimbursement_limit', $form->reimbursement_limit ?? '')" />
 
 
