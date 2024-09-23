@@ -25,14 +25,13 @@
         </div>
     
 
-
        
     </div>
     
     @section('js')
     <script>
 
-        var files = {{ json_encode($files) }};
+        var files = {!! json_encode($files) !!};
 
         // Get the input element
         const inputFile = document.getElementById('{{ $name }}_file');

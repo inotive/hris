@@ -37,5 +37,8 @@ class File extends Model
     ];
 
 
-
+    public function scopeLeave($query, $module_id)
+    {
+        return $query->where('module', 'leave')->where('module_id', $module_id);
+    }
 }

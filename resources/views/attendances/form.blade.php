@@ -5,7 +5,7 @@
 
 
 
-    <x-form.timepicker :label="__('Clock In Time')" name="clockin_time" :value="old('clockin_time', \Carbon\Carbon::parse($form->clockin_time)->format('h:i:s') ?? '')" />
+    <x-form.timepicker :label="__('Clock In Time')" name="clockin_time" :value="old('clockin_time', $form?->clockin_time != null ? \Carbon\Carbon::parse($form->clockin_time)->format('h:i:s') : '')" />
         <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock In Latitude')" name="clockin_lat" :value="old('clockin_lat', $form->clockin_lat ?? '')" />
             <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock In Longitude')" name="clockin_long" :value="old('clockin_long', $form->clockin_long ?? '')" />
         
@@ -20,7 +20,7 @@
     <hr> --}}
 
 
-    <x-form.timepicker :label="__('Clock Out Time')" name="clockout_time" :value="old('clockout_time',  \Carbon\Carbon::parse($form->clockout_time)->format('h:i:s') ?? '')" />
+    <x-form.timepicker :label="__('Clock Out Time')" name="clockout_time" :value="old('clockout_time',$form?->clockout_time != null?  \Carbon\Carbon::parse($form->clockout_time)->format('h:i:s') : '')" />
     {{-- <x-form.image-picker :label="__('Clock In Image')" folder="attendances" name="clockout_image" :value="old('clockout_image', $form->clockout_image ?? '')" /> --}}
 
 
