@@ -13,8 +13,11 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net" />
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet" />
 
+   
     <link href="{{asset('template/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('template/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+
+    <link href="{{asset('assets/css/flash.css')}}" rel="stylesheet" type="text/css" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
