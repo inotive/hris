@@ -7,8 +7,7 @@
 
 @section('table_header')
     <th class="min-w-50px">{{ __('No') }}</th>
-    <th class="min-w-125px">{{ __('Logo') }}</th>
-    <th class="min-w-125px">{{ __('Name') }}</th>
+    <th class="min-w-125px">{{ __('Company') }}</th>
     <th class="min-w-125px">{{ __('Phone') }}</th>
     <th class="min-w-125px">{{ __('Email') }}</th>
     <th class="min-w-125px">{{ __('City') }}</th>
@@ -20,8 +19,14 @@
     @foreach ($list as $key => $value)
         <tr>
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
-            <td><img class="rounded" src="{{ Storage::url($value->logo) }}" onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50"/></td>
-            <td>{{ $value->name }}</td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <img class="rounded" src="{{ Storage::url($value->logo) }}" onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50"/>
+                    <div class="ms-5">
+                        <b>{{ $value->name }}</b>
+                    </div>
+                </div>
+            </td>
             <td><a href="tel:{{ $value->phone ?? '' }}" target="_blank">{{ $value->phone ?? '' }}</a></td>
             <td><a href="mailto:{{ $value->email ?? '' }}" target="_blank">{{ $value->email ?? '' }}</a></td>
             <td>{{ $value->cut_off_payroll_date ?? '' }}</td>
