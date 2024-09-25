@@ -40,11 +40,11 @@ class OvertimeRequest extends Model
     public $rules = [
         'company_id'  => 'required',
         'employee_id'  => 'required',
-        'manager_id'  => '',
-        'overtime_shift_request_id'  => '',
+        'manager_id'  => 'required',
+        'overtime_shift_request_id'  => 'required',
         'start_shift_date_time'  => '',
         'end_shift_date_time'  => '',
-        'compensation'  => '',
+        'compensation'  => 'required',
         'work_note'  => '',
 
     ];

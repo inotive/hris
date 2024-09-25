@@ -120,14 +120,14 @@ class Employee extends Model
           }
         });
 
-        static::created(function($row){
-            if (session('user.new_pass') != null) {
-                $new_pass = session('user.new_pass');
-                NewPasswordJob::dispatch($row->email, $new_pass);
-            }
+        // static::created(function($row){
+        //     if (session('user.new_pass') != null) {
+        //         $new_pass = session('user.new_pass');
+        //         NewPasswordJob::dispatch($row->email, $new_pass);
+        //     }
            
 
-        });
+        // });
 
     
     }

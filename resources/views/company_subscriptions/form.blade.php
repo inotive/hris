@@ -16,7 +16,7 @@
             <x-form.input type="text" :label="__('Payment Bank Account No')" name="payment_bank_account_no" :value="old('payment_bank_account_no', $form->payment_bank_account_no ?? '')" />
             <x-form.input type="text" :label="__('Payment Bank Account Name')" name="payment_bank_account_name" :value="old('payment_bank_account_name', $form->payment_bank_account_name ?? '')" />
       
-            <x-form.image-picker :label="__('Image')" name="payment_bank_account_logo" folder="company_subscription" :value="old('payment_bank_account_logo', $form->payment_bank_account_logo ?? '')" />
+            {{-- <x-form.image-picker :label="__('Image')" name="payment_bank_account_logo" folder="company_subscription" :value="old('payment_bank_account_logo', $form->payment_bank_account_logo ?? '')" /> --}}
 
 
                 <x-form.datetimepicker :label="__('Payment At')" name="payment_at" :value="old('payment_at', $form->payment_at ?? '')" />

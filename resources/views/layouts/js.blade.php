@@ -172,7 +172,7 @@ $(".employee-reset-password").on('click', function(){
             confirmButton: "btn btn-primary",
             cancelButton: "btn btn-danger"
         },
-        confirmButtonText: '{{ __("Yes, delete it!") }}',
+        confirmButtonText: '{{ __("Yes, reset it!") }}',
         cancelButtonText: '{{ __("Cancel") }}'
     }).then((result) => {
             var email = $(this).data('email');
@@ -404,8 +404,14 @@ $(".datetimepicker").daterangepicker({
 </script>
 
 <script>
-    $(".employee-department").on('change', function(){
-        var val = $(this).val();
-        $('.employee-position option[data-department-id="'+val+'"]').prop('disabled', true);
-    });
+    // $(".employee-department").on('change', function(){
+    //     var val = $(this).val();
+    //     console.log(val);
+    //     $('.employee-position option').prop('disabled', true);
+    //     $('.employee-position option[data-department-id="'+val+'"]').prop('disabled', false);
+    //     $('.employee-position').select2();
+    // });
+
+
+    // $(".employee-department").trigger('change');
 </script>
