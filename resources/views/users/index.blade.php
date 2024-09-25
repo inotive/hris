@@ -7,6 +7,7 @@
     <th class="min-w-125px">{{ __('First Name') }}</th>
     <th class="min-w-125px">{{ __('Last Name') }}</th>
     <th class="min-w-125px">{{ __('Email') }}</th>
+    <th class="min-w-125px">{{ __('Phone') }}</th>
     <th class="min-w-125px">{{ __('Role') }}</th>
     @if (auth()->user()->company_id == null)
     <th class="min-w-125px">{{ __('Company') }}</th>
@@ -24,6 +25,7 @@
             <td>{{ $value->first_name }}</td>
             <td>{{ $value->last_name }}</td>
             <td>{{ $value->email }}</td>
+            <td>{{ $value->phone ?? '-' }}</td>
             <td>{{ $value->role_label() }}</td>
             @if (auth()->user()->company_id == null)
             <td>{{ $value->company->name ?? '-' }}</td>
