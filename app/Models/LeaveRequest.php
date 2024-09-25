@@ -38,11 +38,11 @@ class LeaveRequest extends Model
     public $rules = [
         'company_id'  => 'required',
         'employee_id'  => 'required',
-        'manager_id'  => '',
-        'leave_type_id'  => '',
-        'date'  => '',
+        'manager_id'  => 'required',
+        'leave_type_id'  => 'required',
+        'date'  => 'required',
         'status'  => '',
-        'reason'  => '',
+        'reason'  => 'required',
 
     ];
 
