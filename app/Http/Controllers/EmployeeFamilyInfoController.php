@@ -39,6 +39,7 @@ class EmployeeFamilyInfoController extends Controller
 
     public function store(Employee $employee, Request $request)
     {
+        $request->validate((new EmployeeFamilyInfo())->rules);
 
         $form = new EmployeeFamilyInfo();
         $form->fill($request->all());
@@ -54,6 +55,8 @@ class EmployeeFamilyInfoController extends Controller
 
     public function update(Employee $employee, $id, Request $request)
     {
+
+        $request->validate((new EmployeeFamilyInfo())->rules);
 
         $form = EmployeeFamilyInfo::find($id);
         $form->fill($request->all());

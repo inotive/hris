@@ -42,6 +42,8 @@ class EmployeeEmergencyContactController extends Controller
     public function store(Employee $employee, Request $request)
     {
 
+        $request->validate((new EmployeeEmergencyContact())->rules);
+
         $form = new EmployeeEmergencyContact();
         $form->fill($request->all());
         $form->save();
@@ -56,6 +58,9 @@ class EmployeeEmergencyContactController extends Controller
 
     public function update(Employee $employee, $id, Request $request)
     {
+
+        $request->validate((new EmployeeEmergencyContact())->rules);
+
 
         $form = EmployeeEmergencyContact::find($id);
         $form->fill($request->all());

@@ -41,6 +41,8 @@ class EmployeeOrganizationExperienceController extends Controller
     public function store(Employee $employee, Request $request)
     {
 
+        $request->validate((new EmployeeOrganizationExperience())->rules);
+
         $form = new EmployeeOrganizationExperience();
         $form->fill($request->all());
         $form->save();
@@ -55,6 +57,7 @@ class EmployeeOrganizationExperienceController extends Controller
 
     public function update(Employee $employee, $id, Request $request)
     {
+        $request->validate((new EmployeeOrganizationExperience())->rules);
 
         $form = EmployeeOrganizationExperience::find($id);
         $form->fill($request->all());

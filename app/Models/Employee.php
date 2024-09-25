@@ -75,7 +75,7 @@ class Employee extends Model
         'department_id'  => 'required',
         'employee_position_id'  => 'required',
         'employee_level_id'  => 'required',
-        'join_date'  => '',
+        'join_date'  => 'required',
         'sallary'  => '',
         'image'  => '',
         'reimbursement_limit'  => '',
@@ -89,19 +89,19 @@ class Employee extends Model
         'sub_district' => '',
         'zip_code' => '',
         'birth_place' => '',
-        'religion' => '',
+        'religion' => 'required',
         'status' => '',
         'marital_status' => '',
         'birth_place' => '',
-        'gender' => '',
+        'gender' => 'required',
         'nationality' => '',
-        'document_id' => '',
+        'document_id' => 'required',
         'document_expiry' => '',
-        'tax_registered_name' => '',
-        'tax_number' => '',
-        'username' => '',
-        'bank_account_name' => '',
-        'bank_account_number' => '',
+        'tax_registered_name' => 'required',
+        'tax_number' => 'required',
+        'username' => 'required',
+        'bank_account_name' => 'required',
+        'bank_account_number' => 'required',
     ];
 
 
@@ -135,7 +135,7 @@ class Employee extends Model
 
     public function getFullNameAttribute()
     {
-        return collect($this->first_name, $this->last_name)->join(' ');
+        return collect([$this->first_name, $this->last_name])->join(' ');
     }
 
 

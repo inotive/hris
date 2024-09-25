@@ -41,6 +41,8 @@ class EmployeeEducationController extends Controller
     public function store(Employee $employee, Request $request)
     {
 
+        $request->validate((new EmployeeEducation())->rules);
+
         $form = new EmployeeEducation();
         $form->fill($request->all());
         $form->save();
@@ -55,6 +57,8 @@ class EmployeeEducationController extends Controller
 
     public function update(Employee $employee, $id, Request $request)
     {
+
+        $request->validate((new EmployeeEducation())->rules);
 
         $form = EmployeeEducation::find($id);
         $form->fill($request->all());

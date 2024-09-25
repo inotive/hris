@@ -3,14 +3,14 @@
 
 
     <x-slot name="header">
-        {{ $employee->full_name ?? '' }}
+        <b>{{ $employee->full_name ?? '' }}</b>
     </x-slot>
     <x-slot name="header_toolbar">
         <x-employee-edit-tab :employeeid="$employee->id" tab="organization_experience"/>
     </x-slot>
     
     <x-slot name="toolbar">
-        <x-table.add-button :href="route('organization-experience.create', $employee->id)"/>
+        <x-table.add-button :label="__('Add Organization Experience')" :href="route('organization-experience.create', $employee->id)"/>
     </x-slot>
 
 
