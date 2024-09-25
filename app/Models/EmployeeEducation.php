@@ -40,6 +40,22 @@ class EmployeeEducation extends Model
         'certificate_file',
     ];
 
+    public $rules = [
+        'employee_id' => 'required',
+        'education_level' => 'required',
+        'institution' => 'required',
+        'faculty' => 'required',
+        'major' => 'required',
+        'start_year' => 'required',
+        'end_year' => 'required',
+        'gpa' => 'required',
+        'country' => 'required',
+        'state' => 'required',
+        'city' => 'required',
+        'default' => 'required',
+    ];
+
+
     public function employee()
     {
         return $this->belongsTo(Employee::class,'employee_id','id');

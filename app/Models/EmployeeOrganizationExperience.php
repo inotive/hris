@@ -44,6 +44,26 @@ class EmployeeOrganizationExperience extends Model
         'reference_position',
     ];
 
+
+    public $rules = [
+        'employee_id' => 'required',
+        'company_name' => 'required',
+        'company_location' => 'required',
+        'line_of_business' => 'required',
+        'position_held' => 'required',
+        'job_description' => 'required',
+        'start_period' => 'required',
+        'end_period' => 'required',
+        'initial_currency' => 'required',
+        'initial_sallary' => 'required',
+        'initial_period' => 'required',
+        'last_currency' => 'required',
+        'last_sallary' => 'required',
+        'last_period' => 'required',
+        'reason_leaving' => 'required',
+    ];
+
+
     public $casts = [
         'start_period'=> 'date:Y-m-d',
         'end_period'=> 'date:Y-m-d',

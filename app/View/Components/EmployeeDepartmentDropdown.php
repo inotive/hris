@@ -29,6 +29,7 @@ class EmployeeDepartmentDropdown extends Component
             'list'  => $list,
             'name'  => 'department_id',
             'label' => __('Department'),
+            'add_class' => 'employee-department',
         ]);
     }
 }

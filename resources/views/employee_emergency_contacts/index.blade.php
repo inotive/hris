@@ -3,7 +3,7 @@
 
 
     <x-slot name="header">
-        {{ $employee->full_name ?? '' }}
+        <b>{{ $employee->full_name ?? '' }}</b>
     </x-slot>
     
     <x-slot name="header_toolbar">
@@ -11,7 +11,7 @@
     </x-slot>
     
     <x-slot name="toolbar">
-        <x-table.add-button :href="route('emergency-contact.create', $employee->id)"/>
+        <x-table.add-button :label="__('Add Emergency Contact')" :href="route('emergency-contact.create', $employee->id)"/>
     </x-slot>
 
 

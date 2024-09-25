@@ -402,3 +402,10 @@ $(".datetimepicker").daterangepicker({
         formatted(this);
     });
 </script>
+
+<script>
+    $(".employee-department").on('change', function(){
+        var val = $(this).val();
+        $('.employee-position option[data-department-id="'+val+'"]').prop('disabled', true);
+    });
+</script>

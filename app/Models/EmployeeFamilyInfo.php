@@ -35,6 +35,18 @@ class EmployeeFamilyInfo extends Model
         'photo',
     ];
 
+
+    public $rules = [
+        'employee_id' => 'required',
+        'family_relation' => 'required',
+        'name' => 'required',
+        'gender' => 'required',
+        'birth_date' => 'required',
+        'birth_place' => 'required',
+        'marital_status' => 'required',
+    ];
+
+
     public function employee()
     {
         return $this->belongsTo(Employee::class,'employee_id','id');

@@ -35,6 +35,14 @@ class EmployeeEmergencyContact extends Model
         'zip_code',
     ];
 
+
+    public $rules = [
+        'employee_id' => 'required',
+        'family_relation' => 'required',
+        'name' => 'required',
+        'phone' => 'required',
+    ];
+
     public function employee()
     {
         return $this->belongsTo(Employee::class,'employee_id','id');
