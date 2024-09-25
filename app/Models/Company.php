@@ -56,6 +56,12 @@ class Company extends Model
         'is_overtime_request'  => '',
         'status'  => '',
         'time_zone'  => '',
+        'country'  => '',
+        'province'  => '',
+        'city'  => '',
+        'district'  => '',
+        'sub_district'  => '',
+        'zip_code'  => '',
     ];
 
     public $casts = [

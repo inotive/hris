@@ -5,6 +5,7 @@
 <script src="{{asset('template/js/scripts.bundle.js')}}"></script>
 <script src="{{asset('template/js/widgets.bundle.js')}}"></script>
 <script src="{{asset('template/js/custom/widgets.js')}}"></script>
+<script src="{{asset('assets/js/pace.min.js')}}"></script>
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
