@@ -25,11 +25,12 @@ class EmployeePositionDropdown extends Component
      */
     public function render()
     {
-        $list = EmployeePosition::orderBy('name','asc')->get();
-        return view('components.form.position-select',[
+        $list = [];
+        return view('components.form.select',[
             'list'  => $list,
             'name'  => 'employee_position_id',
             'label' => __('Employee Position'),
+            'add_class' => 'employee_position_id',
         ]);
     }
 }
