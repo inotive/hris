@@ -46,7 +46,7 @@ class CompanySubscription extends Model
         'price'  => 'required',
         'payment_bank_account_no'  => 'required',
         'payment_bank_account_name'  => 'required',
-        'payment_bank_account_logo'  => 'required',
+        'payment_bank_account_logo'  => '',
         'payment_at'  => '',
         'payment_status'  => '',
     ];

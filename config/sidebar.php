@@ -9,6 +9,9 @@ return [
             'label' => 'Dashboard',
             'route' => 'dashboard',
             'roles' => ['superadmin', 'admin', 'finance', 'content'],
+            'routes'    => [
+                'change-language'   => ['superadmin','admin','finance','content'],
+            ]
         ],
 
         [
@@ -107,6 +110,7 @@ return [
                         'family-info.*'   => ['superadmin', 'admin', 'finance'],
                         'organization-experience.*'   => ['superadmin', 'admin', 'finance'],
                         'education.*'   => ['superadmin', 'admin', 'finance'],
+                        'employee-reset-password'   => ['superadmin', 'admin', 'finance','content'],
                     ],
                 ],
             ],

@@ -14,5 +14,5 @@ class CompanySubscriptionController extends Controller
     public $model = CompanySubscription::class;
     public $route = 'company-subscriptions';
     public $page_title = 'Company Subscriptions';
-    public $action_title = '';
+    public $action_title = 'Company Subscription';
 }
