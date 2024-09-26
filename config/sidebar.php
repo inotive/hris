@@ -111,6 +111,7 @@ return [
                         'family-info.*'   => ['superadmin', 'admin', 'finance'],
                         'organization-experience.*'   => ['superadmin', 'admin', 'finance'],
                         'education.*'   => ['superadmin', 'admin', 'finance'],
+                        'contract.*'   => ['superadmin', 'admin', 'finance'],
                         'employee-reset-password'   => ['superadmin', 'admin', 'finance','content'],
                     ],
                 ],

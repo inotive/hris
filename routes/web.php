@@ -7,6 +7,7 @@ use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyPayoutSettingController;
 use App\Http\Controllers\CompanySubscriptionController;
+use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDepartmentController;
 use App\Http\Controllers\EmployeeEducationController;
@@ -78,6 +79,7 @@ Route::middleware([
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
     Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
     Route::resource('/employees/{employee}/education', EmployeeEducationController::class);
+    Route::resource('/employees/{employee}/contract', EmployeeContractController::class);
     Route::resource('/employees/{employee}/organization-experience', EmployeeOrganizationExperienceController::class);
 
     Route::resource('/employee-departments', EmployeeDepartmentController::class);
