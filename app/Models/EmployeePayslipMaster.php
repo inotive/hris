@@ -39,6 +39,66 @@ class EmployeePayslipMaster extends Model
         'type'  => 'required',
     ];
 
+    public static function dummy_data() : array
+    {
+        $company_id = auth()->user()->company_id ?? null;
+
+        $data = [];
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'earning',
+            'type'  =>  'main',
+            'name'  =>  'Basic Sallary',
+            'description'  =>  '',
+        ];
+
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'earning',
+            'type'  =>  'main',
+            'name'  =>  'Tax Allowance',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'earning',
+            'type'  =>  'main',
+            'name'  =>  'Tunjangan Jabatan',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'deduction',
+            'type'  =>  'main',
+            'name'  =>  'BPJS Kesehatan',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'deduction',
+            'type'  =>  'main',
+            'name'  =>  'JHT Employee',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'deduction',
+            'type'  =>  'main',
+            'name'  =>  'PPH 21',
+            'description'  =>  '',
+        ];
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'deduction',
+            'type'  =>  'additional',
+            'name'  =>  'Notebook Loan',
+            'description'  =>  '',
+        ];
+
+  
+        return $data;
+    }
+
 
     public static function master_type_dropdown()
     {
