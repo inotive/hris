@@ -30,17 +30,19 @@ class EmployeeDropdown extends Component
      */
     public function render()
     {
-        $list = Employee::select([
-            DB::raw('CONCAT(first_name, " ", last_name, " (" , username , ")") as name'),
-            'id'
-        ])
-            ->orderBy('first_name','asc')
-            ->pluck('name','id');
+        // $list = Employee::select([
+        //     DB::raw('CONCAT(first_name, " ", last_name, " (" , username , ")") as name'),
+        //     'id'
+        // ])
+        //     ->orderBy('first_name','asc')
+        //     ->pluck('name','id');
+        $list = [];
             
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'employee_id',
             'label' => __('Employee'),
+            'add_class' => 'employee_id',
         ]);
     }
 }
