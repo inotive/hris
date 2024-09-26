@@ -51,7 +51,7 @@
     <x-form.input type="text" label="Bank Account Name" name="bank_account_name" :value="$form->bank_account_name ?? ''" />
     <x-form.datepicker :label="__('Join Date')" name="join_date" :value="old('join_date', $form->join_date ?? '')" />
     <x-form.currency :label="__('Salary')" name="sallary" :value="old('sallary', $form->sallary ?? '')" />
-    <x-form.input type="number" :label="__('Reimbursement Limit')" name="reimbursement_limit" :value="old('reimbursement_limit', $form->reimbursement_limit ?? '')" />
+    <x-form.currency :label="__('Reimbursement Limit')" name="reimbursement_limit" :value="old('reimbursement_limit', $form->reimbursement_limit ?? '')" />
 
 
 
