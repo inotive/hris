@@ -9,7 +9,7 @@
     <x-form.datepicker :label="__('Pay Date')" name="pay_date" :value="old('pay_date', $form->pay_date ?? '')" />
     <x-form.select :list="['cash'=> 'Cash', 'transfer'=>'Transfer']" :label="__('Metode')" name="metode" :value="old('metode', $form->metode ?? '')" />
     <x-form.input :label="__('Account Name')" name="account_name" :value="old('account_name', $form->account_name ?? '')" />
-    <x-form.number :label="__('Account No')" name="account_no" :value="old('account_no', $form->account_no ?? '')" />
+    <x-form.number :label="__('Account No')" name="account_number" :value="old('account_number', $form->account_number ?? '')" />
 
 
     <h4>{{ __('Deduction Detail') }}</h4>

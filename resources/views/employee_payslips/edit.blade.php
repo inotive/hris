@@ -1,12 +1,12 @@
 <x-form.index :title="__('Edit') . ' ' . __('Payslip')" 
-    :action="route('employee-payslips.update', [$employee, $form->id])" 
-    :cancel="route('employee-payslips.index', $employee)">
+    :action="route('employee-payslips.update', [ $form->id])" 
+    :cancel="route('employee-payslips.index')">
 
 
     <x-slot name="body">
         @method('PUT')
 
-        @include('employee_family_info.form')
+        @include('employee_payslips.form')
 
     </x-slot>
 </x-form.index>
