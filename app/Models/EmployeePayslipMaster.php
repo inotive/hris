@@ -28,7 +28,6 @@ class EmployeePayslipMaster extends Model
         'name',
         'description',
         'master_type',
-        'type',
     ];
 
     public $rules = [
@@ -36,8 +35,17 @@ class EmployeePayslipMaster extends Model
         'name'  => 'required',
         'description'  => 'required',
         'master_type'  => 'required',
-        'type'  => 'required',
     ];
+
+    public function scopeMasterTypeEarning($query)
+    {
+        return $query->where('master_type', 'earning');
+    }
+
+    public function scopeMasterTypeDeduction($query)
+    {
+        return $query->where('master_type', 'deduction');
+    }
 
     public static function dummy_data() : array
     {
@@ -47,7 +55,6 @@ class EmployeePayslipMaster extends Model
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'earning',
-            'type'  =>  'main',
             'name'  =>  'Basic Sallary',
             'description'  =>  '',
         ];
@@ -55,42 +62,36 @@ class EmployeePayslipMaster extends Model
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'earning',
-            'type'  =>  'main',
             'name'  =>  'Tax Allowance',
             'description'  =>  '',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'earning',
-            'type'  =>  'main',
             'name'  =>  'Tunjangan Jabatan',
             'description'  =>  '',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'deduction',
-            'type'  =>  'main',
             'name'  =>  'BPJS Kesehatan',
             'description'  =>  '',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'deduction',
-            'type'  =>  'main',
             'name'  =>  'JHT Employee',
             'description'  =>  '',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'deduction',
-            'type'  =>  'main',
             'name'  =>  'PPH 21',
             'description'  =>  '',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'deduction',
-            'type'  =>  'additional',
             'name'  =>  'Notebook Loan',
             'description'  =>  '',
         ];

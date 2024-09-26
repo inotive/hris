@@ -1,5 +1,5 @@
 <x-form.index 
-    :title="__('Add') . ' ' . __('Family Info')"
+    :title="__('Add') . ' ' . __('Payslip')"
     :action="route('employee-payslips.store')" 
     :cancel="route('employee-payslips.index')" 
     

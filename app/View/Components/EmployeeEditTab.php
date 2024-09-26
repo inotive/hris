@@ -29,7 +29,14 @@ class EmployeeEditTab extends Component
             [
                 'code'  => 'edit',
                 'route' => route('employees.edit', $this->employeeid),
-                'label' => __('Profile'),
+                'label' => __('Overview'),
+            ],
+
+
+            [
+                'code'  => 'contract',
+                'route' => route('contract.index', $this->employeeid),
+                'label' => __('Contract'),
             ],
 
             [
@@ -37,6 +44,7 @@ class EmployeeEditTab extends Component
                 'route' => route('emergency-contact.index', $this->employeeid),
                 'label' => __('Emergency Contact'),
             ],
+
 
             [
                 'code'  => 'family_info',
@@ -55,11 +63,7 @@ class EmployeeEditTab extends Component
                 'label' => __('Organization Experience'),
             ],
 
-            [
-                'code'  => 'contract',
-                'route' => route('contract.index', $this->employeeid),
-                'label' => __('Contract'),
-            ],
+          
         ];
         return view('components.tab',[
             'tabs'  => $tabs,
