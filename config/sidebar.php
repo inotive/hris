@@ -54,6 +54,7 @@ return [
                         'companies.edit'   => ['superadmin','admin'],
                         'companies.update'   => ['superadmin','admin'],
                         'companies.destroy'   => ['superadmin'],
+                        'companies.select2'   => ['superadmin','admin','finance','content'],
                         'companies.payout-setting'   => ['superadmin','admin'],
                         'companies.payout-setting.*'   => ['superadmin','admin'],
                     ],

@@ -4,6 +4,7 @@
     'value' => null,
     'list' => [],
     'required'  => false,
+    'add_class' => '',
 ])
 
 <div class="col-12 col-lg-6 mb-4" id="{{ $name }}_div">
@@ -11,10 +12,10 @@
     <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ __($label) }}</label>
 
 
-    <select class="form-select form-select-solid employee-position" id="{{ $name }}" name="{{ $name }}" data-control="select2" data-placeholder="{{ __('Select an option') }}">
+    <select class="form-select form-select-solid {{ $add_class ?? '' }}" id="{{ $name }}" name="{{ $name }}" data-control="select2" data-placeholder="{{ __('Select an option') }}">
         <option></option>
         @foreach ($list as $key => $val)
-            <option data-department-id="{{ $val->department_id }}" value="{{ $val->id }}" {{ $val->id == $value ? ' selected ' : '' }}>{{ $val->name ?? '-' }}</option>
+            <option value="{{ $key }}" {{ $key == $value ? ' selected ' : '' }}>{{ $val ?? '-' }}</option>
         @endforeach
     </select>
 

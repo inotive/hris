@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\SearchTrait;
 use App\Traits\CreatedByUserTrait;
+use App\Traits\HasMyCompany;
 use Illuminate\Validation\Rule;
+
+use Illuminate\Database\Eloquent\Builder;
 
 class Company extends Model
 {
@@ -17,6 +20,7 @@ class Company extends Model
 
     use SearchTrait;
     use CreatedByUserTrait;
+    use HasMyCompany;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -69,4 +73,7 @@ class Company extends Model
         'status'   => 'boolean',
         'cut_off_payroll_date'   => 'integer',
     ];
+
+
+
 }

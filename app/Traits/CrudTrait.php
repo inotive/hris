@@ -85,7 +85,12 @@ trait CrudTrait
 
     public function store(Request $request)
     {
-        $validate = (new $this->model)->rules;
+        if (method_exists((new $this->model), "rules")) {
+            $validate = (new $this->model)->rules();
+        } else {
+            $validate = (new $this->model)->rules;
+        }
+
         $validated = $request->validate($validate);
         $this->model::create($validated);
 

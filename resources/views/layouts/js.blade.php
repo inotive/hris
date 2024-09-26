@@ -132,10 +132,10 @@
                     var errors = xhr.responseJSON.errors;
                     var message = xhr.responseJSON.message;
 
+                    $('.invalid-feedback').html("");
+                    
                     if (errors != null) {
-                        $.each(errors, function (key, value) {
-                            $('.' + key + '-error').html('');
-                        });
+                       
                         // Display errors
                         $.each(errors, function (key, value) {
                             $('.' + key + '-error').append('<p>' + value + '</p>');
@@ -354,8 +354,8 @@ $(".datetimepicker").daterangepicker({
 
 
 <script>
-    // cureency
-    function formatted(selector)
+    // currency
+    function formattedcurrency(selector)
     {
         let value = $(selector).val();
         
@@ -369,11 +369,11 @@ $(".datetimepicker").daterangepicker({
         $(selector).val(formattedValue);
     }
    $('.currency').on('keyup', function(e) {
-        formatted(this);
+        formattedcurrency(this);
     });
 
     $(".currency").each(function(){
-        formatted(this);
+        formattedcurrency(this);
     });
 </script>
 
@@ -403,15 +403,110 @@ $(".datetimepicker").daterangepicker({
     });
 </script>
 
+
 <script>
-    // $(".employee-department").on('change', function(){
-    //     var val = $(this).val();
-    //     console.log(val);
-    //     $('.employee-position option').prop('disabled', true);
-    //     $('.employee-position option[data-department-id="'+val+'"]').prop('disabled', false);
-    //     $('.employee-position').select2();
-    // });
+    $(document).ready(function() {
+        $('.company_id').select2({
+            placeholder: 'Search Company',
+            ajax: {
+                url: '{{ route("companies.select2") }}', // Server endpoint
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        query: params.term, // Search query
+                        page: params.page || 1 // Pagination
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                id: item.id,
+                                text: item.name // Display name in the dropdown
+                            };
+                        }),
+                        pagination: {
+                            more: data.more // Whether there are more results to load
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0// Start search after typing 1 character
+        });
+    });
+</script>
 
+<script>
+    $(document).ready(function() {
+        $('.department_id').select2({
+            placeholder: 'Search Department',
+            ajax: {
+                url: '{{ route("employee-departments.select2") }}', // Server endpoint
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        company_id: $("[name='company_id']").val(),
+                        query: params.term, // Search query
+                        page: params.page || 1 // Pagination
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                id: item.id,
+                                text: item.name // Display name in the dropdown
+                            };
+                        }),
+                        pagination: {
+                            more: data.more // Whether there are more results to load
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0// Start search after typing 1 character
+        });
+    });
+</script>
 
-    // $(".employee-department").trigger('change');
+<script>
+    $(document).ready(function() {
+        $('.employee_position_id').select2({
+            placeholder: 'Search Position',
+            ajax: {
+                url: '{{ route("employee-positions.select2") }}', // Server endpoint
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        department_id: $(".department_id").val(),
+                        query: params.term, // Search query
+                        page: params.page || 1 // Pagination
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                id: item.id,
+                                text: item.name // Display name in the dropdown
+                            };
+                        }),
+                        pagination: {
+                            more: data.more // Whether there are more results to load
+                        }
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 0// Start search after typing 1 character
+        });
+    });
 </script>

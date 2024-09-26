@@ -38,16 +38,19 @@ class CompanyDropdown extends Component
             ]);
         }
 
-        $list = Company::orderBy('name','asc')
-            ->when(auth()->user()->company_id != null, function ($query){
-                $query->where('id', auth()->user()->company_id);
-            })
-            ->pluck('name','id');
+        // $list = Company::orderBy('name','asc')
+        //     ->when(auth()->user()->company_id != null, function ($query){
+        //         $query->where('id', auth()->user()->company_id);
+        //     })
+        //     ->pluck('name','id');
+
+        $list = [];
 
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'company_id',
             'label' => __('Company'),
+            'add_class' => 'company_id'
         ]);
     }
 }
