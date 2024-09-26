@@ -223,7 +223,7 @@ return [
                 ],
                 [
                     'label' => 'Payslips',
-                    'route' => 'employee-payslip-details.index',
+                    'route' => 'employee-payslips.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes'    => [
                         'employee-payslip-details.*'    => ['superadmin', 'admin', 'finance'],

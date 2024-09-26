@@ -71,12 +71,12 @@ class Employee extends Model
             'company_id'  => 'required',
             'first_name'  => 'required',
             'last_name'  => 'required',
-            'employee_shift_id'  => [
+            'employee_shift_id'  => 'required',
+            'email'  => [
                 'required',
                 'email',
                 Rule::unique('employees')->ignore($this->id),
             ],
-            'email'  => 'required',
             'phone'  => 'required',
             'department_id'  => 'required',
             'employee_position_id'  => 'required',
@@ -167,6 +167,15 @@ class Employee extends Model
     public function level()
     {
         return $this->belongsTo(EmployeeLevel::class,'employee_level_id','id');
+    }
+
+
+    public function scopeName($query, $search)
+    {
+        return $query->where(function($query) use ($search){
+            $query->where('first_name', 'like', '%' . $search . '%')
+                ->orWhere('last_name','like', '%' . $search . '%');
+        });
     }
 
 

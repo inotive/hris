@@ -30,16 +30,12 @@ class ManagerDropdown extends Component
      */
     public function render()
     {
-        $list = Employee::select([
-            DB::raw('CONCAT(first_name, " ", last_name, " (" , username , ")") as name'),
-            'id'
-        ])
-            ->orderBy('first_name','asc')
-            ->pluck('name','id');
+        $list = [];
             
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'manager_id',
+            'add_class' => 'manager_id',
         ]);
     }
 }
