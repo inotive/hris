@@ -9,6 +9,7 @@ use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Validation\Rule;
 
 class Employee extends Model
 {
@@ -65,44 +66,51 @@ class Employee extends Model
         'bank_account_number',
     ];
 
-    public $rules = [
-        'company_id'  => 'required',
-        'first_name'  => 'required',
-        'last_name'  => 'required',
-        'employee_shift_id'  => 'required',
-        'email'  => 'required',
-        'phone'  => 'required',
-        'department_id'  => 'required',
-        'employee_position_id'  => 'required',
-        'employee_level_id'  => 'required',
-        'join_date'  => 'required',
-        'sallary'  => '',
-        'image'  => '',
-        'reimbursement_limit'  => '',
-        'birth_date'  => '',
-        'birth_place'  => '',
-        'address' => '',
-        'country' => '',
-        'province' => '',
-        'city' => '',
-        'district' => '',
-        'sub_district' => '',
-        'zip_code' => '',
-        'birth_place' => '',
-        'religion' => 'required',
-        'status' => '',
-        'marital_status' => '',
-        'birth_place' => '',
-        'gender' => 'required',
-        'nationality' => '',
-        'document_id' => 'required',
-        'document_expiry' => '',
-        'tax_registered_name' => 'required',
-        'tax_number' => 'required',
-        'username' => 'required',
-        'bank_account_name' => 'required',
-        'bank_account_number' => 'required',
-    ];
+    public function rules() {
+        return [
+            'company_id'  => 'required',
+            'first_name'  => 'required',
+            'last_name'  => 'required',
+            'employee_shift_id'  => [
+                'required',
+                'email',
+                Rule::unique('employees')->ignore($this->id),
+            ],
+            'email'  => 'required',
+            'phone'  => 'required',
+            'department_id'  => 'required',
+            'employee_position_id'  => 'required',
+            'employee_level_id'  => 'required',
+            'join_date'  => 'required',
+            'sallary'  => '',
+            'image'  => '',
+            'reimbursement_limit'  => '',
+            'birth_date'  => '',
+            'birth_place'  => '',
+            'address' => '',
+            'country' => '',
+            'province' => '',
+            'city' => '',
+            'district' => '',
+            'sub_district' => '',
+            'zip_code' => '',
+            'birth_place' => '',
+            'religion' => 'required',
+            'status' => '',
+            'marital_status' => '',
+            'birth_place' => '',
+            'gender' => 'required',
+            'nationality' => '',
+            'document_id' => 'required',
+            'document_expiry' => '',
+            'tax_registered_name' => 'required',
+            'tax_number' => 'required',
+            'username' => 'required',
+            'bank_account_name' => 'required',
+            'bank_account_number' => 'required',
+        ];
+
+    }
 
 
     public static function boot()

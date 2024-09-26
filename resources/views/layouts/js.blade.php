@@ -132,10 +132,10 @@
                     var errors = xhr.responseJSON.errors;
                     var message = xhr.responseJSON.message;
 
+                    $('.invalid-feedback').html("");
+                    
                     if (errors != null) {
-                        $.each(errors, function (key, value) {
-                            $('.' + key + '-error').html('');
-                        });
+                       
                         // Display errors
                         $.each(errors, function (key, value) {
                             $('.' + key + '-error').append('<p>' + value + '</p>');
@@ -449,7 +449,7 @@ $(".datetimepicker").daterangepicker({
                 delay: 250,
                 data: function (params) {
                     return {
-                        company_id: $(".company_id").val(),
+                        company_id: $("[name='company_id']").val(),
                         query: params.term, // Search query
                         page: params.page || 1 // Pagination
                     };

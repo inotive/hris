@@ -1,5 +1,6 @@
 @props([
     'menu' => null,
+
 ])
 <div>
     @if (isset($menu['roles']) && in_array(auth()->user()->role, $menu['roles']))
@@ -7,7 +8,7 @@
 
         @if (isset($menu['children']))
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
-                <span class="menu-link">
+                <span class="menu-link {{ \App\Services\SidebarService::isActive($menu) ? ' active ' : ''  }}">
                     <span class="menu-icon">
                         <span class="svg-icon svg-icon-2">
                             @if (isset($menu['icon']) && strlen($menu['icon']) > 0)
@@ -23,7 +24,7 @@
                     @foreach ($menu['children'] as $key => $value)
                         @if (isset($value['roles']) && in_array(auth()->user()->role, $value['roles']))
                             <div class="menu-item">
-                                <a class="menu-link "
+                                <a class="menu-link {{ \App\Services\SidebarService::isActiveSubmenu($value) ? ' active ' : '' }}"
                                     href="{{ isset($value['route']) != null && strlen($value['route']) > 0 ? route($value['route']) : $value['url'] ?? '#' }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
@@ -39,7 +40,7 @@
             </div>
         @else
             <div class="menu-item">
-                <a class="menu-link"
+                <a class="menu-link {{ \App\Services\SidebarService::isActive($menu) ? ' active ' : '' }}"
                     href="{{ isset($menu['route']) != null && strlen($menu['route']) > 0 ? route($menu['route']) : $menu['url'] ?? '#' }}">
                     <span class="menu-icon">
                         <span class="svg-icon svg-icon-2">
