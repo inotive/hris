@@ -29,17 +29,7 @@
 
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
             <td>
-                <div class="d-flex align-items-center">
-                    <img class="rounded" src="{{ Storage::url($value->image) }}"
-                    onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50" />
-                    <div class="ms-5">
-                        <div>
-                            <b>{{ $value->full_name ?? '' }}</b>
-                        </div>
-                        <div class="text-muted fs-base">{{ $value->department->name ?? '' }}</div>
-                        <div class="fs-8">{{ $value->position->name ?? '' }}</div>
-                    </div>
-                </div>
+                <x-table.employee-item :employee="$value" />
             </td>
             <td>{{ $value->company->name ?? '' }}</td>
             <!-- <td>{{ $value->department->name ?? '' }}</td> -->

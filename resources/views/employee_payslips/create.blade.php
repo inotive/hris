@@ -1,7 +1,7 @@
 <x-form.index 
     :title="__('Add') . ' ' . __('Family Info')"
-    :action="route('family-info.store', $employee)" 
-    :cancel="route('family-info.index', $employee)" 
+    :action="route('employee-payslips.store')" 
+    :cancel="route('employee-payslips.index')" 
     
     >
 
@@ -10,7 +10,7 @@
 
 
        
-        @include('employee_family_info.form')
+        @include('employee_payslips.form')
         
     </x-slot>
 </x-form.index>
