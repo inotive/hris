@@ -25,9 +25,7 @@ class HeadDepartmentEmployeeDropdown extends Component
      */
     public function render()
     {
-        $list = Employee::select(DB::raw("CONCAT(first_name, ' ', last_name) as name"), 'id')
-            ->orderBy('name', 'asc')
-            ->pluck('name', 'id');
+        $list = [];
 
             $label = __($this->label ?? 'Head');
 
@@ -35,6 +33,7 @@ class HeadDepartmentEmployeeDropdown extends Component
             'list'  => $list,
             'name'  => 'head_departmen_id',
             'label' =>  $label,
+            'add_class' => 'manager_id',
         ]);
     }
 }

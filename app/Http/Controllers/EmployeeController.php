@@ -6,6 +6,7 @@ use App\Jobs\NewPasswordJob;
 use App\Models\Employee;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -30,5 +31,33 @@ class EmployeeController extends Controller
             'success'   => true,
             'message'   => __('Send Password To Email Successfully'),
         ];
+    }
+
+
+    public function select2(Request $request)
+    {
+
+        $query = $request->get('query'); // Search query
+        $page = $request->get('page', 1); // Pagination page
+
+        // Define the number of results per page
+        $limit = 10;
+
+        // Fetch items from the database based on the search query
+        $items = Employee::select(DB::raw("CONCAT(first_name, ' ', last_name, ' (', username, ')') as name"), 'id')
+        ->name($query)
+            ->skip(($page - 1) * $limit)
+            ->take($limit)
+            ->get();
+
+        // Get the total count for pagination
+        $totalItems = Employee::name($query)
+            ->count();
+
+
+        return response()->json([
+            'items' => $items,
+            'more' => ($totalItems > $page * $limit) // Check if there are more results to load
+        ]);
     }
 }

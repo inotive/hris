@@ -14,6 +14,7 @@ use App\Http\Controllers\EmployeeEmergencyContactController;
 use App\Http\Controllers\EmployeeFamilyInfoController;
 use App\Http\Controllers\EmployeeLevelController;
 use App\Http\Controllers\EmployeeOrganizationExperienceController;
+use App\Http\Controllers\EmployeePayslipController;
 use App\Http\Controllers\EmployeePayslipDetailController;
 use App\Http\Controllers\EmployeePayslipMasterController;
 use App\Http\Controllers\EmployeePositionController;
@@ -72,6 +73,7 @@ Route::middleware([
     // Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
 
     Route::resource('/employees', EmployeeController::class);
+    Route::get('/employees/get/select2', [EmployeeController::class, 'select2'])->name('employees.select2');
     Route::put('/employees/reset-password/{id}',[ EmployeeController::class,'resetPassword'])->name('employee-reset-password');
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
     Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
@@ -87,7 +89,8 @@ Route::middleware([
     
 
     Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
-    Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
+    // Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
+    Route::resource('/employee-payslips', EmployeePayslipController::class);
 
     Route::resource('/company-subscriptions', CompanySubscriptionController::class);
 
