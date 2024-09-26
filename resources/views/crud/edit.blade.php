@@ -8,9 +8,9 @@
 @section('content')
 
 
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-
+    <div class="post" id="kt_post">
         <div id="kt_content_container" class="container-xxl">
+            <x-back href="{{ route(explode('.',Route::currentRouteName())[0] . '.index') }}" />
             <form id="crud-form" action="{{ $action ?? route(explode('.',Route::currentRouteName())[0] . '.update', $form->id) }}" method="POST">
                 @csrf
                 @method('PUT')
