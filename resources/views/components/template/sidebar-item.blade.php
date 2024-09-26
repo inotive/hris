@@ -7,7 +7,7 @@
 
 
         @if (isset($menu['children']))
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ \App\Services\SidebarService::isActive($menu) ? ' hover show ' : ''  }}">
                 <span class="menu-link {{ \App\Services\SidebarService::isActive($menu) ? ' active ' : ''  }}">
                     <span class="menu-icon">
                         <span class="svg-icon svg-icon-2">
