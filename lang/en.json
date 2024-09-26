@@ -140,5 +140,6 @@
     "Reset Password":"Reset Password",
     "You have not changed your password yet, please change your password first.": "You have not changed your password yet, please change your password first.",
 
-    "Are you sure want to send password, to employee?":"Are you sure want to send password, to employee?"
+    "Are you sure want to send password, to employee?":"Are you sure want to send password, to employee?",
+    "Data not found" :"Data not found"
 }

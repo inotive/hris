@@ -1,4 +1,6 @@
-<x-form.index :title="__('Edit') . ' ' . __('Family Info')" :action="route('family-info.update', [$employee, $form->id])" :cancel="route('family-info.index', $employee)">
+<x-form.index :title="__('Edit') . ' ' . __('Payslip')" 
+    :action="route('employee-payslips.update', [$employee, $form->id])" 
+    :cancel="route('employee-payslips.index', $employee)">
 
 
     <x-slot name="body">

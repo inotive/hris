@@ -27,6 +27,7 @@ class EmployeePayslipDetail extends Model
         'employee_payslip_master_earning_id',
         'payslip_type',
         'value',
+        'employee_payslip_id',
     ];
 
     public $rules = [
@@ -34,5 +35,6 @@ class EmployeePayslipDetail extends Model
         'employee_payslip_master_earning_id'  => 'required',
         'payslip_type'  => 'required',
         'value'  => 'required',
+        'employee_payslip_id'  => 'required',
     ];
 }

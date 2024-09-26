@@ -13,4 +13,6 @@ class EmployeePayslipMasterController extends Controller
     public $model = EmployeePayslipMaster::class;
     public $route = 'employee-payslip-masters'; 
     public $page_title = 'Employee Payslip Master';
+
+    
 }

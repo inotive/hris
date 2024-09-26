@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CreatedByUserTrait;
+use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,6 +17,7 @@ class EmployeePayslip extends Model
 
     use SearchTrait;
     use CreatedByUserTrait;
+    use HasCompany;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -51,5 +53,13 @@ class EmployeePayslip extends Model
         'account_number'  => '',
         'account_name'  => '',
         'file'  => '',
+    ];
+
+    public $casts = [
+        'total_payslip_earning' => 'integer',
+        'total_payslip_deduction' => 'integer',
+        'sub_total_payslip' => 'integer',
+        'tax' => 'integer',
+        'take_home_pay' => 'integer',
     ];
 }

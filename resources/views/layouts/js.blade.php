@@ -368,7 +368,8 @@ $(".datetimepicker").daterangepicker({
         // Update the input field with the formatted value
         $(selector).val(formattedValue);
     }
-   $('.currency').on('keyup', function(e) {
+
+    $(document).on('keyup', '.currency', function(){
         formattedcurrency(this);
     });
 
@@ -617,6 +618,106 @@ $(".datetimepicker").daterangepicker({
                 cache: true
             },
             minimumInputLength: 0// Start search after typing 1 character
+        });
+    });
+</script>
+
+<script>
+
+    var list_deduction = [];
+    var list_earning = [];
+
+
+    state_empty();
+
+    function state_empty()
+    {
+        if ($(".deduction_div .form").html().trim().length == 0) {
+            $(".deduction_div .empty").show();
+        } else {
+            $(".deduction_div .empty").hide();
+        }
+
+        if ($(".earning_div .form").html().trim().length == 0) {
+            $(".earning_div .empty").show();
+        } else {
+            $(".earning_div .empty").hide();
+        }
+    }
+
+    var row_deduction = 0;
+    $("#add_deduction").on('click', function(){
+        add_deduction(null);
+    });
+
+    function add_deduction( value)
+    {
+        row_deduction++;
+
+        var insert = `<div class="row row-payslip">
+              <x-form.select add_class="dropdown-payslip" class="col-12 col-lg-3" label="Type" name="deduction[`+row_deduction+`][type]" :list="\App\Models\EmployeePayslipMaster::type_dropdown()" />
+
+            <x-form.select  add_class="dropdown-payslip"  label="Deduction Type" :list="\App\Models\EmployeePayslipMaster::masterTypeDeduction()->orderBy('name')->pluck('name','id')" class="col-12 col-lg-5" name="deduction[`+row_deduction+`][master_id]"/>
+            <x-form.currency class="col-12 col-lg-3" :label="__('Amount')" name="deduction[`+row_deduction+`][amount]"  />
+            <div class="col-12 col-lg-1">
+            <button type="button" class="btn btn-danger w-100 btn-delete-payslip-detail" >X</button>
+
+            </div>
+        </div>`;
+        $(".deduction_div .form").append(insert);
+
+         $(".dropdown-payslip").select2();
+
+        state_empty();
+    }
+
+
+    var row_earning = 0;
+    $("#add_earning").on('click', function(){
+      
+        add_earning(null);
+    });
+
+    function add_earning(value)
+    {
+        row_earning++;
+
+        var insert = `<div class="row row-payslip">
+              <x-form.select  add_class="dropdown-payslip"  class="col-12 col-lg-3 type" label="Type" name="earning[`+row_earning+`][type]" :list="\App\Models\EmployeePayslipMaster::type_dropdown()" />
+
+            <x-form.select  add_class="dropdown-payslip"  label="Earning Type" :list="\App\Models\EmployeePayslipMaster::masterTypeEarning()->orderBy('name')->pluck('name','id')" class="col-12 col-lg-5 master_type" name="earning[`+row_earning+`][master_id]"/>
+            <x-form.currency class="col-12 col-lg-3" :label="__('Amount')" name="earning[`+row_earning+`][amount]"  />
+            <div class="col-12 col-lg-1">
+            <button type="button" class=" btn btn-danger w-100 btn-delete-payslip-detail">X</button>
+            </div>
+        </div>`;
+        $(".earning_div .form").append(insert);
+
+        $(".dropdown-payslip").select2();
+
+        state_empty();
+    }
+
+    $(document).on('click','.btn-delete-payslip-detail', function(){
+        Swal.fire({
+            title: '{{ __("Are you sure?") }}',
+            text: '{{ __("Are you sure want to delete?") }}',
+            icon: 'warning',
+            showCancelButton: true,
+            customClass: {
+                confirmButton: "btn btn-primary",
+                cancelButton: "btn btn-danger"
+            },
+            confirmButtonText: '{{ __("Yes, Delete it!") }}',
+            cancelButtonText: '{{ __("Cancel") }}'
+        }).then((result) => {
+
+            if (result.isConfirmed) {
+                $(this).parent('.row-payslip').remove(); 
+                state_empty();
+            }
+  
+
         });
     });
 </script>

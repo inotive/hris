@@ -16,7 +16,9 @@
 
     <x-slot name="body">
 
-
+        @if (count($list) == 0)
+            <x-table.empty />
+        @else
         <div class="table-responsive">
             <x-table.table>
                 <x-slot name="header">
@@ -54,6 +56,8 @@
 
             {{ $list->links() }}
         </div>
+
+        @endif
 
     </x-slot>
 </x-table.index>
