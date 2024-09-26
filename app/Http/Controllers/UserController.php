@@ -88,6 +88,6 @@ class UserController extends Controller
 
     public function changePasswordMeUpdate($id, Request $request)
     {
-        return $this->_changePassUpdate(auth()->user()->id, $request, route('user.change-password'));
+        return $this->_changePassUpdate(auth()->user()->id, $request, route('dashboard'));
     }
 }
