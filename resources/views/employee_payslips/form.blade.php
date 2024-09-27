@@ -1,4 +1,10 @@
 <div class="row">
+    <input type="hidden" id="deduction_details_data" value="{{ json_encode($form->deduction_details?? []) }}" />
+    <input type="hidden" id="earning_details_data" value="{{ json_encode($form->earning_details?? []) }}" />
+    <input type="hidden" id="employee_name" value="{{ $form->employee->full_name ?? '' }}" />
+    <input type="hidden" id="company_name" value="{{ $form->company->name ?? '' }}" />
+    <input type="hidden" id="form_data" value="{{ json_encode($form ?? []) }}"/>
+    <input type="hidden" name="slip_id" value="{{ $form->id ?? '' }}"/>
 
     <x-company-dropdown :value="old('company_id', $form->company_id ?? '')" />
     <x-employee-dropdown :value="old('employee_id', $form->employee_id ?? '')" />
@@ -44,6 +50,9 @@
         </div>
         <div class="form"></div>
     </div>
+
+
+    <div class="mt-5"></div>
 
 
     <x-form.file folder="payslip" :label="__('Payslip File')" name="file" :value="old('file', $form->file ?? '')" />
