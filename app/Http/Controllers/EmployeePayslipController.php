@@ -31,14 +31,17 @@ class EmployeePayslipController extends Controller
 
     public function edit( $id, Request $request)
     {
+        $form = EmployeePayslip::find($id);
+
+        // dd($form);
+
         return view('employee_payslips.edit',[
 
-            'form'  => EmployeePayslip::find($id),
+            'form'  => $form,
         ]);
     }
 
-
-    public function store( Request $request)
+    private function _save(Request $request)
     {
         try{
             $request->validate((new EmployeePayslip())->rules);
@@ -65,7 +68,7 @@ class EmployeePayslipController extends Controller
 
             DB::beginTransaction();
 
-            $form = new EmployeePayslip();
+            $form = $request->slip_id != null ? EmployeePayslip::where('id', $request->slip_id)->first() : new EmployeePayslip();
             $form->company_id = $request->company_id;
             $form->employee_id = $request->employee_id;
             $form->total_payslip_earning = $total_payslip_earning;
@@ -83,7 +86,9 @@ class EmployeePayslipController extends Controller
             // Log::info($form);
             // Log::info(json_encode($request->all()));
             // return null;
+            
 
+            EmployeePayslipDetail::where('employee_payslip_id', $form->id)->delete();
 
             foreach($earning as $k => $v) {
                 EmployeePayslipDetail::create([
@@ -125,21 +130,15 @@ class EmployeePayslipController extends Controller
         }
     }
 
+    public function store( Request $request)
+    {
+       return $this->_save($request);
+    }
+
 
     public function update( $id, Request $request)
     {
-
-        $request->validate((new EmployeePayslip())->rules);
-
-        $form = EmployeePayslip::find($id);
-        $form->fill($request->all());
-        $form->save();
-
-        return [
-            'success'   => true,
-            'message'   => __('Data Saved Successfully'),
-            'redirect'  => route('employee-payslips.index'),
-        ];
+        return $this->_save($request);
     }
 
 

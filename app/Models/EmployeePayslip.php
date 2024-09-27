@@ -62,4 +62,21 @@ class EmployeePayslip extends Model
         'tax' => 'integer',
         'take_home_pay' => 'integer',
     ];
+
+    public function earning_details()
+    {
+        return $this->hasMany(EmployeePayslipDetail::class, 'employee_payslip_id', 'id')->where('payslip_type','earning');
+    }
+
+    public function deduction_details()
+    {
+        return $this->hasMany(EmployeePayslipDetail::class, 'employee_payslip_id', 'id')->where('payslip_type','deduction');
+    }
+
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id','id');
+    }
 }
+

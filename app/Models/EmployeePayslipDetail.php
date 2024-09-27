@@ -37,4 +37,10 @@ class EmployeePayslipDetail extends Model
         'value'  => 'required',
         'employee_payslip_id'  => 'required',
     ];
+
+
+    public function master()
+    {
+        return $this->belongsTo(EmployeePayslipDetail::class, 'employee_payslip_master_earning_id', 'id');
+    }
 }
