@@ -65,6 +65,7 @@ class Employee extends Model
         'bank_account_name',
         'bank_account_number',
     ];
+   
 
     public function rules() {
         return [
@@ -72,11 +73,15 @@ class Employee extends Model
             'first_name'  => 'required',
             'last_name'  => 'required',
             'employee_shift_id'  => 'required',
-            'email'  => [
-                'required',
-                'email',
-                Rule::unique('employees')->ignore($this->id),
-            ],
+            // 'email'  => [
+            //     'required',
+            //     'email',
+            //     Rule::unique('employees')->ignore($this->id),
+            // ],
+            // 'username' => [
+            //     'required',
+            //     Rule::unique('employees')->ignore($this->id)
+            // ],
             'phone'  => 'required',
             'department_id'  => 'required',
             'employee_position_id'  => 'required',
@@ -105,7 +110,7 @@ class Employee extends Model
             'document_expiry' => '',
             'tax_registered_name' => 'required',
             'tax_number' => 'required',
-            'username' => 'required',
+          
             'bank_account_name' => 'required',
             'bank_account_number' => 'required',
         ];

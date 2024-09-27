@@ -26,7 +26,7 @@ class EmployeePositionDropdown extends Component
     public function render()
     {
         $list = [];
-        return view('components.form.select',[
+        return view('components.form.employee-position',[
             'list'  => $list,
             'name'  => 'employee_position_id',
             'label' => __('Employee Position'),

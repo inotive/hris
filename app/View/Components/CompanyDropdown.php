@@ -46,11 +46,11 @@ class CompanyDropdown extends Component
 
         $list = [];
 
-        return view('components.form.select',[
+        return view('components.form.company',[
             'list'  => $list,
             'name'  => 'company_id',
             'label' => __('Company'),
-            'add_class' => 'company_id'
+            'add_class' => 'company_id',
         ]);
     }
 }

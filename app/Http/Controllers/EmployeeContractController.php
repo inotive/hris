@@ -12,7 +12,7 @@ class EmployeeContractController extends Controller
 {
     public function index(Employee $employee, Request $request)
     {
-        $list = EmployeeContract::where('employee_id', $employee->id)
+        $list = EmployeeContract::search($request->search)->where('employee_id', $employee->id)
             ->paginate();
 
         return view('employee_contract.index',[

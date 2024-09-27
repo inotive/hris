@@ -404,9 +404,27 @@ $(".datetimepicker").daterangepicker({
     });
 </script>
 
+<script>
 
+    function setDefaultSelect2(target)
+    {
+        var data_id = target.data('data-id');
+        var data_name = target.data('data-name');
+        if (data_name.length == 0) {
+            data_name = data_id;
+        }
+    
+        var defaultOption = new Option(data_name, data_id, true, true);
+        target.append(defaultOption).trigger('change');
+    
+    }
+    
+    </script>
 <script>
     $(document).ready(function() {
+
+        setDefaultSelect2($(".company_id"));
+
         $('.company_id').select2({
             placeholder: 'Search Company',
             ajax: {
@@ -437,11 +455,16 @@ $(".datetimepicker").daterangepicker({
             },
             minimumInputLength: 0// Start search after typing 1 character
         });
+
+
+
     });
 </script>
 
 <script>
     $(document).ready(function() {
+        setDefaultSelect2($(".department_id"));
+
         $('.department_id').select2({
             placeholder: 'Search Department',
             ajax: {
@@ -473,12 +496,17 @@ $(".datetimepicker").daterangepicker({
             },
             minimumInputLength: 0// Start search after typing 1 character
         });
+
+
+  
     });
 </script>
 
 
 <script>
     $(document).ready(function() {
+        setDefaultSelect2($(".employee_position_id"));
+        
         $('.employee_position_id').select2({
             placeholder: 'Search Position',
             ajax: {
@@ -510,6 +538,9 @@ $(".datetimepicker").daterangepicker({
             },
             minimumInputLength: 0// Start search after typing 1 character
         });
+
+
+      
     });
 </script>
 
@@ -551,8 +582,12 @@ $(".datetimepicker").daterangepicker({
 
 <script>
     $(document).ready(function() {
+
+        setDefaultSelect2($(".manager_id"));
+
+
         $('.manager_id').select2({
-            placeholder: 'Search Department',
+            placeholder: 'Search Manager',
             ajax: {
                 url: '{{ route("employees.select2") }}', // Server endpoint
                 dataType: 'json',
@@ -582,12 +617,17 @@ $(".datetimepicker").daterangepicker({
             },
             minimumInputLength: 0// Start search after typing 1 character
         });
+
+        
     });
 </script>
 
 
 <script>
     $(document).ready(function() {
+
+        setDefaultSelect2($(".employee_id"));
+        
         $('.employee_id').select2({
             placeholder: 'Search Department',
             ajax: {
@@ -619,10 +659,13 @@ $(".datetimepicker").daterangepicker({
             },
             minimumInputLength: 0// Start search after typing 1 character
         });
+
+       
     });
 </script>
 
-@if (strpos( Route::currentRouteName(), "employee-payslips") == 0)
+
+@if (strpos( Route::currentRouteName(), "employee-payslips") === 0)
 <script>
     var row_deduction = 0;
     var row_earning = 0;
@@ -787,4 +830,36 @@ $(".datetimepicker").daterangepicker({
         });
     });
 </script>
+@endif
+
+
+@if (in_array(Route::currentRouteName(), ['employees.create','employees.edit']))
+<script>
+    $(document).ready(function() {
+        let typingTimer;                  // Timer identifier
+        let typingDelay = 500;            // Delay in milliseconds (500 ms = 0.5 sec)
+
+        $('[name="username"]').on('keyup', function() {
+            clearTimeout(typingTimer);    // Clear the previous timer
+            let username = $(this).val();
+            
+            typingTimer = setTimeout(function() {
+                $.post('{{ route("employees.check-username") }}', { 
+                    _token: "{{ csrf_token() }}",
+                    username: username,
+                    employee_id: $("#employee_id").val(),
+                }, function(response) {
+                    console.log(response);
+                    if (response.success == true) {
+                        $('.username-error').text(response.message).css('color', 'green');
+                    } else {
+                        $('.username-error').text(response.message).css('color', 'red');
+                    }
+                }, 'json');
+            }, typingDelay); // Trigger the post request after the delay
+        
+        });
+    });
+</script>
+
 @endif

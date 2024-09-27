@@ -12,7 +12,7 @@ class EmployeeOrganizationExperienceController extends Controller
 {
     public function index(Employee $employee, Request $request)
     {
-        $list = EmployeeOrganizationExperience::where('employee_id', $employee->id)
+        $list = EmployeeOrganizationExperience::search($request->search)->where('employee_id', $employee->id)
             ->paginate();
 
         return view('employee_organization_experiences.index',[
