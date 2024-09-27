@@ -3,7 +3,7 @@
     <x-form.hidden name="employee_id" :value="old('employee_id', $employee->id ?? '')" />
 
 
-    <x-form.select label="Status" name="status" :value="old('status', $form->status ?? '')" :list="['contract'=> 'Contract', 'permanent'=>'Permanent']" />
+    <x-form.select label="Status" name="status" :value="old('status', $form->status ?? '')" :list="\App\Models\EmployeeContract::statusDropdown()" />
 
 
     <x-form.datepicker :label="__('Date Start')" name="date_start" :value="$form->date_start ?? ''" />
