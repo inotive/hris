@@ -72,4 +72,9 @@ class File extends Model
     {
         return $query->where('module', 'overtime')->where('module_id', $module_id);
     }
+
+    public function scopeReimbursement($query, $module_id)
+    {
+        return $query->where('module', 'reimburse')->where('module_id', $module_id);
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\File;
 use App\Models\ReimbursementExpense;
 use App\Models\ReimbursementExpenseList;
 use App\Models\ReimbursementRequest;
@@ -35,11 +36,18 @@ class ReimbursementRequestController extends Controller
     {
         $form = ReimbursementRequest::find($id);
 
-        // dd($form);
+        $files = File::reimbursement($id)->get()->map(function($row){
+            return [
+                'file'  => $row->file,
+                'url'  => $row->url,
+                'file_id'    => $row->id,
+            ];
+        });
 
         return view('reimbursement_requests.edit',[
 
             'form'  => $form,
+            'files' => $files,
         ]);
     }
 
@@ -85,6 +93,27 @@ class ReimbursementRequestController extends Controller
                     'reimbursement_expense_id'    => $v['type'],
                     'name'  => $name ?? '-',
                     'value' => (float) $v['amount'],
+                ]);
+            }
+
+            // upload file
+            File::reimbursement($form->id)->delete();
+            $files = $request->all()['files'] ?? [];
+
+            foreach($files as $key => $value) {
+                $row = json_decode($value);
+
+        
+                File::create([
+                    'company_id'    => $request->company_id,
+                    'module'    => 'reimburse',
+                    'name'  => $row->file,
+                    'file'  => $row->file,
+                    'url'   => $row->url,
+                    'extension' => 'test',
+                    'size'   => 1,
+                    'employee_id'   => $request->employee_id,
+                    'module_id' => $form->id,
                 ]);
             }
 
