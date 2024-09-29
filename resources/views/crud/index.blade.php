@@ -34,14 +34,14 @@
             <div class="card">
 
                 <!--begin::Card body-->
-                <div class="card-body pt-0">
+                <div class="card-body">
 
                     <div class="row">
                         <div class="col-12 col-lg-6 gap-2">
                             <x-table.search />
                             @yield('toolbar_left')
                         </div>
-                        <div class="col-12 col-lg-6 gap-2 justify-content-end">
+                        <div class="col-12 col-lg-6 gap-2 text-end justify-content-end">
                             @yield('toolbar')
 
                             {{-- GENERATE DUMMY --}}

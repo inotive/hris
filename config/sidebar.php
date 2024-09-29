@@ -193,18 +193,28 @@ return [
             'children' => [
                 [
                     'label' => 'Master Reimbursment Expenses',
-                    'route' => '',
+                    'route' => 'reimbursement-expenses.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'reimbursement-expenses.*' => ['superadmin','admin'],
+                    ],
                 ],
                 [
                     'label' => 'Master Reimbursment Types',
-                    'route' => '',
+                    'route' => 'reimbursement-types.index',
                     'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'reimbursement-types.*' => ['superadmin','admin'],
+                    ],
                 ],
                 [
                     'label' => 'Reimbursement Request',
-                    'route' => '',
+                    'route' => 'reimbursement-requests.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'reimbursement-requests.*' => ['superadmin','admin','finance'],
+                    ],
+                    
                 ],
             ],
         ],
