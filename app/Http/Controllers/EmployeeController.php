@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\NewPasswordJob;
 use App\Models\Employee;
 use App\Traits\CrudTrait;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -62,5 +63,41 @@ class EmployeeController extends Controller
             'items' => $items,
             'more' => ($totalItems > $page * $limit) // Check if there are more results to load
         ]);
+    }
+
+    public function checkUsername(Request $request)
+    {
+        try{
+            $employee_id = $request->employee_id;
+            $username = trim($request->username);
+
+
+            if (strlen($username) < 3) {
+                throw __('Minimum 3 character');
+            }
+
+            if (preg_match('/^[a-zA-Z0-9]+$/', $username) == false) {
+             
+                throw __('Only alphabet and numeric characters allowed');
+            }
+
+            $success = Employee::where('username',$username)
+                ->when($employee_id != null, function($query) use ($employee_id){
+                    $query->where('id', $employee_id);
+                })
+                ->count();
+
+            $msg = __($username . ' available');
+            return [
+                'success' => $success,
+                'message'   => $msg,
+            ];
+
+        }catch(Exception $e){
+            return [
+                'success' => false,
+                'message'   => $e->getMessage(),
+            ];
+        }
     }
 }

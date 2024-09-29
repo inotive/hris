@@ -38,11 +38,12 @@ class EmployeeDropdown extends Component
         //     ->pluck('name','id');
         $list = [];
             
-        return view('components.form.select',[
+        return view('components.form.employee',[
             'list'  => $list,
             'name'  => 'employee_id',
             'label' => __('Employee'),
             'add_class' => 'employee_id',
+        
         ]);
     }
 }

@@ -1,13 +1,6 @@
 <x-table.index>
     <x-slot name="title">{{ __('Data Payslips') }}</x-slot>
 
-
-    <x-slot name="header">
-        <b>{{ $employee->full_name ?? '' }}</b>
-    </x-slot>
-    <x-slot name="header_toolbar">
-        
-    </x-slot>
     
     <x-slot name="toolbar">
         <x-table.add-button :label="__('Add Payslip')" :href="route('employee-payslips.create')"/>

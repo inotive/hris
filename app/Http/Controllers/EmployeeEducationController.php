@@ -12,7 +12,7 @@ class EmployeeEducationController extends Controller
 {
     public function index(Employee $employee, Request $request)
     {
-        $list = EmployeeEducation::where('employee_id', $employee->id)
+        $list = EmployeeEducation::search($request->search)->where('employee_id', $employee->id)
             ->paginate();
 
         return view('employee_education.index',[

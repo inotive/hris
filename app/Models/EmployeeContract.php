@@ -43,8 +43,24 @@ class EmployeeContract extends Model
     ];
 
 
+
+
     public function employee()
     {
         return $this->belongsTo(Employee::class,'employee_id','id');
+    }
+
+    public static function statusDropdown()
+    {
+        return [
+            'contract'=> 'Contract', 
+            'permanent'=>'Permanent',
+            'resignation'   => 'Resignation',
+        ];
+    }
+
+    public function getStatusLabelAttribute()
+    {
+        return self::statusDropdown()[$this->status] ?? '-';
     }
 }

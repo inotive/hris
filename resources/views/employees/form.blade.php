@@ -5,7 +5,9 @@
 
     <h4>{{ __('Account Information') }}</h4>
     <hr>
-    <x-form.input type="username" :label="__('Username')" name="username" :value="old('username', $form->username ?? '')" />
+
+    <input type="hidden" id="employee_id" value="{{ $form->id ?? '' }}" />
+    <x-form.input type="text" :label="__('Username')" name="username" :value="old('username', $form->username ?? '')" />
     <x-form.input :label="__('Email')" name="email" :value="old('email', $form->email ?? '')" />
     <x-form.phone :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')" />
     <x-form.switch :label="__('Status')" name="status" :value="$form->status ?? 0" />

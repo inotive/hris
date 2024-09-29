@@ -13,7 +13,7 @@ class EmployeePayslipController extends Controller
 {
     public function index( Request $request)
     {
-        $list = EmployeePayslip::paginate();
+        $list = EmployeePayslip::search($request->search)->paginate();
 
         return view('employee_payslips.index',[
             'list'  => $list,

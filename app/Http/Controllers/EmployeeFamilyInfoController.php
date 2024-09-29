@@ -11,7 +11,7 @@ class EmployeeFamilyInfoController extends Controller
 {
     public function index(Employee $employee, Request $request)
     {
-        $list = EmployeeFamilyInfo::where('employee_id', $employee->id)
+        $list = EmployeeFamilyInfo::search($request->search)->where('employee_id', $employee->id)
             ->paginate();
 
         return view('employee_family_info.index',[

@@ -13,7 +13,7 @@ class EmployeeEmergencyContactController extends Controller
 
     public function index(Employee $employee, Request $request)
     {
-        $list = EmployeeEmergencyContact::where('employee_id', $employee->id)
+        $list = EmployeeEmergencyContact::search($request->search)->where('employee_id', $employee->id)
             ->paginate();
 
         return view('employee_emergency_contacts.index',[

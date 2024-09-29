@@ -25,6 +25,9 @@ use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\OvertimeRequestController;
 use App\Http\Controllers\OvertimeShiftRequestController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReimbursementExpenseController;
+use App\Http\Controllers\ReimbursementRequestController;
+use App\Http\Controllers\ReimbursementTypeController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Models\EmployeeEmergencyContact;
@@ -75,6 +78,8 @@ Route::middleware([
 
     Route::resource('/employees', EmployeeController::class);
     Route::get('/employees/get/select2', [EmployeeController::class, 'select2'])->name('employees.select2');
+    Route::post('/employees/check-username', [EmployeeController::class, 'checkUsername'])->name('employees.check-username');
+    
     Route::put('/employees/reset-password/{id}',[ EmployeeController::class,'resetPassword'])->name('employee-reset-password');
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
     Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
@@ -108,6 +113,11 @@ Route::middleware([
     Route::resource('/overtime-requests', OvertimeRequestController::class);
     Route::resource('/overtime-shift-requests', OvertimeShiftRequestController::class);
   
+
+    Route::resource('/reimbursement-types', ReimbursementTypeController::class);
+    Route::resource('/reimbursement-expenses', ReimbursementExpenseController::class);
+    Route::resource('/reimbursement-requests', ReimbursementRequestController::class);
+
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 
 

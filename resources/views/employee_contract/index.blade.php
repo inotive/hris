@@ -35,7 +35,7 @@
                     @foreach ($list as $key => $value)
                         <tr>
                             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
-                            <td>{{ $value->status ?? '' }}</td>
+                            <td>{{ $value->status_label ?? '' }}</td>
                             <td>{{ \Carbon\Carbon::parse($value->date_start)->format('d M Y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($value->date_end)->format('d M Y')  }}</td>
                             <td>{{ $value->notes  }}</td>
