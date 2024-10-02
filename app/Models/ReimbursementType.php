@@ -25,19 +25,12 @@ class ReimbursementType extends Model
 
     public $fillable = [
         'company_id',
-        'employee_id',
-        'reimbursement_request_id',
-        'reimbursement_expense_id',
         'name',
-        'value',
     ];
 
     public $rules = [
         'company_id'  => 'required',
-        'employee_id'  => 'required',
-        'reimbursement_request_id'  => '',
         'name'  => '',
-        'value'  => '',
     ];
 
     public static function dummy_data() : array

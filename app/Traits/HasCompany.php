@@ -13,8 +13,9 @@ trait HasCompany
     {
 
         static::addGlobalScope('filter_by_company', function (Builder $builder) {
-            if (auth()->user()->company_id != null) {
-                $builder->where('company_id', auth()->user()->company_id);
+            $company_id = auth()->user()?->company_id ?? null;
+            if ($company_id !== null) {
+                $builder->where('company_id', $company_id);
             }
        
         });

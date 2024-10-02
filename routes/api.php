@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Api\EmployeeController;
+use App\Http\Controllers\Api\EmployeeEmergencyContactController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +18,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::post('/auth/login', [EmployeeController::class, 'login']);
+
+Route::middleware([
+    'auth:sanctum', 
+])->group(function () {
+
+    Route::get('/profile', [EmployeeController::class, 'profile']);
+    Route::put('/profile', [EmployeeController::class, 'updateProfile']);
+    Route::apiResource('/profile/emergency-contact', EmployeeEmergencyContactController::class);
+    Route::post('/auth/logout', [EmployeeController::class, 'logout']);
+
+
 });
