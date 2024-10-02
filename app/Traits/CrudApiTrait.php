@@ -25,7 +25,9 @@ trait CrudApiTrait
             ], 422);
         }
 
-        $model = $this->model::create($request->all());
+        $insert = $request->all();
+
+        $model = $this->model::create($insert);
 
         return response()->json([
             'status' => 'success',
