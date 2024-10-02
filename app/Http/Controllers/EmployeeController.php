@@ -81,17 +81,26 @@ class EmployeeController extends Controller
                 throw __('Only alphabet and numeric characters allowed');
             }
 
-            $success = Employee::where('username',$username)
+            $count = Employee::where('username',$username)
                 ->when($employee_id != null, function($query) use ($employee_id){
                     $query->where('id', $employee_id);
                 })
                 ->count();
 
-            $msg = __($username . ' available');
-            return [
-                'success' => $success,
-                'message'   => $msg,
-            ];
+            if ($count == 0) {
+                $msg = __($username . ' available');
+                return [
+                    'success' => true,
+                    'message'   => $msg,
+                ];
+            } else {
+                $msg = __($username . ' not available');
+                return [
+                    'success' => false,
+                    'message'   => $msg,
+                ];
+            }
+       
 
         }catch(Exception $e){
             return [

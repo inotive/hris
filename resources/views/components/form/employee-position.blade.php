@@ -13,6 +13,6 @@
     :add_class="$add_class"
     :value="$value"
     :class="$class"
-    data_name="{!! \App\Models\EmployeePosition::where('id', $value)->first()->name ?? '' !!}"
+    data_name="{!! \App\Models\EmployeePosition::where('id', $value)->first()?->name ?? '' !!}"
 />
 

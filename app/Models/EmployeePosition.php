@@ -48,6 +48,12 @@ class EmployeePosition extends Model
    // data array to show button dummy data
     public static function dummy_data() : array
     {
+        // auto dummy employee department
+        $departments = EmployeeDepartment::dummy_data();
+        foreach($departments as $key => $value) {
+            EmployeeDepartment::firstOrCreate($value);
+        }
+
         $company_id = auth()->user()->company_id ?? null;
 
         $data = [];
