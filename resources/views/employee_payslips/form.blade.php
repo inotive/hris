@@ -53,6 +53,9 @@
 
 
     <div class="mt-5"></div>
+    <div class="mt-5"></div>
+    <div class="mt-5"></div>
+    <div class="mt-5"></div>
 
 
     <x-form.file folder="payslip" :label="__('Payslip File')" name="file" :value="old('file', $form->file ?? '')" />

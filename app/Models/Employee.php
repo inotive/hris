@@ -10,11 +10,16 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
+use Laravel\Sanctum\HasApiTokens;
 
-class Employee extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Sanctum\PersonalAccessToken;
+
+class Employee extends Authenticatable
 {
     use HasFactory;
     use HasUuids;
+    use HasApiTokens;
 
     use SearchTrait;
     use CreatedByUserTrait;
@@ -65,6 +70,7 @@ class Employee extends Model
         'bank_account_name',
         'bank_account_number',
     ];
+    
    
 
     public function rules() {
@@ -118,6 +124,11 @@ class Employee extends Model
     }
 
 
+    protected $hidden = [
+        'password',
+    ];
+
+
     public static function boot()
     {
         parent::boot();
@@ -164,6 +175,12 @@ class Employee extends Model
     }
 
 
+    public function shift()
+    {
+        return $this->belongsTo(EmployeeShift::class,'employee_shift_id','id');
+    }
+
+
     public function position()
     {
         return $this->belongsTo(EmployeePosition::class,'employee_position_id','id');
@@ -183,6 +200,29 @@ class Employee extends Model
         });
     }
 
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+
+    public function getToken($device_name = null)
+    {
+       $this->logout();
+
+        $device_name = $device_name ?? uniqid();
+        return $this->createToken($device_name)->plainTextToken;
+    }
+    
+    public function logout()
+    {
+        PersonalAccessToken::where("tokenable_type", self::class)
+            ->where("tokenable_id", $this->id)
+            ->whereNull("expires_at")
+            ->update([
+                "expires_at" => now(),
+            ]);
+    }
 
     public static function dummy_data() : array 
     {
