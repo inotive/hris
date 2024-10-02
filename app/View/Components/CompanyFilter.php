@@ -28,12 +28,12 @@ class CompanyFilter extends Component
             return null;
         }
 
-        $list = Company::orderBy('name','asc')
-        ->when(auth()->user()->company_id != null, function ($query){
-            $query->where('id', auth()->user()->company_id);
-        })
-        ->pluck('name','id');
+        $list = [];
 
+        $value_name = null;
+        if (request()->filter != null && request()->filter['company_id'] != null) {
+            $value_name = Company::where('id', request()->filter['company_id'])->first()->name ?? '';
+        }
         
         return view('components.table.dropdown-filter',[
             'list'  => $list,
@@ -41,6 +41,7 @@ class CompanyFilter extends Component
             'label' => __('Company'),
             'placeholder' => __('Filtered') . ' ' . __('Company'),
             'value' => request()->filter['company_id'] ?? null,
+            'value_name'  => $value_name,  
         ]);
     }
 }

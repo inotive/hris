@@ -337,6 +337,20 @@ $(".datepicker").daterangepicker({
 );
 
 
+$(".daterangepicker").daterangepicker({
+        singleDatePicker: false,
+        showDropdowns: true,
+        minYear: 1901,
+        maxYear: parseInt(moment().format("YYYY"),12),
+        locale: {
+            format: "DD/MM/Y"
+        },
+    }, function(start, end, label) {
+        var years = moment().diff(start, "years");
+    }
+);
+
+
 $(".datetimepicker").daterangepicker({
         singleDatePicker: true,
         timePicker: true,
@@ -460,6 +474,8 @@ $(".datetimepicker").daterangepicker({
 
     });
 </script>
+
+
 
 <script>
     $(document).ready(function() {
