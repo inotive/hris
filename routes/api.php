@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\EmployeeEmergencyContactController;
+use App\Http\Controllers\Api\EmployeeFamilyInfoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,7 @@ Route::middleware([
     Route::get('/profile', [EmployeeController::class, 'profile']);
     Route::put('/profile', [EmployeeController::class, 'updateProfile']);
     Route::apiResource('/profile/emergency-contact', EmployeeEmergencyContactController::class);
+    Route::apiResource('/profile/family-info', EmployeeFamilyInfoController::class);
     Route::post('/auth/logout', [EmployeeController::class, 'logout']);
 
 
