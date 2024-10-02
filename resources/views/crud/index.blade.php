@@ -37,7 +37,7 @@
                 <div class="card-body">
 
                     <div class="row">
-                        <div class="col-12 col-lg-6 gap-2">
+                        <div class="col-12 col-lg-6 gap-2 d-flex">
                             <x-table.search />
                             @yield('toolbar_left')
                         </div>
