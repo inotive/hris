@@ -16,7 +16,7 @@ trait CreatedByUserTrait
         });
 
         static::creating(function($row){
-            $row->created_by_user_id = auth()->user()->id;
+            $row->created_by_user_id = auth()->user()->id ?? null;
         });
     }
 }

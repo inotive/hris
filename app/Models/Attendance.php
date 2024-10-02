@@ -34,7 +34,7 @@ class Attendance extends Model
         'clockout_image',
         'clockout_lat',
         'clockout_long',
-        'clockin_present_status',
+        'clockin_status',
         'clockin_range_status',
         'clockout_range_status',
     ];
@@ -51,7 +51,7 @@ class Attendance extends Model
         'clockout_image'  => '',
         'clockout_lat'  => 'required',
         'clockout_long'  => 'required',
-        'clockin_present_status'  => '',
+        'clockin_status'  => '',
         'clockin_range_status'  => '',
         'clockout_range_status'  => '',
     ];

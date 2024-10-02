@@ -5,6 +5,14 @@
     {{ __($page_title) }}
 @stop
 
+@section('toolbar_left')
+ 
+@stop
+
+@section('toolbar')
+    <x-table.filter-table-popup :company="true" />
+@stop
+
 @section('table_header')
     <th class="min-w-50px">{{ __('No') }}</th>
     @if (auth()->user()->company_id == null)
@@ -29,7 +37,7 @@
          
             <td>{{ $value->employee->full_name ?? '-' }}</td>
             <td>{{ $value->employee_shift->name ?? '-' }}</td>
-            <td>{{ $value->date ?? '-' }}</td>
+            <td>{{ \Carbon\Carbon::parse($value->date)->format('d M Y') }}</td>
             <td>{{ $value->clockin_time ?? '-' }}</td>
             <td>{{ $value->clockout_time ?? '-' }}</td>
             <td class="text-end">
