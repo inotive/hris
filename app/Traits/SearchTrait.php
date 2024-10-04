@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
@@ -38,10 +39,15 @@ trait SearchTrait
                         })
                         ;
                 };
-                if ($k == 0) {
-                    $query = $query->whereHas('employee',$fnc);
-                } else {
-                    $query = $query->orWhereHas('employee', $fnc);
+
+                try{
+                    if ($k == 0) {
+                        $query = $query->whereHas('employee',$fnc);
+                    } else {
+                        $query = $query->orWhereHas('employee', $fnc);
+                    }
+                }catch(Exception $e){
+                    
                 }
             }
 

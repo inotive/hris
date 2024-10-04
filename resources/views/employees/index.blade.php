@@ -5,8 +5,8 @@
     {{ __($page_title) }}
 @stop
 
-@section('toolbar_left')
-    <x-company-filter />
+@section('toolbar')
+    <x-table.filter-popup :company="true"/>
 @stop
 
 @section('table_header')

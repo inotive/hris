@@ -986,6 +986,19 @@ $(".datetimepicker").daterangepicker({
             }, typingDelay); // Trigger the post request after the delay
         
         });
+
+
+        $('[name="document_is_unlimited"]').trigger('change');
+
+        $('[name="document_is_unlimited"]').on('change', function(){
+            var val = $(this).is(':checked');
+   
+            if (val == true) {
+                $('#document_expiry_div').hide();
+            } else {
+                $('#document_expiry_div').show();
+            }
+        });
     });
 </script>
 
