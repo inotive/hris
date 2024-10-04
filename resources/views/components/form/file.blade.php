@@ -1,3 +1,9 @@
+@props([
+    'folder' => 'default',
+    'label' => '',
+    'name'  => '',
+    'value' => null,
+])
 <div class="col-12 col-lg-6 mb-4">
 
 

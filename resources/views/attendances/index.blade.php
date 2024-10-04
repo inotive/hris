@@ -10,7 +10,7 @@
 @stop
 
 @section('toolbar')
-    <x-table.filter-table-popup :company="true" />
+    <x-table.filter-popup :company="true" />
 @stop
 
 @section('table_header')

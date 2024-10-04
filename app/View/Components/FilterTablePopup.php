@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class FilterTablePopup extends Component
+class FilterPopup extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class FilterTablePopup extends Component
      */
     public function render()
     {
-        return view('components.filter-table-popup');
+        return view('components.table.filter-popup');
     }
 }
