@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -18,6 +19,7 @@ class ForceJsonResponse
      */
     public function handle(Request $request, Closure $next)
     {
+
         // Check if the request is for the API (typically by checking the URL)
         if ($request->is('api/*')) {
             // Force the Accept header to application/json
@@ -25,10 +27,17 @@ class ForceJsonResponse
             $request->headers->set('Content-Type', 'application/json');
         }
 
-        
+        $originalData = $request->all();
+        $snakeCaseData = $this->snakeCaseArrayKeys($originalData);
+        $request->replace($snakeCaseData);
 
-        // Proceed with the request
-        return $next($request);
+        $response = $next($request);
+
+        $data = $response->getData(true);
+        $camelCasedData = $this->camelCaseArrayKeys($data);
+        $response->setData($camelCasedData);
+
+        return $response;
     }
 
 
@@ -51,6 +60,26 @@ class ForceJsonResponse
         }
 
         return $this->render($request, $exception);
+    }
+
+    private function camelCaseArrayKeys(array $array)
+    {
+        $result = [];
+        foreach ($array as $key => $value) {
+            $camelKey = \Str::camel($key);
+            $result[$camelKey] = is_array($value) ? $this->camelCaseArrayKeys($value) : $value;
+        }
+        return $result;
+    }
+
+    private function snakeCaseArrayKeys(array $array)
+    {
+        $result = [];
+        foreach ($array as $key => $value) {
+            $snakeKey = \Str::snake($key);
+            $result[$snakeKey] = is_array($value) ? $this->snakeCaseArrayKeys($value) : $value;
+        }
+        return $result;
     }
 
 }

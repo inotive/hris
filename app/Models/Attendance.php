@@ -24,7 +24,6 @@ class Attendance extends Model
 
     public $fillable = [
         'employee_id',
-        'employee_shift_id',
         'date',
         'clockin_time',
         'clockin_image',
@@ -41,7 +40,6 @@ class Attendance extends Model
 
     public $rules = [
         'employee_id'  => 'required',
-        'employee_shift_id'  => 'required',
         'date'  => 'required',
         'clockin_time'  => 'required',
         'clockin_image'  => '',
@@ -68,6 +66,7 @@ class Attendance extends Model
         static::creating(function($row){
             $employee = Employee::find($row->employee_id);
 
+            Log::info($employee);
             if ($row->employee_id != null)  {
 
                 $row->employee_shift_id = $employee->employee_shift_id;

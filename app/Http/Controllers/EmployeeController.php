@@ -52,11 +52,13 @@ class EmployeeController extends Controller
             ->where('company_id', $company_id)
             ->skip(($page - 1) * $limit)
             ->take($limit)
+            ->orderBy('first_name','asc')
             ->get();
 
         // Get the total count for pagination
         $totalItems = Employee::name($query)
             ->where('company_id', $company_id)
+            ->orderBy('first_name','asc')
             ->count();
 
 

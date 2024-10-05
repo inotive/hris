@@ -79,11 +79,12 @@ class Employee extends Authenticatable
             'first_name'  => 'required',
             'last_name'  => 'required',
             'employee_shift_id'  => 'required',
-            // 'email'  => [
-            //     'required',
-            //     'email',
-            //     Rule::unique('employees')->ignore($this->id),
-            // ],
+            'email'  => [
+                'required',
+                'email',
+                // Rule::unique('employees')->ignore($this->id),
+            ],
+            'username'  => 'required',
             // 'username' => [
             //     'required',
             //     Rule::unique('employees')->ignore($this->id)
