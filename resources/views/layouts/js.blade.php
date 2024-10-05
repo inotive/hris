@@ -1003,3 +1003,94 @@ $(".datetimepicker").daterangepicker({
 </script>
 
 @endif
+
+<script>
+    // Get the input element
+    const input = $('.file_picker');
+
+    // Add a click event listener
+    input.on('click', function() {
+        console.log('asdasd');
+        $($(this).data('modal')).modal('show');
+
+        $($(this).data('picker-upload')).attr('disabled', 'disabled');
+
+    });
+
+    // input file change
+    $(".input_file").on('change', function(){
+        var picker_upload = $(this).data('picker-upload');
+        var file = $(this)[0].files[0]; // Get the first file
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                console.log(file);
+                $(picker_upload).removeAttr('disabled');
+
+
+            }
+
+            reader.readAsDataURL(file); // Read the file as a data URL
+        }
+    });
+
+
+    $(".picker-upload").on('click', function() {
+        var fileInput =  $($(this).data('input-file'))[0];
+        var file = fileInput.files[0];
+
+        if (file) {
+
+            var formData = new FormData();
+            formData.append('_token', '{{ csrf_token() }}');
+            formData.append('file', file);
+            formData.append('folder', $(this).data('folder'));
+
+            var upload_progress = $($(this).data("upload-progress"));
+            var input_text = $($(this).data("input-text"));
+            var modal = $(this).data('modal');
+            
+            $.ajax({
+                url: "{{ route('upload') }}", // Your server-side upload URL
+                type: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from converting the data into a query string
+                contentType: false, // Prevent jQuery from setting a default content-type
+                success: function(response) {
+                    // alert('Image uploaded successfully!');
+                    console.log(response);
+
+                    if (response.file != null) {
+                 
+                       
+                        $(modal).modal('hide');
+
+                        input_text.val(response.file);
+                    }
+                },
+                error: function(response) {
+                    alert('Failed to upload the image.');
+                    // upload_progrss.html("");
+                    console.log(response);
+                },
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+
+                    // Upload progress
+                    xhr.upload.addEventListener("progress", function(evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = (evt.loaded / evt.total) * 100;
+                            console.log("Upload progress: " + percentComplete + "%");
+                            // You can update a progress bar here
+                            upload_progress.html("Upload progress: " + percentComplete +
+                                "%");
+                        }
+                    }, false);
+                    return xhr;
+                },
+            });
+        }
+    });
+</script>

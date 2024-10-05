@@ -62,9 +62,9 @@
     <hr>
 
     <x-form.input type="text" label="Document Number" name="document_id" :value="$form->document_id ?? ''" />
-    <x-form.switch label="Document is Unlimited" name="document_is_unlimited" :value="$form->document_is_unlimited ?? 0" />
-    <x-form.datepicker label="Document Expiry" name="document_expiry" :value="$form->document_expiry ?? ''" />
-    <x-form.file  label="Document File" name="document_file" folder="document_file" :value="$form->document_file ?? ''" />
+        <x-form.datepicker label="Document Expiry" name="document_expiry" :value="$form->document_expiry ?? ''" />
+            <x-form.file  label="Document File" name="document_file" folder="document_file" :value="$form->document_file ?? ''" />
+            <x-form.switch label="Document is Unlimited" name="document_is_unlimited" :value="$form->document_is_unlimited ?? 0" />
 
     <x-form.input type="text" label="Tax Number" name="tax_number" :value="$form->tax_number ?? ''" />
     <x-form.input type="text" label="Tax Registered Name" name="tax_registered_name" :value="$form->tax_registered_name ?? ''" />
