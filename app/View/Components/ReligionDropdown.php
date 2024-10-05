@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Employee;
 use Illuminate\View\Component;
 
 class ReligionDropdown extends Component
@@ -23,15 +24,7 @@ class ReligionDropdown extends Component
      */
     public function render()
     {
-        $list = [
-            'Islam'  => 'Islam',
-            'Kristen Katolik'  => 'Kristen Katolik',
-            'Kristen Protestan'  => 'Kristen Protestan',
-            'Hindu'  => 'Hindu',
-            'Budha'  => 'Budha',
-            'Konghuchu'  => 'Konghuchu',
-            'Lainnya'  => 'Lainnya',
-        ];
+        $list = Employee::religionDropdown();
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'religion',

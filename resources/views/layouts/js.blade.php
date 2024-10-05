@@ -8,7 +8,7 @@
 <script src="{{asset('assets/js/pace.min.js')}}"></script>
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
 <script>
     $.fn.serializeWithUnchecked = function() {
@@ -1097,4 +1097,16 @@ $(".datetimepicker").daterangepicker({
             });
         }
     });
+</script>
+
+
+<script>
+$(document).ready(function() {
+  $('.summernote').summernote({
+    height: 300, // set editor height
+    minHeight: null, // set minimum height of editor
+    maxHeight: null, // set maximum height of editor
+    focus: true // set focus to editable area after initializing summernote
+});
+});
 </script>

@@ -229,4 +229,18 @@ class Employee extends Authenticatable
     {
         return [];
     }
+
+
+    public static function religionDropdown()
+    {
+        return [
+            'Islam'  => 'Islam',
+            'Kristen Katolik'  => 'Kristen Katolik',
+            'Kristen Protestan'  => 'Kristen Protestan',
+            'Hindu'  => 'Hindu',
+            'Budha'  => 'Budha',
+            'Konghuchu'  => 'Konghuchu',
+            'Lainnya'  => 'Lainnya',
+        ];
+    }
 }

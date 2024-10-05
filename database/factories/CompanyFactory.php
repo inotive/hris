@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Company>
@@ -17,8 +18,8 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'id'    => 'dummy-' . uniqid(),
-            'name'  => fake()->company,
+            'id'    => Uuid::uuid4()->toString(),
+            'name'  => 'DUMMY - ' . fake()->company,
         ];
     }
 }
