@@ -423,13 +423,16 @@ $(".datetimepicker").daterangepicker({
     function setDefaultSelect2(target)
     {
         var data_id = target.data('data-id');
-        var data_name = target.data('data-name');
-        if (data_name.length == 0) {
-            data_name = data_id;
+
+        if (data_id != null){
+            var data_name = target.data('data-name');
+            if (data_name.length == 0) {
+                data_name = data_id;
+            }
+        
+            var defaultOption = new Option(data_name, data_id, true, true);
+            target.append(defaultOption).trigger('change');
         }
-    
-        var defaultOption = new Option(data_name, data_id, true, true);
-        target.append(defaultOption).trigger('change');
     
     }
     
@@ -645,12 +648,13 @@ $(".datetimepicker").daterangepicker({
         setDefaultSelect2($(".employee_id"));
         
         $('.employee_id').select2({
-            placeholder: 'Search Department',
+            placeholder: 'Search Employee',
             ajax: {
                 url: '{{ route("employees.select2") }}', // Server endpoint
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
+
                     return {
                         company_id: $("[name='company_id']").val(),
                         query: params.term, // Search query
