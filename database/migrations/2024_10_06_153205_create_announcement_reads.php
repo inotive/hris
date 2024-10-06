@@ -22,9 +22,9 @@ return new class extends Migration
             $table->foreignUuid('announcement_id')->nullable();
             $table->foreign('announcement_id')->references('id')->on('announcements');
 
-            $table->timestamp('read_at');
+            $table->timestampTz('read_at')->nullable();
 
-            $table->timestamps();
+            $table->timestampsTz();
         });
     }
 
