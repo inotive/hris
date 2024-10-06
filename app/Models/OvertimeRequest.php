@@ -67,7 +67,7 @@ class OvertimeRequest extends Model
         static::created(function($row){
 
 
-            Announcement::create([
+            Request::create([
                 'company_id'    => $row->company_id,
                 'employee_id'    => $row->employee_id,
                 'manager_id'    => $row->manager_id,
