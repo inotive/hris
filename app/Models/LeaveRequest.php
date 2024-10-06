@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +30,9 @@ class LeaveRequest extends Model
         'employee_id',
         'manager_id',
         'leave_type_id',
-        'date',
+        'start_date',
+        'end_date',
+        'total_days',
         'status',
         'reason',
 
@@ -40,7 +43,9 @@ class LeaveRequest extends Model
         'employee_id'  => 'required',
         'manager_id'  => 'required',
         'leave_type_id'  => 'required',
-        'date'  => 'required',
+        'start_date'    => 'required|date|before:end_date',
+        'end_date'      => 'required|date|after:start_date',
+        'total_days'  => '',
         'status'  => '',
         'reason'  => 'required',
 
@@ -58,6 +63,13 @@ class LeaveRequest extends Model
 
 
             $row->status = 'pending';
+
+
+            if ($row->start_date && $row->end_date) {
+                $start_date = Carbon::parse($row->start_date);
+                $end_date = Carbon::parse($row->end_date);
+                $row->total_days = $start_date->diffInDays($end_date);
+            }
         });
 
 

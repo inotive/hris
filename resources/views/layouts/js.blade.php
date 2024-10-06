@@ -331,8 +331,6 @@ $(".datepicker").daterangepicker({
         locale: {
             format: "DD/MM/Y"
         },
-    }, function(start, end, label) {
-        var years = moment().diff(start, "years");
     }
 );
 
@@ -345,8 +343,6 @@ $(".daterangepicker").daterangepicker({
         locale: {
             format: "DD/MM/Y"
         },
-    }, function(start, end, label) {
-        var years = moment().diff(start, "years");
     }
 );
 
@@ -360,8 +356,6 @@ $(".datetimepicker").daterangepicker({
         locale: {
             format: "Y-MM-DD HH:mm:ss"
         }
-    }, function(start, end, label) {
-        var years = moment().diff(start, "years");
     }
 );
 </script>
