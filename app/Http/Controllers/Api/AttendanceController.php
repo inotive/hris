@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AttendanceDetailResource;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,24 @@ class AttendanceController extends Controller
         return [
             'status'    => 'success',
             'data'  => $list,
+        ];
+    }
+
+
+    public function detail(Request $request)
+    {
+        $auth = auth()->user();
+
+        $date = request()->date ?? date('Y-m-d');
+
+        $data = Attendance::where('employee_id', $auth->id)
+            ->where('date', $date)
+            ->first();
+
+
+        return [
+            'status'    => 'success',
+            'data'  => new AttendanceDetailResource($data),
         ];
     }
 

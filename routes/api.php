@@ -44,5 +44,6 @@ Route::middleware([
 
 
     Route::get('/attendances', [AttendanceController::class,'index']);
+    Route::get('/attendance', [AttendanceController::class,'detail']);
     Route::get('/attendance-summary', [AttendanceController::class ,'summary']);
 });
