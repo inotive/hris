@@ -42,6 +42,64 @@ class AttendanceController extends Controller
         ];
     }
 
+    public function clockin(Request $request)
+    {
+        $auth = auth()->user();
+
+        $date = date('Y-m-d');
+
+        $request->validate([
+            'clockin_time'  => 'required',
+            'clockin_lat'  => 'required',
+            'clockin_long'  => 'required',
+        ]);
+
+        $attendance = Attendance::where('employee_id', $auth->id)
+            ->where('date', $date)
+            ->first();
+
+        if ($attendance != null) {
+            $attendance->clockin_time = $request->clockin_time;
+            $attendance->clockin_lat = $request->clockin_lat;
+            $attendance->clockin_long = $request->clockin_long;
+            $attendance->save();
+        }
+
+        return [
+            'status'    => 'success',
+            'message'=> "Clockin submited, data save successful"
+        ];
+    }
+
+    public function clockout(Request $request)
+    {
+        $auth = auth()->user();
+
+        $date = date('Y-m-d');
+
+        $request->validate([
+            'clockout_time'  => 'required',
+            'clockout_lat'  => 'required',
+            'clockout_long'  => 'required',
+        ]);
+
+        $attendance = Attendance::where('employee_id', $auth->id)
+            ->where('date', $date)
+            ->first();
+
+        if ($attendance != null) {
+            $attendance->clockout_time = $request->clockout_time;
+            $attendance->clockout_lat = $request->clockuot_lat;
+            $attendance->clockout_long = $request->clockout_long;
+            $attendance->save();
+        }
+
+        return [
+            'status'    => 'success',
+            'message'=> "Clockout submited, data save successful"
+        ];
+    }
+
     public function summary(Request $request)
     {
         $auth = auth()->user();

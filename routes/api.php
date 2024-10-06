@@ -45,5 +45,7 @@ Route::middleware([
 
     Route::get('/attendances', [AttendanceController::class,'index']);
     Route::get('/attendance', [AttendanceController::class,'detail']);
+    Route::put('/attendance/clockin', [AttendanceController::class,'clockin']);
+    Route::put('/attendance/clockout', [AttendanceController::class,'clockout']);
     Route::get('/attendance-summary', [AttendanceController::class ,'summary']);
 });
