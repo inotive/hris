@@ -21,13 +21,13 @@ class AnnouncementRead extends Model
 
     public $fillable = [
         'employee_id',
-        'annoucement_id',
+        'announcement_id',
         'read_at',
     ];
 
     public $rules = [
         'employee_id'  => 'required',
-        'annoucement_id'  => 'required',
+        'announcement_id'  => 'required',
         'read_at'  => '',
     ];
 }
