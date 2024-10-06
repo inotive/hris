@@ -72,25 +72,6 @@ class Attendance extends Model
 
                 $row->employee_shift_id = $employee->employee_shift_id;
             }
-
-
-
-
-            if ($row->clockin_time != null) {
-                $date = $row->date;
-                $time = $row->clockin_time->format('h:i:s');
-                $timezone = $employee->company->time_zone;
-                $carbonDateTime = Carbon::parse( "$date $time", $timezone);
-                $row->clockin_time = $carbonDateTime;
-            }
-
-            if ($row->clockout_time != null) {
-                $date = $row->date;
-                $time = $row->clockout_time->format('h:i:s');
-                $timezone = $employee->company->time_zone;
-                $carbonDateTime = Carbon::parse( "$date $time", $timezone);
-                $row->clockout_time = $carbonDateTime;
-            }
         });
 
         static::saving(function($row){
@@ -103,6 +84,21 @@ class Attendance extends Model
                 $timezone = $employee->company->time_zone;
                 $carbonDateTime =  Carbon::parse( "$date $time", $timezone);
                 $row->clockin_time = $carbonDateTime;
+
+                $shift = EmployeeShift::find($employee->employee_shift_id);
+
+                if ($shift != null) {
+                    $start = Carbon::parse($shift->start_time);
+                    if ($carbonDateTime->greaterThan($start)) {
+                        $row->clockin_status = 'LATE';
+                    } else {
+                        $row->clockin_status = 'EARLY';
+                    }
+
+                    Log::info($row->clockin_status);
+                }
+
+            
             }
 
             if ($row->clockout_time != null) {
@@ -111,9 +107,6 @@ class Attendance extends Model
                 $timezone = $employee->company->time_zone;
                 $carbonDateTime = Carbon::parse( "$date $time", $timezone);
                 $row->clockout_time = $carbonDateTime;
-
-                // Log::info($carbonDateTime);
-                // Log::info($carbonDateTime->timezoneName);
             }
 
             if ($row->clockin_time && $row->clockout_time) {

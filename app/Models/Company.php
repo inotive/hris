@@ -74,6 +74,20 @@ class Company extends Model
         'cut_off_payroll_date'   => 'integer',
     ];
 
-
+    // public function scopeWithinRadiusInMeters($query, $latitude, $longitude, $radius = 1000)
+    // {
+    //     return $query->selectRaw("
+    //             *, 
+    //             (6371000 * acos(
+    //                 cos(radians(?)) * 
+    //                 cos(radians(latitude)) * 
+    //                 cos(radians(longitude) - radians(?)) + 
+    //                 sin(radians(?)) * 
+    //                 sin(radians(latitude))
+    //             )) AS distance
+    //         ", [$latitude, $longitude, $latitude])
+    //         ->having('distance', '<=', $radius)
+    //         ->orderBy('distance', 'asc');
+    // }
 
 }

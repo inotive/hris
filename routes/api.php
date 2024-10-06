@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\EmployeeContractController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\EmployeeEducationController;
@@ -41,4 +43,5 @@ Route::middleware([
     Route::post('/auth/logout', [EmployeeController::class, 'logout']);
 
 
+    Route::get('/attendance-summary', [AttendanceController::class ,'summary']);
 });
