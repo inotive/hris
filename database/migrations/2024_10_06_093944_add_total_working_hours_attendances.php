@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('attendances', function (Blueprint $table) {
             //
-            $table->integer('total_working_hours')->nullable();
+            $table->integer('total_working_hours')->nullable()->before('created_at');
         });
     }
 
