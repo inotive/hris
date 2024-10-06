@@ -19,13 +19,17 @@ class EmployeeFactory extends Factory
      */
     public function definition()
     {
+        $religion_dropdown = Employee::religionDropdown();
+        $randomKey = array_rand($religion_dropdown);
+        $religion = $religion_dropdown[$randomKey];
+        
         return [
             'id'    => Uuid::uuid4()->toString(),
             'first_name' => 'DUMMY - ' . fake()->firstName(),
             'last_name' => fake()->lastName(),
             'company_id'    => Company::where('name','like','%DUMMY%')->inRandomOrder()->first()->id,
             'gender'    => ["Laki-laki","Perempuan"][rand(0,1)],
-            'religion'  => Employee::religionDropdown()[rand(0, count(Employee::religionDropdown()) - 1)],
+            'religion'  => $religion,
         ];
     }
 }

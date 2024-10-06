@@ -36,6 +36,7 @@ class Attendance extends Model
         'clockin_status',
         'clockin_range_status',
         'clockout_range_status',
+        'total_working_hours',
     ];
 
     public $rules = [
@@ -52,6 +53,7 @@ class Attendance extends Model
         'clockin_status'  => '',
         'clockin_range_status'  => '',
         'clockout_range_status'  => '',
+        'total_working_hours'  => '',
     ];
 
     public $casts = [
@@ -92,7 +94,7 @@ class Attendance extends Model
             }
         });
 
-        static::updating(function($row){
+        static::saving(function($row){
             $employee = Employee::find($row->employee_id);
 
 
@@ -115,6 +117,11 @@ class Attendance extends Model
                 // Log::info($carbonDateTime->timezoneName);
             }
 
+            if ($row->clockin_time && $row->clockout_time) {
+                $clockInTime = Carbon::parse($row->clockin_time);
+                $clockOutTime = Carbon::parse($row->clockout_time);
+                $row->total_working_hours = $clockInTime->diffInHours($clockOutTime);
+            }
 
         });
 
