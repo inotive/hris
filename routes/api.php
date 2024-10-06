@@ -43,5 +43,6 @@ Route::middleware([
     Route::post('/auth/logout', [EmployeeController::class, 'logout']);
 
 
+    Route::get('/attendances', [AttendanceController::class,'index']);
     Route::get('/attendance-summary', [AttendanceController::class ,'summary']);
 });

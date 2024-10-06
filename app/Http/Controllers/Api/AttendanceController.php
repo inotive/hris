@@ -8,7 +8,21 @@ use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
-    
+    public function index(Request $request)
+    {
+        $auth = auth()->user();
+
+        $list = Attendance::where('employee_id', $auth->id)
+            ->orderBy('date','asc')
+            ->get();
+
+
+        return [
+            'status'    => 'success',
+            'data'  => $list,
+        ];
+    }
+
     public function summary(Request $request)
     {
         $auth = auth()->user();
