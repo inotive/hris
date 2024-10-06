@@ -32,6 +32,7 @@ Route::middleware([
 
     Route::get('/profile', [EmployeeController::class, 'profile']);
     Route::put('/profile', [EmployeeController::class, 'updateProfile']);
+    Route::put('/change-password', [EmployeeController::class, 'updatePassword']);
     Route::apiResource('/profile/emergency-contact', EmployeeEmergencyContactController::class);
     Route::apiResource('/profile/family-info', EmployeeFamilyInfoController::class);
     Route::apiResource('/profile/education', EmployeeEducationController::class);

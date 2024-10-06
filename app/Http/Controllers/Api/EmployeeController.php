@@ -45,6 +45,40 @@ class EmployeeController extends Controller
         ];
     }
 
+
+    public function updatePassword(Request $request)
+    {
+        $auth = auth()->user();
+
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|same:re_new_password',
+            're_new_password' => 'required',
+        ]);
+
+        $old_password = $request->old_password;
+        $new_password = $request->new_password;
+        $re_new_password = $request->re_new_password;
+
+        if (auth()->guard('employee')->attempt(['username' => $auth->username, 'password' => $old_password])) {
+
+            Employee::where('id', $auth->id)->update([
+                'password'  =>bcrypt($new_password),
+            ]);
+
+            return [
+                'status'    => 'success',
+                'message'   => 'New password update successful',
+            ];
+        } else {
+            return [
+                "status"=> "error",
+                "message"=> "Wrong Old Password",
+            ];
+        }
+
+    }
+
     public function login(Request $request)
     {
         try{
