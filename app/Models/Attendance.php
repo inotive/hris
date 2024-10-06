@@ -24,7 +24,6 @@ class Attendance extends Model
 
     public $fillable = [
         'employee_id',
-        'employee_shift_id',
         'date',
         'clockin_time',
         'clockin_image',
@@ -37,11 +36,11 @@ class Attendance extends Model
         'clockin_status',
         'clockin_range_status',
         'clockout_range_status',
+        'total_working_hours',
     ];
 
     public $rules = [
         'employee_id'  => 'required',
-        'employee_shift_id'  => 'required',
         'date'  => 'required',
         'clockin_time'  => 'required',
         'clockin_image'  => '',
@@ -54,6 +53,7 @@ class Attendance extends Model
         'clockin_status'  => '',
         'clockin_range_status'  => '',
         'clockout_range_status'  => '',
+        'total_working_hours'  => '',
     ];
 
     public $casts = [
@@ -72,28 +72,9 @@ class Attendance extends Model
 
                 $row->employee_shift_id = $employee->employee_shift_id;
             }
-
-
-
-
-            if ($row->clockin_time != null) {
-                $date = $row->date;
-                $time = $row->clockin_time->format('h:i:s');
-                $timezone = $employee->company->time_zone;
-                $carbonDateTime = Carbon::parse( "$date $time", $timezone);
-                $row->clockin_time = $carbonDateTime;
-            }
-
-            if ($row->clockout_time != null) {
-                $date = $row->date;
-                $time = $row->clockout_time->format('h:i:s');
-                $timezone = $employee->company->time_zone;
-                $carbonDateTime = Carbon::parse( "$date $time", $timezone);
-                $row->clockout_time = $carbonDateTime;
-            }
         });
 
-        static::updating(function($row){
+        static::saving(function($row){
             $employee = Employee::find($row->employee_id);
 
 
@@ -103,6 +84,21 @@ class Attendance extends Model
                 $timezone = $employee->company->time_zone;
                 $carbonDateTime =  Carbon::parse( "$date $time", $timezone);
                 $row->clockin_time = $carbonDateTime;
+
+                $shift = EmployeeShift::find($employee->employee_shift_id);
+
+                if ($shift != null) {
+                    $start = Carbon::parse($shift->start_time);
+                    if ($carbonDateTime->greaterThan($start)) {
+                        $row->clockin_status = 'LATE';
+                    } else {
+                        $row->clockin_status = 'EARLY';
+                    }
+
+                    Log::info($row->clockin_status);
+                }
+
+            
             }
 
             if ($row->clockout_time != null) {
@@ -111,11 +107,13 @@ class Attendance extends Model
                 $timezone = $employee->company->time_zone;
                 $carbonDateTime = Carbon::parse( "$date $time", $timezone);
                 $row->clockout_time = $carbonDateTime;
-
-                // Log::info($carbonDateTime);
-                // Log::info($carbonDateTime->timezoneName);
             }
 
+            if ($row->clockin_time && $row->clockout_time) {
+                $clockInTime = Carbon::parse($row->clockin_time);
+                $clockOutTime = Carbon::parse($row->clockout_time);
+                $row->total_working_hours = $clockInTime->diffInHours($clockOutTime);
+            }
 
         });
 

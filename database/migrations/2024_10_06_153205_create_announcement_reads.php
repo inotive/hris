@@ -13,11 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('employees', function (Blueprint $table) {
-            //
-            $table->date('birth_date')->nullable();
+        Schema::create('announcement_reads', function (Blueprint $table) {
+            $table->uuid('id')->primary();
 
+            $table->foreignUuid('employee_id')->nullable();
             $table->foreign('employee_id')->references('id')->on('employees');
+
+            $table->foreignUuid('announcement_id')->nullable();
+            $table->foreign('announcement_id')->references('id')->on('announcements');
+
+            $table->timestampTz('read_at')->nullable();
+
+            $table->timestampsTz();
         });
     }
 
@@ -28,11 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function (Blueprint $table) {
-            //
-            $table->dropColumn('birth_date');
-            $table->dropForeign('employees_employee_id_foreign');
-
-        });
+        Schema::dropIfExists('announcement_reads');
     }
 };

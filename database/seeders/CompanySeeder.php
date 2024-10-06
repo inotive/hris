@@ -2,8 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\EmployeeDepartment;
+use App\Models\EmployeePosition;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CompanySeeder extends Seeder
 {
@@ -15,6 +20,8 @@ class CompanySeeder extends Seeder
     public function run()
     {
         //
-        \App\Models\Company::factory(10)->create();
+        $companies = \App\Models\Company::factory(2)->create();
+
+       
     }
 }

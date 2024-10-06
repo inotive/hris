@@ -13,10 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('personal_access_tokens', function (Blueprint $table) {
-            $table->string('tokenable_id')->change();
-        });
-        
+        Schema::rename('announcements','requests');
     }
 
     /**
@@ -26,9 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('personal_access_tokens', function (Blueprint $table) {
-            $table->string('tokenable_id')->change();
-        });
-        
+        Schema::rename('requests','announcements');
     }
 };

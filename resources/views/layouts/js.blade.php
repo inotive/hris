@@ -8,7 +8,7 @@
 <script src="{{asset('assets/js/pace.min.js')}}"></script>
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
 <script>
     $.fn.serializeWithUnchecked = function() {
@@ -331,8 +331,6 @@ $(".datepicker").daterangepicker({
         locale: {
             format: "DD/MM/Y"
         },
-    }, function(start, end, label) {
-        var years = moment().diff(start, "years");
     }
 );
 
@@ -345,8 +343,6 @@ $(".daterangepicker").daterangepicker({
         locale: {
             format: "DD/MM/Y"
         },
-    }, function(start, end, label) {
-        var years = moment().diff(start, "years");
     }
 );
 
@@ -360,8 +356,6 @@ $(".datetimepicker").daterangepicker({
         locale: {
             format: "Y-MM-DD HH:mm:ss"
         }
-    }, function(start, end, label) {
-        var years = moment().diff(start, "years");
     }
 );
 </script>
@@ -423,13 +417,16 @@ $(".datetimepicker").daterangepicker({
     function setDefaultSelect2(target)
     {
         var data_id = target.data('data-id');
-        var data_name = target.data('data-name');
-        if (data_name.length == 0) {
-            data_name = data_id;
+
+        if (data_id != null){
+            var data_name = target.data('data-name');
+            if (data_name.length == 0) {
+                data_name = data_id;
+            }
+        
+            var defaultOption = new Option(data_name, data_id, true, true);
+            target.append(defaultOption).trigger('change');
         }
-    
-        var defaultOption = new Option(data_name, data_id, true, true);
-        target.append(defaultOption).trigger('change');
     
     }
     
@@ -645,12 +642,13 @@ $(".datetimepicker").daterangepicker({
         setDefaultSelect2($(".employee_id"));
         
         $('.employee_id').select2({
-            placeholder: 'Search Department',
+            placeholder: 'Search Employee',
             ajax: {
                 url: '{{ route("employees.select2") }}', // Server endpoint
                 dataType: 'json',
                 delay: 250,
                 data: function (params) {
+
                     return {
                         company_id: $("[name='company_id']").val(),
                         query: params.term, // Search query
@@ -1003,3 +1001,106 @@ $(".datetimepicker").daterangepicker({
 </script>
 
 @endif
+
+<script>
+    // Get the input element
+    const input = $('.file_picker');
+
+    // Add a click event listener
+    input.on('click', function() {
+        console.log('asdasd');
+        $($(this).data('modal')).modal('show');
+
+        $($(this).data('picker-upload')).attr('disabled', 'disabled');
+
+    });
+
+    // input file change
+    $(".input_file").on('change', function(){
+        var picker_upload = $(this).data('picker-upload');
+        var file = $(this)[0].files[0]; // Get the first file
+        console.log(file);
+        if (file) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                console.log(file);
+                $(picker_upload).removeAttr('disabled');
+
+
+            }
+
+            reader.readAsDataURL(file); // Read the file as a data URL
+        }
+    });
+
+
+    $(".picker-upload").on('click', function() {
+        var fileInput =  $($(this).data('input-file'))[0];
+        var file = fileInput.files[0];
+
+        if (file) {
+
+            var formData = new FormData();
+            formData.append('_token', '{{ csrf_token() }}');
+            formData.append('file', file);
+            formData.append('folder', $(this).data('folder'));
+
+            var upload_progress = $($(this).data("upload-progress"));
+            var input_text = $($(this).data("input-text"));
+            var modal = $(this).data('modal');
+            
+            $.ajax({
+                url: "{{ route('upload') }}", // Your server-side upload URL
+                type: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from converting the data into a query string
+                contentType: false, // Prevent jQuery from setting a default content-type
+                success: function(response) {
+                    // alert('Image uploaded successfully!');
+                    console.log(response);
+
+                    if (response.file != null) {
+                 
+                       
+                        $(modal).modal('hide');
+
+                        input_text.val(response.file);
+                    }
+                },
+                error: function(response) {
+                    alert('Failed to upload the image.');
+                    // upload_progrss.html("");
+                    console.log(response);
+                },
+                xhr: function() {
+                    var xhr = new window.XMLHttpRequest();
+
+                    // Upload progress
+                    xhr.upload.addEventListener("progress", function(evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = (evt.loaded / evt.total) * 100;
+                            console.log("Upload progress: " + percentComplete + "%");
+                            // You can update a progress bar here
+                            upload_progress.html("Upload progress: " + percentComplete +
+                                "%");
+                        }
+                    }, false);
+                    return xhr;
+                },
+            });
+        }
+    });
+</script>
+
+
+<script>
+$(document).ready(function() {
+  $('.summernote').summernote({
+    height: 300, // set editor height
+    minHeight: null, // set minimum height of editor
+    maxHeight: null, // set maximum height of editor
+    focus: true // set focus to editable area after initializing summernote
+});
+});
+</script>

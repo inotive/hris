@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Announcement extends Model
+class Request extends Model
 {
     use HasFactory;
 
@@ -26,36 +26,24 @@ class Announcement extends Model
 
     public $fillable = [
         'company_id',
+        'employee_id',
+        'manager_id',
         'title',
         'content',
         'reference',
-        'notes',
+        'type',
+        'module',
+        'module_id',
     ];
 
     public $rules = [
         'company_id'  => 'required',
+        'for_employee_id'  => 'required',
         'title'  => 'required',
         'content'  => 'required',
         'reference'  => '',
-        'notes'  => '',
+        'created_by_employee_id'  => '',
     ];
-
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function($model){
-            $employees = Employee::where('company_id', $model->company_id)->get();
-
-            foreach($employees as $k => $v) {
-                AnnouncementRead::create([
-                    'employee_id'   => $v->id,
-                    'announcement_id'   => $model->id,
-                ]);
-            }
-        });
-    }
 
 
     public static function dummy_data() : array

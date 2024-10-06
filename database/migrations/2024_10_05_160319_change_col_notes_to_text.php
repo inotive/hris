@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('employees', function (Blueprint $table) {
+        Schema::table('employee_contracts', function (Blueprint $table) {
             //
-            $table->date('birth_date')->nullable();
-
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->text('notes')->change();
         });
     }
 
@@ -28,11 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function (Blueprint $table) {
+        Schema::table('employee_contracts', function (Blueprint $table) {
             //
-            $table->dropColumn('birth_date');
-            $table->dropForeign('employees_employee_id_foreign');
-
+            $table->string('notes')->change();
         });
     }
 };

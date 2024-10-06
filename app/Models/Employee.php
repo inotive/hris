@@ -79,11 +79,12 @@ class Employee extends Authenticatable
             'first_name'  => 'required',
             'last_name'  => 'required',
             'employee_shift_id'  => 'required',
-            // 'email'  => [
-            //     'required',
-            //     'email',
-            //     Rule::unique('employees')->ignore($this->id),
-            // ],
+            'email'  => [
+                'required',
+                'email',
+                // Rule::unique('employees')->ignore($this->id),
+            ],
+            'username'  => 'required',
             // 'username' => [
             //     'required',
             //     Rule::unique('employees')->ignore($this->id)
@@ -227,5 +228,19 @@ class Employee extends Authenticatable
     public static function dummy_data() : array 
     {
         return [];
+    }
+
+
+    public static function religionDropdown()
+    {
+        return [
+            'Islam'  => 'Islam',
+            'Kristen Katolik'  => 'Kristen Katolik',
+            'Kristen Protestan'  => 'Kristen Protestan',
+            'Hindu'  => 'Hindu',
+            'Budha'  => 'Budha',
+            'Konghuchu'  => 'Konghuchu',
+            'Lainnya'  => 'Lainnya',
+        ];
     }
 }

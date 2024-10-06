@@ -13,7 +13,9 @@
     <th class="min-w-125px">{{ __('Employee') }}</th>
     <th class="min-w-125px">{{ __('Manager') }}</th>
     <th class="min-w-125px">{{ __('Leave Type') }}</th>
-    <th class="min-w-125px">{{ __('Date') }}</th>
+    <th class="min-w-125px">{{ __('Start Date') }}</th>
+    <th class="min-w-125px">{{ __('End Date') }}</th>
+    <th class="min-w-125px">{{ __('Total Days') }}</th>
     <th class="min-w-125px">{{ __('Files') }}</th>
     <th class="min-w-125px">{{ __('Status') }}</th>
     <th class="min-w-125px">{{ __('Reason') }}</th>
@@ -31,11 +33,15 @@
             @endif
        
             <td>{{ $value->employee->full_name ?? '-' }}</td>
-            <td>{{ \Carbon\Carbon::parse($value->date)->format('d/m/Y') }}</td>
-            <td>{{ $value->leave_type->name ?? '-' }}</td>
             <td>{{ $value->manager->full_name ?? '-' }}</td>
-            <td>{{ $value->status ?? '-' }}</td>
+            <td>{{ $value->leave_type->name ?? '-' }}</td>
+            <td>{{ \Carbon\Carbon::parse($value->start_date)->format('d/m/Y') }}</td>
+            <td>{{ \Carbon\Carbon::parse($value->end_date)->format('d/m/Y') }}</td>
+            <td>{{ $value->total_days ?? '-' }}</td>
+          
+          
             <td>{{ $value->files()->first()->name ?? '-' }}</td>
+            <td>{{ $value->status ?? '-' }}</td>
            
             <td>{{ $value->reason ?? '-' }}</td>
 

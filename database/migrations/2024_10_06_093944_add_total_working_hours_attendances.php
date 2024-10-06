@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('employees', function (Blueprint $table) {
+        Schema::table('attendances', function (Blueprint $table) {
             //
-            $table->date('birth_date')->nullable();
-
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->integer('total_working_hours')->nullable()->before('created_at');
         });
     }
 
@@ -28,11 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function (Blueprint $table) {
+        Schema::table('attendances', function (Blueprint $table) {
             //
-            $table->dropColumn('birth_date');
-            $table->dropForeign('employees_employee_id_foreign');
-
+            $table->dropColumn('total_working_hours');
         });
     }
 };

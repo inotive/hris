@@ -8,6 +8,7 @@ use App\Traits\CrudTrait;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class EmployeeController extends Controller
 {
@@ -46,17 +47,20 @@ class EmployeeController extends Controller
         $limit = 10;
 
         // Fetch items from the database based on the search query
-        $items = Employee::select(DB::raw("CONCAT(first_name, ' ', last_name, ' (', username, ')') as name"), 'id')
+        $items = Employee::select(DB::raw("CONCAT(first_name, ' ', last_name,  IF(username != null,' (' +  username + ')' ,'')) as name"), 'id')
             ->name($query)
             ->where('company_id', $company_id)
             ->skip(($page - 1) * $limit)
             ->take($limit)
+            ->orderBy('first_name','asc')
             ->get();
 
         // Get the total count for pagination
         $totalItems = Employee::name($query)
             ->where('company_id', $company_id)
+            ->orderBy('first_name','asc')
             ->count();
+
 
 
         return response()->json([

@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 trait CrudApiTrait
@@ -76,6 +77,7 @@ trait CrudApiTrait
      */
     public function update(Request $request, $id)
     {
+        
         $validator = $this->validateRequest($request, $id);
 
         if ($validator->fails()) {
