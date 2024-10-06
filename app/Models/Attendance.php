@@ -68,7 +68,6 @@ class Attendance extends Model
         static::creating(function($row){
             $employee = Employee::find($row->employee_id);
 
-            Log::info($employee);
             if ($row->employee_id != null)  {
 
                 $row->employee_shift_id = $employee->employee_shift_id;

@@ -30,6 +30,7 @@ class EmployeeFactory extends Factory
             'company_id'    => Company::where('name','like','%DUMMY%')->inRandomOrder()->first()->id,
             'gender'    => ["Laki-laki","Perempuan"][rand(0,1)],
             'religion'  => $religion,
+            'status'    => rand(0,1),
         ];
     }
 }
