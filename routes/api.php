@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\EmployeeEducationController;
 use App\Http\Controllers\Api\EmployeeEmergencyContactController;
 use App\Http\Controllers\Api\EmployeeFamilyInfoController;
 use App\Http\Controllers\Api\EmployeeOrganizationController;
+use App\Http\Controllers\Api\LeaveRequestController;
+use App\Http\Controllers\Api\LeaveTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -48,4 +50,12 @@ Route::middleware([
     Route::put('/attendance/clockin', [AttendanceController::class,'clockin']);
     Route::put('/attendance/clockout', [AttendanceController::class,'clockout']);
     Route::get('/attendance-summary', [AttendanceController::class ,'summary']);
+
+
+    Route::get('/master-leave-type',[LeaveTypeController::class, 'index']);
+    Route::get('/leave-requests',[LeaveRequestController::class, 'index']);
+    Route::get('/leave-request/{id}',[LeaveRequestController::class, 'detail']);
+    Route::post('/leave-request',[LeaveRequestController::class, 'create']);
+    Route::put('/leave-request',[LeaveRequestController::class, 'update']);
+    Route::delete('/leave-request',[LeaveRequestController::class, 'delete']);
 });

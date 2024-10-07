@@ -136,7 +136,7 @@
                 var newFile = `<div class="alert alert-primary mt-3" role="alert">'
                     <input type="hidden" name="{{ $name }}[]" value='`+JSON.stringify(row)+`'>
                         <div class="row">
-                            <div class="col-10">`+row.file+`</div>
+                            <div class="col-10"><a href="`+row.url+`" target="_blank">`+row.file+`</a></div>
                             <div class="col-2 text-end">
                                 <button type="button" class="btn btn-primary btn-sm delete-file" data-delete-index="`+i+`">Hapus</button>
                             </div>
