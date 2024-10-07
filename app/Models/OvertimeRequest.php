@@ -40,11 +40,11 @@ class OvertimeRequest extends Model
     public $rules = [
         'company_id'  => 'required',
         'employee_id'  => 'required',
-        'manager_id'  => 'required',
-        'overtime_shift_request_id'  => 'required',
+        'manager_id'  => '',
+        'overtime_shift_request_id'  => 'required|exists:overtime_shift_requests,id',
         'start_shift_date_time'  => '',
         'end_shift_date_time'  => '',
-        'compensation'  => 'required',
+        'compensation'  => '',
         'work_note'  => '',
 
     ];
@@ -119,5 +119,10 @@ class OvertimeRequest extends Model
     public function overtime_shift_request()
     {
         return $this->belongsTo(OvertimeShiftRequest::class,'overtime_shift_request_id','id');
+    }
+
+    public function files()
+    {
+        return $this->hasMany(File::class,'module_id','id');
     }
 }
