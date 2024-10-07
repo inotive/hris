@@ -323,7 +323,7 @@ $("#role").trigger('change');
 </script>
 
 <script>
-$(".datepicker").daterangepicker({
+$(".datepickersingle").daterangepicker({
         singleDatePicker: true,
         showDropdowns: true,
         minYear: 1901,
@@ -335,19 +335,8 @@ $(".datepicker").daterangepicker({
 );
 
 
-$(".daterangepicker").daterangepicker({
-        singleDatePicker: false,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format("YYYY"),12),
-        locale: {
-            format: "DD/MM/Y"
-        },
-    }
-);
 
-
-$(".datetimepicker").daterangepicker({
+$(".datetimepickerinput").daterangepicker({
         singleDatePicker: true,
         timePicker: true,
         showDropdowns: true,
