@@ -15,7 +15,7 @@
             </span>
             <!--end::Svg Icon-->
             <input type="text" id="{{ $name }}" name="filter[{{ $name }}]"
-                class="form-control form-control-solid w-250px ps-15 daterangepicker"
+                class="form-control form-control-solid w-250px ps-15 datetimepickerinput"
                 placeholder="{{ __('Date Range') }}" aria-label="{{ __('Date Range') }}"
                 value="{{ request()->date_range ?? '' }}" />
         </div>
