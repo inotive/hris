@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\EmployeeFamilyInfoController;
 use App\Http\Controllers\Api\EmployeeOrganizationController;
 use App\Http\Controllers\Api\LeaveRequestController;
 use App\Http\Controllers\Api\LeaveTypeController;
+use App\Http\Controllers\Api\OvertimeRequestController;
+use App\Http\Controllers\Api\OvertimeTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -58,4 +60,14 @@ Route::middleware([
     Route::post('/leave-request',[LeaveRequestController::class, 'create']);
     Route::put('/leave-request',[LeaveRequestController::class, 'update']);
     Route::delete('/leave-request',[LeaveRequestController::class, 'delete']);
+
+
+    Route::get('/master-overtime-type',[OvertimeTypeController::class, 'index']);
+
+    Route::get('/overtime-requests',[OvertimeRequestController::class, 'index']);
+    Route::get('/overtime-request/{id}',[OvertimeRequestController::class, 'detail']);
+    Route::post('/overtime-request',[OvertimeRequestController::class, 'create']);
+    Route::put('/overtime-request',[OvertimeRequestController::class, 'update']);
+    Route::delete('/overtime-request',[OvertimeRequestController::class, 'delete']);
+
 });
