@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File as FacadesFile;
+use Illuminate\Support\Facades\Storage;
 
 class File extends Model
 {
@@ -43,19 +44,20 @@ class File extends Model
 
         static::creating(function($row){
             $filePath = $row->file ?? null;
-            if ($filePath != null && FacadesFile::exists($filePath)) {
-               
-                // Get file extension
-                $extension = FacadesFile::extension($filePath);
-            
-                // Get file size in bytes
-                $sizeInBytes = FacadesFile::size($filePath);
-            
-                // Convert size to KB
-                $sizeInKB = $sizeInBytes / 1024;
+            if ($filePath != null) {
+
+                // Get the file extension
+                $extension = pathinfo(Storage::path($filePath), PATHINFO_EXTENSION);
+
+                // Get the file size (in bytes)
+                $size = Storage::size($filePath);
+
+                // Get the filename with extension
+                $filename = pathinfo(Storage::path($filePath), PATHINFO_BASENAME);
 
                 $row->extension = $extension;
-                $row->size = round($sizeInKB, 2);
+                $row->size = $size;
+                $row->name = $filename;
             
                
             }

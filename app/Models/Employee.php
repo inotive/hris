@@ -225,6 +225,12 @@ class Employee extends Authenticatable
             ]);
     }
 
+
+    public function getHeadDepartmentIdAttribute()
+    {
+        return $employee->head_department->id ?? $employee->department->head_departmen_id ?? null;
+    }
+
     public static function dummy_data() : array 
     {
         return [];

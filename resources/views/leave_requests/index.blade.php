@@ -40,7 +40,11 @@
             <td>{{ $value->total_days ?? '-' }}</td>
           
           
-            <td>{{ $value->files()->first()->name ?? '-' }}</td>
+            <td>
+                @if (count($value->files ?? []) > 0)
+                <a href="{{ $value->files()->first()->url }}" target="_blank">File</a>
+                @endif
+            </td>
             <td>{{ $value->status ?? '-' }}</td>
            
             <td>{{ $value->reason ?? '-' }}</td>

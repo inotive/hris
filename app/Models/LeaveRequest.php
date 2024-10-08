@@ -41,8 +41,8 @@ class LeaveRequest extends Model
     public $rules = [
         'company_id'  => 'required',
         'employee_id'  => 'required',
-        'manager_id'  => 'required',
-        'leave_type_id'  => 'required',
+        'manager_id'  => '',
+        'leave_type_id'  => 'required|exists:leave_types,id',
         'start_date'    => 'required|date|before:end_date',
         'end_date'      => 'required|date|after:start_date',
         'total_days'  => '',
@@ -120,6 +120,6 @@ class LeaveRequest extends Model
 
     public function files()
     {
-        return $this->hasMany(File::class,'module_id','id')->get();
+        return $this->hasMany(File::class,'module_id','id');
     }
 }
