@@ -1,7 +1,7 @@
 @extends('crud.index')
 
 @section('toolbar')
-<x-table.filter-dropdown :company="true" />
+<x-table.filter-dropdown :company="true" :role="true" />
 @stop
 
 @section('table_header')
