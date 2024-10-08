@@ -5,6 +5,11 @@
     {{ __($page_title) }}
 @stop
 
+
+@section('toolbar')
+    <x-table.filter-dropdown :company="true" />
+@stop
+
 @section('table_header')
     @if (count($list) > 0)
         @if (auth()->user()->company_id == null)

@@ -3,6 +3,7 @@
 
     
     <x-slot name="toolbar">
+        <x-table.filter-dropdown :company="true" />
         <x-table.add-button :label="__('Add Payslip')" :href="route('employee-payslips.create')"/>
     </x-slot>
 

@@ -52,6 +52,10 @@
             @if ($company == true)
                 <x-company-filter />
             @endif
+
+            <x-role-filter />
+
+
             <!--begin::Actions-->
             <div class="d-flex justify-content-end mt-6">
                 <a type="reset" href="{{ url()->current() }}"

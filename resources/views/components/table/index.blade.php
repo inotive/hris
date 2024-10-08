@@ -28,52 +28,53 @@
             @endif
 
 
+            <form method="GET">
+                <!--begin::Card-->
+                <div class="card">
 
-            <!--begin::Card-->
-            <div class="card">
 
+                    @if (isset($header) || isset($header_toolbar))
+                        <div class="card-header pt-6">
+                            <div class="card-title gap-2">
+                                {{ $header ?? '' }}
+                            </div>
 
-                @if ( isset($header)  || isset($header_toolbar))
-                    <div class="card-header pt-6">
-                        <div class="card-title gap-2">
-                        {{ $header ?? '' }}
-                        </div>
-
-                        <div class="card-toolbar">
-                            <div class="d-flex justify-content-end gap-2">
-                            {{ $header_toolbar ?? '' }}
+                            <div class="card-toolbar">
+                                <div class="d-flex justify-content-end gap-2">
+                                    {{ $header_toolbar ?? '' }}
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endif
 
-                <div class="card-body">
-            
+                    <div class="card-body">
 
-                    <!--begin::Card header-->
-                    <div class="row">
-                        <!--begin::Card title-->
-                        <div class="col-12 col-lg-2">
-                            <x-table.search />
-                        </div>
 
-                        <div class="col-12 col-lg-10">
-                            <!--begin::Toolbar-->
-                            <div class="d-flex justify-content-end gap-2" data-kt-customer-table-toolbar="base">
-                                {{ $toolbar ?? '' }}
+                        <!--begin::Card header-->
+                        <div class="row">
+                            <!--begin::Card title-->
+                            <div class="col-12 col-lg-2">
+                                <x-table.search />
                             </div>
 
+                            <div class="col-12 col-lg-10">
+                                <!--begin::Toolbar-->
+                                <div class="d-flex justify-content-end gap-2" data-kt-customer-table-toolbar="base">
+                                    {{ $toolbar ?? '' }}
+                                </div>
+
+                            </div>
+                            <!--end::Card toolbar-->
                         </div>
-                        <!--end::Card toolbar-->
+
+
+
+                        {{ $body ?? '' }}
                     </div>
-
-
-
-                    {{ $body ?? '' }}
+                    <!--end::Card body-->
                 </div>
-                <!--end::Card body-->
-            </div>
-            <!--end::Card-->
+                <!--end::Card-->
+            </form>
         </div>
         <!--end::Container-->
     </div>

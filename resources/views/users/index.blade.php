@@ -1,6 +1,8 @@
 @extends('crud.index')
 
-
+@section('toolbar')
+<x-table.filter-dropdown :company="true" />
+@stop
 
 @section('table_header')
     <th class="min-w-50px">{{ __('No') }}</th>
