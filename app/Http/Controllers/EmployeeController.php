@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\EmployeeExport;
 use App\Jobs\NewPasswordJob;
+use App\Models\Company;
 use App\Models\Employee;
 use App\Traits\CrudTrait;
 use Exception;
@@ -112,5 +114,17 @@ class EmployeeController extends Controller
                 'message'   => $e->getMessage(),
             ];
         }
+    }
+
+
+    public function export(Request $request)
+    {
+        $company = null;
+        $filename = __('Employees') . '.xlsx';
+        if ($request->company_id != null) {
+            $company = Company::find($request->company_id);
+            $filename = __('Employees') . ' - ' . $company->name . '.xlsx';
+        }
+        return (new EmployeeExport(company_id: $request->company_id))->download($filename);
     }
 }
