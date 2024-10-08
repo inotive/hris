@@ -6,6 +6,7 @@
 @stop
 
 @section('toolbar')
+    <x-table.bulk-data-dropdown :export_url="route('employees.export', ['company_id' => request()->filter['company_id'] ?? null ])" />
     <x-table.filter-dropdown :company="true"/>
 @stop
 

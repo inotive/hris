@@ -1,5 +1,8 @@
 @props([
     'company' => false,
+    'role' => false,
+
+
     'filter_count'  => collect(request()->filter ?? [])
             ->filter(function($row) {
                 return !is_null($row) && $row !== ''; 
@@ -9,6 +12,7 @@
             })
             ->count(),
 ])
+
 <div class="">
 
 
@@ -53,7 +57,9 @@
                 <x-company-filter />
             @endif
 
-            <x-role-filter />
+            @if ($role == true)
+                <x-role-filter />
+            @endif
 
 
             <!--begin::Actions-->
