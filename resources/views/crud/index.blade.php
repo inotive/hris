@@ -55,6 +55,7 @@
                         </div>
 
                         <!--begin::Table-->
+                        @if($list->total() > 0)
                         <div class="table-responsive mt-10">
                             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
                                 <!--begin::Table head-->
@@ -74,6 +75,9 @@
                                 <!--end::Table body-->
                             </table>
                         </div>
+                        @else
+                        <x-table.empty />
+                        @endif
                         <!--end::Table-->
 
                         {{ $list->links() }}

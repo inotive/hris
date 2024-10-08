@@ -5,6 +5,10 @@
     {{ __($page_title) }}
 @stop
 
+@section('toolbar')
+<x-table.filter-dropdown :company="true" />
+@stop
+
 @section('table_header')
     @if (auth()->user()->company_id == null)
     <th class="min-w-125px">{{ __('Company') }}</th>
