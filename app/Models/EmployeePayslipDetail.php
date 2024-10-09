@@ -24,7 +24,7 @@ class EmployeePayslipDetail extends Model
 
     public $fillable = [
         'company_id',
-        'employee_payslip_master_earning_id',
+        'employee_payslip_master_id',
         'payslip_type',
         'value',
         'employee_payslip_id',
@@ -32,7 +32,7 @@ class EmployeePayslipDetail extends Model
 
     public $rules = [
         'company_id'  => 'required',
-        'employee_payslip_master_earning_id'  => 'required',
+        'employee_payslip_master_id'  => 'required',
         'payslip_type'  => 'required',
         'value'  => 'required',
         'employee_payslip_id'  => 'required',
@@ -41,6 +41,6 @@ class EmployeePayslipDetail extends Model
 
     public function master()
     {
-        return $this->belongsTo(EmployeePayslipDetail::class, 'employee_payslip_master_earning_id', 'id');
+        return $this->belongsTo(EmployeePayslipDetail::class, 'employee_payslip_master_id', 'id');
     }
 }

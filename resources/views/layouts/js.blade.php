@@ -22,7 +22,7 @@
             formData.push({ name: this.name, value: '0' });
         });
 
-        $(".datepicker").each(function() {
+        $(".datepickersingle").each(function() {
             var name = $(this).attr("name");
             // Get the current value
             var dateStr = $(this).val();
@@ -864,7 +864,7 @@ $(".datetimepickerinput").daterangepicker({
         var amount = 0;
         if (value != null) {
             type = value.type;
-            master_id = value.employee_payslip_master_earning_id;
+            master_id = value.employee_payslip_master_id;
             amount = value.value;
            
             var amount_input = $(".deduction-amount-" + row_deduction);
@@ -908,7 +908,7 @@ $(".datetimepickerinput").daterangepicker({
         var amount = 0;
         if (value != null) {
             type = value.type;
-            master_id = value.employee_payslip_master_earning_id;
+            master_id = value.employee_payslip_master_id;
             amount = value.value;
            
             var amount_input = $(".earning-amount-" + row_earning);
