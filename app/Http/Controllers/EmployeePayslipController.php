@@ -93,7 +93,7 @@ class EmployeePayslipController extends Controller
             foreach($earning as $k => $v) {
                 EmployeePayslipDetail::create([
                     'company_id'    => $request->company_id,
-                    'employee_payslip_master_earning_id'    => $v['master_id'],
+                    'employee_payslip_master_id'    => $v['master_id'],
                     'payslip_type'  => 'earning',
                     'type'  => $v['type'],
                     'value' => (float) $v['amount'],
@@ -104,7 +104,7 @@ class EmployeePayslipController extends Controller
             foreach($deduction as $k => $v) {
                 EmployeePayslipDetail::create([
                     'company_id'    => $request->company_id,
-                    'employee_payslip_master_earning_id'    => $v['master_id'],
+                    'employee_payslip_master_id'    => $v['master_id'],
                     'payslip_type'  => 'deduction',
                     'type'  => $v['type'],
                     'value' => (float) $v['amount'],

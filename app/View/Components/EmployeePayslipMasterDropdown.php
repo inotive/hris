@@ -30,7 +30,7 @@ class EmployeePayslipMasterDropdown extends Component
 
         return view('components.form.select',[
             'list'  => $list,
-            'name'  => 'employee_payslip_master_earning_id',
+            'name'  => 'employee_payslip_master_id',
             'label' => __('Payslip Master'),
             'value' => $this->value,
         ]);

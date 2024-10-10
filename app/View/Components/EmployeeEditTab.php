@@ -32,6 +32,11 @@ class EmployeeEditTab extends Component
                 'label' => __('Overview'),
             ],
 
+            [
+                'code'  => 'payroll',
+                'route' => route('employees.payroll', $this->employeeid),
+                'label' => __('Payroll Information'),
+            ],
 
             [
                 'code'  => 'contract',

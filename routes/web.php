@@ -15,6 +15,7 @@ use App\Http\Controllers\EmployeeEmergencyContactController;
 use App\Http\Controllers\EmployeeFamilyInfoController;
 use App\Http\Controllers\EmployeeLevelController;
 use App\Http\Controllers\EmployeeOrganizationExperienceController;
+use App\Http\Controllers\EmployeePayrollController;
 use App\Http\Controllers\EmployeePayslipController;
 use App\Http\Controllers\EmployeePayslipDetailController;
 use App\Http\Controllers\EmployeePayslipMasterController;
@@ -77,6 +78,8 @@ Route::middleware([
     // Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
 
     Route::resource('/employees', EmployeeController::class);
+    Route::get('/employees/{employee}/payroll', [EmployeePayrollController::class, 'index'])->name('employees.payroll');
+    Route::post('/employees/{employee}/payroll', [EmployeePayrollController::class, 'update'])->name('employees.payroll-update');
     Route::get('/employees/get/select2', [EmployeeController::class, 'select2'])->name('employees.select2');
     Route::post('/employees/check-username', [EmployeeController::class, 'checkUsername'])->name('employees.check-username');
     
