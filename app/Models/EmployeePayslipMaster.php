@@ -28,6 +28,7 @@ class EmployeePayslipMaster extends Model
         'name',
         'description',
         'master_type',
+        'slug',
     ];
 
     public $rules = [
@@ -35,6 +36,7 @@ class EmployeePayslipMaster extends Model
         'name'  => 'required',
         'description'  => 'required',
         'master_type'  => 'required',
+        'slug'  => '',
     ];
 
     public function scopeMasterTypeEarning($query)
@@ -57,6 +59,7 @@ class EmployeePayslipMaster extends Model
             'master_type'  =>  'earning',
             'name'  =>  'Basic Sallary',
             'description'  =>  '',
+            'slug'  => 'basic-sallary',
         ];
 
         $data[] = [
@@ -64,36 +67,42 @@ class EmployeePayslipMaster extends Model
             'master_type'  =>  'earning',
             'name'  =>  'Tax Allowance',
             'description'  =>  '',
+            'slug'  => 'tax-allowance',
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'earning',
             'name'  =>  'Tunjangan Jabatan',
             'description'  =>  '',
+            'slug'  => null,
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'deduction',
             'name'  =>  'BPJS Kesehatan',
             'description'  =>  '',
+            'slug'  => null,
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'deduction',
             'name'  =>  'JHT Employee',
             'description'  =>  '',
+            'slug'  => null,
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'deduction',
             'name'  =>  'PPH 21',
             'description'  =>  '',
+            'slug'  => null,
         ];
         $data[] = [
             'company_id'    => $company_id,
             'master_type'  =>  'deduction',
             'name'  =>  'Notebook Loan',
             'description'  =>  '',
+            'slug'  => null,
         ];
 
   

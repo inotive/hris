@@ -69,6 +69,13 @@ class Employee extends Authenticatable
         'username',
         'bank_account_name',
         'bank_account_number',
+        
+        'document_bpjstk_file',
+        'document_bpjstk_name',
+        'document_bpjstk_no',
+        'document_bpjs_file',
+        'document_bpjs_name',
+        'document_bpjs_no',
     ];
     
    
@@ -120,6 +127,13 @@ class Employee extends Authenticatable
           
             'bank_account_name' => 'required',
             'bank_account_number' => 'required',
+
+            'document_bpjstk_file' => '',
+            'document_bpjstk_name' => '',
+            'document_bpjstk_no' => '',
+            'document_bpjs_file' => '',
+            'document_bpjs_name' => '',
+            'document_bpjs_no' => '',
         ];
 
     }

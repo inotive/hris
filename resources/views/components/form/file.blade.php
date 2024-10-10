@@ -16,6 +16,9 @@
                 class="form-control form-control-solid @error($name) is-invalid @enderror"
                 value="{{ old($name, $value) }}" placeholder="{{ $label }}">
             <div class="input-group-append">
+                @if ($value != null)
+                    {{-- <a class="btn btn-success" href="{{ Storage::url($value) }}" target="_blank">{{ __('Show') }}</a> --}}
+                @endif
                 <button class="btn btn-primary file_picker" 
                 
                 id="{{ $name }}_picker"

@@ -10,7 +10,7 @@
     <x-form.input type="text" :label="__('Username')" name="username" :value="old('username', $form->username ?? '')" />
     <x-form.input :label="__('Email')" name="email" :value="old('email', $form->email ?? '')" />
     <x-form.phone :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')" />
-        <x-form.number :label="__('NIK')" name="nik" :value="old('nik', $form->nik ?? '')" />
+    <x-form.number :label="__('NIK')" name="nik" :value="old('nik', $form->nik ?? '')" />
     <x-form.switch :label="__('Status')" name="status" :value="$form->status ?? 0" />
 
     <h4>{{ __('Basic Information') }}</h4>
@@ -45,7 +45,7 @@
     <x-employee-position-dropdown :value="old('employee_position_id', $form->employee_position_id ?? '')" />
     <x-employee-level-dropdown :value="old('employee_level_id', $form->employee_level_id ?? '')" />
     <x-employee-shift-dropdown :value="old('employee_shift_id', $form->employee_shift_id ?? '')" />
-    <x-head-department-employee-dropdown label="Manager" :value="$form->head_departmen_id??''" />
+    <x-head-department-employee-dropdown label="Manager" :value="$form->head_departmen_id ?? ''" />
 
     <h4>{{ __('Payroll Information') }}</h4>
     <hr>
@@ -62,12 +62,21 @@
     <hr>
 
     <x-form.input type="text" label="Document Number" name="document_id" :value="$form->document_id ?? ''" />
-        <x-form.datepicker label="Document Expiry" name="document_expiry" :value="$form->document_expiry ?? ''" />
-            <x-form.file  label="Document File" name="document_file" folder="document_file" :value="$form->document_file ?? ''" />
-            <x-form.switch label="Document is Unlimited" name="document_is_unlimited" :value="$form->document_is_unlimited ?? 0" />
+    <x-form.datepicker label="Document Expiry" name="document_expiry" :value="$form->document_expiry ?? ''" />
+    <x-form.file label="Document File" name="document_file" folder="document_file" :value="$form->document_file ?? ''" />
+    <x-form.switch label="Document is Unlimited" name="document_is_unlimited" :value="$form->document_is_unlimited ?? 0" />
+
+    <x-form.input type="text" label="BPJS Number" name="document_bpjs_no" :value="$form->document_bpjs_no ?? ''" />
+    <x-form.input type="text" label="BPJS Name" name="document_bpjs_name" :value="$form->document_bpjs_name ?? ''" />
+    <x-form.file label="Document File BPJS" name="document_bpjs_file" folder="document_bpjs_file" :value="$form->document_bpjs_file ?? ''" />
+
+    <x-form.input type="text" label="BPJS-TK Number" name="document_bpjstk_no" :value="$form->document_bpjstk_no ?? ''" />
+    <x-form.input type="text" label="BPJS-TK Name" name="document_bpjstk_name" :value="$form->document_bpjstk_name ?? ''" />
+    <x-form.file label="Document File BPJS-TK" name="document_bpjstk_file" folder="document_bpjstk_file" :value="$form->document_bpjstk_file ?? ''" />
 
     <x-form.input type="text" label="Tax Number" name="tax_number" :value="$form->tax_number ?? ''" />
     <x-form.input type="text" label="Tax Registered Name" name="tax_registered_name" :value="$form->tax_registered_name ?? ''" />
+
 
 
 
