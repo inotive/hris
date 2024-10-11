@@ -26,6 +26,7 @@ use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\OvertimeRequestController;
 use App\Http\Controllers\OvertimeShiftRequestController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PtkpController;
 use App\Http\Controllers\ReimbursementExpenseController;
 use App\Http\Controllers\ReimbursementRequestController;
 use App\Http\Controllers\ReimbursementTypeController;
@@ -75,6 +76,8 @@ Route::middleware([
     Route::get('/companies/{company}/payout-setting/{year}', [CompanyPayoutSettingController::class, 'calendar'])->name('companies.payout-setting');
     Route::post('/companies/{company}/payout-setting/{year}', [CompanyPayoutSettingController::class, 'calendarUpdate'])->name('companies.payout-setting.update');
     
+    Route::resource('/ptkp', PtkpController::class);
+
     // Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
 
     Route::resource('/employees', EmployeeController::class);

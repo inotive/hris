@@ -1082,6 +1082,24 @@ $(".datetimepickerinput").daterangepicker({
     });
 </script>
 
+<script>
+    function formatDecimal(input) {
+        // Remove any commas and allow only numbers and dots
+        let value = input.value.replace(/[^0-9.]/g, '');
+        
+        // Replace multiple dots with a single one and trim to two decimal places
+        value = value.replace(/\.+/g, '.').replace(/^(\d+\.)(.*)\.$/, '$1$2');
+        if (value.includes('.')) {
+            let parts = value.split('.');
+            if (parts[1].length > 2) {
+                parts[1] = parts[1].substring(0, 2);
+            }
+            value = parts.join('.');
+        }
+        
+        input.value = value;
+    }
+</script>
 
 <script>
 $(document).ready(function() {

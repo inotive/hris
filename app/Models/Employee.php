@@ -76,6 +76,7 @@ class Employee extends Authenticatable
         'document_bpjs_file',
         'document_bpjs_name',
         'document_bpjs_no',
+        'type_ter',
     ];
     
    
@@ -134,6 +135,7 @@ class Employee extends Authenticatable
             'document_bpjs_file' => '',
             'document_bpjs_name' => '',
             'document_bpjs_no' => '',
+            'type_ter' => '',
         ];
 
     }
