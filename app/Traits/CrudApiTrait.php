@@ -26,6 +26,14 @@ trait CrudApiTrait
             ], 422);
         }
 
+        if ($request->employee_id != null && auth()->user()->id != $request->employee_id) {
+            return response()->json([
+                'status' => 'error',
+                'message'   => 'Invalid employee_id',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
         $insert = $request->all();
 
         $model = $this->model::create($insert);
@@ -42,9 +50,10 @@ trait CrudApiTrait
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = $this->model::all();
+        $data = $this->model::orderBy('created_at', $request->sort ?? 'desc')
+            ->get();
         return response()->json([
             'status' => 'success',
             'data' => $data,

@@ -37,11 +37,28 @@ class ReimbursementType extends Model
     {
         $company_id = auth()->user()->company_id;
 
-        $data = []; 
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'test'
+        $categories = [
+            'Transportasi',
+            'Akomodasi',
+            'Makan',
+            'Bahan Bakar',
+            'Peralatan Kantor',
+            'Kesehatan',
+            'Telekomunikasi',
+            'Perbaikan Kendaraan',
+            'Pendidikan/Training',
+            'Hiburan/Konsumsi Karyawan',
+            'Biaya Kantor',
+            'Lain-lain',
         ];
+
+        $data = collect($categories)->map(function($row) use ($company_id){
+            return [
+                'company_id'    => $company_id,
+                'name'  => $row,
+            ];
+        })->all();
+        
         return $data;
     }
 }

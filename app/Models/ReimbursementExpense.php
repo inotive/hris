@@ -37,47 +37,41 @@ class ReimbursementExpense extends Model
     {
         $company_id = auth()->user()->company_id;
 
-        $data = []; 
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Transportasi'
+        $expenses = [
+            'Taksi',
+            'Kereta',
+            'Bus',
+            'Parkir',
+            'Hotel',
+            'Guesthouse',
+            'Makan Siang',
+            'Makan Malam',
+            'Bensin',
+            'Solar',
+            'Laptop',
+            'Alat Tulis',
+            'Konsultasi Dokter',
+            'Obat-obatan',
+            'Pulsa',
+            'Paket Data',
+            'Servis Kendaraan',
+            'Ganti Oli',
+            'Seminar',
+            'Kursus/Training',
+            'Acara Kantor',
+            'Konsumsi Rapat',
+            'Alat Tulis Kantor',
+            'Perlengkapan Kebersihan',
+            'Pengeluaran Lain',
         ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Makan'
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Akomodasi'
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Biaya Kesehatan'
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Peralatan Kerja'
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Pelatihan dan Seminar'
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Biaya Hiburan'
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Biaya Komunikasi'
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Perjalanan Dinas'
-        ];
-        $data[] = [
-            'company_id'    => $company_id,
-            'name'  => 'Lain-lain'
-        ];
+
+        $data = collect($expenses)->map(function($row) use ($company_id){
+            return [
+                'company_id'    => $company_id,
+                'name'  => $row,
+            ];
+        })->all();
+        
 
         return $data;
     }

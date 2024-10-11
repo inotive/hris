@@ -19,6 +19,7 @@ use App\Http\Controllers\EmployeePayrollController;
 use App\Http\Controllers\EmployeePayslipController;
 use App\Http\Controllers\EmployeePayslipDetailController;
 use App\Http\Controllers\EmployeePayslipMasterController;
+use App\Http\Controllers\EmployeePayslipTemplateController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\EmployeeShiftController;
 use App\Http\Controllers\LeaveRequestController;
@@ -83,6 +84,10 @@ Route::middleware([
     Route::resource('/employees', EmployeeController::class);
     Route::get('/employees/{employee}/payroll', [EmployeePayrollController::class, 'index'])->name('employees.payroll');
     Route::post('/employees/{employee}/payroll', [EmployeePayrollController::class, 'update'])->name('employees.payroll-update');
+
+    Route::get('/employees/{employee}/payslip', [EmployeePayslipTemplateController::class, 'index'])->name('employees.payslip');
+    Route::post('/employees/{employee}/payslip', [EmployeePayslipTemplateController::class, 'update'])->name('employees.payslip-update');
+
     Route::get('/employees/get/select2', [EmployeeController::class, 'select2'])->name('employees.select2');
     Route::post('/employees/check-username', [EmployeeController::class, 'checkUsername'])->name('employees.check-username');
     

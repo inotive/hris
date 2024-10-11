@@ -6,12 +6,12 @@
 @stop
 
 @section('toolbar')
-<x-table.filter-dropdown :company="true" />
+    <x-table.filter-dropdown :company="true" />
 @stop
 
 @section('table_header')
     @if (auth()->user()->company_id == null)
-    <th class="min-w-125px">{{ __('Company') }}</th>
+        <th class="min-w-125px">{{ __('Company') }}</th>
     @endif
     <th class="min-w-125px">{{ __('Name') }}</th>
     <th class="min-w-125px">{{ __('Master Type') }}</th>
@@ -27,16 +27,23 @@
 
 
                 @if (auth()->user()->company_id == null)
-                <td>{{ $value->company->name ?? '-' }}</td>
+                    <td>{{ $value->company->name ?? '-' }}</td>
                 @endif
 
-                <td>{{ $value->name ?? '-' }}</td>
+                <td>
+                    {{ $value->name ?? '-' }}
+                    @if ($value->slug != null)
+                    <i class="fa fa-fw fa-lock"></i>
+                    @endif
+                </td>
                 <td>{{ $value->master_type_name ?? '-' }}</td>
-                
+
                 <td class="text-end">
                     <x-table.actions>
                         <x-table.edit-button :id="$value->id" />
-                        <x-table.delete-button :id="$value->id" />
+                        @if ($value->slug == null)
+                            <x-table.delete-button :id="$value->id" />
+                        @endif
                     </x-table.actions>
                 </td>
 

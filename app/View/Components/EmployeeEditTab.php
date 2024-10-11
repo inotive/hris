@@ -39,6 +39,12 @@ class EmployeeEditTab extends Component
             ],
 
             [
+                'code'  => 'payslip',
+                'route' => route('employees.payslip', $this->employeeid),
+                'label' => __('Payslip Information'),
+            ],
+
+            [
                 'code'  => 'contract',
                 'route' => route('contract.index', $this->employeeid),
                 'label' => __('Contract'),

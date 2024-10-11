@@ -17,7 +17,7 @@ class OvertimeTypeController extends Controller
         $auth = auth()->user();
 
         $list = OvertimeShiftRequest::where('company_id', $auth->company_id)
-            ->orderBy('name')
+        ->orderBy('created_at', $request->sort ?? 'desc')
                     ->get();
 
         return [

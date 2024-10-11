@@ -67,7 +67,7 @@ class EmployeePayslipMaster extends Model
             'master_type'  =>  'earning',
             'name'  =>  'Tax Allowance',
             'description'  =>  '',
-            'slug'  => 'tax-allowance',
+            'slug'  => null,
         ];
         $data[] = [
             'company_id'    => $company_id,
@@ -95,7 +95,7 @@ class EmployeePayslipMaster extends Model
             'master_type'  =>  'deduction',
             'name'  =>  'PPH 21',
             'description'  =>  '',
-            'slug'  => null,
+            'slug'  => 'pph21',
         ];
         $data[] = [
             'company_id'    => $company_id,

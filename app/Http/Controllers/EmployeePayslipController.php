@@ -126,6 +126,7 @@ class EmployeePayslipController extends Controller
             return [
                 'success'   => false,
                 'message'   => __('Error'),
+                'exception' => $e->getMessage(),
             ];
         }
     }

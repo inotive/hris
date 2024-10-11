@@ -777,9 +777,34 @@ $(".datetimepickerinput").daterangepicker({
 </script>
 @endif
 
-
-
 @if (strpos( Route::currentRouteName(), "employee-payslips") === 0)
+<script>
+    var form_data = JSON.parse($("#form_data").val());
+    var employee_data = JSON.parse($("#employee_data").val());
+
+    $("#metode").on('change', function(){
+        var val = $(this).val();
+        if (val == 'transfer') {
+            $("#account_name_div").show();
+            $("#account_number_div").show();
+
+            var acc_name = $("#account_name");
+            var acc_number = $("#account_number");
+
+            if (acc_name.val().length == 0) {
+                acc_name.val(employee_data.bank_account_name);
+            }
+        } else {
+            $("#account_name_div").hide();
+            $("#account_number_div").hide();
+        }
+    });
+
+    $("#metode").trigger('change');
+</script>
+@endif
+
+@if (strpos( Route::currentRouteName(), "employee-payslips") === 0 || strpos( Route::currentRouteName(), "employees.payslip") === 0)
 <script>
     var row_deduction = 0;
     var row_earning = 0;
@@ -916,6 +941,7 @@ $(".datetimepickerinput").daterangepicker({
             formattedcurrency(amount_input);
             $(".earning-type-" + row_earning).val(type).trigger('change');
             $(".earning-master-" + row_earning).val(master_id).trigger('change');
+
         }
 
         state_empty();

@@ -44,7 +44,6 @@ class Employee extends Authenticatable
         'employee_position_id',
         'employee_level_id',
         'join_date',
-        'sallary',
         'image',
         'reimbursement_limit',
         'birth_date',
@@ -102,7 +101,6 @@ class Employee extends Authenticatable
             'employee_position_id'  => 'required',
             'employee_level_id'  => 'required',
             'join_date'  => 'required',
-            'sallary'  => '',
             'image'  => '',
             'reimbursement_limit'  => '',
             'birth_date'  => '',
@@ -247,6 +245,19 @@ class Employee extends Authenticatable
         return $employee->head_department->id ?? $employee->department->head_departmen_id ?? null;
     }
 
+    public function payslip_template()
+    {
+        return $this->hasMany(EmployeePayslipTemplate::class,'employee_id','id');
+    }
+
+    public function getSallaryAttribute()
+    {
+        return EmployeePayslipTemplate::where('employee_id', $this->id)
+            ->whereHas('master', function($query){
+                    return $query->where('slug', 'basic-sallary');
+                })->first()->value ?? 0;
+    }
+
     public static function dummy_data() : array 
     {
         return [];
@@ -265,4 +276,5 @@ class Employee extends Authenticatable
             'Lainnya'  => 'Lainnya',
         ];
     }
+
 }
