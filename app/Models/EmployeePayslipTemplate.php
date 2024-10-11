@@ -41,4 +41,27 @@ class EmployeePayslipTemplate extends Model
         'value'  => 'required',
         'created_by_user_id'  => 'required',
     ];
+
+
+    public function master()
+    {
+        return $this->belongsTo(EmployeePayslipMaster::class, 'employee_payslip_master_id', 'id');
+    }
+
+
+    public static function initData($employee_id)
+    {
+        $masters = EmployeePayslipMaster::whereNotNull('slug')->get();
+
+        $employee = Employee::find($employee_id);
+        foreach($masters as $key => $value) {
+            EmployeePayslipTemplate::firstOrCreate([
+                'company_id'    => $employee->company_id,
+                'employee_id'   => $employee_id,
+                'employee_payslip_master_id'    => $value->id,
+                'payslip_type'  => $value->master_type,
+                'type'  => 'main',
+            ]);
+        }
+    }
 }

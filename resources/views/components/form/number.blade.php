@@ -8,7 +8,7 @@
     'required'  => false,
 ])
 
-<div class="col-12 col-lg-6 mb-4">
+<div id="{{ $name }}_div" class="col-12 col-lg-6 mb-4">
 
     <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ $label }}</label>
 
