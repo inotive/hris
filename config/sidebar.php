@@ -240,6 +240,14 @@ return [
                         'employee-payslips.*'    => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
+                [
+                    'label' => 'PTKP',
+                    'route' => 'ptkp.index',
+                    'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'ptkp.*'    => ['superadmin', 'admin', 'finance'],
+                    ],
+                ],
             ],
         ],
 

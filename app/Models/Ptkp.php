@@ -31,6 +31,6 @@ class Ptkp extends Model
         'type_ter'  => 'required',
         'value_start'  => 'required',
         'value_end'  => 'required',
-        'value_start'  => 'required',
+        'value'  => 'required',
     ];
 }

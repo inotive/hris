@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('employee_payslip_details', function (Blueprint $table) {
 
-            $table->dropColumn('employee_payslip_master_earning_id');
+            // $table->dropColumn('employee_payslip_master_earning_id');
          
             
             $table->foreignUuid('employee_payslip_master_id')->nullable();
@@ -34,7 +34,7 @@ return new class extends Migration
     {
         Schema::table('employee_payslip_details', function (Blueprint $table) {
             //
-            $table->foreignUuid('employee_payslip_master_earning_id')->nullable();
+            // $table->foreignUuid('employee_payslip_master_earning_id')->nullable();
 
             $table->dropColumn('employee_payslip_master_id');
 
