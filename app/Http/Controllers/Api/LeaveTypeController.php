@@ -16,8 +16,8 @@ class LeaveTypeController extends Controller
         $auth = auth()->user();
 
         $list = LeaveType::where('company_id', $auth->company_id)
-            ->orderBy('name')
-                    ->get();
+            ->orderBy('created_at', $request->sort ?? 'desc')
+            ->get();
 
         return [
             'success'   => true,

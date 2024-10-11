@@ -245,7 +245,8 @@ return [
                     'route' => 'ptkp.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes'    => [
-                        'ptkp.*'    => ['superadmin', 'admin', 'finance'],
+                        'ptkp.*'    => ['superadmin'],
+                        'ptkp.index'    => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
             ],

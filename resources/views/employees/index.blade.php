@@ -32,7 +32,9 @@
             <td>
                 <x-table.employee-item :employee="$value" />
             </td>
+            @if (auth()->user()->company_id == null)
             <td>{{ $value->company->name ?? '' }}</td>
+            @endif
             <!-- <td>{{ $value->department->name ?? '' }}</td> -->
             <!-- <td>{{ $value->position->name ?? '' }}</td> -->
             <td>{{ $value->phone ?? '' }}</td>

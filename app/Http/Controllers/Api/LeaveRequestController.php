@@ -32,7 +32,7 @@ class LeaveRequestController extends Controller
             ->when($end_date !=null, function ($query) use ($end_date){
                 $query->whereDate('created_at','<=', $end_date);
             })
-        
+            ->orderBy('created_at', $request->sort ?? 'desc')
             ->get();
 
         return [

@@ -6,12 +6,16 @@
 @stop
 
 @section('toolbar')
-<x-table.filter-dropdown :company="true" />
+
+    <a type="button" class="btn btn-warning"
+        href="{{ route(explode('.', Route::currentRouteName())[0] . '.index', ['generate_dummy' => 1]) }}">{{ __('Generate Dummy') }}
+        <i class="fa fa-fw fa-list"></i></a>
+    <x-table.filter-dropdown :company="true" />
 @stop
 
 @section('table_header')
     <th class="min-w-50px">{{ __('No') }}</th>
-  
+
     <th class="min-w-125px">{{ __('Type TER') }}</th>
     <th class="min-w-125px">{{ __('Range') }}</th>
     <th class="min-w-125px">{{ __('Value') }}</th>
@@ -23,10 +27,11 @@
         <tr>
 
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
-         
+
             <td>{{ $value->type_ter ?? '-' }}</td>
             <td>
-                Rp {{ number_format($value->value_start, 0,",",".") }} - Rp {{ number_format($value->value_end, 0,",",".") }}
+                Rp {{ number_format($value->value_start, 0, ',', '.') }} - Rp
+                {{ number_format($value->value_end, 0, ',', '.') }}
             </td>
             <td>{{ $value->value ?? '-' }}%</td>
 

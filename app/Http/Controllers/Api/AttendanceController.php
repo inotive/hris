@@ -14,7 +14,7 @@ class AttendanceController extends Controller
         $auth = auth()->user();
 
         $list = Attendance::where('employee_id', $auth->id)
-            ->orderBy('date','asc')
+            ->orderBy('created_at', $request->sort ?? 'desc')
             ->get();
 
 
