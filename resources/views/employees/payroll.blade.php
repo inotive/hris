@@ -16,7 +16,7 @@
             <x-form.datepicker :label="__('Join Date')" name="join_date" :value="old('join_date', $form->join_date ?? '')" />
             <x-form.currency disabled :label="__('Salary')" name="sallary" :value="old('sallary', $form->sallary ?? '')" />
             <x-form.currency :label="__('Reimbursement Limit')" name="reimbursement_limit" :value="old('reimbursement_limit', $form->reimbursement_limit ?? '')" />
-            <x-form.select :list="App\Models\Ptkp::groupBy('type_ter')->orderBy('type_ter')->pluck('type_ter', 'type_ter')" label="TER" name="type_ter" :value="$form->type_ter ?? ''" />
+            <x-form.select :list="$ptkp_list" label="TER" name="type_ter" :value="$form->type_ter ?? ''" />
 
         </div>
 

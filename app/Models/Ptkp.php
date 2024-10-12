@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\CreatedByUserTrait;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,6 +14,7 @@ class Ptkp extends Model
     use HasUuids;
 
     use SearchTrait;
+    use CreatedByUserTrait;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -26,6 +28,7 @@ class Ptkp extends Model
         'value_end',
         'value',
         'notes',
+        'company_id',
     ];
 
     public $rules = [
@@ -34,6 +37,7 @@ class Ptkp extends Model
         'value_end'  => 'required',
         'value'  => 'required',
         'notes'  => '',
+        'company_id'  => '',
     ];
 
 
@@ -1114,8 +1118,9 @@ class Ptkp extends Model
             ],
         ];
 
-
-        $insert = collect($insert)->map(function($row){
+        $company_id = auth()->user()->company_id;
+        $insert = collect($insert)->map(function($row) use($company_id){
+            $row['company_id'] = $company_id;
             $row['value'] = str_replace(",",".", $row['value']);
             return $row;
         })->all();
