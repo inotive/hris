@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\OvertimeRequestResource;
 use App\Models\File;
 use App\Models\OvertimeRequest;
+use App\Models\OvertimeShiftRequest;
 use App\Services\Base64FileService;
 use Exception;
 use Illuminate\Http\Request;
@@ -159,5 +160,25 @@ class OvertimeRequestController extends Controller
             'message'=> "Overtime request data delete successful"
         ];
     
+    }
+
+
+    public function overtimeType(Request $request)
+    {
+        $company_id = $request->company_id ?? auth()->user()->company_id;
+        $list = OvertimeShiftRequest::where('company_id', $company_id)->orderBy('name')->pluck('name','id');
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
     }
 }

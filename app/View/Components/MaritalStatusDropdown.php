@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Employee;
 use Illuminate\View\Component;
 
 class MaritalStatusDropdown extends Component
@@ -23,12 +24,7 @@ class MaritalStatusDropdown extends Component
      */
     public function render()
     {
-        $list = [
-            'Lajang'  => 'Lajang',
-            'Menikah'  => 'Menikah',
-            'Cerai Hidup'  => 'Cerai Hidup',
-            'Cerai Mati'  => 'Cerai Mati',
-        ];
+        $list = Employee::maritalStatusDropdown();
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'marital_status',

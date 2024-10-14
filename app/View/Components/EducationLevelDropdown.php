@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\EmployeeEducation;
 use Illuminate\View\Component;
 
 class EducationLevelDropdown extends Component
@@ -23,17 +24,7 @@ class EducationLevelDropdown extends Component
      */
     public function render()
     {
-        $list = [
-            'SD'  => 'SD',
-            'SMP'  => 'SMP',
-            'SMA'  => 'SMA',
-            'SMK'  => 'SMK',
-            'D3'  => 'D3',
-            'S1'  => 'S1',
-            'S2'  => 'S2',
-            'S3'  => 'S3',
-            'Lainnya'  => 'Lainnya',
-        ];
+        $list = EmployeeEducation::educationLevelDropdown();
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'education_level',

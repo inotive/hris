@@ -60,4 +60,19 @@ class EmployeeEducation extends Model
     {
         return $this->belongsTo(Employee::class,'employee_id','id');
     }
+
+    public static function educationLevelDropdown()
+    {
+        return [
+            'SD'  => 'SD',
+            'SMP'  => 'SMP',
+            'SMA'  => 'SMA',
+            'SMK'  => 'SMK',
+            'D3'  => 'D3',
+            'S1'  => 'S1',
+            'S2'  => 'S2',
+            'S3'  => 'S3',
+            'Lainnya'  => 'Lainnya',
+        ];
+    }
 }

@@ -18,4 +18,22 @@ class EmployeeEducationController extends Controller
     public $base64_files = [
 
     ];
+
+    public function educationLevel()
+    {
+        $list = EmployeeEducation::educationLevelDropdown();
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
+    }
 }

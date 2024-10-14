@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\EmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
+use App\View\Components\CurrencyDropdown;
+use App\View\Components\PeriodDropdown;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -154,5 +156,97 @@ class EmployeeController extends Controller
                 'message'   => 'Token not provided or invalid',
             ], 401);
         }
+    }
+
+    public function gender()
+    {
+        $list = Employee::genderDropdown();
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
+    }
+
+    public function religion()
+    {
+        $list = Employee::religionDropdown();
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
+    }
+
+    public function maritalStatus()
+    {
+        $list = Employee::maritalStatusDropdown();
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
+    }
+
+
+    public function period()
+    {
+        $list = PeriodDropdown::dropdown();
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
+    }
+
+
+    public function currency()
+    {
+        $list = CurrencyDropdown::dropdown();
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
     }
 }

@@ -4,6 +4,8 @@ namespace App\View\Components;
 
 use App\Models\Company;
 use App\Models\Employee;
+use App\Models\LeaveRequest;
+use App\Models\LeaveType;
 use Illuminate\View\Component;
 
 class ReasonLeavingDropdown extends Component
@@ -25,13 +27,7 @@ class ReasonLeavingDropdown extends Component
      */
     public function render()
     {
-        $list = [
-            'Kematian'  => 'Kematian',
-            'Berhenti'  => 'Berhenti',
-            'Pensiun'  => 'Pensiun',
-            'Relokasi'  => 'Relokasi',
-            'Berakhir'  => 'Berakhir',
-        ];
+        $list = LeaveRequest::reasonLeavingDropdown();
         return view('components.form.select',[
             'list'  => $list,
             'label' => __('Reason Leaving'),

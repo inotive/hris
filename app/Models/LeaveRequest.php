@@ -122,4 +122,16 @@ class LeaveRequest extends Model
     {
         return $this->hasMany(File::class,'module_id','id');
     }
+
+
+    public static function reasonLeavingDropdown()
+    {
+        return [
+            'Kematian'  => 'Kematian',
+            'Berhenti'  => 'Berhenti',
+            'Pensiun'  => 'Pensiun',
+            'Relokasi'  => 'Relokasi',
+            'Berakhir'  => 'Berakhir',
+        ];
+    }
 }

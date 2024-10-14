@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\LeaveRequestResource;
 use App\Models\File;
 use App\Models\LeaveRequest;
+use App\Models\LeaveType;
 use App\Services\Base64FileService;
 use Exception;
 use Illuminate\Http\Request;
@@ -159,5 +160,44 @@ class LeaveRequestController extends Controller
                 'message'=> "Leave request data delete successful"
         ];
     
+    }
+
+
+    public function reasonLeaving()
+    {
+        $list = LeaveRequest::reasonLeavingDropdown();
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
+    }
+    
+    
+    public function leaveType(Request $request)
+    {
+        $company_id = $request->company_id ?? auth()->user()->company_id;
+        $list = LeaveType::where('company_id', $company_id)->orderBy('name')->pluck('name','id');
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
     }
 }

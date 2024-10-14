@@ -51,4 +51,23 @@ class EmployeeFamilyInfo extends Model
     {
         return $this->belongsTo(Employee::class,'employee_id','id');
     }
+
+    public static function familyRelationDropdown()
+    {
+        return [
+            'Ayah'  => 'Ayah',
+            'Ibu'  => 'Ibu',
+            'Kakak Laki-laki'  => 'Kakak Laki-laki',
+            'Kakak Perempuan'  => 'Kakak Perempuan',
+            'Adik Laki-laki'  => 'Adik Laki-laki',
+            'Adik Perempuan'  => 'Adik Perempuan',
+            'Kakek'  => 'Kakek',
+            'Nenek'  => 'Nenek',
+            'Sepupu Laki-laki'  => 'Sepupu Laki-laki',
+            'Sepupu Perempuan'  => 'Sepupu Perempuan',
+            'Tante'  => 'Tante',
+            'Paman'  => 'Paman',
+            'Lainnya'  => 'Lainnya',
+        ];
+    }
 }
