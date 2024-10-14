@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Employee;
 use Illuminate\View\Component;
 
 class GenderDropdown extends Component
@@ -23,10 +24,7 @@ class GenderDropdown extends Component
      */
     public function render()
     {
-        $list = [
-            'Laki-laki'  => 'Laki-laki',
-            'Perempuan'  => 'Perempuan',
-        ];
+        $list = Employee::genderDropdown();
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'gender',

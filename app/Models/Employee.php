@@ -277,4 +277,22 @@ class Employee extends Authenticatable
         ];
     }
 
+    public static function genderDropdown()
+    {
+        return [
+            'Laki-laki'  => 'Laki-laki',
+            'Perempuan'  => 'Perempuan',
+        ];
+    }
+
+    public static function maritalStatusDropdown()
+    {
+        return [
+            'Lajang'  => 'Lajang',
+            'Menikah'  => 'Menikah',
+            'Cerai Hidup'  => 'Cerai Hidup',
+            'Cerai Mati'  => 'Cerai Mati',
+        ];
+    }
+
 }

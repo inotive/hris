@@ -18,14 +18,9 @@ class CurrencyDropdown extends Component
         //
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
-     */
-    public function render()
+    public static function dropdown()
     {
-        $list = [
+        return [
             'IDR'  => 'IDR',
             'EUR'  => 'EUR',
             'GBP'  => 'GBP',
@@ -38,6 +33,16 @@ class CurrencyDropdown extends Component
             'VND'  => 'VND',
             'THB'  => 'THB',
         ];
+    }
+
+    /**
+     * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\Contracts\View\View|\Closure|string
+     */
+    public function render()
+    {
+        $list = self::dropdown();
         return view('components.form.select',[
             'list'  => $list,
         ]);

@@ -18,6 +18,18 @@ class PeriodDropdown extends Component
         //
     }
 
+
+    public static function dropdown()
+    {
+        return [
+            'Waktu (Jam)'  => 'Waktu (Jam)',
+            'Harian'  => 'Harian',
+            'Bulanan'  => 'Bulanan',
+            'Tahunan'  => 'Tahunan',
+            'Lainnya'  => 'Lainnya',
+        ];
+    }
+
     /**
      * Get the view / contents that represent the component.
      *
@@ -25,13 +37,7 @@ class PeriodDropdown extends Component
      */
     public function render()
     {
-        $list = [
-            'Waktu (Jam)'  => 'Waktu (Jam)',
-            'Harian'  => 'Harian',
-            'Bulanan'  => 'Bulanan',
-            'Tahunan'  => 'Tahunan',
-            'Lainnya'  => 'Lainnya',
-        ];
+        $list = self::dropdown();
         return view('components.form.select',[
             'list'  => $list,
         ]);
