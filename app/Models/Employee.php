@@ -6,6 +6,7 @@ use App\Jobs\NewPasswordJob;
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
+use App\Traits\UploadBase64File;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,8 @@ class Employee extends Authenticatable
     use SearchTrait;
     use CreatedByUserTrait;
     use HasCompany;
+
+    use UploadBase64File;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -137,12 +140,12 @@ class Employee extends Authenticatable
         ];
 
     }
+    
 
 
     protected $hidden = [
         'password',
     ];
-
 
     public static function boot()
     {

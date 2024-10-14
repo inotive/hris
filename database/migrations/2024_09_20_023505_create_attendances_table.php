@@ -27,7 +27,7 @@ return new class extends Migration
             $table->text('checkin_image');
             $table->string('checkin_lat');
             $table->string('checkin_long');
-            $table->timestamp('checkout_time');
+            $table->timestamp('checkout_time')->nullable();
             $table->text('checkout_image');
             $table->string('checkout_lat');
             $table->string('checkout_long');

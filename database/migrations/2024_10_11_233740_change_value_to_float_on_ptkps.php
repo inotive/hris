@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('value', 100,2)->nullable()->change();
 
             $table->string('created_by_user_id')->nullable();
-            $table->foreign('created_by_user_id')->references('id')->on('users');
+            $table->foreign('created_by_user_id')->references('id')->on('users')->after('note');
 
         });
     }

@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('ptkps', function (Blueprint $table) {
+        Schema::table('companies', function (Blueprint $table) {
             //
-            $table->string('company_id')->nullable();
-            $table->foreign('company_id')->references('id')->on('companies')->after('id');
-
+            $table->string('type_pph')->nullable()->after('cut_off_payroll_date');
         });
     }
 
@@ -28,10 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('ptkps', function (Blueprint $table) {
+        Schema::table('companies', function (Blueprint $table) {
             //
-            $table->dropForeign('ptkps_company_id_foreign');
-            $table->dropColumn('company_id');
+            $table->dropColumn('type_pph');
         });
     }
 };
