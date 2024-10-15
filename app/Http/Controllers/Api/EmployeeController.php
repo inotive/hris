@@ -37,9 +37,12 @@ class EmployeeController extends Controller
     {
         $auth = auth()->user();
 
-        Log::info($request->all());
 
-        Employee::where('id', $auth->id)->update($request->all());
+        $employee = Employee::where('id', $auth->id)->first();
+        
+        
+        $employee->fill($request->all());
+        $employee->save();
 
         return [
             'status'    => 'success',

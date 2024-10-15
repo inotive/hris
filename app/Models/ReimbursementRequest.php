@@ -88,6 +88,11 @@ class ReimbursementRequest extends Model
         return $this->belongsTo(Employee::class, 'manager_id','id');
     }
 
+    public function reimbursement_type()
+    {
+        return $this->belongsTo(ReimbursementType::class, 'reimbursement_type_id','id');
+    }
+
     public function expenses()
     {
         return $this->hasMany(ReimbursementExpenseList::class, 'reimbursement_request_id', 'id');

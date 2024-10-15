@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\User;
 
 trait CreatedByUserTrait 
 {
@@ -16,7 +17,7 @@ trait CreatedByUserTrait
         });
 
         static::creating(function($row){
-            if ($row->created_by_user_id == null) $row->created_by_user_id = auth()->user()->id ?? null;
+            if ($row->created_by_user_id == null && auth()->user() instanceof User) $row->created_by_user_id = auth()->user()->id ?? null;
         });
     }
 }

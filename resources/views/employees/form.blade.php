@@ -47,16 +47,6 @@
     <x-employee-shift-dropdown :value="old('employee_shift_id', $form->employee_shift_id ?? '')" />
     <x-head-department-employee-dropdown label="Manager" :value="$form->head_departmen_id ?? ''" />
 
-    <h4>{{ __('Payroll Information') }}</h4>
-    <hr>
-
-    <x-form.input type="text" label="Bank Account Number" name="bank_account_number" :value="$form->bank_account_number ?? ''" />
-    <x-form.input type="text" label="Bank Account Name" name="bank_account_name" :value="$form->bank_account_name ?? ''" />
-    <x-form.datepicker :label="__('Join Date')" name="join_date" :value="old('join_date', $form->join_date ?? '')" />
-    <x-form.currency :label="__('Salary')" name="sallary" :value="old('sallary', $form->sallary ?? '')" />
-    <x-form.currency :label="__('Reimbursement Limit')" name="reimbursement_limit" :value="old('reimbursement_limit', $form->reimbursement_limit ?? '')" />
-
-
 
     <h4>{{ __('Document Information') }}</h4>
     <hr>

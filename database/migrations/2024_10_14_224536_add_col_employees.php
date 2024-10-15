@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('ptkps', function (Blueprint $table) {
+        Schema::table('employees', function (Blueprint $table) {
             //
-            $table->string('company_id')->nullable();
-            $table->foreign('company_id')->references('id')->on('companies')->after('id');
-
+            $table->string('overtime_type')->nullable()->after('image');
+            $table->integer('overtime_value')->nullable()->before('reimbursement_type');
+            $table->string('reimbursement_type')->nullable()->before('reimbursement_type');
+            
+        
         });
     }
 
@@ -28,10 +30,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('ptkps', function (Blueprint $table) {
+        Schema::table('employees', function (Blueprint $table) {
             //
-            $table->dropForeign('ptkps_company_id_foreign');
-            $table->dropColumn('company_id');
         });
     }
 };

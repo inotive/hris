@@ -6,6 +6,7 @@ use App\Jobs\NewPasswordJob;
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
+use App\Traits\UploadBase64File;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,8 @@ class Employee extends Authenticatable
     use SearchTrait;
     use CreatedByUserTrait;
     use HasCompany;
+
+    use UploadBase64File;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -100,7 +103,7 @@ class Employee extends Authenticatable
             'department_id'  => 'required',
             'employee_position_id'  => 'required',
             'employee_level_id'  => 'required',
-            'join_date'  => 'required',
+            'join_date'  => '',
             'image'  => '',
             'reimbursement_limit'  => '',
             'birth_date'  => '',
@@ -124,8 +127,8 @@ class Employee extends Authenticatable
             'tax_registered_name' => 'required',
             'tax_number' => 'required',
           
-            'bank_account_name' => 'required',
-            'bank_account_number' => 'required',
+            'bank_account_name' => '',
+            'bank_account_number' => '',
 
             'document_bpjstk_file' => '',
             'document_bpjstk_name' => '',
@@ -137,12 +140,12 @@ class Employee extends Authenticatable
         ];
 
     }
+    
 
 
     protected $hidden = [
         'password',
     ];
-
 
     public static function boot()
     {
