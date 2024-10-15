@@ -34,6 +34,7 @@ use App\Http\Controllers\ReimbursementTypeController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Models\EmployeeEmergencyContact;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -52,6 +53,11 @@ Route::get('/', function () {
 });
 
 Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
+
+
+Route::get('/simulate/attendance-init', function(){
+    return Artisan::call('attendance:init');
+});
 
 Auth::routes();
 Route::middleware([
