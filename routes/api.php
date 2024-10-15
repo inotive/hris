@@ -74,6 +74,13 @@ Route::middleware([
     Route::delete('/overtime-request',[OvertimeRequestController::class, 'delete']);
 
 
+    Route::get('/reimbursement-requests',[ReimbursementController::class, 'index']);
+    Route::get('/reimbursement-request/{id}',[ReimbursementController::class, 'detail']);
+    Route::post('/reimbursement-request',[ReimbursementController::class, 'create']);
+    Route::put('/reimbursement-request',[ReimbursementController::class, 'update']);
+    Route::delete('/reimbursement-request',[ReimbursementController::class, 'delete']);
+
+
     // MASTER
     Route::get('/master/gender', [EmployeeController::class, 'gender']);
     Route::get('/master/religion', [EmployeeController::class, 'religion']);
