@@ -66,41 +66,8 @@ return [
             'icon' => 'icons.user',
             'label' => 'Management Employee',
             'roles' => ['superadmin', 'admin', 'finance'],
+            'children_tab'    => true,
             'children' => [
-                [
-                    'label' => 'Employee Departments',
-                    'route' => 'employee-departments.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'employee-departments.*' => ['superadmin','admin'],
-                    ],
-                ],
-                [
-                    'label' => 'Employee Positions',
-                    'route' => 'employee-positions.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'employee-positions.*' => ['superadmin','admin'],
-                    ],
-                ],
-
-                [
-                    'label' => 'Employee Levels',
-                    'route' => 'employee-levels.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'employee-levels.*' => ['superadmin','admin'],
-                    ],
-                ],
-                [
-                    'label' => 'Employee Shifts',
-                    'route' => 'employee-shifts.index',
-                    'roles' => ['superadmin', 'admin'],
-
-                    'routes'    => [
-                        'employee-shifts.*' => ['superadmin','admin'],
-                    ],
-                ],
                 [
                     'label' => 'Employees',
                     'route' => 'employees.index',
@@ -115,6 +82,41 @@ return [
                         'employee-reset-password'   => ['superadmin', 'admin', 'finance','content'],
                     ],
                 ],
+                [
+                    'label' => 'Departments',
+                    'route' => 'employee-departments.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'employee-departments.*' => ['superadmin','admin'],
+                    ],
+                ],
+                [
+                    'label' => 'Positions',
+                    'route' => 'employee-positions.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'employee-positions.*' => ['superadmin','admin'],
+                    ],
+                ],
+
+                [
+                    'label' => 'Levels',
+                    'route' => 'employee-levels.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'employee-levels.*' => ['superadmin','admin'],
+                    ],
+                ],
+                [
+                    'label' => 'Shifts',
+                    'route' => 'employee-shifts.index',
+                    'roles' => ['superadmin', 'admin'],
+
+                    'routes'    => [
+                        'employee-shifts.*' => ['superadmin','admin'],
+                    ],
+                ],
+               
             ],
         ],
         [

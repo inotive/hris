@@ -13,8 +13,9 @@
 
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
+        
         <!--begin::Container-->
-        <div id="kt_content_container" class="container-xxl">
+        <div id="kt_content_container" class="w-100">
 
             @if (session('messages.success'))
                 <div class="alert alert-success">
@@ -32,11 +33,12 @@
             <form method="GET">
 
                 <!--begin::Card-->
-                <div class="card">
+                <div class="card card-content">
 
                     <!--begin::Card body-->
                     <div class="card-body">
 
+                        
 
                         <div class="row">
                             <div class="col-12 col-lg-6 gap-2 d-flex">
