@@ -6,7 +6,7 @@
     @if (isset($menu['roles']) && in_array(auth()->user()->role, $menu['roles']))
 
 
-        @if (isset($menu['children']) && isset($menu['children_tab']) == false)
+        @if (isset($menu['children']) && isset($menu['dropdown_menu']) == true)
             <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ \App\Services\SidebarService::isActive($menu) ? ' hover show ' : ''  }}">
                 <span class="menu-link {{ \App\Services\SidebarService::isActive($menu) ? ' active ' : ''  }}">
                     <span class="menu-icon">
@@ -42,14 +42,13 @@
             @php
                 $sidebar_label = $menu['label'];
                 $sidebar_href = isset($menu['route']) != null && strlen($menu['route']) > 0 ? route($menu['route']) : $menu['url'] ?? '#';
-                if (isset($menu['children_tab']) && $menu['children_tab'] == true) {
+              
                     $sidebar_href = $menu['children'][0]['route'] ?? null;
                     if ($sidebar_href != null) {
                         $sidebar_href = route($sidebar_href);
-                        $sidebar_label = $menu['children'][0]['label'] ?? '';
                     }
 
-                }
+                
             @endphp
             <div class="menu-item">
                 <a class="menu-link {{ \App\Services\SidebarService::isActive($menu) ? ' active ' : '' }}"

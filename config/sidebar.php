@@ -5,6 +5,10 @@
 return [
     'menus' => [
         [
+            'header_menu'=> 'MAIN MENU',
+        ],
+
+        [
             'icon' => 'icons.dashboard',
             'label' => 'Dashboard',
             'route' => 'dashboard',
@@ -14,35 +18,15 @@ return [
             ]
         ],
 
-        [
-            'icon' => 'icons.user',
-            'label' => 'User',
-            'route' => 'users.index',
-            'roles' => ['superadmin'],
-            'routes' => [
-                'users.*'   => ['superadmin'],
-                'user.*'   => ['superadmin','admin', 'finance','content'],
-            ],
-        ],
+       
 
         [
             'icon' => 'icons.building',
-            'label' => 'Management Company',
+            'label' => 'Company',
+            'page_title' => 'Management Company',
             'roles' => ['superadmin', 'admin'],
+            
             'children' => [
-                [
-                    'label' => 'Company Subscriptions',
-                    'route' => 'company-subscriptions.index',
-                    'roles' => ['superadmin','admin'],
-                    'routes'    => [
-                        'company-subscriptions.index'   => ['superadmin', 'admin'],
-                        'company-subscriptions.create'   => ['superadmin'],
-                        'company-subscriptions.store'   => ['superadmin'],
-                        'company-subscriptions.edit'   => ['superadmin'],
-                        'company-subscriptions.update'   => ['superadmin'],
-                        'company-subscriptions.destroy'   => ['superadmin'],
-                    ],
-                ],
                 [
                     'label' => 'Companies',
                     'route' => 'companies.index',
@@ -59,14 +43,29 @@ return [
                         'companies.payout-setting.*'   => ['superadmin','admin'],
                     ],
                 ],
+                [
+                    'label' => 'Company Subscriptions',
+                    'route' => 'company-subscriptions.index',
+                    'roles' => ['superadmin','admin'],
+                    'routes'    => [
+                        'company-subscriptions.index'   => ['superadmin', 'admin'],
+                        'company-subscriptions.create'   => ['superadmin'],
+                        'company-subscriptions.store'   => ['superadmin'],
+                        'company-subscriptions.edit'   => ['superadmin'],
+                        'company-subscriptions.update'   => ['superadmin'],
+                        'company-subscriptions.destroy'   => ['superadmin'],
+                    ],
+                ],
+               
             ],
         ],
 
         [
             'icon' => 'icons.user',
-            'label' => 'Management Employee',
+            'label' => 'Employee',
+            'page_title' => 'Management Employee',
             'roles' => ['superadmin', 'admin', 'finance'],
-            'children_tab'    => true,
+            
             'children' => [
                 [
                     'label' => 'Employees',
@@ -121,8 +120,10 @@ return [
         ],
         [
             'icon' => 'icons.clipboard',
-            'label' => 'Management Attendances',
+            'label' => 'Attendances',
+            'page_title' => 'Management Attendances',
             'roles' => ['superadmin', 'admin', 'finance'],
+            
             'children' => [
                 [
                     'label' => 'Attendances',
@@ -142,17 +143,11 @@ return [
 
         [
             'icon' => 'icons.signout',
-            'label' => 'Management Leave',
+            'label' => 'Leave',
+            'page_title' => 'Management Leave',
             'roles' => ['superadmin', 'admin', 'finance'],
+            
             'children' => [
-                [
-                    'label' => 'Master Leave Types',
-                    'route' => 'leave-types.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'leave-types.*' => ['superadmin','admin'],
-                    ],
-                ],
                 [
                     'label' => 'Leave Requests',
                     'route' => 'leave-requests.index',
@@ -161,22 +156,25 @@ return [
                         'leave-requests.*' => ['superadmin','admin','finance'],
                     ],
                 ],
+                [
+                    'label' => 'Master Leave Types',
+                    'route' => 'leave-types.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'leave-types.*' => ['superadmin','admin'],
+                    ],
+                ],
+               
             ],
         ],
 
         [
             'icon' => 'icons.timer',
-            'label' => 'Management Overtime',
+            'label' => 'Overtime',
+            'page_title' => 'Management Overtime',
             'roles' => ['superadmin', 'admin'],
+            
             'children' => [
-                [
-                    'label' => 'Master Overtime Shifts',
-                    'route' => 'overtime-shift-requests.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'overtime-shift-requests.*' => ['superadmin', 'admin'],
-                    ],
-                ],
                 [
                     'label' => 'Overtime Requests',
                     'route' => 'overtime-requests.index',
@@ -185,14 +183,34 @@ return [
                         'overtime-requests.*' => ['superadmin','admin'],
                     ],
                 ],
+                [
+                    'label' => 'Master Overtime Shifts',
+                    'route' => 'overtime-shift-requests.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'overtime-shift-requests.*' => ['superadmin', 'admin'],
+                    ],
+                ],
+              
             ],
         ],
 
         [
             'icon' => 'icons.money',
-            'label' => 'Management Reimbursement',
+            'label' => 'Reimbursement',
+            'page_title' => 'Management Reimbursement',
             'roles' => ['superadmin', 'admin', 'finance'],
+            
             'children' => [
+                [
+                    'label' => 'Reimbursement Request',
+                    'route' => 'reimbursement-requests.index',
+                    'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'reimbursement-requests.*' => ['superadmin','admin','finance'],
+                    ],
+                    
+                ],
                 [
                     'label' => 'Master Reimbursment Expenses',
                     'route' => 'reimbursement-expenses.index',
@@ -209,31 +227,17 @@ return [
                         'reimbursement-types.*' => ['superadmin','admin'],
                     ],
                 ],
-                [
-                    'label' => 'Reimbursement Request',
-                    'route' => 'reimbursement-requests.index',
-                    'roles' => ['superadmin', 'admin', 'finance'],
-                    'routes'    => [
-                        'reimbursement-requests.*' => ['superadmin','admin','finance'],
-                    ],
-                    
-                ],
+              
             ],
         ],
 
         [
             'icon' => 'icons.clipboard-list',
-            'label' => 'Management Payslip',
+            'label' => 'Payslip',
+            'page_title' => 'Management Payslip',
             'roles' => ['superadmin', 'admin', 'finance'],
+            
             'children' => [
-                [
-                    'label' => 'Master Category Payslips',
-                    'route' => 'employee-payslip-masters.index',
-                    'roles' => ['superadmin', 'admin', 'finance'],
-                    'routes'    => [
-                        'employee-payslip-masters.*'    => ['superadmin', 'admin', 'finance'],
-                    ],
-                ],
                 [
                     'label' => 'Payslips',
                     'route' => 'employee-payslips.index',
@@ -242,6 +246,15 @@ return [
                         'employee-payslips.*'    => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
+                [
+                    'label' => 'Master Category Payslips',
+                    'route' => 'employee-payslip-masters.index',
+                    'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'employee-payslip-masters.*'    => ['superadmin', 'admin', 'finance'],
+                    ],
+                ],
+               
                 [
                     'label' => 'PTKP',
                     'route' => 'ptkp.index',
@@ -254,6 +267,49 @@ return [
             ],
         ],
 
+    
+        [
+            'border'=> 'true',
+        ],
+[
+    'header_menu'=> 'CONTENT',
+],
+        [
+            'icon' => 'icons.image',
+            'label' => 'Banners',
+            'route' => 'banners.index',
+            'roles' => ['superadmin', 'admin', 'content'],
+            'routes'    => [
+                'banners.*' => ['superadmin','admin','content'],
+            ],
+        ],
+        [
+            'icon' => 'icons.image',
+            'label' => 'Post',
+            'route' => 'posts.index',
+            'roles' => ['superadmin', 'admin', 'content'],
+            'routes'    => [
+                'posts.*' => ['superadmin','admin','content'],
+            ],
+        ],
+        [
+            'icon' => 'icons.image',
+            'label' => 'Announcement',
+            'route' => 'announcements.index',
+            'roles' => ['superadmin', 'admin', 'content'],
+            'routes'    => [
+                'announcements.*' => ['superadmin','admin','content'],
+            ],
+        ],
+
+        [
+            'border'=> 'true',
+        ],
+
+        [
+            'header_menu'=> 'OTHER',
+        ],
+
         [
             'icon' => 'icons.cloud',
             'label' => 'EWA',
@@ -262,35 +318,16 @@ return [
         ],
 
         [
-            'icon' => 'icons.image',
-            'label' => 'Content',
-            'roles' => ['superadmin', 'admin', 'content'],
-            'children' => [
-                [
-                    'label' => 'Banners',
-                    'route' => 'banners.index',
-                    'roles' => ['superadmin', 'admin', 'content'],
-                    'routes'    => [
-                        'banners.*' => ['superadmin','admin','content'],
-                    ],
-                ],
-                [
-                    'label' => 'Post',
-                    'route' => 'posts.index',
-                    'roles' => ['superadmin', 'admin', 'content'],
-                    'routes'    => [
-                        'posts.*' => ['superadmin','admin','content'],
-                    ],
-                ],
-                [
-                    'label' => 'Announcement',
-                    'route' => 'announcements.index',
-                    'roles' => ['superadmin', 'admin', 'content'],
-                    'routes'    => [
-                        'announcements.*' => ['superadmin','admin','content'],
-                    ],
-                ],
+            'icon' => 'icons.user',
+            'label' => 'User',
+            'route' => 'users.index',
+            'roles' => ['superadmin'],
+            'routes' => [
+                'users.*'   => ['superadmin'],
+                'user.*'   => ['superadmin','admin', 'finance','content'],
             ],
         ],
+
+      
     ],
 ];

@@ -18,7 +18,7 @@
 
              <h1>
                  @if ($current_menu != null)
-                     {{ __($current_menu['label']) }}
+                     {{ __($current_menu['page_title'] ?? $current_menu['label']) }}
                  @else
                      @yield('page_title')
                  @endif

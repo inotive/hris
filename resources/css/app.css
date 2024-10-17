@@ -111,3 +111,15 @@
 body {
     background-color: white;
 }
+
+.header_menu {
+    font-weight: bold;
+    color: #667085;
+}
+
+.aside-menu hr {
+
+border: none; /* Removes the default border */
+border-top: 1px solid #667085; /* Adds a top border of 1px */
+width: 100%; /* Adjusts the width */
+}
