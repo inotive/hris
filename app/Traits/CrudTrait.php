@@ -50,7 +50,7 @@ trait CrudTrait
         $search = $request->search;
         $list = $this->model::search($search)
             ->filter($filter)
-            ->paginate();
+            ->paginate(10);
 
 
         $add_button_href = $this->addButtonHref();

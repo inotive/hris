@@ -53,3 +53,63 @@
     transition: color .2s ease,background-color .2s ease;
     color: #444752 !important;
 }
+
+.toolbar {
+    box-shadow: none !important;
+    height: auto !important;
+}
+
+.aside {
+    box-shadow:  none !important;
+}
+.aside.aside-light {
+    background-color: #fafbff !important;
+}
+
+.tab-sidebar-submenu {
+    padding-left: 16px;
+    padding-right: 16px;
+    font-weight: 600;
+    font-size: 11pt;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  
+
+}
+
+.tab-sidebar-submenu a {
+
+    color: #1078ca;
+ 
+}
+
+.nav-tab-sidebar {
+    border-bottom: 1px solid #d3d4d4;
+    width: 100%;
+ 
+}
+
+.tab-sidebar-submenu:has(.active) {
+    border-bottom: 3px solid #1078ca;
+  
+}
+
+.card-content {
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+#kt_wrapper {
+    padding-top: 40px !important;
+    color: white;
+}
+
+.page_subtitle {
+    color: #808080;
+}
+
+
+body {
+    background-color: white;
+}
