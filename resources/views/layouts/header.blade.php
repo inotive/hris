@@ -16,10 +16,31 @@
             </div>
         </div>
 
-        <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-            <a href="#" class="d-lg-none">
+        <div class="d-flex align-items-center flex-wrap">
+            <!-- <a href="#" class="d-lg-none">
                 <img alt="Logo" src="{{ asset('template/media/logos/logo-2.svg') }}" class="h-30px" />
-            </a>
+            </a> -->
+            @php
+                 $menus = config('sidebar.menus');
+                 $current_menu = null;
+                 foreach ($menus as $key => $value) {
+                     $is_active = \App\Services\SidebarService::isActive($value);
+
+                     if ($is_active == true) {
+                         $current_menu = $value;
+                     }
+                 }
+             @endphp
+
+             <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+                 @if ($current_menu != null)
+                     {{ __($current_menu['label']) }}
+                 @else
+                     @yield('page_title')
+                 @endif
+             </h1>
+             <span class="h-20px border-gray-300 border-start mx-4"></span>
+             <x-tab-sidebar-menu />
         </div>
 
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">

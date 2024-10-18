@@ -27,22 +27,9 @@ return [
 
         [
             'icon' => 'icons.building',
-            'label' => 'Management Company',
+            'label' => 'Company',
             'roles' => ['superadmin', 'admin'],
             'children' => [
-                [
-                    'label' => 'Company Subscriptions',
-                    'route' => 'company-subscriptions.index',
-                    'roles' => ['superadmin','admin'],
-                    'routes'    => [
-                        'company-subscriptions.index'   => ['superadmin', 'admin'],
-                        'company-subscriptions.create'   => ['superadmin'],
-                        'company-subscriptions.store'   => ['superadmin'],
-                        'company-subscriptions.edit'   => ['superadmin'],
-                        'company-subscriptions.update'   => ['superadmin'],
-                        'company-subscriptions.destroy'   => ['superadmin'],
-                    ],
-                ],
                 [
                     'label' => 'Companies',
                     'route' => 'companies.index',
@@ -59,12 +46,25 @@ return [
                         'companies.payout-setting.*'   => ['superadmin','admin'],
                     ],
                 ],
+                [
+                    'label' => 'Company Subscriptions',
+                    'route' => 'company-subscriptions.index',
+                    'roles' => ['superadmin','admin'],
+                    'routes'    => [
+                        'company-subscriptions.index'   => ['superadmin', 'admin'],
+                        'company-subscriptions.create'   => ['superadmin'],
+                        'company-subscriptions.store'   => ['superadmin'],
+                        'company-subscriptions.edit'   => ['superadmin'],
+                        'company-subscriptions.update'   => ['superadmin'],
+                        'company-subscriptions.destroy'   => ['superadmin'],
+                    ],
+                ],
             ],
         ],
 
         [
             'icon' => 'icons.user',
-            'label' => 'Management Employee',
+            'label' => 'Employee',
             'roles' => ['superadmin', 'admin', 'finance'],
             'children_tab'    => true,
             'children' => [
@@ -121,7 +121,7 @@ return [
         ],
         [
             'icon' => 'icons.clipboard',
-            'label' => 'Management Attendances',
+            'label' => 'Attendances',
             'roles' => ['superadmin', 'admin', 'finance'],
             'children' => [
                 [
@@ -142,23 +142,23 @@ return [
 
         [
             'icon' => 'icons.signout',
-            'label' => 'Management Leave',
+            'label' => 'Leave',
             'roles' => ['superadmin', 'admin', 'finance'],
             'children' => [
                 [
-                    'label' => 'Master Leave Types',
-                    'route' => 'leave-types.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'leave-types.*' => ['superadmin','admin'],
-                    ],
-                ],
-                [
-                    'label' => 'Leave Requests',
+                    'label' => 'Leave',
                     'route' => 'leave-requests.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes'    => [
                         'leave-requests.*' => ['superadmin','admin','finance'],
+                    ],
+                ],
+                [
+                    'label' => 'Leave Types',
+                    'route' => 'leave-types.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'leave-types.*' => ['superadmin','admin'],
                     ],
                 ],
             ],
@@ -166,23 +166,23 @@ return [
 
         [
             'icon' => 'icons.timer',
-            'label' => 'Management Overtime',
+            'label' => 'Overtime',
             'roles' => ['superadmin', 'admin'],
             'children' => [
                 [
-                    'label' => 'Master Overtime Shifts',
-                    'route' => 'overtime-shift-requests.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'overtime-shift-requests.*' => ['superadmin', 'admin'],
-                    ],
-                ],
-                [
-                    'label' => 'Overtime Requests',
+                    'label' => 'Overtime',
                     'route' => 'overtime-requests.index',
                     'roles' => ['superadmin', 'admin'],
                     'routes' => [
                         'overtime-requests.*' => ['superadmin','admin'],
+                    ],
+                ],
+                [
+                    'label' => 'Overtime Shifts',
+                    'route' => 'overtime-shift-requests.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'overtime-shift-requests.*' => ['superadmin', 'admin'],
                     ],
                 ],
             ],
@@ -190,27 +190,11 @@ return [
 
         [
             'icon' => 'icons.money',
-            'label' => 'Management Reimbursement',
+            'label' => 'Reimbursement',
             'roles' => ['superadmin', 'admin', 'finance'],
             'children' => [
                 [
-                    'label' => 'Master Reimbursment Expenses',
-                    'route' => 'reimbursement-expenses.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'reimbursement-expenses.*' => ['superadmin','admin'],
-                    ],
-                ],
-                [
-                    'label' => 'Master Reimbursment Types',
-                    'route' => 'reimbursement-types.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes'    => [
-                        'reimbursement-types.*' => ['superadmin','admin'],
-                    ],
-                ],
-                [
-                    'label' => 'Reimbursement Request',
+                    'label' => 'Reimbursement',
                     'route' => 'reimbursement-requests.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes'    => [
@@ -218,28 +202,44 @@ return [
                     ],
                     
                 ],
+                [
+                    'label' => 'Reimbursment Expenses',
+                    'route' => 'reimbursement-expenses.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'reimbursement-expenses.*' => ['superadmin','admin'],
+                    ],
+                ],
+                [
+                    'label' => 'Reimbursment Types',
+                    'route' => 'reimbursement-types.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes'    => [
+                        'reimbursement-types.*' => ['superadmin','admin'],
+                    ],
+                ],
             ],
         ],
 
         [
             'icon' => 'icons.clipboard-list',
-            'label' => 'Management Payslip',
+            'label' => 'Payslip',
             'roles' => ['superadmin', 'admin', 'finance'],
             'children' => [
-                [
-                    'label' => 'Master Category Payslips',
-                    'route' => 'employee-payslip-masters.index',
-                    'roles' => ['superadmin', 'admin', 'finance'],
-                    'routes'    => [
-                        'employee-payslip-masters.*'    => ['superadmin', 'admin', 'finance'],
-                    ],
-                ],
                 [
                     'label' => 'Payslips',
                     'route' => 'employee-payslips.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes'    => [
                         'employee-payslips.*'    => ['superadmin', 'admin', 'finance'],
+                    ],
+                ],
+                [
+                    'label' => 'Category Payslips',
+                    'route' => 'employee-payslip-masters.index',
+                    'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'employee-payslip-masters.*'    => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
                 [
