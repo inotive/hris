@@ -53,6 +53,8 @@ class EmployeeContract extends Model
     public static function statusDropdown()
     {
         return [
+            'internship'=> 'Internship', 
+            'probation'=> 'Probation', 
             'contract'=> 'Contract', 
             'permanent'=>'Permanent',
             'resignation'   => 'Resignation',

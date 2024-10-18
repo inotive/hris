@@ -14,7 +14,7 @@
             <form id="crud-form" action="{{ $action ?? route(explode('.',Route::currentRouteName())[0] . '.update', $form->id) }}" method="POST">
                 @csrf
                 @method('PUT')
-                <div class="card">
+                <div class="card border border-light">
                     <div class="card-body">
                         @include($view)
                     </div>

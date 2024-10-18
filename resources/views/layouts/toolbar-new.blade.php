@@ -1,10 +1,10 @@
  <!--begin::Toolbar-->
- <div class="bg-white pt-10" id="kt_toolbar">
+ <div class="toolbar bg-white" id="kt_toolbar">
      <!--begin::Container-->
      <div id="kt_toolbar_container" class="container-fluid d-flex flex-stack bg-white">
 
          <div class="w-100">
-             @php
+             <!-- @php
                  $menus = config('sidebar.menus');
                  $current_menu = null;
                  foreach ($menus as $key => $value) {
@@ -22,14 +22,15 @@
                  @else
                      @yield('page_title')
                  @endif
-             </h1>
+             </h1> -->
 
-             @hasSection('page_subtitle')
+             <!-- @hasSection('page_subtitle')
                  <p class="page_subtitle">@yield('page_subtitle')</p>
             @else
              <p class="mt-11"></p>
-            @endif
-             <x-tab-sidebar-menu />
+            @endif -->
+
+
 
          </div>
 
