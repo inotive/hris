@@ -1,7 +1,7 @@
 @props([
     'title' => 'No Title',
-    'action'    => null,
-    'cancel'    => null,
+    'action' => null,
+    'cancel' => null,
 ])
 @extends('layouts.app')
 
@@ -15,7 +15,7 @@
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container-xxl">
+        <div id="kt_content_container" class="container-fluid">
 
             @if (session('messages.success'))
                 <div class="alert alert-success">
@@ -33,23 +33,25 @@
             <form action="{{ $action }}" method="POST" id="crud-form">
                 @csrf
 
+                {{ $top_header ?? '' }}
+
                 <!--begin::Card-->
                 <div class="card">
 
-                    @if ( isset($header)  || isset($toolbar))
-                    <div class="card-header pt-6">
-                        <div class="card-title gap-2">
-                        {{ $header ?? '' }}
-                        </div>
+                    @if (isset($header) || isset($toolbar))
+                        <div class="card-header pt-6">
+                            <div class="card-title gap-2">
+                                {{ $header ?? '' }}
+                            </div>
 
-                        <div class="card-toolbar">
-                            <div class="d-flex justify-content-end gap-2">
-                            {{ $toolbar ?? '' }}
+                            <div class="card-toolbar">
+                                <div class="d-flex justify-content-end gap-2">
+                                    {{ $toolbar ?? '' }}
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endif
-                    
+
                     <div class="card-body">
                         {{ $body ?? '' }}
                     </div>

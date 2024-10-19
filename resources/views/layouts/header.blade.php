@@ -16,31 +16,36 @@
             </div>
         </div>
 
-        <div class="d-flex align-items-center flex-wrap">
+        <div class="d-flex align-items-center flex-wrap  w-100" style="padding-left:16px">
             <!-- <a href="#" class="d-lg-none">
                 <img alt="Logo" src="{{ asset('template/media/logos/logo-2.svg') }}" class="h-30px" />
             </a> -->
             @php
-                 $menus = config('sidebar.menus');
-                 $current_menu = null;
-                 foreach ($menus as $key => $value) {
-                     $is_active = \App\Services\SidebarService::isActive($value);
+                $menus = config('sidebar.menus');
+                $current_menu = null;
+                foreach ($menus as $key => $value) {
+                    $is_active = \App\Services\SidebarService::isActive($value);
 
-                     if ($is_active == true) {
-                         $current_menu = $value;
-                     }
-                 }
-             @endphp
+                    if ($is_active == true) {
+                        $current_menu = $value;
+                    }
+                }
+            @endphp
 
-             <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
-                 @if ($current_menu != null)
-                     {{ __($current_menu['label']) }}
-                 @else
-                     @yield('page_title')
-                 @endif
-             </h1>
-             <span class="h-20px border-gray-300 border-start mx-4"></span>
-             <x-tab-sidebar-menu />
+            <div class="">
+
+                <h1 class="d-flex align-items-center text-dark fw-bolder fs-3 my-1">
+                    @if ($current_menu != null)
+                        {{ __($current_menu['label']) }}
+                    @else
+                        @yield('page_title')
+                    @endif
+                </h1>
+
+                asdasd
+            </div>
+            <span class="h-20px border-gray-300 border-start mx-4 d-none d-block-lg"></span>
+            <x-tab-sidebar-menu />
         </div>
 
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
@@ -53,8 +58,8 @@
                     <div class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
                         data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
 
-                            <img class="w-20px h-20px rounded-1 ms-2"
-                                src="{{ asset(session('app_locale')['flag'] ?? '') }}" alt="">
+                        <img class="w-20px h-20px rounded-1 ms-2" src="{{ asset(session('app_locale')['flag'] ?? '') }}"
+                            alt="">
 
                     </div>
                     <!--begin::Menu-->
@@ -165,4 +170,6 @@
             </div>
         </div>
     </div>
+
+
 </div>
