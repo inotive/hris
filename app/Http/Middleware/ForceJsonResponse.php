@@ -37,6 +37,13 @@ class ForceJsonResponse
         $camelCasedData = $this->camelCaseArrayKeys($data);
         $response->setData($camelCasedData);
 
+
+        if (!$response instanceof \Illuminate\Http\JsonResponse) {
+            return response()->json([
+                'data' => $response->getContent(),
+            ], $response->status());
+        }
+
         return $response;
     }
 
