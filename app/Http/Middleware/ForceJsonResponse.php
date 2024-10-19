@@ -37,6 +37,8 @@ class ForceJsonResponse
         $camelCasedData = $this->camelCaseArrayKeys($data);
         $response->setData($camelCasedData);
 
+
+
         return $response;
     }
 
