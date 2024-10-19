@@ -27,5 +27,19 @@
         </div>
 
 
+        <div class="d-flex d-lg-none w-100 submenu-dropdown-container" style="margin-left: 10px;">
+            <select class="form-control bg-gray-200" id="submenu-dropdown-select">
+                @foreach ($current_menu['children'] ?? [] as $key => $submenu)
+                    <option {{ \App\Services\SidebarService::isActiveSubmenu($submenu) ? ' selected ' : '' }}"
+                        value="{{ isset($submenu['route']) != null && strlen($submenu['route']) > 0 ? route($submenu['route']) : $submenu['url'] ?? '#' }}">
+                        {{ $submenu['label'] ?? '' }}</option>
+                @endforeach
+
+
+            </select>
+
+        </div>
+
+
     @endif
 </div>

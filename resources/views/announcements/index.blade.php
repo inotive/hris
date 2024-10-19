@@ -6,11 +6,11 @@
 @stop
 
 @section('toolbar')
-<x-table.filter-dropdown :company="true" />
+    <x-table.filter-dropdown :company="true" />
 @stop
 
 @section('table_header')
-    <th class="min-w-50px">{{ __('No') }}</th>
+    <th class="min-w-10px">{{ __('ID') }}</th>
     @if (auth()->user()->company_id == null)
         <th class="min-w-125px">{{ __('Company') }}</th>
     @endif
@@ -29,7 +29,7 @@
             @endif
             <td>
                 <img class="rounded" src="{{ Storage::url($value->image) }}"
-                onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50" />
+                    onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="50" />
             </td>
             <td>{{ $value->title ?? '-' }}</td>
             <td class="text-end">

@@ -11,7 +11,7 @@
 @stop
 
 @section('table_header')
-    <th class="min-w-50px">{{ __('No') }}</th>
+    <th class="min-w-10px">{{ __('ID') }}</th>
     @if (auth()->user()->company_id == null)
         <th class="min-w-125px">{{ __('Company') }}</th>
     @endif
@@ -36,22 +36,22 @@
             @if (auth()->user()->company_id == null)
                 <td>{{ $value->company->name ?? '-' }}</td>
             @endif
-       
+
             <td>{{ $value->employee->full_name ?? '-' }}</td>
             <td>{{ $value->manager->full_name ?? '-' }}</td>
             <td>{{ $value->leave_type->name ?? '-' }}</td>
             <td>{{ \Carbon\Carbon::parse($value->start_date)->format('d/m/Y') }}</td>
             <td>{{ \Carbon\Carbon::parse($value->end_date)->format('d/m/Y') }}</td>
             <td>{{ $value->total_days ?? '-' }}</td>
-          
-          
+
+
             <td>
                 @if (count($value->files ?? []) > 0)
-                <a href="{{ $value->files()->first()->url }}" target="_blank">File</a>
+                    <a href="{{ $value->files()->first()->url }}" target="_blank">File</a>
                 @endif
             </td>
             <td>{{ $value->status ?? '-' }}</td>
-           
+
             <td>{{ $value->reason ?? '-' }}</td>
 
 

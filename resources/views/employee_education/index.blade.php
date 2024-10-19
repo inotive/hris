@@ -22,7 +22,7 @@
             <div class="table-responsive">
                 <x-table.table>
                     <x-slot name="header">
-                        <th>{{ __('No') }}</th>
+                        <th>{{ __('ID') }}</th>
                         <th>{{ __('Education Level') }}</th>
                         <th>{{ __('Institution') }}</th>
                         <th>{{ __('Year') }}</th>

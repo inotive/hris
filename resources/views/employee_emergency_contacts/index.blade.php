@@ -5,13 +5,13 @@
     <x-slot name="header">
         <b>{{ $employee->full_name ?? '' }}</b>
     </x-slot>
-    
+
     <x-slot name="header_toolbar">
-        <x-employee-edit-tab :employeeid="$employee->id" tab="emergency_contact"/>
+        <x-employee-edit-tab :employeeid="$employee->id" tab="emergency_contact" />
     </x-slot>
-    
+
     <x-slot name="toolbar">
-        <x-table.add-button :label="__('Add Emergency Contact')" :href="route('emergency-contact.create', $employee->id)"/>
+        <x-table.add-button :label="__('Add Emergency Contact')" :href="route('emergency-contact.create', $employee->id)" />
     </x-slot>
 
 
@@ -23,7 +23,7 @@
             <div class="table-responsive">
                 <x-table.table>
                     <x-slot name="header">
-                        <th>{{ __('No') }}</th>
+                        <th>{{ __('ID') }}</th>
                         <th>{{ __('Family Relation') }}</th>
                         <th>{{ __('Name') }}</th>
                         <th>{{ __('Phone') }}</th>
