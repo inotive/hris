@@ -1,14 +1,14 @@
 @props([
     'menu' => null,
-
 ])
 <div>
     @if (isset($menu['roles']) && in_array(auth()->user()->role, $menu['roles']))
 
 
         @if (isset($menu['children']) && isset($menu['dropdown_menu']) == true)
-            <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ \App\Services\SidebarService::isActive($menu) ? ' hover show ' : ''  }}">
-                <span class="menu-link {{ \App\Services\SidebarService::isActive($menu) ? ' active ' : ''  }}">
+            <div data-kt-menu-trigger="click"
+                class="menu-item menu-accordion {{ \App\Services\SidebarService::isActive($menu) ? ' hover show ' : '' }}">
+                <span class="menu-link {{ \App\Services\SidebarService::isActive($menu) ? ' active ' : '' }}">
                     <span class="menu-icon">
                         <span class="svg-icon svg-icon-2">
                             @if (isset($menu['icon']) && strlen($menu['icon']) > 0)
@@ -41,14 +41,16 @@
         @else
             @php
                 $sidebar_label = $menu['label'];
-                $sidebar_href = isset($menu['route']) != null && strlen($menu['route']) > 0 ? route($menu['route']) : $menu['url'] ?? '#';
-              
-                    $sidebar_href = $menu['children'][0]['route'] ?? null;
-                    if ($sidebar_href != null) {
-                        $sidebar_href = route($sidebar_href);
-                    }
+                $sidebar_href =
+                    isset($menu['route']) != null && strlen($menu['route']) > 0
+                        ? route($menu['route'])
+                        : $menu['url'] ?? '#';
 
-                
+                $child_route = $menu['children'][0]['route'] ?? null;
+                if ($child_route != null) {
+                    $sidebar_href = route($child_route);
+                }
+
             @endphp
             <div class="menu-item">
                 <a class="menu-link {{ \App\Services\SidebarService::isActive($menu) ? ' active ' : '' }}"

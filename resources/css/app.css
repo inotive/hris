@@ -100,14 +100,13 @@
 
 #kt_wrapper {
     padding-top: 40px !important;
-    /* color: white; */
 }
 
 .page_subtitle {
     color: #808080;
 }
 body {
-    background-color: white;
+    background-color: white !important;
 }
 
 .header_menu {
