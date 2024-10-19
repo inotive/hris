@@ -11,7 +11,7 @@
 @stop
 
 @section('table_header')
-    <th class="min-w-50px">{{ __('No') }}</th>
+    <th class="min-w-10px">{{ __('ID') }}</th>
 
     <th class="min-w-125px">{{ __('Type TER') }}</th>
     <th class="min-w-125px">{{ __('Range') }}</th>

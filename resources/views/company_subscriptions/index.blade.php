@@ -11,7 +11,7 @@
 @stop
 
 @section('table_header')
-    <th class="min-w-50px">{{ __('No') }}</th>
+    <th class="min-w-10px">{{ __('ID') }}</th>
     @if (auth()->user()->company_id == null)
         <th class="min-w-125px">{{ __('Company') }}</th>
     @endif
@@ -29,10 +29,10 @@
             @if (auth()->user()->company_id == null)
                 <td>{{ $value->company->name ?? '-' }}</td>
             @endif
-          
+
             <td>{{ $value->start_date_at ?? '-' }}</td>
             <td>{{ $value->end_date_at ?? '-' }}</td>
-            <td>{{ $value->payment_status == 1 ? __('Yes') : __('No') }}</td>
+            <td>{{ $value->payment_status == 1 ? __('Yes') : __('ID') }}</td>
 
             <td class="text-end">
                 <x-table.actions>

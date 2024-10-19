@@ -123,3 +123,30 @@ body {
 label {
     color: black;
 }
+
+.submenu-dropdown-container {
+    position: relative;
+    display: inline-block;
+}
+
+.submenu-dropdown-container select {
+    appearance: none; /* Remove default dropdown arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 10px 30px 10px 10px; /* Add space for the icon */
+    border: none;
+    border-radius: 100px;
+    /* background-color: #fff; */
+    cursor: pointer;
+}
+
+.submenu-dropdown-container::after {
+    content: "\25BC"; /* Unicode for down arrow */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* Icon doesn't block dropdown interaction */
+    font-size: 12px; /* Adjust size as needed */
+    color: #333; /* Icon color */
+}

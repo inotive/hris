@@ -44,7 +44,7 @@
 
                 {{-- asdasd --}}
             </div>
-            <span class="h-20px border-gray-300 border-start mx-4 d-none d-block-lg"></span>
+            <span class="h-20px border-gray-300 border-start mx-4 d-none d-lg-flex"></span>
             <x-tab-sidebar-menu />
         </div>
 

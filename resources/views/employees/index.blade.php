@@ -10,16 +10,16 @@
 @stop
 
 @section('toolbar')
-    <x-table.bulk-data-dropdown :export_url="route('employees.export', ['company_id' => request()->filter['company_id'] ?? null ])" />
-    <x-table.filter-dropdown :company="true"/>
+    <x-table.bulk-data-dropdown :export_url="route('employees.export', ['company_id' => request()->filter['company_id'] ?? null])" />
+    <x-table.filter-dropdown :company="true" />
 @stop
 
 @section('table_header')
 
-    <th class="min-w-50px">{{ __('No') }}</th>
+    <th class="min-w-10px">{{ __('ID') }}</th>
     <th class="min-w-145px">{{ __('Employee') }}</th>
     @if (auth()->user()->company_id == null)
-    <th class="min-w-125px">{{ __('Company') }}</th>
+        <th class="min-w-125px">{{ __('Company') }}</th>
     @endif
     <!-- <th class="min-w-125px">{{ __('Department') }}</th> -->
     <!-- <th class="min-w-125px">{{ __('Position') }}</th> -->
@@ -37,13 +37,13 @@
                 <x-table.employee-item :employee="$value" />
             </td>
             @if (auth()->user()->company_id == null)
-            <td>{{ $value->company->name ?? '' }}</td>
+                <td>{{ $value->company->name ?? '' }}</td>
             @endif
             <!-- <td>{{ $value->department->name ?? '' }}</td> -->
             <!-- <td>{{ $value->position->name ?? '' }}</td> -->
             <td>{{ $value->phone ?? '' }}</td>
             <td>{{ $value->email ?? '' }}</td>
-           
+
             <td class="text-end">
                 <x-table.actions>
                     <x-table.employee-resend-password :employee="$value" />

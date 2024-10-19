@@ -17,7 +17,7 @@ class ForceHttps
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->secure()) {
+        if (env('FORCE_HTTPS')) {
             URL::forceScheme('https');
         }
 

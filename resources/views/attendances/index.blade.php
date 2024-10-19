@@ -6,7 +6,7 @@
 @stop
 
 @section('toolbar_left')
- 
+
 @stop
 
 @section('toolbar')
@@ -14,7 +14,7 @@
 @stop
 
 @section('table_header')
-    <th class="min-w-50px">{{ __('No') }}</th>
+    <th class="min-w-10px">{{ __('ID') }}</th>
     @if (auth()->user()->company_id == null)
         <th class="min-w-125px">{{ __('Company') }}</th>
     @endif
@@ -34,7 +34,7 @@
             @if (auth()->user()->company_id == null)
                 <td>{{ $value->employee->company->name ?? '-' }}</td>
             @endif
-         
+
             <td>{{ $value->employee->full_name ?? '-' }}</td>
             <td>{{ $value->employee_shift->name ?? '-' }}</td>
             <td>{{ \Carbon\Carbon::parse($value->date)->format('d M Y') }}</td>

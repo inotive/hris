@@ -22,7 +22,7 @@
             <div class="table-responsive">
                 <x-table.table>
                     <x-slot name="header">
-                        <th>{{ __('No') }}</th>
+                        <th>{{ __('ID') }}</th>
                         <th>{{ __('Company Name') }}</th>
                         <th>{{ __('Company Location') }}</th>
                         <th>{{ __('Start Periode') }}</th>
