@@ -1,13 +1,12 @@
-.select2-selection__rendered  {
+.select2-selection__rendered {
     margin-right: 20px;
 }
 
-
-.deduction_div, .earning_div {
+.deduction_div,
+.earning_div {
     /* padding-right: 0 !important;
     padding-left: 0 !important; */
 }
-
 
 .btn-delete-payslip-detail {
     height: 40px;
@@ -16,7 +15,6 @@
     padding-right: 0px !important;
 }
 
-
 .btn-delete-expense {
     height: 40px;
     margin-top: 28px;
@@ -24,7 +22,8 @@
     padding-right: 0px !important;
 }
 
-.aside-menu .menu .menu-item .menu-content, .aside-menu .menu .menu-item .menu-link {
+.aside-menu .menu .menu-item .menu-content,
+.aside-menu .menu .menu-item .menu-link {
     margin-left: 15px;
     margin-right: 15px;
     padding-left: 15px;
@@ -33,24 +32,29 @@
     font-size: 14px;
     font-weight: 500;
     line-height: 24px;
-  }
-  
+}
+
 .menu-state-title-primary .menu-item .menu-link.active {
-    transition: color .2s ease,background-color .2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
     color: #444752 !important;
-    background: #ECF2FF;
+    background: #ecf2ff;
     /* margin-left: 15px;
     margin-right: 15px; */
     border-radius: 50px;
-    border: 1px solid #DAE5FF;
+    border: 1px solid #dae5ff;
 }
 
 .menu-state-title-primary .menu-item .menu-link.active .menu-title {
     color: #444752 !important;
 }
 
-.menu-state-title-primary .menu-item.hover:not(.here)>.menu-link:not(.disabled):not(.active):not(.here), .menu-state-title-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) {
-    transition: color .2s ease,background-color .2s ease;
+.menu-state-title-primary
+    .menu-item.hover:not(.here)
+    > .menu-link:not(.disabled):not(.active):not(.here),
+.menu-state-title-primary
+    .menu-item:not(.here)
+    .menu-link:hover:not(.disabled):not(.active):not(.here) {
+    transition: color 0.2s ease, background-color 0.2s ease;
     color: #444752 !important;
 }
 
@@ -60,7 +64,7 @@
 }
 
 .aside {
-    box-shadow:  none !important;
+    box-shadow: none !important;
 }
 .aside.aside-light {
     background-color: #fafbff !important;
@@ -73,25 +77,19 @@
     font-size: 11pt;
     padding-top: 10px;
     padding-bottom: 10px;
-  
-
 }
 
 .tab-sidebar-submenu a {
-
     color: #1078ca;
- 
 }
 
 .nav-tab-sidebar {
     border-bottom: 1px solid #d3d4d4;
     width: 100%;
- 
 }
 
 .tab-sidebar-submenu:has(.active) {
     border-bottom: 3px solid #1078ca;
-  
 }
 
 .card-content {
@@ -102,7 +100,7 @@
 
 #kt_wrapper {
     padding-top: 40px !important;
-    color: white;
+    /* color: white; */
 }
 
 .page_subtitle {
@@ -118,10 +116,9 @@ body {
 }
 
 .aside-menu hr {
-
     border: none; /* Removes the default border */
-border-top: 1px solid #667085; /* Adds a top border of 1px */
-width: 100%; /* Adjusts the width */
+    border-top: 1px solid #667085; /* Adds a top border of 1px */
+    width: 100%; /* Adjusts the width */
 }
 
 label {

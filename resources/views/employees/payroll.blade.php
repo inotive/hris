@@ -1,8 +1,10 @@
 <x-form.index :action="$form_action" :cancel="$cancel">
     <x-slot name="title">{{ __('Payroll Information') }}</x-slot>
 
-    <x-slot name="toolbar">
 
+
+    <x-slot name="top_header">
+        <x-back href="{{ $back_route ?? route(explode('.', Route::currentRouteName())[0] . '.index') }}" />
     </x-slot>
 
     <x-slot name="toolbar">
