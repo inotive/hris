@@ -14,13 +14,16 @@ class AttendanceController extends Controller
         $auth = auth()->user();
 
         $list = Attendance::where('employee_id', $auth->id)
+            ->when($request->start_date != null && $request->end_date != null, function ($q) use ($request) {
+                return $q->where('date', '>=', $request->start_date)->where('date', '<=', $request->start_date);
+            })
             ->orderBy('created_at', $request->sort ?? 'desc')
             ->get();
 
 
         return [
             'status'    => 'success',
-            'data'  => $list,
+            'data'  => AttendanceDetailResource::collection($list),
         ];
     }
 
@@ -56,18 +59,20 @@ class AttendanceController extends Controller
 
         $attendance = Attendance::where('employee_id', $auth->id)
             ->where('date', $date)
-            ->first();
+            ->first() ?? new Attendance([
+                'employee_id'   => $auth->id,
+                'date'  => $date,
+            ]);
 
-        if ($attendance != null) {
-            $attendance->clockin_time = $request->clockin_time;
-            $attendance->clockin_lat = $request->clockin_lat;
-            $attendance->clockin_long = $request->clockin_long;
-            $attendance->save();
-        }
+        $attendance->clockin_time = $request->clockin_time;
+        $attendance->clockin_lat = $request->clockin_lat;
+        $attendance->clockin_long = $request->clockin_long;
+        $attendance->save();
+
 
         return [
             'status'    => 'success',
-            'message'=> "Clockin submited, data save successful"
+            'message' => "Clockin submited, data save successful"
         ];
     }
 
@@ -96,7 +101,7 @@ class AttendanceController extends Controller
 
         return [
             'status'    => 'success',
-            'message'=> "Clockout submited, data save successful"
+            'message' => "Clockout submited, data save successful"
         ];
     }
 
@@ -113,15 +118,15 @@ class AttendanceController extends Controller
             ->whereNotNull('clockin_time')
             ->whereNotNull('clockout_time')
             ->count();
-       
-       
+
+
         $no_clockin = Attendance::where('employee_id', $auth->id)
             ->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->whereNull('clockin_time')
             ->count();
 
-              
+
         $no_clockout = Attendance::where('employee_id', $auth->id)
             ->whereYear('date', $year)
             ->whereMonth('date', $month)
@@ -139,7 +144,7 @@ class AttendanceController extends Controller
             ->whereMonth('date', $month)
             ->where('clockin_status', 'EARLY')
             ->count();
-        
+
         return [
             'status'    => 'success',
             'data'      => [

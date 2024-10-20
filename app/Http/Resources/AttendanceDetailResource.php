@@ -17,7 +17,7 @@ class AttendanceDetailResource extends JsonResource
         $data = parent::toArray($request);
 
 
-        $data['shift'] = $this->employee_shift;
+        $data['employee_shift'] = $this->employee_shift;
 
         return $data;
     }
