@@ -40,8 +40,13 @@ class EmployeeController extends Controller
 
         $employee = Employee::where('id', $auth->id)->first();
         
+        $values = $request->all();
+
+        foreach($values as $key => $value) {
+            $employee->$key = $value;
+        }
         
-        $employee->fill($request->all());
+
         $employee->save();
 
         return [
