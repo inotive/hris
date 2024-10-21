@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/auth/login', [EmployeeController::class, 'login']);
 
 Route::middleware([
-   'auth:sanctum',
+    'auth:sanctum',
 ])->group(function () {
 
     Route::get('/profile', [EmployeeController::class, 'profile']);
@@ -50,35 +50,35 @@ Route::middleware([
     Route::post('/auth/logout', [EmployeeController::class, 'logout']);
 
 
-    Route::get('/attendances', [AttendanceController::class,'index']);
-    Route::get('/attendance', [AttendanceController::class,'detail']);
-    Route::put('/attendance/clockin', [AttendanceController::class,'clockin']);
-    Route::put('/attendance/clockout', [AttendanceController::class,'clockout']);
-    Route::get('/attendance-summary', [AttendanceController::class ,'summary']);
+    Route::get('/attendances', [AttendanceController::class, 'index']);
+    Route::get('/attendance', [AttendanceController::class, 'detail']);
+    Route::put('/attendance/clockin', [AttendanceController::class, 'clockin']);
+    Route::put('/attendance/clockout', [AttendanceController::class, 'clockout']);
+    Route::get('/attendance-summary', [AttendanceController::class, 'summary']);
 
 
     // Route::get('/master-leave-type',[LeaveTypeController::class, 'index']);
-    Route::get('/leave-requests',[LeaveRequestController::class, 'index']);
-    Route::get('/leave-request/{id}',[LeaveRequestController::class, 'detail']);
-    Route::post('/leave-request',[LeaveRequestController::class, 'create']);
-    Route::put('/leave-request',[LeaveRequestController::class, 'update']);
-    Route::delete('/leave-request',[LeaveRequestController::class, 'delete']);
+    Route::get('/leave-requests', [LeaveRequestController::class, 'index']);
+    Route::get('/leave-request/{id}', [LeaveRequestController::class, 'detail']);
+    Route::post('/leave-request', [LeaveRequestController::class, 'create']);
+    Route::put('/leave-request', [LeaveRequestController::class, 'update']);
+    Route::delete('/leave-request', [LeaveRequestController::class, 'delete']);
 
 
     // Route::get('/master-overtime-type',[OvertimeTypeController::class, 'index']);
 
-    Route::get('/overtime-requests',[OvertimeRequestController::class, 'index']);
-    Route::get('/overtime-request/{id}',[OvertimeRequestController::class, 'detail']);
-    Route::post('/overtime-request',[OvertimeRequestController::class, 'create']);
-    Route::put('/overtime-request',[OvertimeRequestController::class, 'update']);
-    Route::delete('/overtime-request',[OvertimeRequestController::class, 'delete']);
+    Route::get('/overtime-requests', [OvertimeRequestController::class, 'index']);
+    Route::get('/overtime-request/{id}', [OvertimeRequestController::class, 'detail']);
+    Route::post('/overtime-request', [OvertimeRequestController::class, 'create']);
+    Route::put('/overtime-request', [OvertimeRequestController::class, 'update']);
+    Route::delete('/overtime-request', [OvertimeRequestController::class, 'delete']);
 
 
-    Route::get('/reimbursement-requests',[ReimbursementController::class, 'index']);
-    Route::get('/reimbursement-request/{id}',[ReimbursementController::class, 'detail']);
-    Route::post('/reimbursement-request',[ReimbursementController::class, 'create']);
-    Route::put('/reimbursement-request',[ReimbursementController::class, 'update']);
-    Route::delete('/reimbursement-request',[ReimbursementController::class, 'delete']);
+    Route::get('/reimbursement-requests', [ReimbursementController::class, 'index']);
+    Route::get('/reimbursement-request/{id}', [ReimbursementController::class, 'detail']);
+    Route::post('/reimbursement-request', [ReimbursementController::class, 'create']);
+    Route::put('/reimbursement-request', [ReimbursementController::class, 'update']);
+    Route::delete('/reimbursement-request', [ReimbursementController::class, 'delete']);
 
 
     // MASTER
@@ -88,6 +88,8 @@ Route::middleware([
     Route::get('/master/family-relation', [EmployeeFamilyInfoController::class, 'familyRelation']);
     Route::get('/master/education-level', [EmployeeEducationController::class, 'educationLevel']);
     Route::get('/master/currency', [EmployeeController::class, 'currency']);
+    Route::get('/master/nationality', [EmployeeController::class, 'nationality']);
+
     Route::get('/master/period', [EmployeeController::class, 'period']);
     Route::get('/master/reason-leaving', [LeaveRequestController::class, 'reasonLeaving']);
     Route::get('/master/leave-type', [LeaveRequestController::class, 'leaveType']);

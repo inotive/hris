@@ -7,6 +7,7 @@ use App\Http\Requests\Api\EmployeeRequest;
 use App\Http\Resources\EmployeeResource;
 use App\Models\Employee;
 use App\View\Components\CurrencyDropdown;
+use App\View\Components\NationalityDropdown;
 use App\View\Components\PeriodDropdown;
 use Exception;
 use Illuminate\Http\Request;
@@ -39,13 +40,13 @@ class EmployeeController extends Controller
 
 
         $employee = Employee::where('id', $auth->id)->first();
-        
+
         $values = $request->all();
 
-        foreach($values as $key => $value) {
+        foreach ($values as $key => $value) {
             $employee->$key = $value;
         }
-        
+
 
         $employee->save();
 
@@ -73,7 +74,7 @@ class EmployeeController extends Controller
         if (auth()->guard('employee')->attempt(['username' => $auth->username, 'password' => $old_password])) {
 
             Employee::where('id', $auth->id)->update([
-                'password'  =>bcrypt($new_password),
+                'password'  => bcrypt($new_password),
             ]);
 
             return [
@@ -82,29 +83,28 @@ class EmployeeController extends Controller
             ];
         } else {
             return [
-                "status"=> "error",
-                "message"=> "Wrong Old Password",
+                "status" => "error",
+                "message" => "Wrong Old Password",
             ];
         }
-
     }
 
     public function login(Request $request)
     {
-        try{
+        try {
             $username = $request->username;
             $password = $request->password;
-            
+
             // $fcm_token = $request->fcm_token;
 
 
             $user = Employee::where('username', $username)
-                ->orderBy('id','desc');
+                ->orderBy('id', 'desc');
 
 
             if ($user->count() == 0) {
                 throw new Exception('User Not Found', 401);
-            } 
+            }
 
             $user = $user->first();
             if ($user->status == 0) {
@@ -124,12 +124,10 @@ class EmployeeController extends Controller
                         'user'  => new EmployeeResource($user),
                     ]
                 ];
-
             } else {
-               throw new Exception('Invalid username or password', 401);
+                throw new Exception('Invalid username or password', 401);
             }
-
-        } catch(Exception $e){
+        } catch (Exception $e) {
             Log::error($e);
             if (is_int($e->getCode())) {
                 return response()->json([
@@ -142,9 +140,7 @@ class EmployeeController extends Controller
                     'message'   => 'Error',
                 ], 500);
             }
-           
         }
-        
     }
 
     public function logout(Request $request)
@@ -243,6 +239,25 @@ class EmployeeController extends Controller
     public function currency()
     {
         $list = CurrencyDropdown::dropdown();
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
+    }
+
+
+    public function nationality()
+    {
+        $list = NationalityDropdown::dropdown();
 
         $data = [];
         foreach ($list as $key => $value) {
