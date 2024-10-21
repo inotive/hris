@@ -92,5 +92,5 @@ Route::middleware([
     Route::get('/master/reason-leaving', [LeaveRequestController::class, 'reasonLeaving']);
     Route::get('/master/leave-type', [LeaveRequestController::class, 'leaveType']);
     Route::get('/master/overtime-type', [OvertimeRequestController::class, 'overtimeType']);
-    Route::get('/master/reimburesement-type', [ReimbursementController::class, 'reimburesementType']);
+    Route::get('/master/reimbursement-type', [ReimbursementController::class, 'reimbursementType']);
 });
