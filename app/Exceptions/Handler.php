@@ -79,4 +79,11 @@ class Handler extends ExceptionHandler
         return parent::render($request, $exception);
     }
 
+    protected function unauthenticated($request, \Illuminate\Auth\AuthenticationException $exception)
+    {
+        return $request->expectsJson()
+            ? response()->json(['error' => 'Unauthenticated.'], 401)
+            : redirect()->guest(route('login')); // This line is what causes the redirect, change it for API
+    }
+
 }

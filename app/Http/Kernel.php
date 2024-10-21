@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckApiAuth;
 use App\Http\Middleware\Cors;
 use App\Http\Middleware\SetLocale;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -53,6 +54,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         
             \App\Http\Middleware\ForceJsonResponse::class,
+
         ],
     ];
 

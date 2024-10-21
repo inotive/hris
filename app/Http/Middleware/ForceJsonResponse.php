@@ -61,7 +61,12 @@ class ForceJsonResponse
             ], 500);
         }
 
-        return $this->render($request, $exception);
+        // return $this->render($request, $exception);
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Something went wrong',
+            'exception' => $exception->getMessage(), // Optional: hide in production
+        ], 500);
     }
 
     private function camelCaseArrayKeys(array $array)
