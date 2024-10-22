@@ -44,6 +44,7 @@ class Company extends Model
         'sub_district',
         'zip_code',
         'time_zone',
+        'tax_calculation_method',
     ];
 
     public $rules = [
@@ -66,6 +67,7 @@ class Company extends Model
         'district'  => '',
         'sub_district'  => '',
         'zip_code'  => '',
+        'tax_calculation_method'    => '',
     ];
 
     public $casts = [
@@ -90,4 +92,15 @@ class Company extends Model
     //         ->orderBy('distance', 'asc');
     // }
 
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            if ($model->tax_calculation_method != null && $model->tax_calculation_method == 'none') {
+                $model->tax_calculation_method = null;
+            }
+        });
+    }
 }
