@@ -27,17 +27,18 @@ class LeaveType extends Model
     public $fillable = [
         'company_id',
         'name',
+        'days_limit',
 
     ];
 
     public $rules = [
         'company_id'  => 'required',
         'name'  => 'required',
-
+        'days_limit'    => 'required',
     ];
 
 
-    public static function dummy_data() : array
+    public static function dummy_data(): array
     {
         $company_id = auth()->user()->company_id;
 
