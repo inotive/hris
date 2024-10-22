@@ -24,14 +24,14 @@ class ReimbursementController extends Controller
         $end_date = $request->end_date;
 
         $list = ReimbursementRequest::query()
-            ->when($status != null, function($query) use($status){
+            ->when($status != null, function ($query) use ($status) {
                 $query->where('status', $status);
             })
-            ->when($start_date !=null, function ($query) use ($start_date){
-                $query->whereDate('created_at','>=', $start_date);
+            ->when($start_date != null, function ($query) use ($start_date) {
+                $query->whereDate('created_at', '>=', $start_date);
             })
-            ->when($end_date !=null, function ($query) use ($end_date){
-                $query->whereDate('created_at','<=', $end_date);
+            ->when($end_date != null, function ($query) use ($end_date) {
+                $query->whereDate('created_at', '<=', $end_date);
             })
             ->orderBy('created_at', $request->sort ?? 'desc')
             ->get();
@@ -47,7 +47,7 @@ class ReimbursementController extends Controller
     {
 
         $data = ReimbursementRequest::where('id', $id)
-        
+
             ->first();
 
         return [
@@ -68,10 +68,10 @@ class ReimbursementController extends Controller
             'status'    => 'pending',
             'total' => 0,
         ]);
-    
 
- 
-   
+
+
+
 
         $validate = (new ReimbursementRequest())->rules;
         $validated = $request->validate($validate);
@@ -82,14 +82,14 @@ class ReimbursementController extends Controller
 
 
         $total = 0;
-        foreach($expenses as $key => $value) {
+        foreach ($expenses as $key => $value) {
             // $row = json_decode($value);
 
             $expense = ReimbursementExpense::find($value['expenses_id']);
 
             ReimbursementExpenseList::create([
                 'reimbursement_request_id'      => $reimbursement->id,
-                'reimbursement_expense_id'=> $value['expenses_id'],
+                'reimbursement_expense_id' => $value['expenses_id'],
                 'value' => $value['value'],
                 'name' => $expense->name ?? null,
                 'company_id'    => $auth->company_id,
@@ -113,7 +113,7 @@ class ReimbursementController extends Controller
         $id = $request->id;
         $auth = auth()->user();
 
-        
+
         $request->merge([
             'employee_id'   => $auth->id,
             'company_id'   => $auth->company_id,
@@ -121,10 +121,10 @@ class ReimbursementController extends Controller
             'status'    => 'pending',
             'total' => 0,
         ]);
-    
 
- 
-   
+
+
+
 
         $validate = (new ReimbursementRequest())->rules;
         $validated = $request->validate($validate);
@@ -138,14 +138,14 @@ class ReimbursementController extends Controller
 
         $total = 0;
         ReimbursementExpenseList::where('reimbursement_request_id', $reimbursement->id)->delete();
-        foreach($expenses as $key => $value) {
+        foreach ($expenses as $key => $value) {
             // $row = json_decode($value);
 
             $expense = ReimbursementExpense::find($value['expenses_id']);
 
             ReimbursementExpenseList::create([
                 'reimbursement_request_id'      => $reimbursement->id,
-                'reimbursement_expense_id'=> $value['expenses_id'],
+                'reimbursement_expense_id' => $value['expenses_id'],
                 'value' => $value['value'],
                 'name' => $expense->name ?? null,
                 'company_id'    => $auth->company_id,
@@ -172,15 +172,35 @@ class ReimbursementController extends Controller
         ReimbursementRequest::where('id', $id)->delete();
         return [
             'status'    => 'success',
-            'message'=> "Reimbursement Request data delete successful"
+            'message' => "Reimbursement Request data delete successful"
         ];
-    
     }
-    
+
     public function reimburesementType(Request $request)
     {
         $company_id = $request->company_id ?? auth()->user()->company_id;
-        $list = ReimbursementType::where('company_id', $company_id)->orderBy('name')->pluck('name','id');
+        $list = ReimbursementType::where('company_id', $company_id)->orderBy('name')->pluck('name', 'id');
+
+        $data = [];
+        foreach ($list as $key => $value) {
+            $data[] = [
+                'key' => $key,
+                'value' => $value,
+            ];
+        }
+
+        return [
+            'status'    => 'success',
+            'data'      => $data,
+        ];
+    }
+
+    public function expenseType(Request $request)
+    {
+        $company_id = $request->company_id ?? auth()->user()->company_id;
+        $list = ReimbursementExpense::where('company_id', $company_id)
+            ->orderBy('name')
+            ->pluck('name', 'id');
 
         $data = [];
         foreach ($list as $key => $value) {
