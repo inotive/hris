@@ -9,6 +9,7 @@
     <x-form.input type="email" :label="__('Email')" name="email" :value="old('email', $form->email ?? '')" />
     <x-form.phone :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')" />
     <x-form.number min="1" max="31" :label="__('Cut Off Payroll Date')" name="cut_off_payroll_date" :value="old('cut_off_payroll_date', $form->cut_off_payroll_date ?? '')" />
+    <x-form.select :list="['none' => 'None', 'gross' => 'Gross', 'gross-up' => 'Gross Up']" label="Tax Calculation Method" name="tax_calculation_method" :value="old('tax_calculation_method', $form->tax_calculation_method)" />
     <x-form.image-picker :label="__('Logo')" name="logo" folder="companies" :value="old('logo', $form->logo ?? '')" />
     <x-form.switch label="Overtime Request" name="is_overtime_request" :value="old('is_overtime_request', $form->is_overtime_request ?? '')" />
     <x-form.switch label="Status" name="status" :value="old('status', $form->status ?? '')" />
@@ -23,5 +24,5 @@
     <x-form.input type="text" label="Country" name="country" :value="$form->country ?? ''" />
     <x-form.number type="text" label="Postal Code" name="zip_code" :value="$form->zip_code ?? ''" />
 
-    <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')"/>
+    <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')" />
 </div>

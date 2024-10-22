@@ -53,6 +53,7 @@ class EmployeeController extends Controller
         return [
             'status'    => 'success',
             'message'   => 'Personal info update successful',
+            'data'  => $employee,
         ];
     }
 

@@ -17,6 +17,12 @@ class AttendanceController extends Controller
             ->when($request->start_date != null && $request->end_date != null, function ($q) use ($request) {
                 return $q->where('date', '>=', $request->start_date)->where('date', '<=', $request->start_date);
             })
+            ->when($request->month != null, function ($query) use ($request) {
+                return $query->whereMonth('date', $request->month);
+            })
+            ->when($request->year != null, function ($query) use ($request) {
+                return $query->whereYear('date', $request->year);
+            })
             ->orderBy('created_at', $request->sort ?? 'desc')
             ->get();
 

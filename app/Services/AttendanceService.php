@@ -13,7 +13,7 @@ class AttendanceService
     public static function init()
     {
 
-        Employee::where('status', 1)->chunk(100, function ($items) {
+        Employee::chunk(100, function ($items) {
             AttendanceInitJob::dispatch($items);
         });
     }
