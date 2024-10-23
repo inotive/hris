@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\OvertimeRequestController;
 use App\Http\Controllers\Api\OvertimeTypeController;
 use App\Http\Controllers\Api\PeriodController;
 use App\Http\Controllers\Api\ReimbursementController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -96,5 +97,8 @@ Route::middleware([
     Route::get('/master/overtime-type', [OvertimeRequestController::class, 'overtimeType']);
     Route::get('/master/reimburesement-type', [ReimbursementController::class, 'reimburesementType']);
     Route::get('/master/expense-type', [ReimbursementController::class, 'expenseType']);
+    Route::get('/master/months', [AttendanceController::class, 'monthList']);
+    Route::get('/master/years', [AttendanceController::class, 'yearList']);
+    
 
 });
