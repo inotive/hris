@@ -33,6 +33,13 @@ class ReimbursementController extends Controller
             ->when($end_date != null, function ($query) use ($end_date) {
                 $query->whereDate('created_at', '<=', $end_date);
             })
+            ->when($request->month != null, function ($query) use ($request) {
+                return $query->whereMonth('created_at', $request->month);
+            })
+            ->when($request->year != null, function ($query) use ($request) {
+                return $query->whereYear('created_at', $request->year);
+            })
+            ->forPage($request->page, 10) 
             ->orderBy('created_at', $request->sort ?? 'desc')
             ->get();
 
