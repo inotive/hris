@@ -193,7 +193,8 @@ class AttendanceController extends Controller
         $years = [];
         for($i = date('Y') - 1; $i <= date('Y') + 5; $i++) {
             $years[] = [
-                $i => $i,
+                'key'   => $i,
+                'value' => $i,
             ];
         }
 
