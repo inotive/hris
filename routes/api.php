@@ -96,4 +96,5 @@ Route::middleware([
     Route::get('/master/overtime-type', [OvertimeRequestController::class, 'overtimeType']);
     Route::get('/master/reimburesement-type', [ReimbursementController::class, 'reimburesementType']);
     Route::get('/master/expense-type', [ReimbursementController::class, 'expenseType']);
+
 });
