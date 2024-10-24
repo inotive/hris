@@ -39,13 +39,16 @@ class ReimbursementController extends Controller
             ->when($request->year != null, function ($query) use ($request) {
                 return $query->whereYear('created_at', $request->year);
             })
-            ->forPage($request->page, 10) 
             ->orderBy('created_at', $request->sort ?? 'desc')
-            ->get();
+            ->paginate();
+
+        $pagination = $list->toArray();
+        unset($pagination['data']);
 
         return [
             'success'   => true,
             'data'  => ReimbursementRequestResource::collection($list),
+            'pagination'    => $pagination,
         ];
     }
 

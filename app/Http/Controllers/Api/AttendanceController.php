@@ -23,14 +23,16 @@ class AttendanceController extends Controller
             ->when($request->year != null, function ($query) use ($request) {
                 return $query->whereYear('date', $request->year);
             })
-            ->forPage($request->page, 10) 
             ->orderBy('created_at', $request->sort ?? 'desc')
-            ->get();
+            ->paginate();
 
 
+        $pagination = $list->toArray();
+        unset($pagination['data']);
         return [
             'status'    => 'success',
             'data'  => AttendanceDetailResource::collection($list),
+            'pagination' => $pagination,
         ];
     }
 
