@@ -24,7 +24,7 @@ class AttendanceController extends Controller
                 return $query->whereYear('date', $request->year);
             })
             ->orderBy('created_at', $request->sort ?? 'desc')
-            ->paginate();
+            ->paginate($request->per_page ?? 10);
 
 
         $pagination = $list->toArray();

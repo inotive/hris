@@ -22,6 +22,7 @@ use App\Http\Controllers\EmployeePayslipMasterController;
 use App\Http\Controllers\EmployeePayslipTemplateController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\EmployeeShiftController;
+use App\Http\Controllers\GeneratePayslipController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\OvertimeRequestController;
@@ -93,6 +94,8 @@ Route::middleware([
 
     Route::get('/employees/{employee}/payslip', [EmployeePayslipTemplateController::class, 'index'])->name('employees.payslip');
     Route::post('/employees/{employee}/payslip', [EmployeePayslipTemplateController::class, 'update'])->name('employees.payslip-update');
+
+    Route::resource('/payslip/generate', GeneratePayslipController::class);
 
     Route::get('/employees/get/select2', [EmployeeController::class, 'select2'])->name('employees.select2');
     Route::post('/employees/check-username', [EmployeeController::class, 'checkUsername'])->name('employees.check-username');

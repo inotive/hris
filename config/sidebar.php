@@ -264,6 +264,15 @@ return [
                         'ptkp.index'    => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
+
+                [
+                    'label' => 'Generate Payslip',
+                    'route' => 'generate.index',
+                    'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes'    => [
+                        'generate.*'    => ['superadmin'],
+                    ],
+                ],
             ],
         ],
 
