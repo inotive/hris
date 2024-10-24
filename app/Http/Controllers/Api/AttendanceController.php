@@ -23,14 +23,16 @@ class AttendanceController extends Controller
             ->when($request->year != null, function ($query) use ($request) {
                 return $query->whereYear('date', $request->year);
             })
-            ->forPage($request->page, 10) 
             ->orderBy('created_at', $request->sort ?? 'desc')
-            ->get();
+            ->paginate();
 
 
+        $pagination = $list->toArray();
+        unset($pagination['data']);
         return [
             'status'    => 'success',
             'data'  => AttendanceDetailResource::collection($list),
+            'pagination' => $pagination,
         ];
     }
 
@@ -193,7 +195,8 @@ class AttendanceController extends Controller
         $years = [];
         for($i = date('Y') - 1; $i <= date('Y') + 5; $i++) {
             $years[] = [
-                $i => $i,
+                'key'   => $i,
+                'value' => $i,
             ];
         }
 

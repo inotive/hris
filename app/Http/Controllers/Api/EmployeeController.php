@@ -152,7 +152,7 @@ class EmployeeController extends Controller
         if ($auth != null && $auth instanceof Employee) {
             $auth->logout();
             return response()->json([
-                'status'    => 'error',
+                'status'    => 'success',
                 'message'   => 'Logout successful',
             ], 200);
         } else {
