@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceDetailResource;
 use App\Models\Attendance;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
+  
     public function index(Request $request)
     {
         $auth = auth()->user();
