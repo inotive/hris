@@ -40,7 +40,7 @@ class ReimbursementController extends Controller
                 return $query->whereYear('created_at', $request->year);
             })
             ->orderBy('created_at', $request->sort ?? 'desc')
-            ->paginate();
+            ->paginate($request->per_page ?? 10);
 
         $pagination = $list->toArray();
         unset($pagination['data']);

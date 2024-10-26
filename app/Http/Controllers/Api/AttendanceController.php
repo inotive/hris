@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceDetailResource;
 use App\Models\Attendance;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
 {
+  
     public function index(Request $request)
     {
         $auth = auth()->user();
@@ -24,7 +26,7 @@ class AttendanceController extends Controller
                 return $query->whereYear('date', $request->year);
             })
             ->orderBy('created_at', $request->sort ?? 'desc')
-            ->paginate();
+            ->paginate($request->per_page ?? 10);
 
 
         $pagination = $list->toArray();

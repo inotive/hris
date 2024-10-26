@@ -41,7 +41,7 @@ class LeaveRequestController extends Controller
             })
 
             ->orderBy('created_at', $request->sort ?? 'desc')
-            ->paginate();
+            ->paginate($request->per_page ?? 10);
 
             $pagination = $list->toArray();
             unset($pagination['data']);
