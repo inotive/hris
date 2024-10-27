@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\CreatedByUserTrait;
+use App\Traits\HasCompany;
 use App\Traits\HasMyCompany;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -17,7 +18,7 @@ class EmployeePayslipGenerate extends Model
 
     use SearchTrait;
     use CreatedByUserTrait;
-    use HasMyCompany;
+    use HasCompany;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
