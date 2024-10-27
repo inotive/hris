@@ -267,10 +267,10 @@ return [
 
                 [
                     'label' => 'Generate Payslip',
-                    'route' => 'generate.index',
+                    'route' => 'employee-payslip-generate.index',
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes'    => [
-                        'generate.*'    => ['superadmin'],
+                        'employee-payslip-generate.*'    => ['superadmin','admin','finance'],
                     ],
                 ],
             ],

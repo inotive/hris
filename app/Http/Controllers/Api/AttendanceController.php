@@ -49,11 +49,20 @@ class AttendanceController extends Controller
             ->where('date', $date)
             ->first();
 
+        if ($data == null) {
+            return [
+                'status'    => 'success',
+                'data'  => null,
+            ];
+        } else {
+            return [
+                'status'    => 'success',
+                'data'  => new AttendanceDetailResource($data),
+            ];
+        }
 
-        return [
-            'status'    => 'success',
-            'data'  => new AttendanceDetailResource($data),
-        ];
+
+       
     }
 
     public function clockin(Request $request)
