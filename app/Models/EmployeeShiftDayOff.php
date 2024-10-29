@@ -37,4 +37,9 @@ class EmployeeShiftDayOff extends Model
         'description'  => '',
 
     ];
+
+    public function shift()
+    {
+        return $this->belongsTo(EmployeeShift::class, 'shift_id', 'id');
+    }
 }

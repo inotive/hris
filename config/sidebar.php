@@ -115,6 +115,17 @@ return [
                         'employee-shifts.*' => ['superadmin','admin'],
                     ],
                 ],
+                [
+                    'label' => 'Day Off',
+                    'route' => 'employee-shifts-day-off.index',
+                    'roles' => ['superadmin', 'admin'],
+
+                    'routes'    => [
+
+                        'employee-shifts-day-off.*' => ['superadmin','admin'],
+                    ],
+                ],
+
                
             ],
         ],

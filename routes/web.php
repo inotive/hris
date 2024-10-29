@@ -22,6 +22,7 @@ use App\Http\Controllers\EmployeePayslipMasterController;
 use App\Http\Controllers\EmployeePayslipTemplateController;
 use App\Http\Controllers\EmployeePositionController;
 use App\Http\Controllers\EmployeeShiftController;
+use App\Http\Controllers\EmployeeShiftDayOffController;
 use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\OvertimeRequestController;
@@ -113,6 +114,9 @@ Route::middleware([
     Route::get('/employee-positions/get/select2', [EmployeePositionController::class, 'select2'])->name('employee-positions.select2');
     Route::resource('/employee-levels', EmployeeLevelController::class);
     Route::resource('/employee-shifts', EmployeeShiftController::class);
+    Route::get('/employee-shifts/get/select2', [EmployeeShiftController::class, 'select2'])->name('employee-shifts.select2');
+
+    Route::resource('/employee-shifts-day-off', EmployeeShiftDayOffController::class);
     
 
     Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
