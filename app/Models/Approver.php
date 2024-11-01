@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Models;
+
+use App\Traits\HasCompany;
+use App\Traits\SearchTrait;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Approver extends Model
+{
+    use HasFactory;
+    use HasUuids;
+    use HasCompany;
+
+    use SearchTrait;
+    
+    protected $primaryKey = 'id'; // Use 'id' as the primary key
+    public $incrementing = false;  // Disable auto-incrementing
+    protected $keyType = 'string'; // Since UUID is a string
+
+
+    public $fillable = [
+        'company_id',
+        'request_type',
+        'employee_id',
+        'approver_level',
+        'approver_employee_id',
+    ];
+
+    public $rules = [
+        'company_id'=>'',
+        'request_type'=>'',
+        'employee_id'=>'',
+        'approver_level'=>'',
+        'approver_employee_id'=>'',
+    ];
+}

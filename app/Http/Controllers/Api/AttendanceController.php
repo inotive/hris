@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceDetailResource;
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Services\Base64FileService;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -75,6 +76,7 @@ class AttendanceController extends Controller
             'clockin_time'  => 'required',
             'clockin_lat'  => 'required',
             'clockin_long'  => 'required',
+            'clockin_image'  => 'required',
         ]);
 
         $attendance = Attendance::where('employee_id', $auth->id)
@@ -84,9 +86,12 @@ class AttendanceController extends Controller
                 'date'  => $date,
             ]);
 
+        $image = Base64FileService::saveBase64File($request->clockin_image, 'attendance_clockin');
+
         $attendance->clockin_time = $request->clockin_time;
         $attendance->clockin_lat = $request->clockin_lat;
         $attendance->clockin_long = $request->clockin_long;
+        $attendance->clockin_image = $image;
         $attendance->save();
 
 
@@ -106,16 +111,21 @@ class AttendanceController extends Controller
             'clockout_time'  => 'required',
             'clockout_lat'  => 'required',
             'clockout_long'  => 'required',
+            'clockout_image'  => 'required',
         ]);
 
         $attendance = Attendance::where('employee_id', $auth->id)
             ->where('date', $date)
             ->first();
 
+        $image = Base64FileService::saveBase64File($request->clockout_image, 'attendance_clockin');
+
+
         if ($attendance != null) {
             $attendance->clockout_time = $request->clockout_time;
             $attendance->clockout_lat = $request->clockuot_lat;
             $attendance->clockout_long = $request->clockout_long;
+            $attendance->clockout_image = $image;
             $attendance->save();
         }
 

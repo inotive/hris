@@ -46,7 +46,7 @@ class EmployeeController extends Controller
         $page = $request->get('page', 1); // Pagination page
 
         // Define the number of results per page
-        $limit = 10;
+        $limit = $request->get('limit', 10);
 
         // Fetch items from the database based on the search query
         $items = Employee::select(DB::raw("CONCAT(first_name, ' ', last_name,  IF(username != null,' (' +  username + ')' ,'')) as name"), 'id')

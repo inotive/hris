@@ -12,7 +12,7 @@ class EmployeePayslipGenerateController extends Controller
     {
         $list = [];
 
-        return view('employee_organization_experiences.index',[
+        return view('employee_payslip_generate.index',[
             'list'  => $list,
             
         ]);
@@ -21,14 +21,14 @@ class EmployeePayslipGenerateController extends Controller
 
     public function create(Request $request)
     {
-        return view('employee_organization_experiences.create',[
+        return view('employee_payslip_generate.create',[
             
         ]);
     }
 
     public function edit($id, Request $request)
     {
-        return view('employee_organization_experiences.edit',[
+        return view('employee_payslip_generate.edit',[
             
         ]);
     }
