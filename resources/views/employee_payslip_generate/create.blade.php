@@ -5,6 +5,13 @@
 
         <x-company-dropdown />
 
+        <div class="row">
+                <x-month-dropdown />
+
+                <x-year-dropdown />
+
+        </div>
+
 
         <div class="table-responsive" id="employee_list">
             <table class="table table-bordered table-hover">
@@ -12,10 +19,12 @@
                     <tr>
                         <th scope="col"><input type="checkbox" id="select-all"></th>
                         <th scope="col">Name</th>
+                        <th scope="col">Position</th>
+
                     </tr>
                 </thead>
                 <tbody id="employee_list_body">
-                   
+
                 </tbody>
             </table>
         </div>

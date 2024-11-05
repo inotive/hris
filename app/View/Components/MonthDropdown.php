@@ -2,17 +2,18 @@
 
 namespace App\View\Components;
 
+use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\View\Component;
 
-class RoleDropdown extends Component
+class MonthDropdown extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(public $value)
+    public function __construct()
     {
         //
     }
@@ -24,12 +25,18 @@ class RoleDropdown extends Component
      */
     public function render()
     {
-        $list = User::role_options();
+        $list = Attendance::monthDropdown();
+
+        $dropdown = [];
+        foreach ($list as $key => $value) {
+            $dropdown[$value['key']] = $value['value'];
+        }
+
         return view('components.form.select',[
-            'label' => __('Role'),
-            'name'  => 'role',
-            'list'  => $list,
-            'value' => $this->value,
+            'label' => __('Month'),
+            'name'  => 'month',
+            'list'  => $dropdown,
+            'value' => date('m'),
         ]);
     }
 }

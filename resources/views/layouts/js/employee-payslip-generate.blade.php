@@ -1,5 +1,5 @@
 @if (strpos(Route::currentRouteName(), 'employee-payslip-generate.create') === 0)
- 
+
 <script>
     $(".company_id").on('change', function(){
         getAllEmployeeCompany();
@@ -11,14 +11,15 @@
         var company_id = $(".company_id").val();
 
         if (company_id != null) {
-            $.get("{{ route('employees.select2') }}?limit=999999&company_id="+company_id)
+            $.get("{{ route('employees.getall') }}?company_id="+company_id)
                 .then((res) => {
                     console.log(res);
                     $.each(res.items, function(index, row){
                         const newRow = `
                             <tr>
-                                <td><input type="checkbox" value="${row.id}" class="row-checkbox"></td>
-                                <td>${row.name}</td>
+                                <td><input type="checkbox" value="${row.id}" name="employee_ids[]" class="row-checkbox"></td>
+                                <td>${row.first_name} ${row.last_name}</td>
+<td>${row.position.name}</td>
                             </tr>
                         `;
                         // Append the new row to the table body

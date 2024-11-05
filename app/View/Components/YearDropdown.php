@@ -6,14 +6,14 @@ use App\Models\Attendance;
 use App\Models\User;
 use Illuminate\View\Component;
 
-class MonthDropdown extends Component
+class YearDropdown extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct(public $value)
+    public function __construct()
     {
         //
     }
@@ -25,12 +25,17 @@ class MonthDropdown extends Component
      */
     public function render()
     {
-        $list = Attendance::monthDropdown();
+        $list = Attendance::yearDropdown();
+
+        $dropdown = [];
+        foreach ($list as $key => $value) {
+            $dropdown[$value['key']] = $value['value'];
+        }
         return view('components.form.select',[
-            'label' => __('Month'),
-            'name'  => 'month',
-            'list'  => $list,
-            'value' => date('m'),
+            'label' => __('Year'),
+            'name'  => 'year',
+            'list'  => $dropdown,
+            'value' => date('Y'),
         ]);
     }
 }

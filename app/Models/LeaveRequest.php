@@ -34,7 +34,7 @@ class LeaveRequest extends Model
         'end_date',
         'total_days',
         'status',
-        'reason',
+        'reason',       
 
     ];
 
@@ -83,7 +83,7 @@ class LeaveRequest extends Model
                 'title'    => 'Leave Request',
                 'content'    => 'Leave Request. Need Approve',
                 'reference'    => $row->id,
-                'type'  => 'pending',
+                'status'  => 'pending',
                 'module'  => 'leave',
                 'module_id'  => $row->id,
             ]);

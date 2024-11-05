@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\LeaveRequest;
 use App\Models\LeaveType;
 use App\Services\Base64FileService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File as FacadesFile;
@@ -23,21 +24,26 @@ class LeaveRequestController extends Controller
         $start_date = $request->start_date;
         $end_date = $request->end_date;
 
+        $timezone = auth()->user()->company->time_zone;
         $list = LeaveRequest::query()
             ->when($status != null, function($query) use($status){
                 $query->where('status', $status);
             })
-            ->when($start_date !=null, function ($query) use ($start_date){
-                $query->whereDate('created_at','>=', $start_date);
+            ->when($start_date != null, function ($query) use ($start_date, $timezone) {
+                $query->where('created_at', '>=', Carbon::parse($start_date, $timezone)->setTimezone('UTC')->toIso8601String());
             })
-            ->when($end_date !=null, function ($query) use ($end_date){
-                $query->whereDate('created_at','<=', $end_date);
+            ->when($end_date != null, function ($query) use ($end_date, $timezone) {
+                $query->where('created_at', '<=', Carbon::parse($end_date, $timezone)->setTimezone('UTC')->toIso8601String());
             })
-            ->when($request->month != null, function ($query) use ($request) {
-                return $query->whereMonth('created_at', $request->month);
+            ->when($request->month != null, function ($query) use ($request, $timezone) {
+                $monthStart = Carbon::createFromDate($request->year, $request->month, 1, $timezone)->startOfMonth()->setTimezone('UTC')->toIso8601String();
+                $monthEnd = Carbon::createFromDate($request->year, $request->month, 1, $timezone)->endOfMonth()->setTimezone('UTC')->toIso8601String();
+                return $query->whereBetween('created_at', [$monthStart, $monthEnd]);
             })
-            ->when($request->year != null, function ($query) use ($request) {
-                return $query->whereYear('created_at', $request->year);
+            ->when($request->year != null && $request->month == null, function ($query) use ($request, $timezone) {
+                $yearStart = Carbon::create($request->year, 1, 1, $timezone)->startOfYear()->setTimezone('UTC')->toIso8601String();
+                $yearEnd = Carbon::create($request->year, 12, 31, $timezone)->endOfYear()->setTimezone('UTC')->toIso8601String();
+                return $query->whereBetween('created_at', [$yearStart, $yearEnd]);
             })
 
             ->orderBy('created_at', $request->sort ?? 'desc')

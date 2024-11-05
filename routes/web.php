@@ -62,16 +62,16 @@ Route::get('/simulate/attendance-init', function(){
 
 Auth::routes();
 Route::middleware([
-    'auth', 
+    'auth',
     'password.changed',
     'role'
 ])->group(function () {
 
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
- 
 
-    
+
+
     Route::resource('/users', UserController::class)->middleware(['role:superadmin']);
     Route::get('/users/{id}/change-password', [UserController::class, 'changePassword'])->name('users.change-password');
     Route::put('/users/{id}/change-password', [UserController::class, 'changePasswordUpdate'])->name('users.change-password.update');
@@ -83,7 +83,7 @@ Route::middleware([
     Route::get('/companies/get/select2', [CompanyController::class, 'select2'])->name('companies.select2');
     Route::get('/companies/{company}/payout-setting/{year}', [CompanyPayoutSettingController::class, 'calendar'])->name('companies.payout-setting');
     Route::post('/companies/{company}/payout-setting/{year}', [CompanyPayoutSettingController::class, 'calendarUpdate'])->name('companies.payout-setting.update');
-    
+
     Route::resource('/ptkp', PtkpController::class);
 
     // Route::resource('/company-payout-settings', CompanyPayoutSettingController::class);
@@ -98,8 +98,10 @@ Route::middleware([
     Route::resource('/employee-payslip-generate', EmployeePayslipGenerateController::class);
 
     Route::get('/employees/get/select2', [EmployeeController::class, 'select2'])->name('employees.select2');
+    Route::get('/employees/get/getall', [EmployeeController::class, 'getAll'])->name('employees.getall');
+
     Route::post('/employees/check-username', [EmployeeController::class, 'checkUsername'])->name('employees.check-username');
-    
+
     Route::put('/employees/reset-password/{id}',[ EmployeeController::class,'resetPassword'])->name('employee-reset-password');
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
     Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
@@ -117,7 +119,7 @@ Route::middleware([
     Route::get('/employee-shifts/get/select2', [EmployeeShiftController::class, 'select2'])->name('employee-shifts.select2');
 
     Route::resource('/employee-shifts-day-off', EmployeeShiftDayOffController::class);
-    
+
 
     Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
     // Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
@@ -133,10 +135,10 @@ Route::middleware([
 
     Route::resource('/leave-types', LeaveTypeController::class);
     Route::resource('/leave-requests', LeaveRequestController::class);
-    
+
     Route::resource('/overtime-requests', OvertimeRequestController::class);
     Route::resource('/overtime-shift-requests', OvertimeShiftRequestController::class);
-  
+
 
     Route::resource('/reimbursement-types', ReimbursementTypeController::class);
     Route::resource('/reimbursement-expenses', ReimbursementExpenseController::class);

@@ -17,14 +17,14 @@ class EmployeeController extends Controller
     use CrudTrait;
 
     public $model = Employee::class;
-    public $route = 'employees'; 
+    public $route = 'employees';
     public $page_title = 'Employee';
 
 
     public function resetPassword($id, Request $request)
     {
         $new_pass = rand(100000,999999) . uniqid();
-        
+
         $employee = Employee::find($id);
         $employee->password = bcrypt($new_pass);
         $employee->save();
@@ -71,6 +71,27 @@ class EmployeeController extends Controller
         ]);
     }
 
+
+    public function getAll(Request $request)
+    {
+
+        $company_id = $request->company_id;
+
+        $query = $request->get('query');
+
+
+        // Fetch items from the database based on the search query
+        $items = Employee::with(['position'])->name($query)
+            ->where('company_id', $company_id)
+            ->orderBy('first_name','asc')
+            ->get();
+
+
+        return response()->json([
+            'items' => $items,
+        ]);
+    }
+
     public function checkUsername(Request $request)
     {
         try{
@@ -83,7 +104,7 @@ class EmployeeController extends Controller
             }
 
             if (preg_match('/^[a-zA-Z0-9]+$/', $username) == false) {
-             
+
                 throw __('Only alphabet and numeric characters allowed');
             }
 
@@ -106,7 +127,7 @@ class EmployeeController extends Controller
                     'message'   => $msg,
                 ];
             }
-       
+
 
         }catch(Exception $e){
             return [
