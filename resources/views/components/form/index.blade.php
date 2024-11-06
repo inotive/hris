@@ -28,15 +28,14 @@
                     {{ session('messages.warning') }}
                 </div>
             @endif
-
-
+            {{ $back ?? ''}}
             <form action="{{ $action }}" method="POST" id="crud-form">
                 @csrf
 
                 {{ $top_header ?? '' }}
 
                 <!--begin::Card-->
-                <div class="card">
+                <div class="card border border-light">
 
                     @if (isset($header) || isset($toolbar))
                         <div class="card-header pt-6">
@@ -53,6 +52,7 @@
                     @endif
 
                     <div class="card-body">
+                        {{ $tab_header ?? ''}}
                         {{ $body ?? '' }}
                     </div>
 

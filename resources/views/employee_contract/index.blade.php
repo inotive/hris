@@ -1,21 +1,21 @@
 <x-table.index>
     <x-slot name="title">{{ __('Contract') }}</x-slot>
-
-
     <x-slot name="header">
         <b>{{ $employee->full_name ?? '' }}</b>
     </x-slot>
-    <x-slot name="header_toolbar">
+    <x-slot name="back">
+        <x-back href="{{ URL::previous() }}" />
+    </x-slot>
+    <x-slot name="tab_header">
         <x-employee-edit-tab :employeeid="$employee->id" tab="contract" />
     </x-slot>
-
+    
     <x-slot name="toolbar">
         <x-table.add-button :label="__('Add Contract')" :href="route('contract.create', $employee->id)" />
     </x-slot>
-
-
+        
+        
     <x-slot name="body">
-
         @if (count($list) == 0)
             <x-table.empty />
         @else

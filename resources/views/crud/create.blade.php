@@ -10,15 +10,12 @@
 @stop
 
 @section('content')
-
-
     <div class="post" id="kt_post">
-
         <div id="kt_content_container" class="container-fluid">
             <x-back href="{{ route(explode('.', Route::currentRouteName())[0] . '.index') }}" />
             <form id="crud-form" action="{{ route(explode('.', Route::currentRouteName())[0] . '.store') }}" method="POST">
                 @csrf
-                <div class="card">
+                <div class="card border border-light">
                     <div class="card-body">
                         @include($view)
                     </div>

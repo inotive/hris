@@ -27,10 +27,10 @@
                 </div>
             @endif
 
-
+            {{ $back ?? ''}}
             <form method="GET">
                 <!--begin::Card-->
-                <div class="card">
+                <div class="card border border-light">
 
 
                     @if (isset($header) || isset($header_toolbar))
@@ -49,7 +49,7 @@
 
                     <div class="card-body">
 
-
+                        {{ $tab_header ?? '' }}
                         <!--begin::Card header-->
                         <div class="row">
                             <!--begin::Card title-->

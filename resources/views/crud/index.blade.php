@@ -37,9 +37,6 @@
 
                     <!--begin::Card body-->
                     <div class="card-body">
-
-
-
                         <div class="row">
                             <div class="col-12 col-lg-6 gap-2 mb-5 d-flex">
                                 <x-table.search />

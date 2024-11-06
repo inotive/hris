@@ -1,16 +1,15 @@
 <x-form.index :action="$form_action" :cancel="$cancel">
     <x-slot name="title">{{ __('Payroll Information') }}</x-slot>
 
-    <x-slot name="toolbar">
-
+    <x-slot name="back">
+        <x-back href="{{ route(explode('.', Route::currentRouteName())[0] . '.index') }}" />
     </x-slot>
 
-    <x-slot name="toolbar">
+    <x-slot name="tab_header">
         <x-employee-edit-tab :employeeid="$employee->id" tab="payslip" />
     </x-slot>
 
     <x-slot name="body">
-
 
         <div class="row">
             <x-form.select :list="App\Models\BankList::pluck('name', 'name')" label="Bank Account Name" name="bank_account_name" :value="$employee->bank_account_name ?? ''" />

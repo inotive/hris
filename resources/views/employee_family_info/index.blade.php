@@ -5,7 +5,12 @@
     <x-slot name="header">
         <b>{{ $employee->full_name ?? '' }}</b>
     </x-slot>
-    <x-slot name="header_toolbar">
+
+    <x-slot name="back">
+        <x-back href="{{ URL::previous() }}" />
+    </x-slot>
+
+    <x-slot name="tab_header">
         <x-employee-edit-tab :employeeid="$employee->id" tab="family_info" />
     </x-slot>
 
