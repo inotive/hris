@@ -41,7 +41,6 @@ class EmployeeDropdown extends Component
         return view('components.form.employee',[
             'list'  => $list,
             'name'  => 'employee_id',
-            'label' => __('Employee'),
             'add_class' => 'employee_id',
         
         ]);

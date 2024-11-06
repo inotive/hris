@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\HasCompany;
+use App\Traits\HasRequestNo;
 use App\Traits\SearchTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -17,11 +18,14 @@ class OvertimeRequest extends Model
 
     use SearchTrait;
     use HasCompany;
+    use HasRequestNo;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing
     protected $keyType = 'string'; // Since UUID is a string
+
+    public $request_no_prefix = "OTR";
 
 
     public $fillable = [
