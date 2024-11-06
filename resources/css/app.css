@@ -56,6 +56,7 @@
     .menu-link:hover:not(.disabled):not(.active):not(.here) {
     transition: color 0.2s ease, background-color 0.2s ease;
     color: #444752 !important;
+    border-radius: 50px !important;
 }
 
 .toolbar {
