@@ -36,4 +36,15 @@ class Approver extends Model
         'approver_level'=>'',
         'approver_employee_id'=>'',
     ];
+
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class,'employee_id','id');
+    }
+
+    public function approver_employee()
+    {
+        return $this->belongsTo(Employee::class,'approver_employee_id','id');
+    }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyPayoutSettingController;
 use App\Http\Controllers\CompanySubscriptionController;
+use App\Http\Controllers\EmployeeApproverController;
 use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeDepartmentController;
@@ -108,6 +109,7 @@ Route::middleware([
     Route::resource('/employees/{employee}/education', EmployeeEducationController::class);
     Route::resource('/employees/{employee}/contract', EmployeeContractController::class);
     Route::resource('/employees/{employee}/organization-experience', EmployeeOrganizationExperienceController::class);
+    Route::resource('/employees/{employee}/approver', EmployeeApproverController::class);
     Route::get('/employee/export', [EmployeeController::class, 'export'])->name('employees.export');
 
     Route::resource('/employee-departments', EmployeeDepartmentController::class);
