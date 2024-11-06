@@ -15,6 +15,7 @@ class EmployeeApproverController extends Controller
     public function index(Employee $employee, Request $request)
     {
         $list = Approver::where('employee_id', $employee->id)
+            ->orderBy('approver_level','asc')
             ->paginate();
 
         return view('employee_approver.index',[
