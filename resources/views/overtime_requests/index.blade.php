@@ -11,6 +11,7 @@
 
 @section('table_header')
     <th class="min-w-10px">{{ __('ID') }}</th>
+    <th class="min-w-125px">{{ __('No') }}</th>
     @if (auth()->user()->company_id == null)
         <th class="min-w-125px">{{ __('Company') }}</th>
     @endif
@@ -30,6 +31,7 @@
         <tr>
 
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
+            <td>{{ $value->request_no ?? '-' }}</td>
             @if (auth()->user()->company_id == null)
                 <td>{{ $value->company->name ?? '-' }}</td>
             @endif

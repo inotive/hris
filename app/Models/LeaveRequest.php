@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
+use App\Traits\HasRequestNo;
 use App\Traits\SearchTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -18,6 +19,7 @@ class LeaveRequest extends Model
 
     use SearchTrait;
     use HasCompany;
+    use HasRequestNo;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -34,7 +36,7 @@ class LeaveRequest extends Model
         'end_date',
         'total_days',
         'status',
-        'reason',
+        'reason',       
 
     ];
 
@@ -50,6 +52,9 @@ class LeaveRequest extends Model
         'reason'  => 'required',
 
     ];
+
+
+    public $request_no_prefix = "LVR";
 
 
     public static function boot()
@@ -76,17 +81,31 @@ class LeaveRequest extends Model
         static::created(function($row){
 
 
-            Request::create([
+            $req_id = Request::create([
                 'company_id'    => $row->company_id,
                 'employee_id'    => $row->employee_id,
                 'manager_id'    => $row->manager_id,
                 'title'    => 'Leave Request',
                 'content'    => 'Leave Request. Need Approve',
                 'reference'    => $row->id,
-                'type'  => 'pending',
+                'status'  => 'pending',
                 'module'  => 'leave',
                 'module_id'  => $row->id,
             ]);
+
+            $approver = Approver::where('employee_id', $row->employee_id)->orderBy('approver_level','asc')->get();
+            foreach($approver as $key => $value) {
+                $active = $key == 0 ? true : false;
+                RequestApprover::create([
+                    'request_id'    => $req_id->id,
+                    'approver_employee_id'  => $value->approver_employee_id,
+                    'approver_level'    => $value->approver_level,
+                    'approver_status'   => 'pending',
+                    'approved_at'   => null,
+                    'active'    => $active,
+                ]);
+            }
+
         });
     }
 

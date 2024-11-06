@@ -1,7 +1,7 @@
 @props([
     'name'  => '',
-    'list'  => '',
-    'label'  => '',
+    'list'  => [],
+    'label'  => __('Employee'),
     'value'  => '',
     'class' => 'col-12 col-lg-6 mb-4',
 ])

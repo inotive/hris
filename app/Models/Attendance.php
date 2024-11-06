@@ -98,7 +98,7 @@ class Attendance extends Model
                     Log::info($row->clockin_status);
                 }
 
-            
+
             }
 
             if ($row->clockout_time != null) {
@@ -128,6 +128,40 @@ class Attendance extends Model
     public function employee_shift()
     {
         return $this->belongsTo(EmployeeShift::class,'employee_shift_id','id');
+    }
+
+
+    public  static function monthDropdown()
+    {
+        $months = [
+            ['key' => '1', 'value' => __('January')],
+            ['key' => '2', 'value' => __('February')],
+            ['key' => '3', 'value' => __('March')],
+            ['key' => '4', 'value' => __('April')],
+            ['key' => '5', 'value' => __('May')],
+            ['key' => '6', 'value' => __('June')],
+            ['key' => '7', 'value' => __('July')],
+            ['key' => '8', 'value' => __('August')],
+            ['key' => '9', 'value' => __('September')],
+            ['key' => '10', 'value' => __('October')],
+            ['key' => '11', 'value' => __('November')],
+            ['key' => '12', 'value' => __('December')],
+        ];
+
+        return $months;
+    }
+
+    public  static function yearDropdown()
+    {
+        $years = [];
+        for($i = date('Y') - 1; $i <= date('Y') + 5; $i++) {
+            $years[] = [
+                'key'   => $i,
+                'value' => $i,
+            ];
+        }
+
+        return $years;
     }
 
 }
