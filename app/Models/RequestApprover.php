@@ -26,6 +26,7 @@ class RequestApprover extends Model
         'approver_level',
         'approver_status',
         'approved_at',
+        'active',
     ];
 
     public $rules = [
@@ -34,6 +35,7 @@ class RequestApprover extends Model
         'approver_level' => '',
         'approver_status' => '',
         'approved_at' => '',
+        'active' => '',
     ];
 
 }
