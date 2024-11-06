@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
+use App\Traits\HasRequestNo;
 use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,11 +18,14 @@ class ReimbursementRequest extends Model
     use SearchTrait;
     use CreatedByUserTrait;
     use HasCompany;
+    use HasRequestNo;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing
     protected $keyType = 'string'; // Since UUID is a string
+
+    public $request_no_prefix = "RMR";
 
 
     public $fillable = [

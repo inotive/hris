@@ -17,6 +17,7 @@
                 <x-table.table>
                     <x-slot name="header">
                         <th>{{ __('ID') }}</th>
+                        <th>{{ __('No') }}</th>
                         <th>{{ __('Employee') }}</th>
                         <th>{{ __('Type') }}</th>
                         <th>{{ __('Date') }}</th>
@@ -30,6 +31,7 @@
                         @foreach ($list as $key => $value)
                             <tr>
                                 <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
+                                <td>{{ $value->request_no ?? '-' }}</td>
 
                                 <td>
                                     <x-table.employee-item :employee="$value->employee" />

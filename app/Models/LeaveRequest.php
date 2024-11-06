@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
+use App\Traits\HasRequestNo;
 use App\Traits\SearchTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -18,6 +19,7 @@ class LeaveRequest extends Model
 
     use SearchTrait;
     use HasCompany;
+    use HasRequestNo;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -50,6 +52,9 @@ class LeaveRequest extends Model
         'reason'  => 'required',
 
     ];
+
+
+    public $request_no_prefix = "LVR";
 
 
     public static function boot()
