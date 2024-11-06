@@ -100,7 +100,7 @@ class EmployeeController extends Controller
 
 
             $user = Employee::where('username', $username)
-                ->orderBy('id', 'desc');
+                    ->orderBy('id', 'desc');
 
 
             if ($user->count() == 0) {
@@ -117,12 +117,15 @@ class EmployeeController extends Controller
 
 
                 $token = $user->getToken();
+
+                $user = Employee::getByUsername($username);
                 return [
                     'status'    => 'success',
                     'message'   => 'Login successful',
                     'data'  =>  [
                         'token' => $token,
-                        'user'  => new EmployeeResource($user),
+                        // 'user'  => new EmployeeResource($user),
+                        'user'  => $user,
                     ]
                 ];
             } else {
