@@ -70,7 +70,7 @@ class ReimbursementRequest extends Model
                 'title'    => 'Reimbursement Request',
                 'content'    => 'Reimbursement Request. Need Approve',
                 'reference'    => $row->id,
-                'type'  => 'pending',
+                'status'  => 'pending',
                 'module'  => 'reimbursement',
                 'module_id'  => $row->id,
             ]);
