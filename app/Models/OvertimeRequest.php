@@ -78,7 +78,7 @@ class OvertimeRequest extends Model
                 'title'    => 'Overtime Request',
                 'content'    => 'Overtime Request. Need Approve',
                 'reference'    => $row->id,
-                'type'  => 'pending',
+                'status'  => 'pending',
                 'module'  => 'overtime',
                 'module_id'  => $row->id,
             ]);
