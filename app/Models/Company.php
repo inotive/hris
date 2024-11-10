@@ -35,6 +35,7 @@ class Company extends Model
         'email',
         'logo',
         'cut_off_payroll_date',
+        'cut_off_payroll_method',
         'is_overtime_request',
         'status',
         'country',
@@ -58,6 +59,7 @@ class Company extends Model
 
         'logo'  => '',
         'cut_off_payroll_date'  => 'required',
+        'cut_off_payroll_method'  => 'required',
         'is_overtime_request'  => '',
         'status'  => '',
         'time_zone'  => '',

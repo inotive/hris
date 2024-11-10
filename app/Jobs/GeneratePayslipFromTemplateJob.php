@@ -2,10 +2,14 @@
 
 namespace App\Jobs;
 
+use App\Models\Company;
 use App\Models\Employee;
 use App\Models\EmployeePayslip;
 use App\Models\EmployeePayslipDetail;
+use App\Models\EmployeePayslipGenerate;
 use App\Models\EmployeePayslipTemplate;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -44,7 +48,18 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
 
         try{
 
+            $generate = EmployeePayslipGenerate::find($this->employee_payslip_generate_id);
+            $pay_date = Carbon::parse($generate->year . "-" . $generate->month . "-01")->format('Y-m-t');
+
             $company_id = $employee->company_id;
+
+            $company = Company::find($company_id);
+
+            $bank_account_name = $employee->bank_account_name;
+            $bank_account_number = $employee->bank_account_number;
+            $bank_account_number = is_int($bank_account_number) ? $bank_account_number : "0";
+            
+            $pay_method = $bank_account_name != null ? "transfer" : "cash";
 
             $total_payslip_earning = 0;
             $total_payslip_deduction = 0;
@@ -77,7 +92,7 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
             }
 
             $sub_total_payslip = $total_payslip_earning - $total_payslip_deduction;
-            $tax = $request->tax ?? 0;
+            $tax = 0;
             $take_home_pay = $sub_total_payslip - $tax;
 
             DB::beginTransaction();
@@ -90,11 +105,10 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
             $form->sub_total_payslip = $sub_total_payslip;
             $form->tax = $tax;
             $form->take_home_pay = $take_home_pay;
-            $form->pay_date = $request->pay_date;
-            $form->metode = $request->metode;
-            $form->account_number = $request->account_number;
-            $form->account_name = $request->account_name;
-            $form->file = $request->file;
+            $form->pay_date = $pay_date;
+            $form->metode = $pay_method;
+            $form->account_number = $bank_account_number;
+            $form->account_name = $bank_account_name;
             $form->employee_payslip_generate_id = $this->employee_payslip_generate_id;
             $form->save();
 
