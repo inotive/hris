@@ -41,6 +41,6 @@ class EmployeePayslipDetail extends Model
 
     public function master()
     {
-        return $this->belongsTo(EmployeePayslipDetail::class, 'employee_payslip_master_id', 'id');
+        return $this->belongsTo(EmployeePayslipMaster::class, 'employee_payslip_master_id', 'id');
     }
 }
