@@ -37,14 +37,14 @@
                                 <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
                                 <td>{{ $value->company->name ?? '' }}</td>
                                 <td>{{ $value->month ?? '' }}/{{ $value->year ?? '' }}</td>
-                                <td>{{ number_format($value->data_generate_total ?? 0, ",",".") }}</td>
-                                <td></td>
-                                <td></td>
+                                <td>{{ number_format($value->data_generate_total ?? 0, 0, ',', '.') }}</td>
+                                <td>{{ $value->created_by_user_id ?? '-' }}</td>
+                                <td>{{ $value->created_at->format('Y-m-d') }}</td>
                                 <td class="text-end">
                                     <x-table.actions>
 
-                                        <x-table.edit-button :href="route('organization-experience.edit', [$employee, $value->id])" />
-                                        <x-table.delete-button :href="route('organization-experience.destroy', [$employee, $value->id])" />
+                                        <x-table.edit-button :href="route('employee-payslips.edit', [$value->id])" />
+                                        <x-table.delete-button :href="route('employee-payslips.destroy', [$value->id])" />
                                     </x-table.actions>
                                 </td>
                             </tr>

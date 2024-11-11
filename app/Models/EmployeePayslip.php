@@ -39,6 +39,8 @@ class EmployeePayslip extends Model
         'account_name',
         'file',
         'employee_payslip_generate_id',
+        'month',
+        'year',
     ];
 
     public $rules = [
@@ -55,6 +57,8 @@ class EmployeePayslip extends Model
         'account_name'  => '',
         'file'  => '',
         'employee_payslip_generate_id'  => '',
+        'month'  => '',
+        'year'  => '',
     ];
 
     public $casts = [

@@ -14,7 +14,7 @@ class EmployeePayslipGenerateController extends Controller
 {
     public function index(Request $request)
     {
-        $list = [];
+        $list = EmployeePayslipGenerate::paginate();
 
         return view('employee_payslip_generate.index',[
             'list'  => $list,
@@ -63,7 +63,7 @@ class EmployeePayslipGenerateController extends Controller
             'data_generate_total'   => count($employees_ids),
             'data_generate_status'  => 'pending',
             'generated_at'  => now(),
-        ]);
+        ])->id;
 
         foreach ($employees_ids as $employees_id) {
             GeneratePayslipFromTemplateJob::dispatch($id, $employees_id);

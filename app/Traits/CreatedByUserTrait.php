@@ -20,4 +20,9 @@ trait CreatedByUserTrait
             if ($row->created_by_user_id == null && auth()->user() instanceof User) $row->created_by_user_id = auth()->user()->id ?? null;
         });
     }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class,'created_by_user_id','id');
+    }
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\LeaveRequestController;
 use App\Http\Controllers\Api\LeaveTypeController;
 use App\Http\Controllers\Api\OvertimeRequestController;
 use App\Http\Controllers\Api\OvertimeTypeController;
+use App\Http\Controllers\Api\PayslipController;
 use App\Http\Controllers\Api\PeriodController;
 use App\Http\Controllers\Api\ReimbursementController;
 
@@ -80,6 +81,10 @@ Route::middleware([
     Route::post('/reimbursement-request', [ReimbursementController::class, 'create']);
     Route::put('/reimbursement-request', [ReimbursementController::class, 'update']);
     Route::delete('/reimbursement-request', [ReimbursementController::class, 'delete']);
+
+    // Payslip
+    Route::get('/payslips', [PayslipController::class,'index']);
+    Route::get('/payslip/{id}', [PayslipController::class,'detail']);
 
 
     // MASTER
