@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\SearchTrait;
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasMyCompany;
+use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -104,5 +105,39 @@ class Company extends Model
                 $model->tax_calculation_method = null;
             }
         });
+    }
+
+
+    public function getMonthPeriod($year, $month)
+    {
+        $cut_off_payroll_method = $this->cut_off_payroll_method;
+
+        $month_period_start = Carbon::parse($year . "-" . $month . "-01")->format('Y-m-01');
+        $month_period_end = Carbon::parse($year . "-" . $month . "-01")->format('Y-m-t');
+
+        if ($cut_off_payroll_method == 'backward') {
+            // mundur sebulan
+            $month = Carbon::parse($year . "-" . $month . "-01");
+            $prev_month = $month->subMonth();
+            // cari tanggal awal
+            $start_cutoff = CompanyPayoutSetting::where('company_id', $this->company_id)
+                ->whereYear('date', $prev_month->format('Y'))
+                ->whereMonth('date', $prev_month->format('m'))
+                ->first();
+            
+            $end_cutoff = CompanyPayoutSetting::where('company_id', $this->company_id)
+                ->whereYear('date', $month->format('Y'))
+                ->whereMonth('date', $month->format('m'))
+                ->first();
+
+            if ($start_cutoff != null && $end_cutoff != null) {
+                $month_period_start = $start_cutoff->date;
+                $month_period_end = $end_cutoff->date;
+            }
+        }
+
+
+        return [$month_period_start, $month_period_end];
+
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Company;
+use App\Models\CompanyPayoutSetting;
 use App\Models\Employee;
 use App\Models\EmployeePayslip;
 use App\Models\EmployeePayslipDetail;
@@ -54,6 +55,12 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
             $company_id = $employee->company_id;
 
             $company = Company::find($company_id);
+
+            $now = Carbon::parse($generate->year . "-" . $generate->month . "-01");
+            $period = $company->getMonthPeriod($now->format('Y'), $now->format('m'));
+            $month_period_start = $period[0];
+            $month_period_end = $period[1];
+           
 
             $bank_account_name = $employee->bank_account_name;
             $bank_account_number = $employee->bank_account_number;
@@ -109,7 +116,11 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
             $form->metode = $pay_method;
             $form->account_number = $bank_account_number;
             $form->account_name = $bank_account_name;
+            $form->month_period_start = $month_period_start;
+            $form->month_period_end = $month_period_end;
             $form->employee_payslip_generate_id = $this->employee_payslip_generate_id;
+            $form->month = $generate->month;
+            $form->year = $generate->year;
             $form->save();
 
             // Log::info($form);
