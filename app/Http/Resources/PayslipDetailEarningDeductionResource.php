@@ -17,6 +17,7 @@ class PayslipDetailEarningDeductionResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id'    => $this->id,
+            'name'  => $this->master->name ?? null,
             'payslip_type'    => $this->payslip_type,
             'type'    => $this->type,
             'value'    => $this->value,
