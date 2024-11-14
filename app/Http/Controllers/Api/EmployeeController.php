@@ -227,7 +227,7 @@ class EmployeeController extends Controller
                 $new_pass = rand(100000,999999) . uniqid();
 
                 $user->code_forget_password = null;
-                $user->token_forget_password = bcrypt($new_pass);
+                $user->token_forget_password = ($new_pass);
                 $user->save();
 
                 return [
@@ -289,7 +289,7 @@ class EmployeeController extends Controller
 
                 return [
                     'status'    => 'success',
-                    'message'   => '"Your password has been successfully changed. You can now log in with your new password.',
+                    'message'   => 'Your password has been successfully changed. You can now log in with your new password.',
                 ];
             } else {
                 throw new Exception('Invalid token', 401);
