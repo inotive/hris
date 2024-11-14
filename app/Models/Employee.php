@@ -80,6 +80,8 @@ class Employee extends Authenticatable
         'document_bpjs_name',
         'document_bpjs_no',
         'type_ter',
+        'code_forget_password',
+        'token_forget_password',
     ];
 
 
@@ -139,6 +141,8 @@ class Employee extends Authenticatable
             'document_bpjs_name' => '',
             'document_bpjs_no' => '',
             'type_ter' => '',
+            'code_forget_password' => '',
+            'token_forget_password' => '',
         ];
     }
 

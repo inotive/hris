@@ -37,6 +37,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/auth/login', [EmployeeController::class, 'login']);
 
+
+Route::post('/reset-password', [EmployeeController::class, 'resetPassword']);
+Route::post('/confirm-code-reset-password', [EmployeeController::class, 'confirmCodeResetPassword']);
+Route::put('/reset-password', [EmployeeController::class, 'resetPasswordNew']);
+
 Route::middleware([
     'auth:sanctum',
 ])->group(function () {
@@ -50,6 +55,8 @@ Route::middleware([
     Route::apiResource('/profile/contract', EmployeeContractController::class);
     Route::apiResource('/profile/organization', EmployeeOrganizationController::class);
     Route::post('/auth/logout', [EmployeeController::class, 'logout']);
+
+
 
 
     Route::get('/attendances', [AttendanceController::class, 'index']);
