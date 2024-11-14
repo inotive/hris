@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\AttendanceDetailResource;
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Services\AttendanceService;
 use App\Services\Base64FileService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -16,26 +18,28 @@ class AttendanceController extends Controller
     {
         $auth = auth()->user();
 
-        $list = Attendance::where('employee_id', $auth->id)
-            ->when($request->start_date != null && $request->end_date != null, function ($q) use ($request) {
-                return $q->where('date', '>=', $request->start_date)->where('date', '<=', $request->start_date);
-            })
-            ->when($request->month != null, function ($query) use ($request) {
-                return $query->whereMonth('date', $request->month);
-            })
-            ->when($request->year != null, function ($query) use ($request) {
-                return $query->whereYear('date', $request->year);
-            })
-            ->orderBy('created_at', $request->sort ?? 'desc')
-            ->paginate($request->per_page ?? 10);
+        // $list = Attendance::where('employee_id', $auth->id)
+        //     ->when($request->start_date != null && $request->end_date != null, function ($q) use ($request) {
+        //         return $q->where('date', '>=', $request->start_date)->where('date', '<=', $request->start_date);
+        //     })
+        //     ->when($request->month != null, function ($query) use ($request) {
+        //         return $query->whereMonth('date', $request->month);
+        //     })
+        //     ->when($request->year != null, function ($query) use ($request) {
+        //         return $query->whereYear('date', $request->year);
+        //     })
+        //     ->orderBy('created_at', $request->sort ?? 'desc')
+        //     ->paginate($request->per_page ?? 10);
 
 
-        $pagination = $list->toArray();
-        unset($pagination['data']);
+        // $pagination = $list->toArray();
+        // unset($pagination['data']);
+
+        $list = AttendanceService::getListByEmployee($auth->id, $request->year, $request->month);
         return [
             'status'    => 'success',
-            'data'  => AttendanceDetailResource::collection($list),
-            'pagination' => $pagination,
+            'data'  => ($list),
+            // 'pagination' => $pagination,
         ];
     }
 
@@ -70,28 +74,31 @@ class AttendanceController extends Controller
     {
         $auth = auth()->user();
 
-        $date = date('Y-m-d');
+
 
         $request->validate([
-            'clockin_time'  => 'required',
             'clockin_lat'  => 'required',
             'clockin_long'  => 'required',
             'clockin_image'  => 'required',
         ]);
 
+        $company_date = Carbon::parse($auth->company->date_time_location);
+
         $attendance = Attendance::where('employee_id', $auth->id)
-            ->where('date', $date)
+            ->where('date', $company_date->format('Y-m-d'))
             ->first() ?? new Attendance([
                 'employee_id'   => $auth->id,
-                'date'  => $date,
+                'date'  => $company_date->format('Y-m-d'),
             ]);
 
         $image = Base64FileService::saveBase64File($request->clockin_image, 'attendance_clockin');
 
-        $attendance->clockin_time = $request->clockin_time;
+
+        $attendance->clockin_time = $auth->company->date_time_location;
         $attendance->clockin_lat = $request->clockin_lat;
         $attendance->clockin_long = $request->clockin_long;
         $attendance->clockin_image = $image;
+
         $attendance->save();
 
 
@@ -121,8 +128,11 @@ class AttendanceController extends Controller
         $image = Base64FileService::saveBase64File($request->clockout_image, 'attendance_clockin');
 
 
+     
+
+
         if ($attendance != null) {
-            $attendance->clockout_time = $request->clockout_time;
+            $attendance->clockout_time = $attendance->employee->company->date_time_location;
             $attendance->clockout_lat = $request->clockuot_lat;
             $attendance->clockout_long = $request->clockout_long;
             $attendance->clockout_image = $image;

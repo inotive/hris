@@ -36,7 +36,7 @@ class AttendanceInitJob implements ShouldQueue
         //
         $inserts = $this->employees->map(function($row) {
 
-            $date = Carbon::now()->setTimezone($row->company->time_zone)->format('Y-m-d');
+            $date = Carbon::parse($row->company->date_time_location)->format('Y-m-d');
             return [
                 'employee_id'   => $row->id,
                 'employee_shift_id'   => $row->employee_shift_id,

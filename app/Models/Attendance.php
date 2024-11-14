@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasCustomTimestamp;
 use App\Traits\SearchTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -15,11 +16,14 @@ class Attendance extends Model
     use HasUuids;
 
     use SearchTrait;
+    use HasCustomTimestamp;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing
     protected $keyType = 'string'; // Since UUID is a string
+
+
 
 
     public $fillable = [
@@ -57,8 +61,7 @@ class Attendance extends Model
     ];
 
     public $casts = [
-        'clockin_time' => 'datetime',
-        'clockout_time' => 'datetime',
+        
     ];
 
     public static function boot()
@@ -80,10 +83,8 @@ class Attendance extends Model
 
             if ($row->clockin_time != null) {
                 $date = $row->date;
-                $time = $row->clockin_time->format('h:i:s');
-                $timezone = $employee->company->time_zone;
-                $carbonDateTime =  Carbon::parse( "$date $time", $timezone);
-                $row->clockin_time = $carbonDateTime;
+                $carbonDateTime =  Carbon::parse($row->clockin_time);
+              
 
                 $shift = EmployeeShift::find($employee->employee_shift_id);
 
@@ -103,10 +104,8 @@ class Attendance extends Model
 
             if ($row->clockout_time != null) {
                 $date = $row->date;
-                $time = $row->clockout_time->format('h:i:s');
-                $timezone = $employee->company->time_zone;
-                $carbonDateTime = Carbon::parse( "$date $time", $timezone);
-                $row->clockout_time = $carbonDateTime;
+                $carbonDateTime = Carbon::parse($row->clockout_time);
+            
             }
 
             if ($row->clockin_time && $row->clockout_time) {
@@ -164,4 +163,16 @@ class Attendance extends Model
         return $years;
     }
 
+
+    public function getClockinTimeAttribute()
+    {
+        if (!isset($this->attributes['clockin_time']) || $this->attributes['clockin_time'] == null) return null;
+        return Carbon::parse($this->attributes['clockin_time']);
+    }
+
+    public function getClockoutTimeAttribute()
+    {
+        if (!isset($this->attributes['clockout_time']) || $this->attributes['clockout_time'] == null) return null;
+        return Carbon::parse($this->attributes['clockout_time']);
+    }
 }
