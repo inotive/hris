@@ -63,7 +63,7 @@ class ReimbursementRequest extends Model
         static::created(function($row){
 
 
-            Request::create([
+            $req_id = Request::create([
                 'company_id'    => $row->company_id,
                 'employee_id'    => $row->employee_id,
                 'manager_id'    => $row->manager_id,
@@ -74,6 +74,19 @@ class ReimbursementRequest extends Model
                 'module'  => 'reimbursement',
                 'module_id'  => $row->id,
             ]);
+
+            $approver = Approver::where('employee_id', $row->employee_id)->orderBy('approver_level','asc')->get();
+            foreach($approver as $key => $value) {
+                $active = $key == 0 ? true : false;
+                RequestApprover::create([
+                    'request_id'    => $req_id->id,
+                    'approver_employee_id'  => $value->approver_employee_id,
+                    'approver_level'    => $value->approver_level,
+                    'approver_status'   => 'pending',
+                    'approved_at'   => null,
+                    'active'    => $active,
+                ]);
+            }
         });
     }
 

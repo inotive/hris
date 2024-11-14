@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
@@ -24,7 +25,7 @@ class ForceJsonResponse
         if ($request->is('api/*')) {
             // Force the Accept header to application/json
             $request->headers->set('Accept', 'application/json');
-            $request->headers->set('Content-Type', 'application/json');
+            $request->headers->set('Content-Type', 'application/jeson');
         }
 
         $originalData = $request->all();
@@ -33,9 +34,11 @@ class ForceJsonResponse
 
         $response = $next($request);
 
-        $data = $response->getData(true);
-        $camelCasedData = $this->camelCaseArrayKeys($data);
-        $response->setData($camelCasedData);
+        try{
+            $data = $response->getData(true);
+            $camelCasedData = $this->camelCaseArrayKeys($data);
+            $response->setData($camelCasedData);
+        }catch(Exception $e){}
 
 
 

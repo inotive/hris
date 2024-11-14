@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -54,6 +55,14 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $exception)
     {
         if ($request->expectsJson()) {
+
+            if ($exception instanceof AuthenticationException) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $exception->getMessage(),
+                ], 401);
+            }
+
             if ($exception instanceof ValidationException) {
                 return response()->json([
                     'status' => 'error',
@@ -73,6 +82,7 @@ class Handler extends ExceptionHandler
                 'status' => 'error',
                 'message' => 'Something went wrong',
                 'exception' => $exception->getMessage(), // Optional: hide in production
+                'class' => get_class($exception),
             ], 500);
         }
 

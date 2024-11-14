@@ -20,6 +20,8 @@ class CompanyResource extends JsonResource
         if ($this->logo != null) {
             $data['logo'] = Storage::url($this->logo);
         }
+
+        $data['date_time_location'] = $this->date_time_location;
         return $data;
     }
 }

@@ -140,4 +140,10 @@ class Company extends Model
         return [$month_period_start, $month_period_end];
 
     }
+
+
+    public function getDateTimeLocationAttribute()
+    {
+        return Carbon::now()->setTimezone($this->time_zone)->toIso8601String();
+    }
 }
