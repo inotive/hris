@@ -10,7 +10,10 @@ use App\Models\ReimbursementExpenseList;
 use App\Models\ReimbursementRequest;
 use App\Models\ReimbursementType;
 use App\Services\Base64FileService;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ReimbursementController extends Controller
@@ -69,53 +72,87 @@ class ReimbursementController extends Controller
 
     public function create(Request $request)
     {
-        $auth = auth()->user();
+        try {
+            $auth = auth()->user();
 
-        $request->merge([
-            'employee_id'   => $auth->id,
-            'company_id'   => $auth->company_id,
-            'manager_id'    => $auth->head_department_id,
-            'status'    => 'pending',
-            'total' => 0,
-        ]);
+            DB::beginTransaction();
 
-
-
-
-
-        $validate = (new ReimbursementRequest())->rules;
-        $validated = $request->validate($validate);
-
-        $reimbursement = ReimbursementRequest::create($validated);
-
-        $expenses = $request->expenses ?? [];
-
-
-        $total = 0;
-        foreach ($expenses as $key => $value) {
-            // $row = json_decode($value);
-
-            $expense = ReimbursementExpense::find($value['expenses_id']);
-
-            ReimbursementExpenseList::create([
-                'reimbursement_request_id'      => $reimbursement->id,
-                'reimbursement_expense_id' => $value['expenses_id'],
-                'value' => $value['value'],
-                'name' => $expense->name ?? null,
-                'company_id'    => $auth->company_id,
+            $request->merge([
                 'employee_id'   => $auth->id,
+                'company_id'   => $auth->company_id,
+                'manager_id'    => $auth->head_department_id,
+                'status'    => 'pending',
+                'total' => 0,
             ]);
 
-            $total += $value['value'] ?? 0;
+
+            $reimbursement_type_id = $request->reimbursement_type_id;
+
+            $type = ReimbursementType::where('id', $reimbursement_type_id)->first();
+
+            if ($type == null) {
+                return response()->json([
+                    'status'    => 'error',
+                    'message'   => 'Reimbursement Type Not Found',
+                ], 200);
+                
+            }
+
+            $expenses = $request->expenses ?? [];
+            $expenses_temp = collect($expenses)->pluck('expenses_id')->unique()->toArray();
+            $count_in = ReimbursementExpense::whereIn('id', $expenses_temp)->count();
+            
+            if ($count_in < count($expenses_temp)) {
+                return response()->json([
+                    'success'   => 'error',
+                    'message'   => 'Expenses Not Found. Please Check Again',
+                ], 200);
+            }
+
+
+            $validate = (new ReimbursementRequest())->rules;
+            $validated = $request->validate($validate);
+
+            $reimbursement = ReimbursementRequest::create($validated);
+
+         
+
+
+            $total = 0;
+            foreach ($expenses as $key => $value) {
+                // $row = json_decode($value);
+
+                $expense = ReimbursementExpense::find($value['expenses_id']);
+
+                ReimbursementExpenseList::create([
+                    'reimbursement_request_id'      => $reimbursement->id,
+                    'reimbursement_expense_id' => $value['expenses_id'],
+                    'value' => $value['value'],
+                    'name' => $expense->name ?? null,
+                    'company_id'    => $auth->company_id,
+                    'employee_id'   => $auth->id,
+                ]);
+
+                $total += $value['value'] ?? 0;
+            }
+
+            $reimbursement->total = ReimbursementExpenseList::where('reimbursement_request_id', $reimbursement->id)->sum('value');
+
+            DB::commit();
+
+            return [
+                'status'    => 'success',
+                'message'   => "Reimbursement request data create successful"
+            ];
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::info($e);
+
+            return [
+                'status'    => 'error',
+                'message'   => 'Error',
+            ];
         }
-
-        $reimbursement->total = ReimbursementExpenseList::where('reimbursement_request_id', $reimbursement->id)->sum('value');
-
-
-        return [
-            'status'    => 'success',
-            'message'   => "Reimbursement request data create successful"
-        ];
     }
 
     public function update(Request $request)
