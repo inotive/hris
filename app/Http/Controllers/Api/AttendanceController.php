@@ -76,11 +76,11 @@ class AttendanceController extends Controller
 
 
 
-        $request->validate([
-            'clockin_lat'  => 'required',
-            'clockin_long'  => 'required',
-            'clockin_image'  => 'required',
-        ]);
+        // $request->validate([
+        //     'clockin_lat'  => 'required',
+        //     'clockin_long'  => 'required',
+        //     'clockin_image'  => 'required',
+        // ]);
 
         $company_date = Carbon::parse($auth->company->date_time_location);
 
@@ -114,12 +114,12 @@ class AttendanceController extends Controller
 
         $date = date('Y-m-d');
 
-        $request->validate([
-            'clockout_time'  => 'required',
-            'clockout_lat'  => 'required',
-            'clockout_long'  => 'required',
-            'clockout_image'  => 'required',
-        ]);
+        // $request->validate([
+        //     'clockout_time'  => 'required',
+        //     'clockout_lat'  => 'required',
+        //     'clockout_long'  => 'required',
+        //     'clockout_image'  => 'required',
+        // ]);
 
         $attendance = Attendance::where('employee_id', $auth->id)
             ->where('date', $date)
