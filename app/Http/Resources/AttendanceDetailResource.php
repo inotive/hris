@@ -25,7 +25,7 @@ class AttendanceDetailResource extends JsonResource
             $data['clockout_image'] = Storage::url($this->clockout_image);
         }
 
-        $data['employee_shift'] = $this->employee_shift ?? null;
+        $data['shift'] = $this->employee_shift ?? null;
 
         return $data;
     }
