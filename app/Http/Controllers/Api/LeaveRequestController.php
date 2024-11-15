@@ -11,7 +11,9 @@ use App\Services\Base64FileService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File as FacadesFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class LeaveRequestController extends Controller
@@ -26,7 +28,7 @@ class LeaveRequestController extends Controller
 
         $timezone = auth()->user()->company->time_zone;
         $list = LeaveRequest::query()
-            ->when($status != null, function($query) use($status){
+            ->when($status != null, function ($query) use ($status) {
                 $query->where('status', $status);
             })
             ->when($start_date != null, function ($query) use ($start_date, $timezone) {
@@ -49,13 +51,13 @@ class LeaveRequestController extends Controller
             ->orderBy('created_at', $request->sort ?? 'desc')
             ->paginate($request->per_page ?? 10);
 
-            $pagination = $list->toArray();
-            unset($pagination['data']);
+        $pagination = $list->toArray();
+        unset($pagination['data']);
 
         return [
             'success'   => true,
             'data'  => LeaveRequestResource::collection($list),
-            'pagination'=> $pagination,  
+            'pagination' => $pagination,
         ];
     }
 
@@ -64,7 +66,7 @@ class LeaveRequestController extends Controller
     {
 
         $data = LeaveRequest::where('id', $id)
-        
+
             ->first();
 
         return [
@@ -76,47 +78,67 @@ class LeaveRequestController extends Controller
 
     public function create(Request $request)
     {
-        $auth = auth()->user();
+        try {
+            DB::beginTransaction();
+            $auth = auth()->user();
 
-        $request->merge([
-            'employee_id'   => $auth->id,
-            'company_id'   => $auth->company_id,
-            'manager_id'    => $auth->head_department_id,
-        ]);
-    
-        $files = $request->all()['files'] ?? [];
-
-        $validate = (new LeaveRequest())->rules;
-        $validated = $request->validate($validate);
-
-        $leave_request = LeaveRequest::create($validated);
-
-
-        foreach($files as $key => $value) {
-            // $row = json_decode($value);
-
-
-
-            $base64file = Base64FileService::saveBase64File($value, 'leave_request');
-
-            File::create([
-                'company_id'    => $request->company_id,
-                'module'    => 'leave',
-                'name'  => $base64file,
-                'file'  => $base64file,
-                'url'   => Storage::url($base64file),
-                'extension' => 'test',
-                'size'   => 1,
-                'employee_id'   => $request->employee_id,
-                'module_id' => $leave_request->id,
+            $request->merge([
+                'employee_id'   => $auth->id,
+                'company_id'   => $auth->company_id,
+                'manager_id'    => $auth->head_department_id,
             ]);
+
+            $leave_type_id = $request->leave_type_id;
+            $type_count = LeaveType::where('id', $leave_type_id)->count();
+
+            if ($type_count == 0) {
+                return [
+                    'success'   => 'error',
+                    'message'   => 'Leave Type Not Found',
+                ];
+            }
+
+            $files = $request->all()['files'] ?? [];
+
+            $validate = (new LeaveRequest())->rules;
+            $validated = $request->validate($validate);
+
+            $leave_request = LeaveRequest::create($validated);
+
+
+            foreach ($files as $key => $value) {
+                // $row = json_decode($value);
+
+
+
+                $base64file = Base64FileService::saveBase64File($value, 'leave_request');
+
+                File::create([
+                    'company_id'    => $request->company_id,
+                    'module'    => 'leave',
+                    'name'  => $base64file,
+                    'file'  => $base64file,
+                    'url'   => Storage::url($base64file),
+                    'extension' => 'test',
+                    'size'   => 1,
+                    'employee_id'   => $request->employee_id,
+                    'module_id' => $leave_request->id,
+                ]);
+            }
+
+            DB::commit();
+            return [
+                'status'    => 'success',
+                'message'   => "Leave request data create successful"
+            ];
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::info($e);
+            return [
+                'status'    => 'error',
+                'message'   => "Error"
+            ];
         }
-
-
-        return [
-            'status'    => 'success',
-            'message'   => "Leave request data create successful"
-        ];
     }
 
     public function update(Request $request)
@@ -128,7 +150,7 @@ class LeaveRequestController extends Controller
             'company_id'   => $auth->company_id,
             'manager_id'    => $auth->head_department_id,
         ]);
-    
+
         $files = $request->all()['files'] ?? [];
 
         $validate = (new LeaveRequest())->rules;
@@ -139,7 +161,7 @@ class LeaveRequestController extends Controller
         $leave_request->save();
 
 
-        foreach($files as $key => $value) {
+        foreach ($files as $key => $value) {
             // $row = json_decode($value);
 
 
@@ -170,13 +192,12 @@ class LeaveRequestController extends Controller
     {
         $id = $request->id;
 
-        
+
         LeaveRequest::where('id', $id)->delete();
         return [
             'status'    => 'success',
-                'message'=> "Leave request data delete successful"
+            'message' => "Leave request data delete successful"
         ];
-    
     }
 
 
@@ -197,12 +218,12 @@ class LeaveRequestController extends Controller
             'data'      => $data,
         ];
     }
-    
-    
+
+
     public function leaveType(Request $request)
     {
         $company_id = $request->company_id ?? auth()->user()->company_id;
-        $list = LeaveType::where('company_id', $company_id)->orderBy('name')->pluck('name','id');
+        $list = LeaveType::where('company_id', $company_id)->orderBy('name')->pluck('name', 'id');
 
         $data = [];
         foreach ($list as $key => $value) {
