@@ -57,6 +57,14 @@ class AttendanceService
             $row->is_day_off = $row->is_day_off == 1 ? true : false;
             $row->shift = $row->shift != null ? json_decode($row->shift) : null;
 
+            if ($row->clockin_image != null) {
+                $row->clockin_image = Storage::url($row->clockin_image);
+            }
+
+            if ($row->clockout_image != null) {
+                $row->clockout_image = Storage::url($row->clockout_image);
+            }
+
             return $row;
         });
         return $list;
