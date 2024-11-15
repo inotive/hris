@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\EmployeeEducationController;
 use App\Http\Controllers\Api\EmployeeEmergencyContactController;
 use App\Http\Controllers\Api\EmployeeFamilyInfoController;
 use App\Http\Controllers\Api\EmployeeOrganizationController;
+use App\Http\Controllers\Api\InboxController;
 use App\Http\Controllers\Api\LeaveRequestController;
 use App\Http\Controllers\Api\LeaveTypeController;
 use App\Http\Controllers\Api\OvertimeRequestController;
@@ -111,6 +112,10 @@ Route::middleware([
     Route::get('/master/expense-type', [ReimbursementController::class, 'expenseType']);
     Route::get('/master/months', [AttendanceController::class, 'monthList']);
     Route::get('/master/years', [AttendanceController::class, 'yearList']);
+
+
+    // inbox
+    Route::get('/inbox/notifications', [InboxController::class, 'notifications']);
     
 
 });
