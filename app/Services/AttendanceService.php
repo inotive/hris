@@ -36,8 +36,14 @@ class AttendanceService
                 ( dayoff_table.id IS NULL, TRUE, FALSE ) is_day_off,
                 attendances.clockin_time,
                 attendances.clockin_status,
+                attendances.clockin_lat,
+                attendances.clockin_long,
+                attendances.clockin_image,
                 attendances.clockout_time,
-                attendances.clockout_status 
+                attendances.clockout_status,
+                attendances.clockout_lat,
+                attendances.clockout_long,
+                attendances.clockout_image
                 FROM
                 attendances
                 LEFT JOIN ( SELECT employee_shift_day_offs.* FROM employee_shift_day_offs JOIN employees ON employees.employee_shift_id = employee_shift_day_offs.shift_id WHERE employees.id = '9d487f62-6b26-4599-b95c-094b8a1bfac0' ) dayoff_table ON dayoff_table.`date` = attendances.`date`
