@@ -38,7 +38,12 @@ class AttendanceController extends Controller
         $list = AttendanceService::getListByEmployee($auth->id, $request->year, $request->month);
         return [
             'status'    => 'success',
-            'data'  => ($list),
+            'data'  => ($list)->map(function($row){
+
+                $row->clockin_image = isset($row->clockin_image) ? asset($row->clockin_image) : null;
+                $row->clockout_image = isset($row->clockout_image) ? asset($row->clockout_image) : null;
+                return $row;
+            }),
             // 'pagination' => $pagination,
         ];
     }
