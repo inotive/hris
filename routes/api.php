@@ -116,6 +116,7 @@ Route::middleware([
 
     // inbox
     Route::get('/inbox/notifications', [InboxController::class, 'notifications']);
+    Route::get('/inbox/need-approvals', [InboxController::class, 'needAprovals']);
     
 
 });
