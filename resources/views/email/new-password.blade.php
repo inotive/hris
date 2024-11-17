@@ -1,11 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>New Password</title>
-</head>
-<body>
-    <h1>Hello,</h1>
-    <p>Your new password is: <strong>{{ $password }}</strong></p>
-    <p>Please make sure to change your password after logging in.</p>
-</body>
-</html>
+<x-mail.email-base>
+
+
+    <p>Here is your Password</p>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+        <tbody>
+            <tr>
+                <td align="left">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td> <a href="#" target="_blank">
+                                        {{ $password }}
+                                    </a> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</x-mail.email-base>
