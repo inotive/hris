@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>OTP</title>
-</head>
-<body>
-    <h1>Hello,</h1>
-    <p>OTP is: <strong>{{ $password }}</strong></p>
-</body>
-</html>
+<x-mail.email-base>
+
+
+    <p>Here is your OTP Code for reset password</p>
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+        <tbody>
+            <tr>
+                <td align="left">
+                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                            <tr>
+                                <td> 
+                                    <a href="#" target="_blank">
+                                        {{ $password }}
+                                    </a> 
+                                
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</x-mail.email-base>
