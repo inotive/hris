@@ -300,7 +300,7 @@ class EmployeeController extends Controller
                 return response()->json([
                     'status'    => 'error',
                     'message'   => $e->getMessage(),
-                ], 200);
+                ], 401);
             } else {
                 return response()->json([
                     'status'    => 'error',
