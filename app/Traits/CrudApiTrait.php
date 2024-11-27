@@ -42,7 +42,7 @@ trait CrudApiTrait
             'status' => 'success',
             'message' => 'Resource created successfully!',
             'data' => $model,
-        ], 201);
+        ], 200);
     }
 
     /**
