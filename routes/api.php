@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Api\ApproveController;
 use App\Http\Controllers\Api\AttendanceController;
 use App\Http\Controllers\Api\CurrencyController;
 use App\Http\Controllers\Api\EmployeeContractController;
@@ -117,6 +117,10 @@ Route::middleware([
     // inbox
     Route::get('/inbox/notifications', [InboxController::class, 'notifications']);
     Route::get('/inbox/need-approvals', [InboxController::class, 'needAprovals']);
+
+    // approve
+    Route::post('/approve', [ApproveController::class, 'approve']);
+    Route::post('/reject', [ApproveController::class, 'reject']);
     
 
 });
