@@ -14,6 +14,10 @@
 
     <x-form.image-picker :label="__('Logo')" name="logo" folder="companies" :value="old('logo', $form->logo ?? '')" />
     <x-form.switch label="Overtime Request" name="is_overtime_request" :value="old('is_overtime_request', $form->is_overtime_request ?? '')" />
+    <x-form.switch label="Reimbursement Request" name="is_reimbursement_request" :value="old('is_reimbursement_request', $form->is_reimbursement_request ?? '')" />
+    <x-form.switch label="Attendance" name="is_attendance" :value="old('is_attendance', $form->is_attendance ?? '')" />
+    <x-form.switch label="EWA" name="is_ewa" :value="old('is_ewa', $form->is_ewa ?? '')" />
+    <x-form.switch label="Payslip" name="is_payslip" :value="old('is_payslip', $form->is_payslip ?? '')" />
     <x-form.switch label="Status" name="status" :value="old('status', $form->status ?? '')" />
 
     <h4>{{ __('Address Information') }}</h4>

@@ -27,6 +27,7 @@ class RequestApprover extends Model
         'approver_status',
         'approved_at',
         'active',
+        'reason',
     ];
 
     public $rules = [
@@ -36,6 +37,7 @@ class RequestApprover extends Model
         'approver_status' => '',
         'approved_at' => '',
         'active' => '',
+        'reason' => '',
     ];
 
 }
