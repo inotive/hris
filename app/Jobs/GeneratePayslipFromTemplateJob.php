@@ -9,6 +9,7 @@ use App\Models\EmployeePayslip;
 use App\Models\EmployeePayslipDetail;
 use App\Models\EmployeePayslipGenerate;
 use App\Models\EmployeePayslipTemplate;
+use App\Models\Ptkp;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Bus\Queueable;
@@ -151,6 +152,42 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
                     'employee_payslip_id'   => $form->id,
                 ]);
             }
+
+
+
+            // update tax
+
+            try{
+                $subtotal = $form->sub_total_payslip;
+
+                // cari TER berapa persen
+
+                $tax_method = $company->tax_calculation_method;
+
+                if ($tax_method == null) {
+                    $form->ter = null;
+                    $form->tax = 0;
+                } else {
+                    $type_ter = $employee->type_ter;
+                    Log::info($type_ter);
+                    Log::info($subtotal);
+                    $ptkp = Ptkp::where('type_ter', $type_ter)
+                        ->where('value_start','<=', $subtotal)
+                        ->where('value_end', '>=', $subtotal)
+                        ->first();
+                    Log::info($ptkp);
+                    $form->ter = $ptkp->value;
+                    $form->tax = $subtotal * $form->ter / 100;
+    
+                }
+    
+                $form->take_home_pay = $subtotal - $form->tax;
+                $form->save();
+            }catch(Exception $e){
+                Log::error($e);
+            }
+
+            // end update tax
 
             DB::commit();
 

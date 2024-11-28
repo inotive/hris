@@ -47,7 +47,7 @@ class EmployeePayslipGenerateController extends Controller
         // $form->fill($request->all());
         // $form->save();
 
-        Log::info($request->all());
+       
 
 
         $company_id = $request->company_id;
@@ -55,6 +55,13 @@ class EmployeePayslipGenerateController extends Controller
         $year = $request->year;
 
         $employees_ids = $request->employee_ids;
+        $result = array_filter($employees_ids, function($value) {
+            return $value !== '0';
+        });
+
+        $employees_ids = array_values($result);
+
+        // Log::info($employees_ids);
 
         $id = EmployeePayslipGenerate::create([
             'company_id'    => $company_id,
@@ -64,6 +71,9 @@ class EmployeePayslipGenerateController extends Controller
             'data_generate_status'  => 'pending',
             'generated_at'  => now(),
         ])->id;
+
+
+    
 
         foreach ($employees_ids as $employees_id) {
             GeneratePayslipFromTemplateJob::dispatch($id, $employees_id);
