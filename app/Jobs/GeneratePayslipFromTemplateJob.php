@@ -177,11 +177,24 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
                         ->first();
                     Log::info($ptkp);
                     $form->ter = $ptkp->value;
-                    $form->tax = $subtotal * $form->ter / 100;
+
+                    // GROSS UP
+                    if ($tax_method == 'gross-up') {
+                        $form->tax = $subtotal * $form->ter / (100 - $form->ter);  
+                    }else {
+                        $form->tax = $subtotal * $form->ter / 100;
+
+                    }
+                  
     
                 }
     
                 $form->take_home_pay = $subtotal - $form->tax;
+                if ($tax_method == 'gross-up') {
+                    $form->bruto = $form->take_home_pay + $form->tax;
+                } else {
+                    $form->bruto = null;
+                }
                 $form->save();
             }catch(Exception $e){
                 Log::error($e);
