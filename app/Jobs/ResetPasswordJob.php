@@ -4,12 +4,14 @@ namespace App\Jobs;
 
 use App\Mail\NewPasswordMail;
 use App\Mail\ResetOtpEmailMail;
+use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ResetPasswordJob implements ShouldQueue
@@ -34,6 +36,10 @@ class ResetPasswordJob implements ShouldQueue
     public function handle()
     {
         //
-        Mail::to($this->email)->send(new ResetOtpEmailMail($this->email, $this->password));
+        try{
+            Mail::to($this->email)->send(new ResetOtpEmailMail($this->email, $this->password));
+        }catch(Exception $e){
+            Log::error($e);
+        }
     }
 }

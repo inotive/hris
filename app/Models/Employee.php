@@ -369,4 +369,6 @@ class Employee extends Authenticatable
             'Cerai Mati'  => 'Cerai Mati',
         ];
     }
+
+
 }
