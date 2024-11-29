@@ -283,6 +283,7 @@ return [
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes'    => [
                         'employee-payslip-generate.*'    => ['superadmin','admin','finance'],
+                        'payslip-generate-detail'    => ['superadmin','admin','finance'],
                     ],
                 ],
             ],

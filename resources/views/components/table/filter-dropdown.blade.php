@@ -1,6 +1,7 @@
 @props([
     'company' => false,
     'role' => false,
+    'monthyear' => false,
 
 
     'filter_count'  => collect(request()->filter ?? [])
@@ -59,6 +60,10 @@
 
             @if ($role == true)
                 <x-role-filter />
+            @endif
+
+            @if ($monthyear == true)
+                <x-month-year-filter />
             @endif
 
 

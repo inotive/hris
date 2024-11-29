@@ -38,6 +38,7 @@ class OvertimeRequest extends Model
         'status',
         'compensation',
         'work_note',
+        'work_hours',
 
     ];
 
@@ -50,6 +51,7 @@ class OvertimeRequest extends Model
         'end_shift_date_time'  => '',
         'compensation'  => '',
         'work_note'  => '',
+        'work_hours'  => '',
 
     ];
 
@@ -65,6 +67,11 @@ class OvertimeRequest extends Model
 
 
             $row->status = 'pending';
+            $row->work_hours = $row->hours;
+        });
+
+        static::saving(function($row){
+            $row->work_hours = $row->hours;
         });
 
 

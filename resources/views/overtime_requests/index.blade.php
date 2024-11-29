@@ -40,10 +40,9 @@
             <td>{{ $value->overtime_shift_request->name ?? '-' }}</td>
             <td>{{ $value->start_shift_date_time ?? '-' }}</td>
             <td>{{ $value->end_shift_date_time ?? '-' }}</td>
-            <td>{{ $value->hours ?? '-' }}</td>
+            <td>{{ $value->work_hours ?? $value->hours ?? '-' }}</td>
             <td>{{ $value->manager->full_name ?? '-' }}</td>
             <td>{{ $value->status ?? '-' }}</td>
-            <td>{{ $value->reason ?? '-' }}</td>
 
 
             <td class="text-end">

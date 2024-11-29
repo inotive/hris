@@ -50,6 +50,7 @@ trait CrudTrait
         $search = $request->search;
         $list = $this->model::search($search)
             ->filter($filter)
+            ->orderBy('created_at','desc')
             ->paginate(10);
 
 

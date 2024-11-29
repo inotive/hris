@@ -63,8 +63,15 @@ class ReimbursementController extends Controller
 
             ->first();
 
+        if ($data == null) {
+            return [
+                'status'   => 'error',
+                'message'   => 'Not Found',
+            ];
+        }
+
         return [
-            'success'   => true,
+            'status'   => 'success',
             'data'  => new ReimbursementRequestResource($data),
         ];
     }

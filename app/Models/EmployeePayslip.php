@@ -41,6 +41,8 @@ class EmployeePayslip extends Model
         'employee_payslip_generate_id',
         'month',
         'year',
+        'approved_at',
+        'approved_by_user_id',
     ];
 
     public $rules = [
@@ -59,6 +61,8 @@ class EmployeePayslip extends Model
         'employee_payslip_generate_id'  => '',
         'month'  => '',
         'year'  => '',
+        'approved_at' => '',
+        'approved_by_user_id' => '',
     ];
 
     public $casts = [
@@ -83,6 +87,14 @@ class EmployeePayslip extends Model
     public function employee()
     {
         return $this->belongsTo(Employee::class, 'employee_id','id');
+    }
+
+    public function getApprovedOvertimeHoursAttribute()
+    {
+        return OvertimeRequest::where('employee_id', $this->employee_id)
+            ->where('start_shift_date_time','>=', $this->month_period_start)
+            ->where('start_shift_date_time','<=', $this->month_period_end)
+            ->where('status','approved')->sum('work_hours');
     }
 
 }

@@ -118,10 +118,11 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
             $form->account_number = $bank_account_number;
             $form->account_name = $bank_account_name;
             $form->month_period_start = $month_period_start;
-            $form->month_period_end = $month_period_end;
+            $form->month_period_end = $month_period_end . ' 23:59:59';
             $form->employee_payslip_generate_id = $this->employee_payslip_generate_id;
             $form->month = $generate->month;
             $form->year = $generate->year;
+            $form->generated_at = Carbon::now();
             $form->save();
 
             // Log::info($form);
