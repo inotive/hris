@@ -159,7 +159,7 @@ class EmployeePayslipController extends Controller
         return $this->_save($request);
     }
 
-    public function show( $id, Request $redirect)
+    public function show( $id, Request $request)
     {
         return view('employee_payslips.show');
     }
