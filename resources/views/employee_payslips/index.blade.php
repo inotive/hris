@@ -33,7 +33,7 @@
                                 <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
 
                                 <td>
-                                    <x-table.employee-item :employee="$value" />
+                                    <x-table.employee-item :employee="$value->employee" />
                                 </td>
                                 <td>{{ $value->company->name ?? '' }}</td>
                                 <td>{{ number_format($value->total_payslip_earning ?? 0, 0, ',', '.') }}</td>

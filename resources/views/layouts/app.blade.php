@@ -68,7 +68,7 @@
                 @include('layouts.header')
 
                 {{-- class: content --}}
-                <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <div class="content d-flex flex-column flex-column-fluid"  id="kt_content">
                     @include('layouts.toolbar-new')
 
 

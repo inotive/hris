@@ -111,6 +111,11 @@ class User extends Authenticatable
     
     }
 
+    public function getFullNameAttribute()
+    {
+        return collect([$this->first_name, $this->last_name])->join(' ');
+    }
+
     public function role_label()
     {
         return self::role_options()[$this->role] ?? '-';

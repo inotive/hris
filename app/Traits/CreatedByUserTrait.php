@@ -21,7 +21,7 @@ trait CreatedByUserTrait
         });
     }
 
-    public function createdBy()
+    public function created_by()
     {
         return $this->belongsTo(User::class,'created_by_user_id','id');
     }

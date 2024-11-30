@@ -13,7 +13,7 @@
     <!--begin::Post-->
     <div class="post d-flex flex-column-fluid" id="kt_post">
         <!--begin::Container-->
-        <div id="kt_content_container" class="container-fluid">
+        <div id="kt_content_container" class=" w-100">
 
             @if (session('messages.success'))
                 <div class="alert alert-success">
@@ -30,7 +30,7 @@
             {{ $back ?? ''}}
             <form method="GET">
                 <!--begin::Card-->
-                <div class="card border border-light">
+                <div class="card bg-white">
 
 
                     @if (isset($header) || isset($header_toolbar))
@@ -47,7 +47,7 @@
                         </div>
                     @endif
 
-                    <div class="card-body">
+                    <div class="card-body bg-white">
 
                         {{ $tab_header ?? '' }}
                         <!--begin::Card header-->

@@ -6,9 +6,9 @@
         <x-company-dropdown />
 
         <div class="row">
-                <x-month-dropdown />
+            <x-month-dropdown />
 
-                <x-year-dropdown />
+            <x-year-dropdown />
 
         </div>
 

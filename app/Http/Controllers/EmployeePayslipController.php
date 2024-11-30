@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\EmployeePayslip;
 use App\Models\EmployeePayslipDetail;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +15,7 @@ class EmployeePayslipController extends Controller
 {
     public function index( Request $request)
     {
-        $list = EmployeePayslip::search($request->search)->paginate();
+        $list = EmployeePayslip::search($request->search)->orderBy('created_at','desc')->paginate();
 
         return view('employee_payslips.index',[
             'list'  => $list,
@@ -46,6 +48,13 @@ class EmployeePayslipController extends Controller
         try{
             $request->validate((new EmployeePayslip())->rules);
 
+            $redirect = $request->redirect ?? null;
+
+            Log::info($redirect);
+
+            $approve = $request->approve ?? false;
+
+            Log::info($approve);
 
             $total_payslip_earning = 0;
             $total_payslip_deduction = 0;
@@ -81,6 +90,12 @@ class EmployeePayslipController extends Controller
             $form->account_number = $request->account_number;
             $form->account_name = $request->account_name;
             $form->file = $request->file;
+            
+            if ($approve == true) {
+                $company = Company::find($form->company_id);
+                $form->approved_at = $company->date_time_location;
+                $form->approved_by_user_id = auth()->user()->id;
+            }
             $form->save();
 
             // Log::info($form);
@@ -113,10 +128,12 @@ class EmployeePayslipController extends Controller
             }
 
             DB::commit();
+
+            $redirect = $request->redirect ?? route('employee-payslips.index');
             return [
                 'success'   => true,
                 'message'   => __('Data Saved Successfully'),
-                'redirect'  => route('employee-payslips.index'),
+                'redirect'  => $redirect,
             ];
 
 
@@ -140,6 +157,11 @@ class EmployeePayslipController extends Controller
     public function update( $id, Request $request)
     {
         return $this->_save($request);
+    }
+
+    public function show( $id, Request $request)
+    {
+        return view('employee_payslips.show');
     }
 
 

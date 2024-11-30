@@ -19,6 +19,7 @@ use App\Http\Controllers\EmployeeOrganizationExperienceController;
 use App\Http\Controllers\EmployeePayrollController;
 use App\Http\Controllers\EmployeePayslipController;
 use App\Http\Controllers\EmployeePayslipGenerateController;
+use App\Http\Controllers\EmployeePayslipGenerateDetailController;
 use App\Http\Controllers\EmployeePayslipMasterController;
 use App\Http\Controllers\EmployeePayslipTemplateController;
 use App\Http\Controllers\EmployeePositionController;
@@ -97,6 +98,7 @@ Route::middleware([
     Route::post('/employees/{employee}/payslip', [EmployeePayslipTemplateController::class, 'update'])->name('employees.payslip-update');
 
     Route::resource('/employee-payslip-generate', EmployeePayslipGenerateController::class);
+    Route::get('/employee-payslip-generate-detail/{id}', [EmployeePayslipGenerateDetailController::class,'index'])->name('payslip-generate-detail');
 
     Route::get('/employees/get/select2', [EmployeeController::class, 'select2'])->name('employees.select2');
     Route::get('/employees/get/getall', [EmployeeController::class, 'getAll'])->name('employees.getall');

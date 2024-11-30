@@ -2,14 +2,9 @@
     <x-slot name="title">{{ __('Organization Experience') }}</x-slot>
 
 
-    <x-slot name="header">
-        <b>{{ $employee->full_name ?? '' }}</b>
-    </x-slot>
-    <x-slot name="header_toolbar">
-
-    </x-slot>
 
     <x-slot name="toolbar">
+        <x-table.filter-dropdown :company="true" :monthyear="true" />
         <x-table.add-button :label="__('Add')" :href="route('employee-payslip-generate.create')" />
     </x-slot>
 
@@ -37,15 +32,15 @@
                                 <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
                                 <td>{{ $value->company->name ?? '' }}</td>
                                 <td>{{ $value->month ?? '' }}/{{ $value->year ?? '' }}</td>
-                                <td>{{ number_format($value->data_generate_total ?? 0, 0, ',', '.') }}</td>
-                                <td>{{ $value->created_by_user_id ?? '-' }}</td>
-                                <td>{{ $value->created_at->format('Y-m-d') }}</td>
+                                <td>{{ number_format($value->data_generate_total ?? 0, 0, ',', '.') }} {{ $value->data_generate_total > 1 ? __('Employees') : __('Employee') }}</td>
+                                <td>{{ $value->created_by->full_name ?? '-' }}</td>
+                                <td>{{ $value->created_at->format('d M Y') }}</td>
                                 <td class="text-end">
-                                    <x-table.actions>
 
-                                        <x-table.edit-button :href="route('employee-payslips.edit', [$value->id])" />
-                                        <x-table.delete-button :href="route('employee-payslips.destroy', [$value->id])" />
-                                    </x-table.actions>
+
+                                    <a href="{{ route('payslip-generate-detail', [$value->id]) }}">
+                                        @include('icons.eye')
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach

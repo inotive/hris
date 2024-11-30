@@ -14,7 +14,7 @@ class EmployeePayslipGenerateController extends Controller
 {
     public function index(Request $request)
     {
-        $list = EmployeePayslipGenerate::paginate();
+        $list = EmployeePayslipGenerate::orderBy('created_at','desc')->paginate();
 
         return view('employee_payslip_generate.index',[
             'list'  => $list,
