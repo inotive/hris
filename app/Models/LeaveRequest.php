@@ -95,7 +95,7 @@ class LeaveRequest extends Model
                 'module_id'  => $row->id,
             ]);
 
-            $approver = Approver::where('employee_id', $row->employee_id)->orderBy('approver_level','asc')->get();
+            $approver = Approver::where('employee_id', $row->employee_id)->orderBy('approver_level','desc')->get();
             foreach($approver as $key => $value) {
                 $active = $key == 0 ? true : false;
                 RequestApprover::create([
