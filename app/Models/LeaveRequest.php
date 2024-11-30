@@ -80,12 +80,14 @@ class LeaveRequest extends Model
 
         static::created(function($row){
 
-
+            $title = collect([
+                Carbon::parse($row->start_date)->format('d M Y'), 
+                Carbon::parse($row->end_date)->format('d M Y')])->join(" - ");
             $req_id = Request::create([
                 'company_id'    => $row->company_id,
                 'employee_id'    => $row->employee_id,
                 'manager_id'    => $row->manager_id,
-                'title'    => 'Leave Request',
+                'title'    => $title,
                 'content'    => 'Leave Request. Need Approve',
                 'reference'    => $row->id,
                 'status'  => 'pending',
