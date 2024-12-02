@@ -105,6 +105,23 @@ class EmployeePayslipMaster extends Model
             'slug'  => null,
         ];
 
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'deduction',
+            'name'  =>  'Unpaid Leave',
+            'description'  =>  '',
+            'slug'  => 'unpaid_leave',
+        ];
+
+        $data[] = [
+            'company_id'    => $company_id,
+            'master_type'  =>  'deduction',
+            'name'  =>  'No Attendance',
+            'description'  =>  '',
+            'slug'  => 'no_attendance',
+        ];
+
+
   
         return $data;
     }

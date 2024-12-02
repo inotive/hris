@@ -113,6 +113,7 @@ Route::middleware([
     Route::resource('/employees/{employee}/organization-experience', EmployeeOrganizationExperienceController::class);
     Route::resource('/employees/{employee}/approver', EmployeeApproverController::class);
     Route::get('/employee/export', [EmployeeController::class, 'export'])->name('employees.export');
+    // Route::get('/employee/import', [EmployeeController::class, 'import'])->name('employees.import');
 
     Route::resource('/employee-departments', EmployeeDepartmentController::class);
     Route::get('/employee-departments/get/select2', [EmployeeDepartmentController::class, 'select2'])->name('employee-departments.select2');

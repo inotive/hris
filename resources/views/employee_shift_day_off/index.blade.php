@@ -8,6 +8,9 @@
     <x-slot name="header_toolbar">
         
     </x-slot>
+    <x-slot name="tab_header">
+        {{-- <x-web.shift-day-off-calendar /> --}}
+    </x-slot>
 
     <x-slot name="toolbar">
         <x-table.add-button :label="__('Add Day Off')" href="{{ route('employee-shifts-day-off.create') }}" />
