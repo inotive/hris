@@ -43,12 +43,14 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
     public function handle()
     {
         //
-        $employee = Employee::find( $this->employee_id);
+        $employee = Employee::find($this->employee_id);
 
         if ($employee == null) return;
 
 
-        try{
+        try {
+
+            $basic_sallary = 0;
 
             $generate = EmployeePayslipGenerate::find($this->employee_payslip_generate_id);
             $pay_date = Carbon::parse($generate->year . "-" . $generate->month . "-01")->format('Y-m-t');
@@ -61,12 +63,12 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
             $period = $company->getMonthPeriod($now->format('Y'), $now->format('m'));
             $month_period_start = $period[0];
             $month_period_end = $period[1];
-           
+
 
             $bank_account_name = $employee->bank_account_name;
             $bank_account_number = $employee->bank_account_number;
             $bank_account_number = is_int($bank_account_number) ? $bank_account_number : "0";
-            
+
             $pay_method = $bank_account_name != null ? "transfer" : "cash";
 
             $total_payslip_earning = 0;
@@ -87,15 +89,20 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
                 if ($template->master->master_type == 'earning') {
                     $earning[] = $insert;
                 } else {
-                    $deduction[] =$insert;
+                    $deduction[] = $insert;
+                }
+
+                // basic sallary
+                if ($template->master->slug == 'basic-sallary') {
+                    $basic_sallary = $template->value;
                 }
             }
 
-            foreach($earning as $k => $v) {
+            foreach ($earning as $k => $v) {
                 $total_payslip_earning += (float) $v['amount'];
             }
 
-            foreach($deduction as $k => $v) {
+            foreach ($deduction as $k => $v) {
                 $total_payslip_deduction += (float) $v['amount'];
             }
 
@@ -132,7 +139,7 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
 
             EmployeePayslipDetail::where('employee_payslip_id', $form->id)->delete();
 
-            foreach($earning as $k => $v) {
+            foreach ($earning as $k => $v) {
                 EmployeePayslipDetail::create([
                     'company_id'    => $company_id,
                     'employee_payslip_master_id'    => $v['master_id'],
@@ -143,7 +150,7 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
                 ]);
             }
 
-            foreach($deduction as $k => $v) {
+            foreach ($deduction as $k => $v) {
                 EmployeePayslipDetail::create([
                     'company_id'    => $company_id,
                     'employee_payslip_master_id'    => $v['master_id'],
@@ -158,8 +165,35 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
 
             // update tax
 
-            try{
-                $subtotal = $form->sub_total_payslip;
+            try {
+                $twd = $employee->total_work_days($month_period_start, $month_period_end);
+                $attendances = $employee->attendances($month_period_start, $month_period_end);
+                $tad = $attendances->count();
+
+                $daily_salary = $basic_sallary / $twd;
+
+                $unpaid_sallary = 0;
+                $no_attendance_sallary = 0;
+
+                if ($twd != $tad) {
+                    $leave = $employee->approved_leave_request($month_period_start, $month_period_end);
+
+                    $unpaid_count = 0;
+                    $no_attendance_count = 0;
+                    foreach($leave as $key => $value) {
+                        if ($value->leave_type->slug == 'unpaid_leave') {
+                            $unpaid_count++;
+                        } else {
+                            $no_attendance_count++;
+                        }
+                    }
+
+                    $unpaid_sallary = $daily_salary * $unpaid_count;
+                    $no_attendance_sallary = $daily_salary * $no_attendance_count;
+                }
+
+
+                $subtotal = $form->sub_total_payslip - $unpaid_sallary - $no_attendance_sallary;
 
                 // cari TER berapa persen
 
@@ -173,7 +207,7 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
                     Log::info($type_ter);
                     Log::info($subtotal);
                     $ptkp = Ptkp::where('type_ter', $type_ter)
-                        ->where('value_start','<=', $subtotal)
+                        ->where('value_start', '<=', $subtotal)
                         ->where('value_end', '>=', $subtotal)
                         ->first();
                     Log::info($ptkp);
@@ -181,15 +215,12 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
 
                     // GROSS UP
                     if ($tax_method == 'gross-up') {
-                        $form->tax = $subtotal * $form->ter / (100 - $form->ter);  
-                    }else {
+                        $form->tax = $subtotal * $form->ter / (100 - $form->ter);
+                    } else {
                         $form->tax = $subtotal * $form->ter / 100;
-
                     }
-                  
-    
                 }
-    
+
                 $form->take_home_pay = $subtotal - $form->tax;
                 if ($tax_method == 'gross-up') {
                     $form->bruto = $form->take_home_pay + $form->tax;
@@ -197,19 +228,16 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
                     $form->bruto = null;
                 }
                 $form->save();
-            }catch(Exception $e){
+            } catch (Exception $e) {
                 Log::error($e);
             }
 
             // end update tax
 
             DB::commit();
-
-
-        }catch(Exception $e){
+        } catch (Exception $e) {
             Log::error($e);
             DB::rollBack();
-
         }
     }
 }

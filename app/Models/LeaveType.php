@@ -43,15 +43,15 @@ class LeaveType extends Model
         $company_id = auth()->user()->company_id;
 
         return [
-            ['company_id'   => $company_id, 'name' => 'Anggota keluarga dalam 1 rumah meninggal dunia',],
-            ['company_id'   => $company_id, 'name' => 'Annual Leave (Cuti tahunan)',],
-            ['company_id'   => $company_id, 'name' => 'Ibadah Haji',],
-            ['company_id'   => $company_id, 'name' => 'Istri sah karyawan melahirkan/ keguguran',],
-            ['company_id'   => $company_id, 'name' => 'Karyawan Menikah',],
-            ['company_id'   => $company_id, 'name' => 'Khitan/ Baptis',],
-            ['company_id'   => $company_id, 'name' => 'Pernikahan Anak Kandung',],
-            ['company_id'   => $company_id, 'name' => 'Sakit Keterangan Dokter (kopi resep & kuitansi)',],
-            ['company_id'   => $company_id, 'name' => 'Unpaid Leave (Cuti tidak dibayar)',],
+            ['company_id'   => $company_id, 'name' => 'Anggota keluarga dalam 1 rumah meninggal dunia','slug'=>null],
+            ['company_id'   => $company_id, 'name' => 'Annual Leave (Cuti tahunan)','slug'=>null],
+            ['company_id'   => $company_id, 'name' => 'Ibadah Haji','slug'=>null],
+            ['company_id'   => $company_id, 'name' => 'Istri sah karyawan melahirkan/ keguguran','slug'=>null],
+            ['company_id'   => $company_id, 'name' => 'Karyawan Menikah','slug'=>null],
+            ['company_id'   => $company_id, 'name' => 'Khitan/ Baptis','slug'=>null],
+            ['company_id'   => $company_id, 'name' => 'Pernikahan Anak Kandung','slug'=>null],
+            ['company_id'   => $company_id, 'name' => 'Sakit Keterangan Dokter (kopi resep & kuitansi)','slug'=>null],
+            ['company_id'   => $company_id, 'name' => 'Unpaid Leave (Cuti tidak dibayar)','slug'=>'unpaid_leave'],
         ];
     }
 }

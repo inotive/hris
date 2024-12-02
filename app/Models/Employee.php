@@ -7,6 +7,7 @@ use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
 use App\Traits\SearchTrait;
 use App\Traits\UploadBase64File;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -370,5 +371,59 @@ class Employee extends Authenticatable
         ];
     }
 
+
+    public function total_work_days($start_date, $end_date)
+    {
+        $startDate = Carbon::parse($start_date); // Replace with your start date
+        $endDate = Carbon::parse($end_date); // Replace with your end date
+
+        $day_off_count = EmployeeShiftDayOff::where('shift_id', $this->employee_shift_id)
+            ->where('date','>=', $startDate->format('Y-m-d'))
+            ->where('date','<=', $endDate->format('Y-m-d'))
+            ->count();
+        
+        $total_days = $startDate->diffInDays($endDate);
+
+        $work_days = $total_days - $day_off_count;
+        return $work_days;
+    }
+
+    public function attendances($start_date, $end_date)
+    {
+        $startDate = Carbon::parse($start_date); // Replace with your start date
+        $endDate = Carbon::parse($end_date); // Replace with your end date
+
+        $attendances = Attendance::query()
+            ->where('date','>=', $startDate->format('Y-m-d'))
+            ->where('date','<=', $endDate->format('Y-m-d'))
+            ->whereIn('clockin_status', ['EARLY','LATE'])
+            ->where('employee_id', $this->id)
+            ->get();
+
+        return $attendances;
+
+    }
+
+
+    public function approved_leave_request($start_date, $end_date)
+    {
+        $startDate = Carbon::parse($start_date); // Replace with your start date
+        $endDate = Carbon::parse($end_date); // Replace with your end date
+        
+        $leave = LeaveRequest::where('employee_id', $this->id)
+            ->where('status','approved')
+            ->where(function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('start_date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])
+                    ->orWhereBetween('end_date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])
+                    ->orWhere(function ($query) use ($startDate, $endDate) {
+                        $query->where('start_date', '<=', $startDate->format('Y-m-d'))
+                              ->where('end_date', '>=', $endDate->format('Y-m-d'));
+                    });
+            })
+            ->get();
+
+        return $leave;
+
+    }
 
 }

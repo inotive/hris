@@ -1,6 +1,6 @@
 @props([
-    'import_url'    => null,
-    'export_url'    => null,
+    'import_url' => null,
+    'export_url' => null,
 ])
 <div class="">
 

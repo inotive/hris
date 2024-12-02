@@ -77,12 +77,15 @@ class OvertimeRequest extends Model
 
         static::created(function($row){
 
+            $title = collect([
+                Carbon::parse($row->start_shift_date_time)->format('d M Y'), 
+                Carbon::parse($row->end_shift_date_time)->format('d M Y')])->join(" - ");
 
             $req_id = Request::create([
                 'company_id'    => $row->company_id,
                 'employee_id'    => $row->employee_id,
                 'manager_id'    => $row->manager_id,
-                'title'    => 'Overtime Request',
+                'title'    => $title,
                 'content'    => 'Overtime Request. Need Approve',
                 'reference'    => $row->id,
                 'status'  => 'pending',
@@ -90,7 +93,7 @@ class OvertimeRequest extends Model
                 'module_id'  => $row->id,
             ]);
 
-            $approver = Approver::where('employee_id', $row->employee_id)->orderBy('approver_level','asc')->get();
+            $approver = Approver::where('employee_id', $row->employee_id)->orderBy('approver_level','desc')->get();
             foreach($approver as $key => $value) {
                 $active = $key == 0 ? true : false;
                 RequestApprover::create([
