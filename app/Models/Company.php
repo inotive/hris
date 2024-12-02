@@ -156,4 +156,14 @@ class Company extends Model
     {
         return Carbon::now()->setTimezone($this->time_zone)->toIso8601String();
     }
+
+    public function getTotalEmployeeAttribute()
+    {
+        return Employee::where('company_id', $this->id)->count();
+    }
+
+    public function getTotalDepartmentAttribute()
+    {
+        return EmployeeDepartment::where('company_id', $this->id)->count();
+    }
 }

@@ -23,6 +23,12 @@
 
     <link href="{{ asset('assets/css/flash.css') }}" rel="stylesheet" type="text/css" />
 
+    <style>
+        body {
+            background: white !important;
+        }
+    </style>
+
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
