@@ -1,5 +1,7 @@
 @if (strpos(Route::currentRouteName(), 'employee-payslip-generate.create') === 0)
     <script>
+         getAllEmployeeCompany();
+
         $(".company_id").on('change', function() {
             getAllEmployeeCompany();
         });
