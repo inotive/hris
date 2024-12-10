@@ -49,13 +49,25 @@ class EmployeeController extends Controller
         $limit = $request->get('limit', 10);
 
         // Fetch items from the database based on the search query
-        $items = Employee::select(DB::raw("CONCAT(first_name, ' ', last_name,  IF(username != null,' (' +  username + ')' ,'')) as name"), 'id')
+        $items = Employee::with([
+            'position',
+            'department'
+        ])
+        // ->select(DB::raw("CONCAT(first_name, ' ', last_name,  IF(username != null,' (' +  username + ')' ,'')) as name"), 'id')
             ->name($query)
             ->where('company_id', $company_id)
             ->skip(($page - 1) * $limit)
             ->take($limit)
             ->orderBy('first_name','asc')
-            ->get();
+           
+            ->get()
+            ->map(function($row){
+                $name = $row->full_name . ' - ' . ($row->position->name ?? '') . ' - ' . ($row->department->name??'-');
+                return [
+                    'id'    => $row->id,
+                    'name'  => $name,
+                ];
+            });
 
         // Get the total count for pagination
         $totalItems = Employee::name($query)
