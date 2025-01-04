@@ -79,6 +79,7 @@ class Kernel extends HttpKernel
 
         'password.changed' => \App\Http\Middleware\CheckPasswordChanged::class,
         'role' => \App\Http\Middleware\CheckAuhRole::class,
+        'subscription' => \App\Http\Middleware\CompanySubscriptionCheck::class,
         // 'cors' => \App\Http\Middleware\Cors::class,
     ];
 }

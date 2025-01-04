@@ -27,5 +27,7 @@ return [
             'total_department' => 'Total Departemen',
             'activity_rate' => 'Tingkat Aktivitas',
         ],
-    ]
+    ],
+
+    'no_active_subscription' => "Akun belum berlangganan",
 ];
