@@ -31,7 +31,7 @@
             </td>
             <td><a href="tel:{{ $value->phone ?? '' }}" target="_blank">{{ $value->phone ?? '' }}</a></td>
             <td><a href="mailto:{{ $value->email ?? '' }}" target="_blank">{{ $value->email ?? '' }}</a></td>
-            <td>{{ $value->cut_off_payroll_date ?? '' }}</td>
+            <td>{{ $value->city ?? '' }}</td>
             <td>{{ $value->status ? __('YES') : __('ID') }}</td>
             <td class="text-end">
                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click"

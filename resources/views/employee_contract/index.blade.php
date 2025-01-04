@@ -9,12 +9,12 @@
     <x-slot name="tab_header">
         <x-employee-edit-tab :employeeid="$employee->id" tab="contract" />
     </x-slot>
-    
+
     <x-slot name="toolbar">
         <x-table.add-button :label="__('Add Contract')" :href="route('contract.create', $employee->id)" />
     </x-slot>
-        
-        
+
+
     <x-slot name="body">
         @if (count($list) == 0)
             <x-table.empty />
@@ -38,7 +38,7 @@
                                 <td>{{ $value->status_label ?? '' }}</td>
                                 <td>{{ \Carbon\Carbon::parse($value->date_start)->format('d M Y') }}</td>
                                 <td>{{ \Carbon\Carbon::parse($value->date_end)->format('d M Y') }}</td>
-                                <td>{{ $value->notes }}</td>
+                                <td>{{ strip_tags($value->notes) }}</td>
                                 <td><a target="_blank" href="{{ Storage::url($value->file) }}">File</a></td>
                                 <td class="text-end">
                                     <x-table.actions>
