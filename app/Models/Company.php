@@ -179,8 +179,20 @@ class Company extends Model
 
                                      FROM `employee_contracts`
                                      JOIN employees ON employees.id = employee_contracts.employee_id
-                                     where employees.company_id = "'.$this->id.'"
+                                     where employees.company_id = "' . $this->id . '"
                                      and  date_start <= now() and date_end >= now()'));
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(CompanySubscription::class, 'company_id');
+    }
+
+    public function active_subscriptions()
+    {
+        return $this->subscriptions
+            ->where('start_date_at', '<=', Carbon::now()->format('Y-m-d'))
+            ->where('end_date_at', '>=', Carbon::now()->format('Y-m-d'));
     }
 
 
