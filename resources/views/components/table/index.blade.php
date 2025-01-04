@@ -27,7 +27,12 @@
                 </div>
             @endif
 
-            {{ $back ?? ''}}
+            <div class="row">
+                <div class="col-12" style="padding-left: 40px">
+                    {{ $back ?? ''}}
+                </div>
+            </div>
+
             <form method="GET">
                 <!--begin::Card-->
                 <div class="card bg-white">
@@ -54,7 +59,7 @@
                         <div class="row">
                             <!--begin::Card title-->
                             <div class="col-12 col-lg-2">
-                                <x-table.search />
+                                <x-table.search/>
                             </div>
 
                             <div class="col-12 col-lg-10">
@@ -66,7 +71,6 @@
                             </div>
                             <!--end::Card toolbar-->
                         </div>
-
 
 
                         {{ $body ?? '' }}

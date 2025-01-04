@@ -1,4 +1,4 @@
-<div class="row">
+<div class="">
     @if (isset($form))
         <x-employee-edit-tab :employeeid="$form->id" :tab="'edit'" />
     @endif

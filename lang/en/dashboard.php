@@ -27,5 +27,6 @@ return [
             'total_department' => 'Total Department',
             'activity_rate' => 'Activity Rate',
         ],
-    ]
+    ],
+    'no_active_subscription'    => 'No Active Subscription',
 ];
