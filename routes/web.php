@@ -58,20 +58,20 @@ Route::get('/', function () {
 Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
 
 
-Route::get('/simulate/attendance-init', function(){
+Route::get('/simulate/attendance-init', function () {
     return Artisan::call('attendance:init');
 });
 
 Auth::routes();
+
 Route::middleware([
     'auth',
     'password.changed',
-    'role'
+    'role',
+    'subscription',
 ])->group(function () {
 
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
-
-
 
 
     Route::resource('/users', UserController::class)->middleware(['role:superadmin']);
@@ -98,14 +98,14 @@ Route::middleware([
     Route::post('/employees/{employee}/payslip', [EmployeePayslipTemplateController::class, 'update'])->name('employees.payslip-update');
 
     Route::resource('/employee-payslip-generate', EmployeePayslipGenerateController::class);
-    Route::get('/employee-payslip-generate-detail/{id}', [EmployeePayslipGenerateDetailController::class,'index'])->name('payslip-generate-detail');
+    Route::get('/employee-payslip-generate-detail/{id}', [EmployeePayslipGenerateDetailController::class, 'index'])->name('payslip-generate-detail');
 
     Route::get('/employees/get/select2', [EmployeeController::class, 'select2'])->name('employees.select2');
     Route::get('/employees/get/getall', [EmployeeController::class, 'getAll'])->name('employees.getall');
 
     Route::post('/employees/check-username', [EmployeeController::class, 'checkUsername'])->name('employees.check-username');
 
-    Route::put('/employees/reset-password/{id}',[ EmployeeController::class,'resetPassword'])->name('employee-reset-password');
+    Route::put('/employees/reset-password/{id}', [EmployeeController::class, 'resetPassword'])->name('employee-reset-password');
     Route::resource('/employees/{employee}/emergency-contact', EmployeeEmergencyContactController::class);
     Route::resource('/employees/{employee}/family-info', EmployeeFamilyInfoController::class);
     Route::resource('/employees/{employee}/education', EmployeeEducationController::class);

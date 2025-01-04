@@ -28,7 +28,14 @@
                     {{ session('messages.warning') }}
                 </div>
             @endif
-            {{ $back ?? ''}}
+
+
+            <div class="row">
+                <div class="col-12" style="padding-left: 40px">
+                    {{ $back ?? ''}}
+                </div>
+            </div>
+
             <form action="{{ $action }}" method="POST" id="crud-form">
                 @csrf
 
