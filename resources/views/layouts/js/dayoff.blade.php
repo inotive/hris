@@ -1,12 +1,12 @@
 @if (in_array(Route::currentRouteName(), ['employee-shifts-day-off.index']))
     <script src="{{ asset('template/plugins/fullcalendar/main.min.js') }}"></script>
     <script>
-        $(function() {
+        $(function () {
 
             /* initialize the external events
              -----------------------------------------------------------------*/
             function ini_events(ele) {
-                ele.each(function() {
+                ele.each(function () {
 
                     // create an Event Object (https://fullcalendar.io/docs/event-object)
                     // it doesn't need to have a start or end
@@ -49,7 +49,7 @@
 
             new Draggable(containerEl, {
                 itemSelector: '.external-event',
-                eventData: function(eventEl) {
+                eventData: function (eventEl) {
                     return {
                         title: eventEl.innerText,
                         backgroundColor: window.getComputedStyle(eventEl, null).getPropertyValue(
@@ -70,12 +70,12 @@
                 themeSystem: 'bootstrap',
                 //Random default events
                 events: [{
-                        title: 'All Day Event',
-                        start: new Date(y, m, 1),
-                        backgroundColor: '#f56954', //red
-                        borderColor: '#f56954', //red
-                        allDay: true
-                    },
+                    title: 'All Day Event',
+                    start: new Date(y, m, 1),
+                    backgroundColor: '#f56954', //red
+                    borderColor: '#f56954', //red
+                    allDay: true
+                },
                     {
                         title: 'Long Event',
                         start: new Date(y, m, d - 5),
@@ -117,7 +117,7 @@
                 ],
                 editable: true,
                 droppable: true, // this allows things to be dropped onto the calendar !!!
-                drop: function(info) {
+                drop: function (info) {
                     // is the "remove after drop" checkbox checked?
                     if (checkbox.checked) {
                         // if so, remove the element from the "Draggable Events" list
@@ -132,7 +132,7 @@
             /* ADDING EVENTS */
             var currColor = '#3c8dbc' //Red by default
             // Color chooser button
-            $('#color-chooser > li > a').click(function(e) {
+            $('#color-chooser > li > a').click(function (e) {
                 e.preventDefault()
                 // Save color
                 currColor = $(this).css('color')
@@ -142,7 +142,7 @@
                     'border-color': currColor
                 })
             })
-            $('#add-new-event').click(function(e) {
+            $('#add-new-event').click(function (e) {
                 e.preventDefault()
                 // Get value and make sure it is not null
                 var val = $('#new-event').val()
@@ -174,17 +174,18 @@
         var row_dayoff = 0;
 
 
-
-
         function add_dayoff() {
             row_dayoff++;
 
-            var row = `<div class="row">
+            var row = `<div class="row row-dayoff">
                 <x-form.datepicker class="col-12 col-lg-2" add_class="datepickersingle-` + row_dayoff +
                 `" label="" name="dayoff[` + row_dayoff + `][date]" />
                 <x-form.select class="col-12 col-lg-3" add_class="shift_id shift-id-` + row_dayoff +
                 `" label="" name="dayoff[` + row_dayoff + `][shift_id]" />
-                <x-form.input class="col-12 col-lg-7" name="dayoff[` + row_dayoff + `][desc]" label="" placeholder="Description" />
+                <x-form.input class="col-12 col-lg-6" name="dayoff[` + row_dayoff + `][desc]" label="" placeholder="Description" />
+                 <div class="col-12 col-lg-1">
+                <button type="button" class="btn btn-danger w-100 btn-delete-day-off">X</button>
+                </div>
             </div>`;
 
             $("#day-off-container").append(row);
@@ -195,7 +196,7 @@
                     url: '{{ route('employee-shifts.select2') }}', // Server endpoint
                     dataType: 'json',
                     delay: 250,
-                    data: function(params) {
+                    data: function (params) {
 
                         return {
                             company_id: $("[name='company_id']").val(),
@@ -203,10 +204,10 @@
                             page: params.page || 1 // Pagination
                         };
                     },
-                    processResults: function(data, params) {
+                    processResults: function (data, params) {
                         params.page = params.page || 1;
                         return {
-                            results: $.map(data.items, function(item) {
+                            results: $.map(data.items, function (item) {
                                 return {
                                     id: item.id,
                                     text: item.name // Display name in the dropdown
@@ -237,9 +238,13 @@
 
         add_dayoff();
 
-        $("#add-data-day-off").on('click', function() {
+        $("#add-data-day-off").on('click', function () {
             add_dayoff();
 
+        });
+
+        $(document).on('click', '.btn-delete-day-off', function() {
+            $(this).parent('div').parent('.row').remove();
         });
     </script>
 @endif

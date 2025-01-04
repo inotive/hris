@@ -35,7 +35,7 @@ class DashboardController extends Controller
         if ($auth->role == 'superadmin'){
             return $this->indexSuperadmin($request);
         }else if ($auth->role == 'admin') {
-            return view('dashboard.dashboard'); 
+            return view('dashboard.dashboard');
         }
         return view('dashboard.dashboard');
     }
@@ -50,8 +50,11 @@ class DashboardController extends Controller
         $total_overtime = OvertimeRequest::count();
         $total_reimbursement = ReimbursementRequest::count();
 
-        $top_companies = Company::get();
-        
+        $top_companies = Company::when(request()->search_company != null, function($query){
+            $query->where('name', 'like', '%' . request()->search_company . '%');
+        })
+        ->get();
+
         return view('dashboard.dashboard-superadmin',[
             'total_company'    => $total_company,
             'total_employee'    => $total_employee,

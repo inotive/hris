@@ -83,6 +83,8 @@ class Employee extends Authenticatable
         'type_ter',
         'code_forget_password',
         'token_forget_password',
+        'head_departmen_id',
+        'document_file',
     ];
 
 
@@ -144,6 +146,8 @@ class Employee extends Authenticatable
             'type_ter' => '',
             'code_forget_password' => '',
             'token_forget_password' => '',
+            'head_departmen_id' => '',
+            'document_file' => '',
         ];
     }
 
@@ -268,9 +272,9 @@ class Employee extends Authenticatable
                         'zip_code',
                         companies.zip_code,
                         'time_zone',
-                        companies.time_zone 
+                        companies.time_zone
                     ) AS company,
-                    JSON_OBJECT( 'id', headdep.id, 'first_name', headdep.first_name, 'last_name', headdep.last_name) as head 
+                    JSON_OBJECT( 'id', headdep.id, 'first_name', headdep.first_name, 'last_name', headdep.last_name) as head
                     FROM
                     employees
                     LEFT JOIN employee_departments ON employee_departments.id = employees.department_id
@@ -278,7 +282,7 @@ class Employee extends Authenticatable
                     LEFT JOIN employee_levels ON employee_levels.id = employees.employee_level_id
                     LEFT JOIN employee_shifts ON employee_shifts.id = employees.employee_shift_id
                     LEFT JOIN companies ON companies.id = employees.company_id
-                    LEFT JOIN employees AS headdep ON headdep.id = employees.head_departmen_id 
+                    LEFT JOIN employees AS headdep ON headdep.id = employees.head_departmen_id
                     WHERE
                     employees.username = '$username'";
         $data = DB::select($query);
@@ -291,7 +295,7 @@ class Employee extends Authenticatable
         if ($em->shift != null) $em->shift = json_decode($em->shift);
         if ($em->company != null) $em->company = json_decode($em->company);
         if ($em->head != null) $em->head = json_decode($em->head);
-        
+
 
         return $em;
     }
@@ -381,7 +385,7 @@ class Employee extends Authenticatable
             ->where('date','>=', $startDate->format('Y-m-d'))
             ->where('date','<=', $endDate->format('Y-m-d'))
             ->count();
-        
+
         $total_days = $startDate->diffInDays($endDate);
 
         $work_days = $total_days - $day_off_count;
@@ -409,7 +413,7 @@ class Employee extends Authenticatable
     {
         $startDate = Carbon::parse($start_date); // Replace with your start date
         $endDate = Carbon::parse($end_date); // Replace with your end date
-        
+
         $leave = LeaveRequest::where('employee_id', $this->id)
             ->where('status','approved')
             ->where(function ($query) use ($startDate, $endDate) {

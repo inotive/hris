@@ -10,6 +10,7 @@ use App\Traits\SearchTrait;
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasMyCompany;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -55,49 +56,49 @@ class Company extends Model
     ];
 
     public $rules = [
-        'name'  => 'required',
-        'address'  => 'required',
-        'phone'  => 'required',
-        'email'  => [
+        'name' => 'required',
+        'address' => 'required',
+        'phone' => 'required',
+        'email' => [
             'required',
             'email',
         ],
 
-        'logo'  => '',
-        'cut_off_payroll_date'  => 'required',
-        'cut_off_payroll_method'  => 'required',
-        'is_overtime_request'  => '',
+        'logo' => '',
+        'cut_off_payroll_date' => 'required',
+        'cut_off_payroll_method' => 'required',
+        'is_overtime_request' => '',
         'is_leave_request' => '',
         'is_reimbursement_request' => '',
         'is_attendance' => '',
         'is_ewa' => '',
         'is_payslip' => '',
-        'status'  => '',
-        'time_zone'  => '',
-        'country'  => '',
-        'province'  => '',
-        'city'  => '',
-        'district'  => '',
-        'sub_district'  => '',
-        'zip_code'  => '',
-        'tax_calculation_method'    => '',
+        'status' => '',
+        'time_zone' => '',
+        'country' => '',
+        'province' => '',
+        'city' => '',
+        'district' => '',
+        'sub_district' => '',
+        'zip_code' => '',
+        'tax_calculation_method' => '',
     ];
 
     public $casts = [
-        'is_overtime_request'   => 'boolean',
-        'status'   => 'boolean',
-        'cut_off_payroll_date'   => 'integer',
+        'is_overtime_request' => 'boolean',
+        'status' => 'boolean',
+        'cut_off_payroll_date' => 'integer',
     ];
 
     // public function scopeWithinRadiusInMeters($query, $latitude, $longitude, $radius = 1000)
     // {
     //     return $query->selectRaw("
-    //             *, 
+    //             *,
     //             (6371000 * acos(
-    //                 cos(radians(?)) * 
-    //                 cos(radians(latitude)) * 
-    //                 cos(radians(longitude) - radians(?)) + 
-    //                 sin(radians(?)) * 
+    //                 cos(radians(?)) *
+    //                 cos(radians(latitude)) *
+    //                 cos(radians(longitude) - radians(?)) +
+    //                 sin(radians(?)) *
     //                 sin(radians(latitude))
     //             )) AS distance
     //         ", [$latitude, $longitude, $latitude])
@@ -134,7 +135,7 @@ class Company extends Model
                 ->whereYear('date', $prev_month->format('Y'))
                 ->whereMonth('date', $prev_month->format('m'))
                 ->first();
-            
+
             $end_cutoff = CompanyPayoutSetting::where('company_id', $this->company_id)
                 ->whereYear('date', $month->format('Y'))
                 ->whereMonth('date', $month->format('m'))
@@ -166,4 +167,21 @@ class Company extends Model
     {
         return EmployeeDepartment::where('company_id', $this->id)->count();
     }
+
+    public function active_contracts()
+    {
+        return collect(DB::select('SELECT employee_contracts.id,
+                                    employee_contracts.date_start,
+                                    employee_contracts.date_end,
+                                    employee_contracts.employee_id,
+                                    employee_contracts.created_at,
+                                    employee_contracts.`status`
+
+                                     FROM `employee_contracts`
+                                     JOIN employees ON employees.id = employee_contracts.employee_id
+                                     where employees.company_id = "'.$this->id.'"
+                                     and  date_start <= now() and date_end >= now()'));
+    }
+
+
 }
