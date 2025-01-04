@@ -40,4 +40,9 @@ class RequestApprover extends Model
         'reason' => '',
     ];
 
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'approver_employee_id','id');
+    }
 }

@@ -145,6 +145,12 @@ class LeaveRequest extends Model
     }
 
 
+    public function request()
+    {
+        return $this->belongsTo(Request::class, 'id','module_id')->where('module','leave');
+    }
+
+
     public static function reasonLeavingDropdown()
     {
         return [

@@ -45,6 +45,11 @@ class Request extends Model
         'created_by_employee_id'  => '',
     ];
 
+    public function approvers()
+    {
+        return $this->hasMany(RequestApprover::class, 'approver_employee_id', 'id');
+    }
+
 
     public static function dummy_data() : array
     {
