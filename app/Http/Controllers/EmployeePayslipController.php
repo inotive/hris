@@ -90,7 +90,7 @@ class EmployeePayslipController extends Controller
             $form->account_number = $request->account_number;
             $form->account_name = $request->account_name;
             $form->file = $request->file;
-            
+
             if ($approve == true) {
                 $company = Company::find($form->company_id);
                 $form->approved_at = $company->date_time_location;
@@ -101,7 +101,7 @@ class EmployeePayslipController extends Controller
             // Log::info($form);
             // Log::info(json_encode($request->all()));
             // return null;
-            
+
 
             EmployeePayslipDetail::where('employee_payslip_id', $form->id)->delete();
 
@@ -170,7 +170,7 @@ class EmployeePayslipController extends Controller
         try{
 
             EmployeePayslip::where('id', $id)->delete();
-        
+
             return [
                 'success'   => true,
                 'meessage'  => 'Deleted',

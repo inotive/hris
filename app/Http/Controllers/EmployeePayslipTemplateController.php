@@ -20,15 +20,15 @@ class EmployeePayslipTemplateController extends Controller
 
         $earning_details = EmployeePayslipTemplate::where('employee_id', $employee->id)->where('payslip_type','earning')->get();
         $deduction_details = EmployeePayslipTemplate::where('employee_id', $employee->id)->where('payslip_type','deduction')->get();
-        
-        
+
+
         $ptkp_list = Ptkp::select([
             DB::raw("CONCAT(type_ter, ' - ', notes) as name"),
             'type_ter'
         ])
             ->groupBy('type_ter','notes')->orderBy('type_ter')->pluck('name', 'type_ter');
-   
-        
+
+
         return view('employees.payslip',[
             'employee'  => $employee,
             'deduction_details'  => $deduction_details,
@@ -60,8 +60,25 @@ class EmployeePayslipTemplateController extends Controller
             $em->save();
 
             EmployeePayslipTemplate::where('employee_id', $employee->id)->delete();
-            
-            foreach($request->earning ?? [] as $key => $value) {
+
+            $earning = $request->earning ?? [];
+            $deduction = $request->deduction ?? [];
+
+            $earning = collect($earning ?? [])
+                ->map(function($row){
+                    $row['amount'] = (float) $row['amount'];
+                    return $row;
+                })
+                ->where('amount', '>', 0);
+
+            $deduction = collect($deduction ?? [])
+                ->map(function($row){
+                    $row['value'] = (float) $row['amount'];
+                    return $row;
+                })
+                ->where('amount', '>', 0);
+
+            foreach($earning ?? [] as $key => $value) {
 
                 EmployeePayslipTemplate::firstOrCreate([
                     'company_id'    => $employee->company_id,
@@ -73,7 +90,7 @@ class EmployeePayslipTemplateController extends Controller
                 ]);
             }
 
-            foreach($request->deduction ?? [] as $key => $value) {
+            foreach($deduction ?? [] as $key => $value) {
                 EmployeePayslipTemplate::firstOrCreate([
                     'company_id'    => $employee->company_id,
                     'employee_id'   => $employee->id,

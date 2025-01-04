@@ -27,12 +27,12 @@ class HeadDepartmentEmployeeDropdown extends Component
     {
         $list = [];
 
-            $label = __($this->label ?? 'Head');
+        $label = __($this->label ?? 'Head');
 
-        return view('components.form.select',[
-            'list'  => $list,
-            'name'  => 'head_departmen_id',
-            'label' =>  $label,
+        return view('components.form.employee', [
+            'list' => $list,
+            'name' => 'head_departmen_id',
+            'label' => $label,
             'add_class' => 'manager_id',
         ]);
     }
