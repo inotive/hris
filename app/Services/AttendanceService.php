@@ -66,9 +66,9 @@ class AttendanceService
             }
 
             if ($row->clockin_lat != null) $row->clockin_lat = floatval($row->clockin_lat);
-            if ($row->clockin_lng != null) $row->clockin_lng = floatval($row->clockin_lng);
+            if ($row->clockin_long != null) $row->clockin_long = floatval($row->clockin_long);
             if ($row->clockout_lat != null) $row->clockout_lat = floatval($row->clockout_lat);
-            if ($row->clockout_lng != null) $row->clockout_lng = floatval($row->clockout_lng);
+            if ($row->clockout_long != null) $row->clockout_long = floatval($row->clockout_long);
 
             return $row;
         });
