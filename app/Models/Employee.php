@@ -85,6 +85,7 @@ class Employee extends Authenticatable
         'token_forget_password',
         'head_departmen_id',
         'document_file',
+        'nik',
     ];
 
 
@@ -148,6 +149,7 @@ class Employee extends Authenticatable
             'token_forget_password' => '',
             'head_departmen_id' => '',
             'document_file' => '',
+            'nik' => '',
         ];
     }
 

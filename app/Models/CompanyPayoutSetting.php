@@ -27,11 +27,13 @@ class CompanyPayoutSetting extends Model
     public $fillable = [
         'company_id',
         'date',
+        'code',
     ];
 
     public $rules = [
         'company_id'  => 'required',
         'date'  => 'required',
+        'code'  => 'required',
     ];
 
 
