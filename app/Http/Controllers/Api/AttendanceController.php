@@ -42,6 +42,8 @@ class AttendanceController extends Controller
 
                 $row->clockin_image = isset($row->clockin_image) ? asset($row->clockin_image) : null;
                 $row->clockout_image = isset($row->clockout_image) ? asset($row->clockout_image) : null;
+
+
                 return $row;
             }),
             // 'pagination' => $pagination,
@@ -133,7 +135,7 @@ class AttendanceController extends Controller
         $image = Base64FileService::saveBase64File($request->clockout_image, 'attendance_clockin');
 
 
-     
+
 
 
         if ($attendance != null) {

@@ -65,6 +65,11 @@ class AttendanceService
                 $row->clockout_image = Storage::url($row->clockout_image);
             }
 
+            if ($row->clockin_lat != null) $row->clockin_lat = floatval($row->clockin_lat);
+            if ($row->clockin_lng != null) $row->clockin_lng = floatval($row->clockin_lng);
+            if ($row->clockout_lat != null) $row->clockout_lat = floatval($row->clockout_lat);
+            if ($row->clockout_lng != null) $row->clockout_lng = floatval($row->clockout_lng);
+
             return $row;
         });
         return $list;
