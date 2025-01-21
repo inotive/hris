@@ -46,7 +46,7 @@ class AttendanceService
                 attendances.clockout_image
                 FROM
                 attendances
-                LEFT JOIN ( SELECT employee_shift_day_offs.* FROM employee_shift_day_offs JOIN employees ON employees.employee_shift_id = employee_shift_day_offs.shift_id WHERE employees.id = '9d487f62-6b26-4599-b95c-094b8a1bfac0' ) dayoff_table ON dayoff_table.`date` = attendances.`date`
+                LEFT JOIN ( SELECT employee_shift_day_offs.* FROM employee_shift_day_offs JOIN employees ON employees.employee_shift_id = employee_shift_day_offs.shift_id WHERE employees.id = '".$employee_id."' ) dayoff_table ON dayoff_table.`date` = attendances.`date`
                 LEFT JOIN employee_shifts ON employee_shifts.id = attendances.employee_shift_id
                 WHERE
                 attendances.employee_id = '".$employee_id."'
