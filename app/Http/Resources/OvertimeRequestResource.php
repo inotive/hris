@@ -19,8 +19,8 @@ class OvertimeRequestResource extends JsonResource
         return [
             'id'    => $this->id,
             'overtime_shift_request'    => [
-                'id'    => $this->overtime_shift_request->id,
-                'name'  => $this->overtime_shift_request->name,
+                'id'    => $this->overtime_shift_request->id ?? null,
+                'name'  => $this->overtime_shift_request->name ?? "Shift",
             ],
             'start_shift_time'  => $this->start_shift_date_time,
             'end_shift_time'  => $this->end_shift_date_time,
