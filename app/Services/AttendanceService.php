@@ -46,12 +46,13 @@ class AttendanceService
                 attendances.clockout_image
                 FROM
                 attendances
-                LEFT JOIN ( SELECT employee_shift_day_offs.* FROM employee_shift_day_offs JOIN employees ON employees.employee_shift_id = employee_shift_day_offs.shift_id WHERE employees.id = '".$employee_id."' ) dayoff_table ON dayoff_table.`date` = attendances.`date`
+                LEFT JOIN ( SELECT employee_shift_day_offs.* FROM employee_shift_day_offs JOIN employees ON employees.employee_shift_id = employee_shift_day_offs.shift_id
+                                                             WHERE employees.id = '".$employee_id."' ) dayoff_table ON dayoff_table.`date` = attendances.`date`
                 LEFT JOIN employee_shifts ON employee_shifts.id = attendances.employee_shift_id
                 WHERE
                 attendances.employee_id = '".$employee_id."'
-                AND YEAR( attendances.DATE ) = '".$year."'
-                AND MONTH( attendances.DATE ) = '".$month."'");
+                AND YEAR( attendances.DATE ) = ".$year."
+                AND MONTH( attendances.DATE ) = ".$month."");
 
         $list = collect($list)->map(function($row){
             $row->is_day_off = $row->is_day_off == 1 ? true : false;

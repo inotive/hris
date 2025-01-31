@@ -31,18 +31,18 @@ class ReimbursementController extends Controller
                 $query->where('status', $status);
             })
             ->when($start_date != null, function ($query) use ($start_date) {
-                $query->whereDate('created_at', '>=', $start_date);
+                $query->whereDate('date', '>=', $start_date);
             })
             ->when($end_date != null, function ($query) use ($end_date) {
-                $query->whereDate('created_at', '<=', $end_date);
+                $query->whereDate('date', '<=', $end_date);
             })
             ->when($request->month != null, function ($query) use ($request) {
-                return $query->whereMonth('created_at', $request->month);
+                return $query->whereMonth('date', $request->month);
             })
             ->when($request->year != null, function ($query) use ($request) {
-                return $query->whereYear('created_at', $request->year);
+                return $query->whereYear('date', $request->year);
             })
-            ->orderBy('created_at', $request->sort ?? 'desc')
+            ->orderBy('date', $request->sort ?? 'desc')
             ->paginate($request->per_page ?? 10);
 
         $pagination = $list->toArray();
@@ -102,13 +102,13 @@ class ReimbursementController extends Controller
                     'status'    => 'error',
                     'message'   => 'Reimbursement Type Not Found',
                 ], 200);
-                
+
             }
 
             $expenses = $request->expenses ?? [];
             $expenses_temp = collect($expenses)->pluck('expenses_id')->unique()->toArray();
             $count_in = ReimbursementExpense::whereIn('id', $expenses_temp)->count();
-            
+
             if ($count_in < count($expenses_temp)) {
                 return response()->json([
                     'success'   => 'error',
@@ -122,7 +122,7 @@ class ReimbursementController extends Controller
 
             $reimbursement = ReimbursementRequest::create($validated);
 
-         
+
 
 
             $total = 0;
