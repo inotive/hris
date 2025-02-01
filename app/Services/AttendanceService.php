@@ -58,6 +58,13 @@ class AttendanceService
             $row->is_day_off = $row->is_day_off == 1 ? true : false;
             $row->shift = $row->shift != null ? json_decode($row->shift) : null;
 
+            if ($row->shift != null) {
+                $shift = $row->shift;
+                $shift->start_time = Carbon::parse($shift->start_time)->format('H:i:s');
+                $shift->end_time = Carbon::parse($shift->end_time)->format('H:i:s');
+                $row->shift = $shift;
+            }
+
             if ($row->clockin_image != null) {
                 $row->clockin_image = Storage::url($row->clockin_image);
             }

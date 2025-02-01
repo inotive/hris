@@ -159,6 +159,10 @@ class Employee extends Authenticatable
         'password',
     ];
 
+    protected $casts = [
+        'document_is_unlimited' => 'boolean',
+    ];
+
     public static function boot()
     {
         parent::boot();
