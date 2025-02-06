@@ -88,6 +88,11 @@ class Company extends Model
         'is_overtime_request' => 'boolean',
         'status' => 'boolean',
         'cut_off_payroll_date' => 'integer',
+        'is_leave_request' => 'boolean',
+        'is_reimbursement_request' => 'boolean',
+        'is_attendance' => 'boolean',
+        'is_ewa' => 'boolean',
+        'is_payslip' => 'boolean',
     ];
 
     // public function scopeWithinRadiusInMeters($query, $latitude, $longitude, $radius = 1000)

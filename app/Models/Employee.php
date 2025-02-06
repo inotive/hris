@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Resources\CompanyResource;
+use App\Http\Resources\EmployeeResource;
 use App\Jobs\NewPasswordJob;
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasCompany;
@@ -85,36 +87,36 @@ class Employee extends Authenticatable
         'token_forget_password',
         'head_departmen_id',
         'document_file',
+        'nik',
     ];
-
 
 
     public function rules()
     {
         return [
-            'company_id'  => 'required',
-            'first_name'  => 'required',
-            'last_name'  => 'required',
-            'employee_shift_id'  => 'required',
-            'email'  => [
+            'company_id' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'employee_shift_id' => 'required',
+            'email' => [
                 'required',
                 'email',
                 // Rule::unique('employees')->ignore($this->id),
             ],
-            'username'  => 'required',
+            'username' => 'required',
             // 'username' => [
             //     'required',
             //     Rule::unique('employees')->ignore($this->id)
             // ],
-            'phone'  => 'required',
-            'department_id'  => 'required',
-            'employee_position_id'  => 'required',
-            'employee_level_id'  => 'required',
-            'join_date'  => '',
-            'image'  => '',
-            'reimbursement_limit'  => '',
-            'birth_date'  => '',
-            'birth_place'  => '',
+            'phone' => 'required',
+            'department_id' => 'required',
+            'employee_position_id' => 'required',
+            'employee_level_id' => 'required',
+            'join_date' => '',
+            'image' => '',
+            'reimbursement_limit' => '',
+            'birth_date' => '',
+            'birth_place' => '',
             'address' => '',
             'country' => '',
             'province' => '',
@@ -148,13 +150,17 @@ class Employee extends Authenticatable
             'token_forget_password' => '',
             'head_departmen_id' => '',
             'document_file' => '',
+            'nik' => '',
         ];
     }
 
 
-
     protected $hidden = [
         'password',
+    ];
+
+    protected $casts = [
+        'document_is_unlimited' => 'boolean',
     ];
 
     public static function boot()
@@ -165,7 +171,7 @@ class Employee extends Authenticatable
             if ($row->password == null) {
                 $new_pass = rand(100000, 999999) . uniqid();
                 session()->flash('user', [
-                    'new_pass'  => $new_pass,
+                    'new_pass' => $new_pass,
                 ]);
                 $row->password = bcrypt($new_pass);
             }
@@ -287,14 +293,39 @@ class Employee extends Authenticatable
                     employees.username = '$username'";
         $data = DB::select($query);
 
-        $em =  $data[0] ?? null;
+        $em = $data[0] ?? null;
 
-        if ($em->department != null) $em->department = json_decode($em->department);
-        if ($em->position != null) $em->position = json_decode($em->position);
-        if ($em->level != null) $em->level = json_decode($em->level);
-        if ($em->shift != null) $em->shift = json_decode($em->shift);
-        if ($em->company != null) $em->company = json_decode($em->company);
-        if ($em->head != null) $em->head = json_decode($em->head);
+        if ($em != null) {
+
+            if ($em->document_is_unlimited != null && is_int($em->document_is_unlimited)) {
+                $em->document_is_unlimited = $em->document_is_unlimited == 1? true : false;
+            }
+
+            if ($em->department != null) $em->department = json_decode($em->department);
+            if ($em->position != null) $em->position = json_decode($em->position);
+            if ($em->level != null) $em->level = json_decode($em->level);
+            if ($em->shift != null) {
+                $json = json_decode($em->shift, true);
+                $em->shift = new EmployeeShift($json);
+
+            }
+            if ($em->company != null) {
+                $json = json_decode($em->company, true);
+                $company = new Company($json);
+
+                $em->company = new CompanyResource($company);
+            }
+            if ($em->head != null) {
+                $json = json_decode($em->head, true);
+                $employee = new Employee($json);
+                if ($employee != null) {
+                    $em->head = new EmployeeResource($employee);
+                } else {
+                    $em->head = null;
+                }
+
+            }
+        }
 
 
         return $em;
@@ -347,31 +378,31 @@ class Employee extends Authenticatable
     public static function religionDropdown()
     {
         return [
-            'Islam'  => 'Islam',
-            'Kristen Katolik'  => 'Kristen Katolik',
-            'Kristen Protestan'  => 'Kristen Protestan',
-            'Hindu'  => 'Hindu',
-            'Budha'  => 'Budha',
-            'Konghuchu'  => 'Konghuchu',
-            'Lainnya'  => 'Lainnya',
+            'Islam' => 'Islam',
+            'Kristen Katolik' => 'Kristen Katolik',
+            'Kristen Protestan' => 'Kristen Protestan',
+            'Hindu' => 'Hindu',
+            'Budha' => 'Budha',
+            'Konghuchu' => 'Konghuchu',
+            'Lainnya' => 'Lainnya',
         ];
     }
 
     public static function genderDropdown()
     {
         return [
-            'Laki-laki'  => 'Laki-laki',
-            'Perempuan'  => 'Perempuan',
+            'Laki-laki' => 'Laki-laki',
+            'Perempuan' => 'Perempuan',
         ];
     }
 
     public static function maritalStatusDropdown()
     {
         return [
-            'Lajang'  => 'Lajang',
-            'Menikah'  => 'Menikah',
-            'Cerai Hidup'  => 'Cerai Hidup',
-            'Cerai Mati'  => 'Cerai Mati',
+            'Lajang' => 'Lajang',
+            'Menikah' => 'Menikah',
+            'Cerai Hidup' => 'Cerai Hidup',
+            'Cerai Mati' => 'Cerai Mati',
         ];
     }
 
@@ -382,8 +413,8 @@ class Employee extends Authenticatable
         $endDate = Carbon::parse($end_date); // Replace with your end date
 
         $day_off_count = EmployeeShiftDayOff::where('shift_id', $this->employee_shift_id)
-            ->where('date','>=', $startDate->format('Y-m-d'))
-            ->where('date','<=', $endDate->format('Y-m-d'))
+            ->where('date', '>=', $startDate->format('Y-m-d'))
+            ->where('date', '<=', $endDate->format('Y-m-d'))
             ->count();
 
         $total_days = $startDate->diffInDays($endDate);
@@ -398,9 +429,9 @@ class Employee extends Authenticatable
         $endDate = Carbon::parse($end_date); // Replace with your end date
 
         $attendances = Attendance::query()
-            ->where('date','>=', $startDate->format('Y-m-d'))
-            ->where('date','<=', $endDate->format('Y-m-d'))
-            ->whereIn('clockin_status', ['EARLY','LATE'])
+            ->where('date', '>=', $startDate->format('Y-m-d'))
+            ->where('date', '<=', $endDate->format('Y-m-d'))
+            ->whereIn('clockin_status', ['EARLY', 'LATE'])
             ->where('employee_id', $this->id)
             ->get();
 
@@ -415,13 +446,13 @@ class Employee extends Authenticatable
         $endDate = Carbon::parse($end_date); // Replace with your end date
 
         $leave = LeaveRequest::where('employee_id', $this->id)
-            ->where('status','approved')
+            ->where('status', 'approved')
             ->where(function ($query) use ($startDate, $endDate) {
                 $query->whereBetween('start_date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])
                     ->orWhereBetween('end_date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])
                     ->orWhere(function ($query) use ($startDate, $endDate) {
                         $query->where('start_date', '<=', $startDate->format('Y-m-d'))
-                              ->where('end_date', '>=', $endDate->format('Y-m-d'));
+                            ->where('end_date', '>=', $endDate->format('Y-m-d'));
                     });
             })
             ->get();

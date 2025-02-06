@@ -7,13 +7,14 @@ use App\Models\CompanyPayoutSetting;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CompanyPayoutSettingController extends Controller
 {
     // use CrudTrait;
 
     // public $model = CompanyPayoutSetting::class;
-    // public $route = 'company-payout-settings'; 
+    // public $route = 'company-payout-settings';
     // public $page_title = 'Company Payout Setting';
 
 
@@ -22,33 +23,51 @@ class CompanyPayoutSettingController extends Controller
         $cut_off_payroll_date = $company->cut_off_payroll_date ?? 1;
 
         $payouts = [];
-        for($i = 1; $i <= 12; $i++) {
+        for ($i = 1; $i <= 12; $i++) {
+            Log::info("BULAN : " . $i);
             $setting = CompanyPayoutSetting::whereYear('date', $year)->whereMonth('date', $i)->where('company_id', $company->id)->first();
             if ($setting == null) {
+
+                try {
+                    $date = $year . '-' . str_pad($i, 2, "0", STR_PAD_LEFT) . '-' . str_pad($cut_off_payroll_date, 2, "0", STR_PAD_LEFT);
+                    $date = Carbon::parse($date);
+
+                    if ($date->year == $year && $date->month == $i) {
+
+                    } else {
+                        $date = Carbon::parse(date_format(date_create($year . '-' . str_pad($i, 2, "0", STR_PAD_LEFT) . '-01'), 'Y-m-t'));
+                    }
+                    Log::info($date);
+                } catch (\Exception $e) {
+                    $date = Carbon::parse(date_format(date_create($year . '-' . str_pad($i, 2, "0", STR_PAD_LEFT) . '-01'), 'Y-m-t'));
+                }
+
+
                 $setting = new CompanyPayoutSetting();
+                $setting->code = $date->format('ym') . '-' . $company->id;
                 $setting->company_id = $company->id;
-                $setting->date = $year . '-' . str_pad($i, 2, "0", STR_PAD_LEFT) . '-' . str_pad($cut_off_payroll_date, 2, "0", STR_PAD_LEFT);
+                $setting->date = $date->format('Y-m-d');
                 $setting->save();
             }
             $payouts[] = $setting;
         }
 
         $tabs = [];
-        for($i = date('Y'); $i < date('Y') + 5; $i++) {
+        for ($i = date('Y'); $i < date('Y') + 5; $i++) {
             $tabs[] = [
-                'code'  => $i,
+                'code' => $i,
                 'route' => route('companies.payout-setting', [$company, $i]),
                 'label' => $i,
             ];
         }
 
-        return view('company_payout_settings.calendar',[
-            'payouts'   => $payouts,
-            'tabs'  => $tabs,
-            'active_tab'    => $year,
-            'company'   => $company,
-            'form_action'   => route('companies.payout-setting.update', [$company, $year]),
-            'cancel'    => route('companies.index'),
+        return view('company_payout_settings.calendar', [
+            'payouts' => $payouts,
+            'tabs' => $tabs,
+            'active_tab' => $year,
+            'company' => $company,
+            'form_action' => route('companies.payout-setting.update', [$company, $year]),
+            'cancel' => route('companies.index'),
         ]);
     }
 
@@ -56,7 +75,7 @@ class CompanyPayoutSettingController extends Controller
     {
         $payouts = $request->payouts ?? [];
 
-        foreach($payouts as $key => $value) {
+        foreach ($payouts as $key => $value) {
             $form = CompanyPayoutSetting::where('company_id', $company->id)
                 ->whereYear('date', $year)
                 ->whereMonth('date', $key)
@@ -68,14 +87,14 @@ class CompanyPayoutSettingController extends Controller
 
         $message = __('Data Saved Successfully');
         session()->flash('messages', [
-            'success'   =>  $message,
+            'success' => $message,
         ]);
 
 
         return [
-            'success'   => true,
-            'message'   => $message,
-            'redirect'  => route('companies.payout-setting',[$company, $year]),
+            'success' => true,
+            'message' => $message,
+            'redirect' => route('companies.payout-setting', [$company, $year]),
         ];
     }
 }

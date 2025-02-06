@@ -30,7 +30,7 @@ class AttendanceService
                 (
                     employee_shifts.id IS NOT NULL,
                     JSON_OBJECT( 'id', employee_shifts.id, 'name', employee_shifts.`name`, 'start_time', employee_shifts.start_time, 'end_time', employee_shifts.end_time ),
-                    NULL 
+                    NULL
                 ) AS shift,
                 IF
                 ( dayoff_table.id IS NULL, TRUE, FALSE ) is_day_off,
@@ -46,16 +46,24 @@ class AttendanceService
                 attendances.clockout_image
                 FROM
                 attendances
-                LEFT JOIN ( SELECT employee_shift_day_offs.* FROM employee_shift_day_offs JOIN employees ON employees.employee_shift_id = employee_shift_day_offs.shift_id WHERE employees.id = '9d487f62-6b26-4599-b95c-094b8a1bfac0' ) dayoff_table ON dayoff_table.`date` = attendances.`date`
-                LEFT JOIN employee_shifts ON employee_shifts.id = attendances.employee_shift_id 
+                LEFT JOIN ( SELECT employee_shift_day_offs.* FROM employee_shift_day_offs JOIN employees ON employees.employee_shift_id = employee_shift_day_offs.shift_id
+                                                             WHERE employees.id = '".$employee_id."' ) dayoff_table ON dayoff_table.`date` = attendances.`date`
+                LEFT JOIN employee_shifts ON employee_shifts.id = attendances.employee_shift_id
                 WHERE
-                attendances.employee_id = '9d487f62-6b26-4599-b95c-094b8a1bfac0' 
-                AND YEAR( attendances.DATE ) = '".$year."' 
-                AND MONTH( attendances.DATE ) = '".$month."'");
+                attendances.employee_id = '".$employee_id."'
+                AND YEAR( attendances.DATE ) = ".$year."
+                AND MONTH( attendances.DATE ) = ".$month."");
 
         $list = collect($list)->map(function($row){
             $row->is_day_off = $row->is_day_off == 1 ? true : false;
             $row->shift = $row->shift != null ? json_decode($row->shift) : null;
+
+            if ($row->shift != null) {
+                $shift = $row->shift;
+                $shift->start_time = Carbon::parse($shift->start_time)->format('H:i:s');
+                $shift->end_time = Carbon::parse($shift->end_time)->format('H:i:s');
+                $row->shift = $shift;
+            }
 
             if ($row->clockin_image != null) {
                 $row->clockin_image = Storage::url($row->clockin_image);
@@ -64,6 +72,11 @@ class AttendanceService
             if ($row->clockout_image != null) {
                 $row->clockout_image = Storage::url($row->clockout_image);
             }
+
+            if ($row->clockin_lat != null) $row->clockin_lat = floatval($row->clockin_lat);
+            if ($row->clockin_long != null) $row->clockin_long = floatval($row->clockin_long);
+            if ($row->clockout_lat != null) $row->clockout_lat = floatval($row->clockout_lat);
+            if ($row->clockout_long != null) $row->clockout_long = floatval($row->clockout_long);
 
             return $row;
         });

@@ -25,13 +25,13 @@ class EmployeeController extends Controller
 
         if ($auth != null && $auth instanceof Employee) {
             return [
-                'status'    => 'success',
-                'data'  => new EmployeeResource($auth),
+                'status' => 'success',
+                'data' => new EmployeeResource($auth),
             ];
         } else {
             return response()->json([
-                'status'    => 'error',
-                'message'   => 'Unauthorized',
+                'status' => 'error',
+                'message' => 'Unauthorized',
             ], 401);
         }
     }
@@ -53,9 +53,9 @@ class EmployeeController extends Controller
         $employee->save();
 
         return [
-            'status'    => 'success',
-            'message'   => 'Personal info update successful',
-            'data'  => $employee,
+            'status' => 'success',
+            'message' => 'Personal info update successful',
+            'data' => $employee,
         ];
     }
 
@@ -77,12 +77,12 @@ class EmployeeController extends Controller
         if (auth()->guard('employee')->attempt(['username' => $auth->username, 'password' => $old_password])) {
 
             Employee::where('id', $auth->id)->update([
-                'password'  => bcrypt($new_password),
+                'password' => bcrypt($new_password),
             ]);
 
             return [
-                'status'    => 'success',
-                'message'   => 'New password update successful',
+                'status' => 'success',
+                'message' => 'New password update successful',
             ];
         } else {
             return [
@@ -102,7 +102,7 @@ class EmployeeController extends Controller
 
 
             $user = Employee::where('username', $username)
-                    ->orderBy('id', 'desc');
+                ->orderBy('id', 'desc');
 
 
             if ($user->count() == 0) {
@@ -122,12 +122,12 @@ class EmployeeController extends Controller
 
                 $user = Employee::getByUsername($username);
                 return [
-                    'status'    => 'success',
-                    'message'   => 'Login successful',
-                    'data'  =>  [
+                    'status' => 'success',
+                    'message' => 'Login successful',
+                    'data' => [
                         'token' => $token,
                         // 'user'  => new EmployeeResource($user),
-                        'user'  => $user,
+                        'user' => $user,
                     ]
                 ];
             } else {
@@ -137,13 +137,13 @@ class EmployeeController extends Controller
             Log::error($e);
             if (is_int($e->getCode())) {
                 return response()->json([
-                    'status'    => 'error',
-                    'message'   => $e->getMessage(),
+                    'status' => 'error',
+                    'message' => $e->getMessage(),
                 ], 401);
             } else {
                 return response()->json([
-                    'status'    => 'error',
-                    'message'   => 'Error',
+                    'status' => 'error',
+                    'message' => 'Error',
                 ], 500);
             }
         }
@@ -157,13 +157,13 @@ class EmployeeController extends Controller
         if ($auth != null && $auth instanceof Employee) {
             $auth->logout();
             return response()->json([
-                'status'    => 'success',
-                'message'   => 'Logout successful',
+                'status' => 'success',
+                'message' => 'Logout successful',
             ], 200);
         } else {
             return response()->json([
-                'status'    => 'error',
-                'message'   => 'Token not provided or invalid',
+                'status' => 'error',
+                'message' => 'Token not provided or invalid',
             ], 401);
         }
     }
@@ -173,14 +173,14 @@ class EmployeeController extends Controller
     {
         $email = $request->email;
 
-        $new_pass = rand(100000,999999);
+        $new_pass = rand(100000, 999999);
 
-        $employee = Employee::where('email',$email)->first();
+        $employee = Employee::where('email', $email)->first();
 
         if ($employee == null) {
             return [
-                'status'    => 'error',
-                'message'   => 'Employee Not Found',
+                'status' => 'error',
+                'message' => 'Employee Not Found',
             ];
         }
         $employee->code_forget_password = ($new_pass);
@@ -190,9 +190,9 @@ class EmployeeController extends Controller
         ResetPasswordJob::dispatch($employee->email, $new_pass);
 
 
-        return  [
-            'status'    => 'success',
-            'message'   => 'Your 6-digit verification code has been sent to your email. Please check your inbox or spam folder and enter the code to proceed.',
+        return [
+            'status' => 'success',
+            'message' => 'Your 6-digit verification code has been sent to your email. Please check your inbox or spam folder and enter the code to proceed.',
         ];
 
 
@@ -209,7 +209,7 @@ class EmployeeController extends Controller
 
 
             $user = Employee::where('email', $email)
-                    ->orderBy('id', 'desc');
+                ->orderBy('id', 'desc');
 
 
             if ($user->count() == 0) {
@@ -224,15 +224,15 @@ class EmployeeController extends Controller
 
             if ($user->code_forget_password == $code) {
 
-                $new_pass = rand(100000,999999) . uniqid();
+                $new_pass = rand(100000, 999999) . uniqid();
 
                 $user->code_forget_password = null;
                 $user->token_forget_password = ($new_pass);
                 $user->save();
 
                 return [
-                    'status'    => 'success',
-                    'message'   => 'Valid Code. Please create new password',
+                    'status' => 'success',
+                    'message' => 'Valid Code. Please create new password',
                     'token' => $new_pass,
                 ];
             } else {
@@ -242,13 +242,13 @@ class EmployeeController extends Controller
             Log::error($e);
             if (is_int($e->getCode())) {
                 return response()->json([
-                    'status'    => 'error',
-                    'message'   => $e->getMessage(),
+                    'status' => 'error',
+                    'message' => $e->getMessage(),
                 ], 401);
             } else {
                 return response()->json([
-                    'status'    => 'error',
-                    'message'   => 'Error',
+                    'status' => 'error',
+                    'message' => 'Error',
                 ], 500);
             }
         }
@@ -265,9 +265,13 @@ class EmployeeController extends Controller
 
             // $fcm_token = $request->fcm_token;
 
+            if ($password != $re_password) {
+                throw new Exception('Password Not Match', 401);
+            }
+
 
             $user = Employee::where('email', $email)
-                    ->orderBy('id', 'desc');
+                ->orderBy('id', 'desc');
 
 
             if ($user->count() == 0) {
@@ -288,8 +292,8 @@ class EmployeeController extends Controller
                 $user->save();
 
                 return [
-                    'status'    => 'success',
-                    'message'   => 'Your password has been successfully changed. You can now log in with your new password.',
+                    'status' => 'success',
+                    'message' => 'Your password has been successfully changed. You can now log in with your new password.',
                 ];
             } else {
                 throw new Exception('Invalid token', 401);
@@ -298,13 +302,13 @@ class EmployeeController extends Controller
             Log::error($e);
             if (is_int($e->getCode())) {
                 return response()->json([
-                    'status'    => 'error',
-                    'message'   => $e->getMessage(),
+                    'status' => 'error',
+                    'message' => $e->getMessage(),
                 ], 401);
             } else {
                 return response()->json([
-                    'status'    => 'error',
-                    'message'   => 'Error',
+                    'status' => 'error',
+                    'message' => 'Error',
                 ], 500);
             }
         }
@@ -323,8 +327,8 @@ class EmployeeController extends Controller
         }
 
         return [
-            'status'    => 'success',
-            'data'      => $data,
+            'status' => 'success',
+            'data' => $data,
         ];
     }
 
@@ -341,8 +345,8 @@ class EmployeeController extends Controller
         }
 
         return [
-            'status'    => 'success',
-            'data'      => $data,
+            'status' => 'success',
+            'data' => $data,
         ];
     }
 
@@ -359,8 +363,8 @@ class EmployeeController extends Controller
         }
 
         return [
-            'status'    => 'success',
-            'data'      => $data,
+            'status' => 'success',
+            'data' => $data,
         ];
     }
 
@@ -378,8 +382,8 @@ class EmployeeController extends Controller
         }
 
         return [
-            'status'    => 'success',
-            'data'      => $data,
+            'status' => 'success',
+            'data' => $data,
         ];
     }
 
@@ -397,8 +401,8 @@ class EmployeeController extends Controller
         }
 
         return [
-            'status'    => 'success',
-            'data'      => $data,
+            'status' => 'success',
+            'data' => $data,
         ];
     }
 
@@ -416,8 +420,8 @@ class EmployeeController extends Controller
         }
 
         return [
-            'status'    => 'success',
-            'data'      => $data,
+            'status' => 'success',
+            'data' => $data,
         ];
     }
 }

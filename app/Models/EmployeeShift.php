@@ -42,6 +42,15 @@ class EmployeeShift extends Model
 
     public $casts = [
         'default'   => 'boolean',
+        'wd_sunday' => 'boolean',
+        'wd_monday' => 'boolean',
+        'wd_tuesday' => 'boolean',
+        'wd_wednesday' => 'boolean',
+        'wd_thursday' => 'boolean',
+        'wd_friday' => 'boolean',
+        'wd_saturday' => 'boolean',
+        'start_time'   => 'datetime:H:i:s',
+        'end_time'     => 'datetime:H:i:s',
     ];
 
     public static function boot()

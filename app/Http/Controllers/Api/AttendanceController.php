@@ -37,11 +37,13 @@ class AttendanceController extends Controller
 
         $list = AttendanceService::getListByEmployee($auth->id, $request->year, $request->month);
         return [
-            'status'    => 'success',
-            'data'  => ($list)->map(function($row){
+            'status' => 'success',
+            'data' => ($list)->map(function ($row) {
 
                 $row->clockin_image = isset($row->clockin_image) ? asset($row->clockin_image) : null;
                 $row->clockout_image = isset($row->clockout_image) ? asset($row->clockout_image) : null;
+
+
                 return $row;
             }),
             // 'pagination' => $pagination,
@@ -61,16 +63,15 @@ class AttendanceController extends Controller
 
         if ($data == null) {
             return [
-                'status'    => 'success',
-                'data'  => null,
+                'status' => 'success',
+                'data' => null,
             ];
         } else {
             return [
-                'status'    => 'success',
-                'data'  => new AttendanceDetailResource($data),
+                'status' => 'success',
+                'data' => new AttendanceDetailResource($data),
             ];
         }
-
 
 
     }
@@ -78,7 +79,6 @@ class AttendanceController extends Controller
     public function clockin(Request $request)
     {
         $auth = auth()->user();
-
 
 
         // $request->validate([
@@ -92,9 +92,16 @@ class AttendanceController extends Controller
         $attendance = Attendance::where('employee_id', $auth->id)
             ->where('date', $company_date->format('Y-m-d'))
             ->first() ?? new Attendance([
-                'employee_id'   => $auth->id,
-                'date'  => $company_date->format('Y-m-d'),
-            ]);
+            'employee_id' => $auth->id,
+            'date' => $company_date->format('Y-m-d'),
+        ]);
+
+        if ($attendance->clockin_time != null) {
+            return [
+                'status' => 'error',
+                'message' => 'Already clocked in',
+            ];
+        }
 
         $image = Base64FileService::saveBase64File($request->clockin_image, 'attendance_clockin');
 
@@ -108,7 +115,7 @@ class AttendanceController extends Controller
 
 
         return [
-            'status'    => 'success',
+            'status' => 'success',
             'message' => "Clockin submited, data save successful"
         ];
     }
@@ -117,7 +124,9 @@ class AttendanceController extends Controller
     {
         $auth = auth()->user();
 
-        $date = date('Y-m-d');
+        $date = $auth->company->date_time_location;
+
+        $company_date = Carbon::parse($auth->company->date_time_location);
 
         // $request->validate([
         //     'clockout_time'  => 'required',
@@ -127,25 +136,36 @@ class AttendanceController extends Controller
         // ]);
 
         $attendance = Attendance::where('employee_id', $auth->id)
-            ->where('date', $date)
+            ->where('date', $company_date->format('Y-m-d'))
             ->first();
+
+        if ($attendance == null) {
+            return [
+                'status' => 'error',
+                'message' => 'You have not checked in today',
+            ];
+        }
+
+        if ($attendance->clockout_time != null) {
+            return [
+                'status' => 'error',
+                'message' => 'Already clocked out',
+            ];
+        }
 
         $image = Base64FileService::saveBase64File($request->clockout_image, 'attendance_clockin');
 
 
-     
-
-
         if ($attendance != null) {
             $attendance->clockout_time = $attendance->employee->company->date_time_location;
-            $attendance->clockout_lat = $request->clockuot_lat;
+            $attendance->clockout_lat = $request->clockout_lat;
             $attendance->clockout_long = $request->clockout_long;
             $attendance->clockout_image = $image;
             $attendance->save();
         }
 
         return [
-            'status'    => 'success',
+            'status' => 'success',
             'message' => "Clockout submited, data save successful"
         ];
     }
@@ -191,13 +211,13 @@ class AttendanceController extends Controller
             ->count();
 
         return [
-            'status'    => 'success',
-            'data'      => [
-                'absent'    => $absent,
-                'late_clockin'  => $late,
-                'early_clockin'  => $early,
-                'no_clockin'  => $no_clockin,
-                'no_clockout'  => $no_clockout,
+            'status' => 'success',
+            'data' => [
+                'absent' => $absent,
+                'late_clockin' => $late,
+                'early_clockin' => $early,
+                'no_clockin' => $no_clockin,
+                'no_clockout' => $no_clockout,
             ],
         ];
     }
@@ -208,8 +228,8 @@ class AttendanceController extends Controller
         $months = Attendance::monthDropdown();
 
         return [
-            'status'    => 'success',
-            'data'  => $months,
+            'status' => 'success',
+            'data' => $months,
         ];
     }
 
@@ -220,8 +240,8 @@ class AttendanceController extends Controller
 
 
         return [
-            'status'    => 'success',
-            'data'  => $years,
+            'status' => 'success',
+            'data' => $years,
         ];
     }
 }

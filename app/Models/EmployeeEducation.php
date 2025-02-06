@@ -55,6 +55,9 @@ class EmployeeEducation extends Model
         'default' => 'required',
     ];
 
+    protected  $casts = [
+        'default'   => 'boolean',
+    ];
 
     public function employee()
     {
