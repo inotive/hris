@@ -61,7 +61,10 @@ class Attendance extends Model
     ];
 
     public $casts = [
-        
+        'clockin_lat'   => 'float',
+        'clockin_long'   => 'float',
+        'clockout_lat'   => 'float',
+        'clockout_long'   => 'float',
     ];
 
     public static function boot()
@@ -84,7 +87,7 @@ class Attendance extends Model
             if ($row->clockin_time != null) {
                 $date = $row->date;
                 $carbonDateTime =  Carbon::parse($row->clockin_time);
-              
+
 
                 $shift = EmployeeShift::find($employee->employee_shift_id);
 
@@ -105,7 +108,7 @@ class Attendance extends Model
             if ($row->clockout_time != null) {
                 $date = $row->date;
                 $carbonDateTime = Carbon::parse($row->clockout_time);
-            
+
             }
 
             if ($row->clockin_time && $row->clockout_time) {
