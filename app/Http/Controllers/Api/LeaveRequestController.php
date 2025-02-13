@@ -92,10 +92,10 @@ class LeaveRequestController extends Controller
             $type_count = LeaveType::where('id', $leave_type_id)->count();
 
             if ($type_count == 0) {
-                return [
+                return response()->json([
                     'success'   => 'error',
                     'message'   => 'Leave Type Not Found',
-                ];
+                ], 404);
             }
 
             $files = $request->all()['files'] ?? [];
@@ -107,9 +107,6 @@ class LeaveRequestController extends Controller
 
 
             foreach ($files as $key => $value) {
-                // $row = json_decode($value);
-
-
 
                 $base64file = Base64FileService::saveBase64File($value, 'leave_request');
 
