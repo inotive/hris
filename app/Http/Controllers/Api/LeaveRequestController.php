@@ -133,10 +133,10 @@ class LeaveRequestController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             Log::info($e);
-            return [
+            return response()->json([
                 'status'    => 'error',
                 'message'   => "Error"
-            ];
+            ], 500);
         }
     }
 
