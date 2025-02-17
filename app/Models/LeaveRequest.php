@@ -53,6 +53,11 @@ class LeaveRequest extends Model
 
     ];
 
+    public $messages = [
+        'leave_type_id.required' => 'The leave type is required.',
+        'leave_type_id.exists' => 'The selected leave type is invalid.',
+    ];
+
 
     public $request_no_prefix = "LVR";
 
