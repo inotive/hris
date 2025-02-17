@@ -89,6 +89,13 @@ class LeaveRequestController extends Controller
             ]);
 
             $leave_type_id = $request->leave_type_id;
+         
+
+            $files = $request->all()['files'] ?? [];
+
+            $validate = (new LeaveRequest())->rules;
+            $validated = $request->validate($validate);
+
             $type_count = LeaveType::where('id', $leave_type_id)->count();
 
             if ($type_count == 0) {
@@ -97,11 +104,6 @@ class LeaveRequestController extends Controller
                     'message'   => 'Leave Type Not Found',
                 ], 404);
             }
-
-            $files = $request->all()['files'] ?? [];
-
-            $validate = (new LeaveRequest())->rules;
-            $validated = $request->validate($validate);
 
             $leave_request = LeaveRequest::create($validated);
 
