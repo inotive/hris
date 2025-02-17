@@ -89,6 +89,13 @@ class LeaveRequestController extends Controller
             ]);
 
             $leave_type_id = $request->leave_type_id;
+
+            if ($leave_type_id == null) {
+                return response()->json([
+                   'success'   => 'error',
+                   'message'   => 'Leave Type is required',
+                ], 404);
+            }
          
 
             $files = $request->all()['files'] ?? [];
