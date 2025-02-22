@@ -31,8 +31,8 @@
     {{-- <x-form.image-picker :label="__('Clock In Image')" folder="attendances" name="clockout_image" :value="old('clockout_image', $form->clockout_image ?? '')" /> --}}
 
 
-    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock In Latitude')" name="clockout_lat" :value="old('clockout_lat', $form->clockout_lat ?? '')" />
-    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock In Longitude')" name="clockout_long" :value="old('clockout_long', $form->clockout_long ?? '')" />
+    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock Out Latitude')" name="clockout_lat" :value="old('clockout_lat', $form->clockout_lat ?? '')" />
+    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock Out Longitude')" name="clockout_long" :value="old('clockout_long', $form->clockout_long ?? '')" />
 
 
 </div>
