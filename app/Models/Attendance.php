@@ -109,6 +109,18 @@ class Attendance extends Model
                 $date = $row->date;
                 $carbonDateTime = Carbon::parse($row->clockout_time);
 
+                $shift = EmployeeShift::find($employee->employee_shift_id);
+
+                if ($shift != null) {
+                    $end_time = Carbon::parse($shift->end_time);
+                    if ($carbonDateTime->greaterThan($end_time)) {
+                        $row->clockout_status = 'LATE';
+                    } else {
+                        $row->clockout_status = 'EARLY';
+                    }
+
+                    Log::info($row->clockin_status);
+                }
             }
 
             if ($row->clockin_time && $row->clockout_time) {
