@@ -16,7 +16,7 @@ class LeaveRequestResource extends JsonResource
     public function toArray($request)
     {
         // return parent::toArray($request);
-    
+
         return [
             'id'    => $this->id,
             'date'  => Carbon::parse($this->date)->format('Y-m-d'),
@@ -24,6 +24,7 @@ class LeaveRequestResource extends JsonResource
             'reason'    => $this->reason,
             'files' => FilesResource::collection($this->files),
             'status'    => $this->status,
+            'approvers'   => RequestApproverResource::collection($this->request->approvers),
             'created_at'    => $this->created_at,
         ];
     }

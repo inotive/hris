@@ -47,7 +47,7 @@ class Request extends Model
 
     public function approvers()
     {
-        return $this->hasMany(RequestApprover::class, 'approver_employee_id', 'id');
+        return $this->hasMany(RequestApprover::class, 'request_id', 'id');
     }
 
 

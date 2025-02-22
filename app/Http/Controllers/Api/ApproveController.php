@@ -138,7 +138,8 @@ class ApproveController extends Controller
 
 
 
-            $req =  RequestApprover::where('id', $request_approver_id)->first();
+            $req =  RequestApprover::where('id', $request_approver_id)
+                    ->first();
 
             if ($req == null) {
                 return [
@@ -200,7 +201,7 @@ class ApproveController extends Controller
 
             return [
                 'status'    => 'success',
-                'message'   => 'Approved successfully',
+                'message'   => 'Rejected successfully',
             ];
         } catch (Exception $e) {
 
