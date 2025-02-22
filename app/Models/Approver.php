@@ -15,7 +15,7 @@ class Approver extends Model
     use HasCompany;
 
     use SearchTrait;
-    
+
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing
     protected $keyType = 'string'; // Since UUID is a string
@@ -37,6 +37,20 @@ class Approver extends Model
         'approver_employee_id'=>'',
     ];
 
+
+    public function getRequestTypeNameAttribute() : string
+    {
+        $request_type = $this->attributes['request_type'];
+
+        if ($request_type == 'leave') {
+            return 'Leave';
+        } elseif ($request_type == 'overtime') {
+            return 'Overtime';
+        } else if ($request_type == 'reimburse') {
+            return 'Reimbursement';
+        }
+        return $request_type;
+    }
 
     public function employee()
     {

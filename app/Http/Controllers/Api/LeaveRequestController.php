@@ -96,7 +96,7 @@ class LeaveRequestController extends Controller
                    'message'   => 'Leave Type is required',
                 ], 404);
             }
-         
+
 
             $files = $request->all()['files'] ?? [];
 
@@ -142,7 +142,7 @@ class LeaveRequestController extends Controller
             Log::info($e);
             return response()->json([
                 'status'    => 'error',
-                'message'   => "Error"
+                'message'   => $e->getMessage(),
             ], 500);
         }
     }

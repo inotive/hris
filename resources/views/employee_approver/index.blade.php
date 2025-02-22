@@ -35,7 +35,7 @@
                                 <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
                                 <td>{{ $value->approver_employee->full_name ?? '' }}</td>
                                 <td>{{ $value->approver_level ?? '' }}</td>
-                                <td>{{ $value->request_type ?? '' }}</td>
+                                <td>{{ $value->request_type_name ?? '' }}</td>
                                 <td class="text-end">
                                     <x-table.actions>
 

@@ -36,7 +36,7 @@ class LeaveRequest extends Model
         'end_date',
         'total_days',
         'status',
-        'reason',       
+        'reason',
 
     ];
 
@@ -86,7 +86,7 @@ class LeaveRequest extends Model
         static::created(function($row){
 
             $title = collect([
-                Carbon::parse($row->start_date)->format('d M Y'), 
+                Carbon::parse($row->start_date)->format('d M Y'),
                 Carbon::parse($row->end_date)->format('d M Y')])->join(" - ");
             $req_id = Request::create([
                 'company_id'    => $row->company_id,
@@ -148,6 +148,7 @@ class LeaveRequest extends Model
     {
         return $this->hasMany(File::class,'module_id','id');
     }
+
 
 
     public function request()

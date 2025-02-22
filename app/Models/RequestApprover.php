@@ -14,7 +14,7 @@ class RequestApprover extends Model
     use HasUuids;
 
     use SearchTrait;
-    
+
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing
     protected $keyType = 'string'; // Since UUID is a string
@@ -38,6 +38,10 @@ class RequestApprover extends Model
         'approved_at' => '',
         'active' => '',
         'reason' => '',
+    ];
+
+    protected $casts = [
+        'active' => 'boolean',
     ];
 
 
