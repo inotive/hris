@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\LeaveRequest;
 use App\Models\LeaveType;
 use App\Services\Base64FileService;
+use App\Services\LeaveTypeService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -103,14 +104,26 @@ class LeaveRequestController extends Controller
             $validate = (new LeaveRequest())->rules;
             $validated = $request->validate($validate);
 
-            $type_count = LeaveType::where('id', $leave_type_id)->count();
-
-            if ($type_count == 0) {
+           
+            $leave_type = collect(LeaveTypeService::leaveTypeByEmployee($auth->id, $leave_type_id))->first();
+            if ($leave_type == null) {
                 return response()->json([
                     'success'   => 'error',
                     'message'   => 'Leave Type Not Found',
                 ], 404);
+            } else {
+                if ($leave_type->days_remaining != null && $leave_type->days_remaining <= 0) {
+                    return response()->json([
+                       'success'   => 'error',
+                       'message'   => 'Leave Type Limit',
+                    ], 404);
+                }
             }
+
+
+            $leave_type_requested = LeaveType::where('employee_id', $auth->id)
+            ->where('leave_type_id', $leave_type_id)
+            ->where('start_date','>=');
 
             $leave_request = LeaveRequest::create($validated);
 
