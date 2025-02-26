@@ -13,9 +13,6 @@ class EmployeeLeaveType extends Model
     use HasFactory;
     use HasUuids;
 
-    use SearchTrait;
-    use CreatedByUserTrait;
-
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing
@@ -23,12 +20,13 @@ class EmployeeLeaveType extends Model
 
 
     public $fillable = [
+        'employee_id',
         'leave_type_id',
         'days_limit',
     ];
 
     public $rules = [
-        
+
     ];
 
 }

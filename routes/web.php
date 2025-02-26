@@ -112,6 +112,7 @@ Route::middleware([
     Route::resource('/employees/{employee}/contract', EmployeeContractController::class);
     Route::resource('/employees/{employee}/organization-experience', EmployeeOrganizationExperienceController::class);
     Route::resource('/employees/{employee}/approver', EmployeeApproverController::class);
+    Route::resource('/employees/{employee}/leave', \App\Http\Controllers\EmployeeLeaveController::class);
     Route::get('/employee/export', [EmployeeController::class, 'export'])->name('employees.export');
     // Route::get('/employee/import', [EmployeeController::class, 'import'])->name('employees.import');
 
