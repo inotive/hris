@@ -79,7 +79,13 @@ class EmployeeEditTab extends Component
                 'label' => __('Approver'),
             ],
 
-          
+            [
+                'code'  => 'leave',
+                'route' => route('leave.index', $this->employeeid),
+                'label' => __('Leave'),
+            ],
+
+
         ];
         return view('components.tab',[
             'tabs'  => $tabs,
