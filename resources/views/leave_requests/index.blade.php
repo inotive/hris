@@ -42,8 +42,8 @@
             <td>{{ $value->employee->full_name ?? '-' }}</td>
             <td>{{ $value->manager->full_name ?? '-' }}</td>
             <td>{{ $value->leave_type->name ?? '-' }}</td>
-            <td>{{ \Carbon\Carbon::parse($value->start_date)->format('d/m/Y') }}</td>
-            <td>{{ \Carbon\Carbon::parse($value->end_date)->format('d/m/Y') }}</td>
+            <td>{{ \App\Helpers\DateFormatHelper::format($value->start_date) }}</td>
+            <td>{{ \App\Helpers\DateFormatHelper::format($value->end_date) }}</td>
             <td>{{ $value->total_days ?? '-' }}</td>
 
 
