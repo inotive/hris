@@ -53,6 +53,8 @@ class Company extends Model
         'zip_code',
         'time_zone',
         'tax_calculation_method',
+        'lat',
+        'lng',
     ];
 
     public $rules = [
@@ -82,6 +84,8 @@ class Company extends Model
         'sub_district' => '',
         'zip_code' => '',
         'tax_calculation_method' => '',
+        'lat' => '',
+        'lng' => '',
     ];
 
     public $casts = [

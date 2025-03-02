@@ -38,8 +38,9 @@
             <td>{{ $value->employee->full_name ?? '-' }}</td>
             <td>{{ $value->employee_shift->name ?? '-' }}</td>
             <td>{{ \Carbon\Carbon::parse($value->date)->format('d M Y') }}</td>
-            <td>{{ $value->clockin_time != null ? $value->clockin_time->format('d/m/y H:i:s') : '-' }}</td>
-            <td>{{ $value->clockout_time ?? '-' }}</td>
+            <td>{{ $value->clockin_time != null ? \App\Helpers\DateFormatHelper::formatWithTime($value->clockin_time)  : '-' }}</td>
+            <td>{{ $value->clockout_time != null ? \App\Helpers\DateFormatHelper::formatWithTime($value->clockout_time)  : '-' }}</td>
+           
             <td class="text-end">
                 <x-table.actions>
                     <x-table.edit-button :id="$value->id" />
