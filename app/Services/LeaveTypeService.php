@@ -31,14 +31,15 @@ class LeaveTypeService
                 IFNULL(employee_leave_types.days_limit, leave_types.days_limit) AS days_limit,
                 (
                     SELECT
-                    count(*)
+                    SUM(DATEDIFF(leave_requests.end_date, leave_requests.start_date) + 1) AS total_days
                     FROM
                     leave_requests
                     WHERE
                     employee_id = '$employee_id'
                     AND year(leave_requests.start_date) = $year
                     AND leave_requests.leave_type_id = leave_types.id
-                AND leave_requests.status IN ('pending', 'approved')) AS request_count
+                    AND leave_requests.status IN ('pending', 'approved')
+                ) AS request_count
                 FROM
                 leave_types
                 LEFT JOIN (SELECT * FROM employee_leave_types WHERE employee_id = '$employee_id' ) AS employee_leave_types ON employee_leave_types.leave_type_id = leave_types.id
