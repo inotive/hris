@@ -98,32 +98,18 @@ class LeaveRequestController extends Controller
                 ], 404);
             }
 
-
             $files = $request->all()['files'] ?? [];
 
             $validate = (new LeaveRequest())->rules;
             $validated = $request->validate($validate);
 
-           
-            $leave_type = collect(LeaveTypeService::leaveTypeByEmployee($auth->id, $leave_type_id))->first();
-            if ($leave_type == null) {
+            $check_limit = LeaveTypeService::checkDayLimit($auth->id, $leave_type_id, $request->start_date, $request->end_date);
+            if (!$check_limit['status']) {
                 return response()->json([
                     'success'   => 'error',
-                    'message'   => 'Leave Type Not Found',
+                    'message'   => $check_limit['message'],
                 ], 404);
-            } else {
-                if ($leave_type->days_remaining != null && $leave_type->days_remaining <= 0) {
-                    return response()->json([
-                       'success'   => 'error',
-                       'message'   => 'Leave Type Limit',
-                    ], 404);
-                }
             }
-
-
-            $leave_type_requested = LeaveType::where('employee_id', $auth->id)
-            ->where('leave_type_id', $leave_type_id)
-            ->where('start_date','>=');
 
             $leave_request = LeaveRequest::create($validated);
 

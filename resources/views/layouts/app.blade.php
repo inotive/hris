@@ -76,8 +76,8 @@
                 @include('layouts.header')
 
                 {{-- class: content --}}
-                <div class="content d-flex flex-column flex-column-fluid"  id="kt_content">
-                    @include('layouts.toolbar-new')
+                <div class="content d-flex flex-column flex-column-fluid bg-white"  id="kt_content">
+                    @include('layouts.toolbar-new') 
 
 
                     @yield('content')

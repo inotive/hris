@@ -92,7 +92,9 @@
                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
                         data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
                         <img src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}"
-                            alt="user" />
+                            alt="user" 
+                            onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';"
+                            />
                     </div>
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
                         data-kt-menu="true">

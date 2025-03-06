@@ -12,10 +12,57 @@ use Illuminate\Support\Facades\Storage;
 
 class LeaveTypeService
 {
-
-    static public function leaveTypeByEmployee($employee_id, $leave_type_id = null)
+    static public function checkDayLimit($employee_id, $leave_type_id, $start_date, $end_date)
     {
-        $year = Carbon::now()->year;
+        $start = Carbon::parse($start_date);
+        $end = Carbon::parse($end_date);
+        
+        $years = [];
+        $current = $start->copy();
+        
+        while ($current->year <= $end->year) {
+            $yearStart = $current->year === $start->year ? $start : Carbon::createFromDate($current->year, 1, 1);
+            $yearEnd = $current->year === $end->year ? $end : Carbon::createFromDate($current->year, 12, 31);
+            
+            $days = $yearStart->diffInDays($yearEnd) + 1;
+            $leaveType = self::leaveTypeByEmployee($employee_id, $leave_type_id, $current->year);
+            
+            if (empty($leaveType)) {
+                return [
+                    'status' => false,
+                    'message' => 'Leave type not found'
+                ];
+            }
+            
+            $remaining = isset($leaveType[0]->days_remaining) ? $leaveType[0]->days_remaining : 0;
+            
+            if ($days > $remaining) {
+                return [
+                    'status' => false,
+                    'message' => "Insufficient leave days for year {$current->year}. Available: {$remaining}, Requested: {$days}"
+                ];
+            }
+            
+            $years[] = [
+                'year' => $current->year,
+                'days' => $days,
+                'remaining' => $remaining
+            ];
+            
+            $current->addYear();
+        }
+        
+        return [
+            'status' => true,
+            'data' => $years
+        ];
+    }
+
+    static public function leaveTypeByEmployee($employee_id, $leave_type_id = null, $year = null)
+    {
+        if ($year === null) {
+            $year = Carbon::now()->year;
+        }
 
         $add_query = "";
         if ($leave_type_id != null) {
@@ -31,14 +78,15 @@ class LeaveTypeService
                 IFNULL(employee_leave_types.days_limit, leave_types.days_limit) AS days_limit,
                 (
                     SELECT
-                    count(*)
+                    SUM(DATEDIFF(leave_requests.end_date, leave_requests.start_date) + 1) AS total_days
                     FROM
                     leave_requests
                     WHERE
                     employee_id = '$employee_id'
                     AND year(leave_requests.start_date) = $year
                     AND leave_requests.leave_type_id = leave_types.id
-                AND leave_requests.status IN ('pending', 'approved')) AS request_count
+                    AND leave_requests.status IN ('pending', 'approved')
+                ) AS request_count
                 FROM
                 leave_types
                 LEFT JOIN (SELECT * FROM employee_leave_types WHERE employee_id = '$employee_id' ) AS employee_leave_types ON employee_leave_types.leave_type_id = leave_types.id

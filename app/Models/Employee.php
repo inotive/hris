@@ -88,6 +88,13 @@ class Employee extends Authenticatable
         'head_departmen_id',
         'document_file',
         'nik',
+
+        'is_attendance_location',
+        'is_overtime_request',
+        'is_reimbursement_request',
+        'is_attendance',
+        'is_payslip',
+        'is_ewa',
     ];
 
 
@@ -151,6 +158,13 @@ class Employee extends Authenticatable
             'head_departmen_id' => '',
             'document_file' => '',
             'nik' => '',
+
+            'is_attendance_location'=>'',
+            'is_overtime_request'=>'',
+            'is_reimbursement_request'=>'',
+            'is_attendance'=>'',
+            'is_payslip'=>'',
+            'is_ewa'=>'',
         ];
     }
 

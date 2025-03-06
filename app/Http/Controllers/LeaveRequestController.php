@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\File;
 use App\Models\LeaveRequest;
 use App\Models\Post;
+use App\Services\LeaveTypeService;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -20,11 +21,27 @@ class LeaveRequestController extends Controller
 
     public function store(Request $request)
     {
+        // Check leave day limits first
+        $check_limit = LeaveTypeService::checkDayLimit(
+            $request->employee_id, 
+            $request->leave_type_id, 
+            $request->start_date, 
+            $request->end_date
+        );
+        
+        if (!$check_limit['status']) {
+            session()->flash('messages', [
+                'error' => $check_limit['message']
+            ]);
+            return [
+                'success' => false,
+                'message' => $check_limit['message']
+            ];
+        }
 
-    
+        // Then proceed with model validation
         $validate = (new $this->model)->rules;
         $validated = $request->validate($validate);
-
 
         $create = $request->all();
         unset($create['files']);
@@ -91,18 +108,30 @@ class LeaveRequestController extends Controller
         ]);
     }
 
-
-    public function update( $id, Request $request)
+    public function update($id, Request $request)
     {
-        $r =  $this->route;
-        $r = str_replace("_","-", $r);
+        // Check leave day limits first
+        $check_limit = LeaveTypeService::checkDayLimit(
+            $request->employee_id, 
+            $request->leave_type_id, 
+            $request->start_date, 
+            $request->end_date
+        );
         
+        if (!$check_limit['status']) {
+            session()->flash('messages', [
+                'error' => $check_limit['message']
+            ]);
+            return [
+                'success' => false,
+                'message' => $check_limit['message']
+            ];
+        }
+
+        // Then proceed with model validation
         $validate = (new $this->model)->rules;
         $validated = $request->validate($validate);
 
-        // Log::info($request->all());
-
-        // $this->model::where('id', $id)->update($validated);
         $form = $this->model::where('id', $id)->first();
         $form->fill($validated);
         $form->save();
