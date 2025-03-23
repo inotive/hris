@@ -14,7 +14,7 @@
 
     <div class="input-group input-group-solid mb-3">
 
-        <input type="text" class="form-control form-control-solid datetimepicker" placeholder="{{ $placeholder }}"
+        <input type="text" class="form-control form-control-solid datetimepickerinput" placeholder="{{ $placeholder }}"
             name="{{ $name }}" value="{{ old($name, $value ?? '') }}">
         <span class="input-group-text border-0"><i class="fa fa-fw fa-calendar"></i></span>
     </div>

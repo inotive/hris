@@ -90,6 +90,7 @@ class Employee extends Authenticatable
         'nik',
 
         'is_attendance_location',
+        'is_leave_request',
         'is_overtime_request',
         'is_reimbursement_request',
         'is_attendance',
@@ -160,6 +161,7 @@ class Employee extends Authenticatable
             'nik' => '',
 
             'is_attendance_location'=>'',
+            'is_leave_request'=>'',
             'is_overtime_request'=>'',
             'is_reimbursement_request'=>'',
             'is_attendance'=>'',

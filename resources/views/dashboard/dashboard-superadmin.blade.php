@@ -153,7 +153,7 @@
 {{--                                <th>Industry</th>--}}
                                 <th>{{ __('dashboard.top_company.columns.total_employee') }}</th>
                                 <th>{{ __('dashboard.top_company.columns.permanent') }}</th>
-                                <th>{{ __('dashboard.top_company.columns.contact') }}</th>
+                                <th>{{ __('dashboard.top_company.columns.contract') }}</th>
                                 <th>{{ __('dashboard.top_company.columns.total_department') }}</th>
                                 <th>{{ __('dashboard.top_company.columns.activity_rate') }}</th>
                             </tr>

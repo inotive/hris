@@ -10,8 +10,8 @@
             <div class="alert alert-warning">{{ __('You have not changed your password yet, please change your password first.') }}</div>
         </div>
     @endif
-    <x-form.input type="text" :label="__('Password')" name="password" :value="old('password', '')" />
-    <x-form.input type="text" :label="__('Re Password')" name="password_confirmation" :value="old('password_confirmation', '')" />
+    <x-form.input type="password" :label="__('Password')" name="password" :value="old('password', '')" />
+    <x-form.input type="password" :label="__('Re Password')" name="password_confirmation" :value="old('password_confirmation', '')" />
 
 </div>
 
