@@ -88,9 +88,10 @@
     </div>
 
     <h4>{{ __('Employee Menu Config') }}</h4>
-    <hr>    
+    <hr>
 
     <div class="row">
+        <x-form.switch class="col-4 col-lg-2" label="Leave Req" name="is_leave_request" :value="old('is_leave_request', $form->is_leave_request ?? '')" />
         <x-form.switch class="col-4 col-lg-2" label="Overtime Req" name="is_overtime_request" :value="old('is_overtime_request', $form->is_overtime_request ?? '')" />
         <x-form.switch class="col-4 col-lg-2" label="Reimbursement Req" name="is_reimbursement_request" :value="old('is_reimbursement_request', $form->is_reimbursement_request ?? '')" />
         <x-form.switch class="col-4 col-lg-2" label="Attendance" name="is_attendance" :value="old('is_attendance', $form->is_attendance ?? '')" />

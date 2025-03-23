@@ -38,6 +38,7 @@
 
     <h4>{{ __('Company Menu Config') }}</h4>
     <hr>
+    <x-form.switch label="Leave Request" name="is_leave_request" :value="old('is_leave_request', $form->is_leave_request ?? '')" />
     <x-form.switch label="Overtime Request" name="is_overtime_request" :value="old('is_overtime_request', $form->is_overtime_request ?? '')" />
     <x-form.switch label="Reimbursement Request" name="is_reimbursement_request" :value="old('is_reimbursement_request', $form->is_reimbursement_request ?? '')" />
     <x-form.switch label="Attendance" name="is_attendance" :value="old('is_attendance', $form->is_attendance ?? '')" />
