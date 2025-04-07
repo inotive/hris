@@ -140,7 +140,7 @@ trait CrudTrait
         }
         $validated = $request->validate($validate);
 
-        // Log::info($request->all());
+        Log::info($request->all());
 
         // $this->model::where('id', $id)->update($validated);
         $form = $this->model::where('id', $id)->first();

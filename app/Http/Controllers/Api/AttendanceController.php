@@ -59,7 +59,12 @@ class AttendanceController extends Controller
 
         $data = Attendance::where('employee_id', $auth->id)
             ->where('date', $date)
-            ->first();
+            ->first() ?? Attendance::create([
+                'employee_id' => $auth->id,
+                'employee_shift_id' => $auth->employee_shift_id,
+                'date' => $date,
+
+            ]);
 
         if ($data == null) {
             return [
@@ -80,12 +85,23 @@ class AttendanceController extends Controller
     {
         $auth = auth()->user();
 
+        $is_attendance_location = $auth->is_attendance_location ?? false;
 
-        // $request->validate([
-        //     'clockin_lat'  => 'required',
-        //     'clockin_long'  => 'required',
-        //     'clockin_image'  => 'required',
-        // ]);
+        // if is attendance location true 
+        // then check location by company latitude longitude
+        if ($is_attendance_location) {
+            $lat = $auth->company->lat;
+            $lng = $auth->company->lng;
+
+            $distance = AttendanceService::getDistance($request->clockin_lat, $request->clockin_long, $lat, $lng);
+
+            if ($distance > 500) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'You are not in the attendance location',
+                ], 200);
+            }
+        }
 
         $company_date = Carbon::parse($auth->company->date_time_location);
 

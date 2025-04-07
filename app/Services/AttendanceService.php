@@ -82,4 +82,30 @@ class AttendanceService
         });
         return $list;
     }
+
+
+    public static function getDistance($user_lat, $user_lng, $company_lat, $company_lng)
+    {
+        // Calculate distance between two coordinates using Haversine formula
+        $earthRadius = 6371000; // Earth's radius in meters
+        
+        // Convert degrees to radians
+        $latFrom = deg2rad($user_lat);
+        $lngFrom = deg2rad($user_lng);
+        $latTo = deg2rad($company_lat);
+        $lngTo = deg2rad($company_lng);
+        
+        // Calculate differences
+        $latDelta = $latTo - $latFrom;
+        $lngDelta = $lngTo - $lngFrom;
+        
+        // Haversine formula
+        $angle = 2 * asin(sqrt(pow(sin($latDelta / 2), 2) + 
+            cos($latFrom) * cos($latTo) * pow(sin($lngDelta / 2), 2)));
+        
+        // Calculate distance in meters
+        $distance = $angle * $earthRadius;
+        
+        return round($distance); // Return distance in meters (rounded)
+    }
 }
