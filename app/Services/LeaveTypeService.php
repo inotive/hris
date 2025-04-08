@@ -34,9 +34,9 @@ class LeaveTypeService
                 ];
             }
             
-            $remaining = isset($leaveType[0]->days_remaining) ? $leaveType[0]->days_remaining : 0;
+            $remaining = isset($leaveType[0]->days_remaining) ? $leaveType[0]->days_remaining : null;
             
-            if ($days > $remaining) {
+            if ($days > $remaining && $remaining != null) {
                 return [
                     'status' => false,
                     'message' => "Insufficient leave days for year {$current->year}. Available: {$remaining}, Requested: {$days}"
@@ -101,6 +101,8 @@ class LeaveTypeService
 
 
         $leaveTypes = DB::select($query);
+
+        // Log::info($leaveTypes);
 
         return $leaveTypes;
     }

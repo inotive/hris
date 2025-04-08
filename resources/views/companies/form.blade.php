@@ -31,8 +31,8 @@
     <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')" />
 
     <div class="col-12 col-lg-6 mb-4 row">
-        <x-form.number type="text" label="Latitude" name="lat" :value="$form->lat ?? ''" />
-        <x-form.number type="text" label="Longitude" name="lng" :value="$form->lng ?? ''" />
+        <x-form.input type="text" label="Latitude" name="lat" :value="$form->lat ?? ''" />
+        <x-form.input type="text" label="Longitude" name="lng" :value="$form->lng ?? ''" />
     </div>
 
 

@@ -83,7 +83,7 @@
     <hr>
 
     <div class="row">
-        <x-form.switch label="Attendance Location" name="is_overtime_request" :value="old('is_overtime_request', $form->is_overtime_request ?? '')" />
+        <x-form.switch label="Attendance Location" name="is_attendance_location" :value="old('is_attendance_location', $form->is_attendance_location ?? '')" />
 
     </div>
 

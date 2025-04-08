@@ -160,23 +160,34 @@ class Employee extends Authenticatable
             'document_file' => '',
             'nik' => '',
 
-            'is_attendance_location'=>'',
-            'is_leave_request'=>'',
-            'is_overtime_request'=>'',
-            'is_reimbursement_request'=>'',
-            'is_attendance'=>'',
-            'is_payslip'=>'',
-            'is_ewa'=>'',
+            'is_attendance_location' => '',
+            'is_leave_request' => '',
+            'is_overtime_request' => '',
+            'is_reimbursement_request' => '',
+            'is_attendance' => '',
+            'is_payslip' => '',
+            'is_ewa' => '',
         ];
     }
 
 
     protected $hidden = [
         'password',
+        'code_forget_password',
+        'token_forget_password',
     ];
 
     protected $casts = [
+        'status'    => 'boolean',
         'document_is_unlimited' => 'boolean',
+        'is_attendance_location' => 'boolean',
+        'is_leave_request' => 'boolean',
+        'is_overtime_request' => 'boolean',
+        'is_reimbursement_request' => 'boolean',
+        'is_attendance' => 'boolean',
+        'is_payslip' => 'boolean',
+        'is_ewa' => 'boolean',
+
     ];
 
     public static function boot()
@@ -312,10 +323,23 @@ class Employee extends Authenticatable
         $em = $data[0] ?? null;
 
         if ($em != null) {
+            $em->status = $em->status == 1 ? true : false;
 
-            if ($em->document_is_unlimited != null && is_int($em->document_is_unlimited)) {
-                $em->document_is_unlimited = $em->document_is_unlimited == 1? true : false;
-            }
+            $em->document_is_unlimited = $em->document_is_unlimited == 1 ? true : false;
+
+            $em->is_attendance_location = $em->is_attendance_location == 1 ? true : false;
+
+            $em->is_leave_request = $em->is_leave_request == 1 ? true : false;
+            $em->is_overtime_request = $em->is_overtime_request == 1 ? true : false;
+
+            $em->is_reimbursement_request = $em->is_reimbursement_request == 1 ? true : false;
+
+            $em->is_attendance = $em->is_attendance == 1 ? true : false;
+
+            $em->is_payslip = $em->is_payslip == 1 ? true : false;
+
+            $em->is_ewa = $em->is_ewa == 1 ? true : false;
+
 
             if ($em->department != null) $em->department = json_decode($em->department);
             if ($em->position != null) $em->position = json_decode($em->position);
@@ -323,7 +347,6 @@ class Employee extends Authenticatable
             if ($em->shift != null) {
                 $json = json_decode($em->shift, true);
                 $em->shift = new EmployeeShift($json);
-
             }
             if ($em->company != null) {
                 $json = json_decode($em->company, true);
@@ -339,7 +362,6 @@ class Employee extends Authenticatable
                 } else {
                     $em->head = null;
                 }
-
             }
         }
 
@@ -452,7 +474,6 @@ class Employee extends Authenticatable
             ->get();
 
         return $attendances;
-
     }
 
 
@@ -474,7 +495,5 @@ class Employee extends Authenticatable
             ->get();
 
         return $leave;
-
     }
-
 }

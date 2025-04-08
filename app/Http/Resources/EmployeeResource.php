@@ -21,6 +21,8 @@ class EmployeeResource extends JsonResource
             $data['image'] = Storage::url($this->image);
         }
 
+        $data['sallary'] = $this->sallary;
+
         $data['department'] = $this->department;
         $data['position'] = $this->position;
         $data['level'] = $this->level;
