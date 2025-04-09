@@ -52,7 +52,7 @@ class AttendanceService
                 WHERE
                 attendances.employee_id = '".$employee_id."'
                 AND YEAR( attendances.DATE ) = ".$year."
-                AND MONTH( attendances.DATE ) = ".$month." ORDER BY attendances.`date`, DESC");
+                AND MONTH( attendances.DATE ) = ".$month." ORDER BY attendances.`date` DESC");
 
         $list = collect($list)->map(function($row){
             $row->is_day_off = $row->is_day_off == 1 ? true : false;
