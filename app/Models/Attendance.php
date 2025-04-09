@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasCompany;
 use App\Traits\HasCustomTimestamp;
 use App\Traits\SearchTrait;
 use Carbon\Carbon;
@@ -17,6 +18,7 @@ class Attendance extends Model
 
     use SearchTrait;
     use HasCustomTimestamp;
+    use HasCompany;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
@@ -77,6 +79,7 @@ class Attendance extends Model
             if ($row->employee_id != null)  {
 
                 $row->employee_shift_id = $employee->employee_shift_id;
+                $row->company_id = $employee->company_id;
             }
         });
 
