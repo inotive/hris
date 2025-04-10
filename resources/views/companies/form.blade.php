@@ -1,4 +1,5 @@
 <div class="row">
+  @if (isset($form))
   <div class="d-flex flex-wrap flex-sm-nowrap mt-8">
     <div class="me-7 mb-4">
       <div
@@ -139,7 +140,6 @@
       </div>
     </div>
   </div>
-  @if (isset($form))
   <x-company-edit-tab :companyid="$form->id" :tab="'edit'" />
   @endif
 
