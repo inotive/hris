@@ -46,7 +46,7 @@ class EmployeeDepartment extends Model
     }
 
        // data array to show button dummy data
-    public static function dummy_data() : array
+    public static function dummy_data($company_id = null) : array
     {
         $company_id = $company_id ?? auth()->user()->company_id ?? null;
 
