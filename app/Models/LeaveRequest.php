@@ -45,11 +45,11 @@ class LeaveRequest extends Model
         'employee_id'  => 'required',
         'manager_id'  => '',
         'leave_type_id'  => 'required|exists:leave_types,id',
-        'start_date'    => 'required|date|before:end_date',
-        'end_date'      => 'required|date|after:start_date',
+        'start_date'    => 'required|date|before_or_equal:end_date',
+        'end_date'      => 'required|date|after_or_equal:start_date',
         'total_days'  => '',
         'status'  => '',
-        'reason'  => 'required',
+        'reason'  => '',
 
     ];
 
