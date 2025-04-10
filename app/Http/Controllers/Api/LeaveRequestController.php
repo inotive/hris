@@ -12,6 +12,7 @@ use App\Services\LeaveTypeService;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Log;
@@ -227,6 +228,8 @@ class LeaveRequestController extends Controller
 
     public function leaveType(Request $request)
     {
+        
+
         $company_id = $request->company_id ?? auth()->user()->company_id;
         $list = LeaveType::where('company_id', $company_id)->orderBy('name')->pluck('name', 'id');
 
@@ -238,9 +241,12 @@ class LeaveRequestController extends Controller
             ];
         }
 
-        return [
+        $response = [
             'status'    => 'success',
             'data'      => $data,
         ];
+
+
+        return $response;
     }
 }

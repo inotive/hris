@@ -85,23 +85,6 @@ class AttendanceController extends Controller
     {
         $auth = auth()->user();
 
-        $is_attendance_location = $auth->is_attendance_location ?? false;
-
-        // if is attendance location true 
-        // then check location by company latitude longitude
-        if ($is_attendance_location) {
-            $lat = $auth->company->lat;
-            $lng = $auth->company->lng;
-
-            $distance = AttendanceService::getDistance($request->clockin_lat, $request->clockin_long, $lat, $lng);
-
-            if ($distance > 500) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'You are not in the attendance location',
-                ], 200);
-            }
-        }
 
         $company_date = Carbon::parse($auth->company->date_time_location);
 
@@ -118,6 +101,29 @@ class AttendanceController extends Controller
                 'message' => 'Already clocked in',
             ];
         }
+
+        $is_attendance_location = $auth->is_attendance_location ?? false;
+
+        // if is attendance location true 
+        // then check location by company latitude longitude
+        if ($is_attendance_location) {
+            $lat = $auth->company->lat;
+            $lng = $auth->company->lng;
+
+            $distance = AttendanceService::getDistance($request->clockin_lat, $request->clockin_long, $lat, $lng);
+
+            if ($distance > 500) {
+                // return response()->json([
+                //     'status' => 'error',
+                //     'message' => 'You are not in the attendance location',
+                // ], 200);
+
+                $attendance->clockin_range_status = 'OUT';
+            } else {
+                $attendance->clockin_range_status = 'IN';
+            }
+        }
+
 
         $image = Base64FileService::saveBase64File($request->clockin_image, 'attendance_clockin');
 
@@ -167,6 +173,29 @@ class AttendanceController extends Controller
                 'status' => 'error',
                 'message' => 'Already clocked out',
             ];
+        }
+
+
+        $is_attendance_location = $auth->is_attendance_location ?? false;
+
+        // if is attendance location true 
+        // then check location by company latitude longitude
+        if ($is_attendance_location) {
+            $lat = $auth->company->lat;
+            $lng = $auth->company->lng;
+
+            $distance = AttendanceService::getDistance($request->clockin_lat, $request->clockin_long, $lat, $lng);
+
+            if ($distance > 500) {
+                // return response()->json([
+                //     'status' => 'error',
+                //     'message' => 'You are not in the attendance location',
+                // ], 200);
+
+                $attendance->clockout_range_status = 'OUT';
+            } else {
+                $attendance->clockout_range_status = 'IN';
+            }
         }
 
         $image = Base64FileService::saveBase64File($request->clockout_image, 'attendance_clockin');

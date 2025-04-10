@@ -19,7 +19,7 @@ class PayslipResource extends JsonResource
 
         return [
             'id'    => $this->id,
-            'month' => Carbon::parse($this->year . '-' . $this->month .'-01')->format('F'),
+            'month' => __(Carbon::parse($this->year . '-' . $this->month .'-01')->format('F')) . ' ' . $this->year,
             'month_period_start'    => $this->month_period_start,
             'month_period_end'  => $this->month_period_end,
             'sallary'   => $this->take_home_pay,
