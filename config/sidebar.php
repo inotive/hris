@@ -48,6 +48,12 @@ return [
                     'roles' => ['superadmin', 'admin'],
                     'routes' => [
                         'company-subscriptions-detail.index' => ['superadmin', 'admin'],
+                        'company-subscriptions-detail.create' => ['superadmin'],
+                        'company-subscriptions-detail.store' => ['superadmin'],
+                        'company-subscriptions-detail.edit' => ['superadmin'],
+                        'company-subscriptions-detail.update' => ['superadmin'],
+                        'company-subscriptions-detail.destroy' => ['superadmin'],
+                   
                         'company-subscriptions.index' => ['superadmin', 'admin'],
                         'company-subscriptions.create' => ['superadmin'],
                         'company-subscriptions.store' => ['superadmin'],

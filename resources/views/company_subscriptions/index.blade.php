@@ -37,7 +37,7 @@
             <td class="text-end">
                 <x-table.actions>
                     <x-table.action-button
-                        href="{{ route('company-subscriptions-detail.index', ['company_id' => $value->id]) }}"
+                        href="{{ route('company-subscriptions-detail.index',[$value->id]) }}"
                         label="{{ __('Detail') }}" />
                     {{-- <x-table.edit-button :id="$value->id" />
                     <x-table.delete-button :id="$value->id" /> --}}
