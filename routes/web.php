@@ -7,6 +7,7 @@ use App\Http\Controllers\ChangeLanguageController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CompanyPayoutSettingController;
 use App\Http\Controllers\CompanySubscriptionController;
+use App\Http\Controllers\CompanySubscriptionDetailController;
 use App\Http\Controllers\EmployeeApproverController;
 use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\EmployeeController;
@@ -132,6 +133,7 @@ Route::middleware([
     Route::resource('/employee-payslips', EmployeePayslipController::class);
 
     Route::resource('/company-subscriptions', CompanySubscriptionController::class);
+    Route::resource('/company-subscriptions-detail', CompanySubscriptionDetailController::class);
 
     Route::resource('/attendances', AttendanceContrller::class);
     Route::resource('/banners', BannerController::class);
