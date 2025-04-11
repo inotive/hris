@@ -16,4 +16,11 @@ class CompanySubscriptionController extends Controller
     public $route = 'company-subscriptions';
     public $page_title = 'Company Subscriptions';
     public $action_title = 'Company Subscription';
+
+
+    public function addButtonHref()
+    {
+        return '';
+    }
+
 }

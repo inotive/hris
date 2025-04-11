@@ -133,8 +133,18 @@ Route::middleware([
     Route::resource('/employee-payslips', EmployeePayslipController::class);
 
     Route::resource('/company-subscriptions', CompanySubscriptionController::class);
-    Route::resource('/company-subscriptions-detail', CompanySubscriptionDetailController::class);
-
+    Route::resource('/company-subscriptions/{company}/detail', CompanySubscriptionDetailController::class, [
+        'names' => [
+            'index' => 'company-subscriptions-detail.index',
+            'create' => 'company-subscriptions-detail.create',
+            'store' => 'company-subscriptions-detail.store',
+            'show' => 'company-subscriptions-detail.show',
+            'edit' => 'company-subscriptions-detail.edit',
+            'update' => 'company-subscriptions-detail.update',
+            'destroy' => 'company-subscriptions-detail.destroy',
+        ]
+    ]);
+    
     Route::resource('/attendances', AttendanceContrller::class);
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);

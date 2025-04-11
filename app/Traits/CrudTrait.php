@@ -73,6 +73,8 @@ trait CrudTrait
 
         if ($request->redirect != null) {
             session()->flash('redirect', $request->redirect);
+
+            Log::info($request->redirect);
         } 
 
 

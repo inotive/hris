@@ -1,4 +1,4 @@
-<div class="d-flex flex-wrap flex-sm-nowrap mt-8">
+<div class="d-flex flex-wrap flex-sm-nowrap">
     <div class="me-7 mb-4">
         <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
             <img src="{{ Storage::url($company->logo ?? '') }}" alt="image"

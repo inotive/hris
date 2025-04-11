@@ -10,6 +10,7 @@ use App\Traits\SearchTrait;
 use App\Traits\CreatedByUserTrait;
 use App\Traits\HasMyCompany;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -158,7 +159,6 @@ class Company extends Model
 
 
         return [$month_period_start, $month_period_end];
-
     }
 
 
@@ -167,12 +167,12 @@ class Company extends Model
         return Carbon::now()->setTimezone($this->time_zone)->toIso8601String();
     }
 
-    public function getTotalUserAttribute() : int
+    public function getTotalUserAttribute(): int
     {
         return User::where('company_id', $this->id)->count();
     }
 
-    public function getTotalEmployeeAttribute() : int
+    public function getTotalEmployeeAttribute(): int
     {
         return Employee::where('company_id', $this->id)->count();
     }
@@ -211,13 +211,17 @@ class Company extends Model
 
     public function day_left_subscription()
     {
-        $active_subscription = $this->active_subscriptions()->first();
-        if ($active_subscription) {
-            return Carbon::now()->diffInDays($active_subscription->end_date_at);
+        try {
+            $active_subscription = $this->active_subscriptions()->first();
+            if ($active_subscription) {
+                return Carbon::now()->diffInDays($active_subscription->end_date_at);
+            }
+            return 0;
+        } catch (Exception $e) {
+            return 0;
         }
-        return 0;
     }
-    
+
     public function total_day_subscription()
     {
         $active_subscription = $this->active_subscriptions()->first();
@@ -229,11 +233,18 @@ class Company extends Model
 
     public function day_left_percent_subscription()
     {
-        $active_subscription = $this->active_subscriptions()->first();
-        if ($active_subscription) {
-            return round(($this->day_left_subscription() / $this->total_day_subscription()) * 100,0);
+        try {
+            $active_subscription = $this->active_subscriptions()->first();
+            if ($active_subscription) {
+                if ($this->total_day_subscription() >= 0) {
+                    return 0;
+                }
+                return round(($this->day_left_subscription() / $this->total_day_subscription()) * 100, 0);
+            }
+            return 0;
+        } catch (Exception $e) {
+            return 0;
         }
-        return 0;
     }
 
 
@@ -241,5 +252,4 @@ class Company extends Model
     {
         return $this->hasMany(Employee::class, 'company_id', 'id');
     }
-
 }
