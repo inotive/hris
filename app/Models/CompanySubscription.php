@@ -23,6 +23,8 @@ class CompanySubscription extends Model
     protected $keyType = 'string'; // Since UUID is a string
 
 
+    protected $table = 'company_subscriptions';
+
     public $fillable = [
         'company_id',
         'start_date_at',

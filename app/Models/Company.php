@@ -167,7 +167,12 @@ class Company extends Model
         return Carbon::now()->setTimezone($this->time_zone)->toIso8601String();
     }
 
-    public function getTotalEmployeeAttribute()
+    public function getTotalUserAttribute() : int
+    {
+        return User::where('company_id', $this->id)->count();
+    }
+
+    public function getTotalEmployeeAttribute() : int
     {
         return Employee::where('company_id', $this->id)->count();
     }
@@ -204,5 +209,37 @@ class Company extends Model
             ->where('end_date_at', '>=', Carbon::now()->format('Y-m-d'));
     }
 
+    public function day_left_subscription()
+    {
+        $active_subscription = $this->active_subscriptions()->first();
+        if ($active_subscription) {
+            return Carbon::now()->diffInDays($active_subscription->end_date_at);
+        }
+        return 0;
+    }
+    
+    public function total_day_subscription()
+    {
+        $active_subscription = $this->active_subscriptions()->first();
+        if ($active_subscription) {
+            return Carbon::parse($active_subscription->start_date_at)->diffInDays($active_subscription->end_date_at);
+        }
+        return 0;
+    }
+
+    public function day_left_percent_subscription()
+    {
+        $active_subscription = $this->active_subscriptions()->first();
+        if ($active_subscription) {
+            return round(($this->day_left_subscription() / $this->total_day_subscription()) * 100,0);
+        }
+        return 0;
+    }
+
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class, 'company_id', 'id');
+    }
 
 }

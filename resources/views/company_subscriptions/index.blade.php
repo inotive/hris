@@ -27,17 +27,20 @@
 
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
             @if (auth()->user()->company_id == null)
-                <td>{{ $value->company->name ?? '-' }}</td>
+                <td>{{ $value->name ?? '-' }}</td>
             @endif
 
-            <td>{{ $value->start_date_at ?? '-' }}</td>
-            <td>{{ $value->end_date_at ?? '-' }}</td>
-            <td>{{ $value->payment_status == 1 ? __('Yes') : __('ID') }}</td>
+            <td>{{ $value->active_subscriptions()->first()->start_date_at ?? '-' }}</td>
+            <td>{{ $value->active_subscriptions()->first()->end_date_at ?? '-' }}</td>
+            <td>{{ $value->active_subscriptions()->first() != null ? ($value->active_subscriptions()->first()->payment_status == 1 ? __('Yes') : __('No')) : "-" }}</td>
 
             <td class="text-end">
                 <x-table.actions>
-                    <x-table.edit-button :id="$value->id" />
-                    <x-table.delete-button :id="$value->id" />
+                    <x-table.action-button
+                        href="{{ route('company-subscriptions-detail.index', ['company_id' => $value->id]) }}"
+                        label="{{ __('Detail') }}" />
+                    {{-- <x-table.edit-button :id="$value->id" />
+                    <x-table.delete-button :id="$value->id" /> --}}
                 </x-table.actions>
             </td>
 
