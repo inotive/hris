@@ -5,7 +5,7 @@
 
 
     <x-form.datepicker :label="__('Start Date')" name="start_date_at" :value="old('start_date_at', $form->start_date_at ?? '')" />
-    <x-form.datepicker :label="__('End Date')" name="end_date_at" :value="old('end_date_at', $form->start_date_at ?? '')" />
+    <x-form.datepicker :label="__('End Date')" name="end_date_at" :value="old('end_date_at', $form->end_date_at ?? '')" />
 
     <x-form.input type="text" :label="__('Subscription Type')" name="subscription_type" :value="old('subscription_type', $form->subscription_type ?? '')" />
     <x-form.textarea :label="__('Subscription Description')" name="subscription_description" :value="old('subscription_description', $form->subscription_description ?? '')" />
