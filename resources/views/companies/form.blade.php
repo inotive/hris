@@ -1,51 +1,144 @@
 <div class="row">
-    @if (isset($form))
-        <x-company-info-detail :companyid="$form->id"/>
-        <x-company-edit-tab :companyid="$form->id" :tab="'edit'" />
-    @endif
-
-    <h4>{{ __('Company Basic Information') }}</h4>
-    <div>
-        <hr />
+  @if (isset($form))
+  <div class="pt-6">
+    <x-company-info-detail :companyid="$form->id" />
+    <div class="separator mb-6"></div>
+  </div>
+  <div class="w-full mb-6">
+    <div
+      class="card px-6 border-0 rounded-lg"
+      style="background-color: #eef3ff">
+      <x-company-edit-tab :companyid="$form->id" :tab="'edit'" />
     </div>
-    <x-form.input type="text" :label="__('Name')" name="name" :value="old('name', $form->name ?? '')" />
-    <x-form.input type="email" :label="__('Email')" name="email" :value="old('email', $form->email ?? '')" />
-    <x-form.phone :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')" />
-    <x-form.select :list="['backward' => 'Backward', 'current' => 'Current']" label="Cut Off Payroll Method" name="cut_off_payroll_method" :value="old('cut_off_payroll_method', $form->cut_off_payroll_method ?? '')" />
-    <x-form.number min="1" max="31" :label="__('Cut Off Payroll Date')" name="cut_off_payroll_date" :value="old('cut_off_payroll_date', $form->cut_off_payroll_date ?? '')" />
-    <x-form.select :list="['none' => 'None', 'gross' => 'Gross', 'gross-up' => 'Gross Up']" label="Tax Calculation Method" name="tax_calculation_method" :value="old('tax_calculation_method', $form->tax_calculation_method ?? '')" />
+  </div>
+  @endif
 
-    <x-form.image-picker :label="__('Logo')" name="logo" folder="companies" :value="old('logo', $form->logo ?? '')" />
+  <h4>{{ __("Company Basic Information") }}</h4>
+  <div>
+    <hr />
+  </div>
+  <x-form.input
+    type="text"
+    :label="__('Name')"
+    name="name"
+    :value="old('name', $form->name ?? '')" />
+  <x-form.input
+    type="email"
+    :label="__('Email')"
+    name="email"
+    :value="old('email', $form->email ?? '')" />
+  <x-form.phone
+    :label="__('Phone')"
+    name="phone"
+    :value="old('phone', $form->phone ?? '')" />
+  <x-form.select
+    :list="['backward' => 'Backward', 'current' => 'Current']"
+    label="Cut Off Payroll Method"
+    name="cut_off_payroll_method"
+    :value="old('cut_off_payroll_method', $form->cut_off_payroll_method ?? '')" />
+  <x-form.number
+    min="1"
+    max="31"
+    :label="__('Cut Off Payroll Date')"
+    name="cut_off_payroll_date"
+    :value="old('cut_off_payroll_date', $form->cut_off_payroll_date ?? '')" />
+  <x-form.select
+    :list="['none' => 'None', 'gross' => 'Gross', 'gross-up' => 'Gross Up']"
+    label="Tax Calculation Method"
+    name="tax_calculation_method"
+    :value="old('tax_calculation_method', $form->tax_calculation_method ?? '')" />
 
-    <x-form.switch label="Status" name="status" :value="old('status', $form->status ?? '')" />
+  <x-form.image-picker
+    :label="__('Logo')"
+    name="logo"
+    folder="companies"
+    :value="old('logo', $form->logo ?? '')" />
 
-    <h4>{{ __('Company Address Information') }}</h4>
-    <div>
-        <hr />
-    </div>
-    <x-form.textarea :label="__('Address')" name="address" :value="old('address', $form->address ?? '')" />
-    <x-form.input type="text" label="Sub District" name="sub_district" :value="$form->sub_district ?? ''" />
-    <x-form.input type="text" label="District" name="district" :value="$form->district ?? ''" />
-    <x-form.input type="text" label="City" name="city" :value="$form->city ?? ''" />
-    <x-form.input type="text" label="Province" name="province" :value="$form->province ?? ''" />
-    <x-form.input type="text" label="Country" name="country" :value="$form->country ?? ''" />
-    <x-form.number type="text" label="Postal Code" name="zip_code" :value="$form->zip_code ?? ''" />
+  <x-form.switch
+    label="Status"
+    name="status"
+    :value="old('status', $form->status ?? '')" />
 
-    <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')" />
+  <h4>{{ __("Company Address Information") }}</h4>
+  <div>
+    <hr />
+  </div>
+  <x-form.textarea
+    :label="__('Address')"
+    name="address"
+    :value="old('address', $form->address ?? '')" />
+  <x-form.input
+    type="text"
+    label="Sub District"
+    name="sub_district"
+    :value="$form->sub_district ?? ''" />
+  <x-form.input
+    type="text"
+    label="District"
+    name="district"
+    :value="$form->district ?? ''" />
+  <x-form.input
+    type="text"
+    label="City"
+    name="city"
+    :value="$form->city ?? ''" />
+  <x-form.input
+    type="text"
+    label="Province"
+    name="province"
+    :value="$form->province ?? ''" />
+  <x-form.input
+    type="text"
+    label="Country"
+    name="country"
+    :value="$form->country ?? ''" />
+  <x-form.number
+    type="text"
+    label="Postal Code"
+    name="zip_code"
+    :value="$form->zip_code ?? ''" />
 
-    <div class="col-12 col-lg-6 mb-4 row">
-        <x-form.input type="text" label="Latitude" name="lat" :value="$form->lat ?? ''" />
-        <x-form.input type="text" label="Longitude" name="lng" :value="$form->lng ?? ''" />
-    </div>
+  <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')" />
 
-    <h4>{{ __('Company Menu Config') }}</h4>
-    <div>
-        <hr />
-    </div>
-    <x-form.switch label="Leave Request" name="is_leave_request" :value="old('is_leave_request', $form->is_leave_request ?? '')" />
-    <x-form.switch label="Overtime Request" name="is_overtime_request" :value="old('is_overtime_request', $form->is_overtime_request ?? '')" />
-    <x-form.switch label="Reimbursement Request" name="is_reimbursement_request" :value="old('is_reimbursement_request', $form->is_reimbursement_request ?? '')" />
-    <x-form.switch label="Attendance" name="is_attendance" :value="old('is_attendance', $form->is_attendance ?? '')" />
-    <x-form.switch label="EWA" name="is_ewa" :value="old('is_ewa', $form->is_ewa ?? '')" />
-    <x-form.switch label="Payslip" name="is_payslip" :value="old('is_payslip', $form->is_payslip ?? '')" />
+  <div class="col-12 col-lg-6 mb-4 row">
+    <x-form.input
+      type="text"
+      label="Latitude"
+      name="lat"
+      :value="$form->lat ?? ''" />
+    <x-form.input
+      type="text"
+      label="Longitude"
+      name="lng"
+      :value="$form->lng ?? ''" />
+  </div>
+
+  <h4>{{ __("Company Menu Config") }}</h4>
+  <div>
+    <hr />
+  </div>
+  <x-form.switch
+    label="Leave Request"
+    name="is_leave_request"
+    :value="old('is_leave_request', $form->is_leave_request ?? '')" />
+  <x-form.switch
+    label="Overtime Request"
+    name="is_overtime_request"
+    :value="old('is_overtime_request', $form->is_overtime_request ?? '')" />
+  <x-form.switch
+    label="Reimbursement Request"
+    name="is_reimbursement_request"
+    :value="old('is_reimbursement_request', $form->is_reimbursement_request ?? '')" />
+  <x-form.switch
+    label="Attendance"
+    name="is_attendance"
+    :value="old('is_attendance', $form->is_attendance ?? '')" />
+  <x-form.switch
+    label="EWA"
+    name="is_ewa"
+    :value="old('is_ewa', $form->is_ewa ?? '')" />
+  <x-form.switch
+    label="Payslip"
+    name="is_payslip"
+    :value="old('is_payslip', $form->is_payslip ?? '')" />
 </div>

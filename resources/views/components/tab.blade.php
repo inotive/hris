@@ -2,14 +2,14 @@
 <div class="">
   {{-- FOR LARGE SCREEN --}}
   <div class="w-full">
-    <div class="card mb-5 mb-xl-10">
+    <div class="card" style="background: none">
       <div class="card-body p-0">
         <ul
-          class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-6 fw-bolder">
+          class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-7 fw-bolder">
           @foreach ($tabs as $key => $value)
           <li class="nav-item mt-2">
             <a
-              class="nav-link text-active-primary ms-0 me-8 py-5 {{
+              class="nav-link text-active-primary ms-0 me-6 fw-bolder py-4 {{
                 $tab == $value['code'] ? ' active' : ''
               }}"
               href="{{ $value['route'] }}"

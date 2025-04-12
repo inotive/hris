@@ -1,87 +1,74 @@
-@props([
-    'title' => 'No Title',
-])
-@extends('layouts.app')
-
-
+@props([ 'title' => 'No Title', ]) @extends('layouts.app')
 @section('page_title')
-    {{ $title }}
-@stop
+{{ $title }}
+@stop @section('content')
 
-@section('content')
+<!--begin::Post-->
+<div class="post d-flex flex-column-fluid" id="kt_post">
+  <!--begin::Container-->
+  <div id="kt_content_container" class="w-100 container-fluid">
+    @if (session('messages.success'))
+    <div class="alert alert-success">
+      {{ session("messages.success") }}
+    </div>
+    @endif @if (session('messages.warning'))
+    <div class="alert alert-warning">
+      {{ session("messages.warning") }}
+    </div>
+    @endif
 
-    <!--begin::Post-->
-    <div class="post d-flex flex-column-fluid" id="kt_post">
-        <!--begin::Container-->
-        <div id="kt_content_container" class=" w-100">
+    <div class="row">
+      <div class="col-12">
+        {{ $back ?? "" }}
+      </div>
+    </div>
 
-            @if (session('messages.success'))
-                <div class="alert alert-success">
-                    {{ session('messages.success') }}
-                </div>
-            @endif
+    <form method="GET">
+      <!--begin::Card-->
+      <div class="card border bg-white">
+        <!-- @if ($header != '' || $header_toolbar != '')
+        <div class="card-header pt-6">
+          <div class="card-title gap-2">
+            {{ $header ?? "" }}
+          </div>
 
-            @if (session('messages.warning'))
-                <div class="alert alert-warning">
-                    {{ session('messages.warning') }}
-                </div>
-            @endif
+          <div class="card-toolbar">
+            <div class="d-flex justify-content-end gap-2">
+              {{ $header_toolbar ?? "" }}
+            </div>
+          </div>
+        </div>
+        @endif -->
 
-            <div class="row">
-                <div class="col-12" style="padding-left: 40px">
-                    {{ $back ?? ''}}
-                </div>
+        <div class="card-body">
+          {{ $tab_header ?? "" }}
+          <!--begin::Card header-->
+          <div class="row">
+            <!--begin::Card title-->
+            <div class="col-12 col-lg-2">
+              <x-table.search />
             </div>
 
-            <form method="GET">
-                <!--begin::Card-->
-                <div class="card bg-white">
+            <div class="col-12 col-lg-10">
+              <!--begin::Toolbar-->
+              <div
+                class="d-flex justify-content-end gap-2"
+                data-kt-customer-table-toolbar="base">
+                {{ $toolbar ?? "" }}
+              </div>
+            </div>
+            <!--end::Card toolbar-->
+          </div>
 
-
-                    @if (isset($header) || isset($header_toolbar))
-                        <div class="card-header pt-6">
-                            <div class="card-title gap-2">
-                                {{ $header ?? '' }}
-                            </div>
-
-                            <div class="card-toolbar">
-                                <div class="d-flex justify-content-end gap-2">
-                                    {{ $header_toolbar ?? '' }}
-                                </div>
-                            </div>
-                        </div>
-                    @endif
-
-                    <div class="card-body bg-white">
-
-                        {{ $tab_header ?? '' }}
-                        <!--begin::Card header-->
-                        <div class="row">
-                            <!--begin::Card title-->
-                            <div class="col-12 col-lg-2">
-                                <x-table.search/>
-                            </div>
-
-                            <div class="col-12 col-lg-10">
-                                <!--begin::Toolbar-->
-                                <div class="d-flex justify-content-end gap-2" data-kt-customer-table-toolbar="base">
-                                    {{ $toolbar ?? '' }}
-                                </div>
-
-                            </div>
-                            <!--end::Card toolbar-->
-                        </div>
-
-
-                        {{ $body ?? '' }}
-                    </div>
-                    <!--end::Card body-->
-                </div>
-                <!--end::Card-->
-            </form>
+          {{ $body ?? "" }}
         </div>
-        <!--end::Container-->
-    </div>
-    <!--end::Post-->
+        <!--end::Card body-->
+      </div>
+      <!--end::Card-->
+    </form>
+  </div>
+  <!--end::Container-->
+</div>
+<!--end::Post-->
 
 @endsection

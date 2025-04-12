@@ -1,6 +1,16 @@
 <div class="">
   @if (isset($form))
-  <x-employee-edit-tab :employeeid="$form->id" :tab="'edit'" />
+  <div class="pt-8">
+    <x-employee-info-detail :employeeid="$form->id" />
+    <div class="separator mb-6"></div>
+  </div>
+  <div class="w-full mb-6">
+    <div
+      class="card px-6 border-0 rounded-lg"
+      style="background-color: #eef3ff">
+      <x-employee-edit-tab :employeeid="$form->id" :tab="'edit'" />
+    </div>
+  </div>
   @endif
 
   <h4>{{ __("Employee Account Information") }}</h4>

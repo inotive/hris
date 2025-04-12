@@ -3,7 +3,7 @@
     <div
       class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
       <img
-        src="{{ Storage::url($company->logo ?? '') }}"
+        src="{{ Storage::url($employee->logo ?? '') }}"
         alt="image"
         onerror="this.onerror=null; this.src='{{
           asset('assets/images/data-not-found.svg')
@@ -20,7 +20,8 @@
           <a
             href="#"
             class="text-gray-900 text-hover-primary fs-2 fw-bolder me-1"
-            >{{ $company->name ?? '' }}</a
+            >{{ $employee->first_name ?? '' }}
+            {{ $employee->last_name ?? '' }}</a
           >
           <a href="#">
             <span class="svg-icon svg-icon-1 svg-icon-primary">
@@ -53,14 +54,14 @@
                 fill="none">
                 <path
                   opacity="0.3"
-                  d="M18.0624 15.3453L13.1624 20.7453C12.5624 21.4453 11.5624 21.4453 10.9624 20.7453L6.06242 15.3453C4.56242 13.6453 3.76242 11.4453 4.06242 8.94534C4.56242 5.34534 7.46242 2.44534 11.0624 2.04534C15.8624 1.54534 19.9624 5.24534 19.9624 9.94534C20.0624 12.0453 19.2624 13.9453 18.0624 15.3453Z"
+                  d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C10.3 7 9 8.3 9 10C9 11.7 10.3 13 12 13C13.7 13 15 11.7 15 10C15 8.3 13.7 7 12 7Z"
                   fill="black"></path>
                 <path
-                  d="M12.0624 13.0453C13.7193 13.0453 15.0624 11.7022 15.0624 10.0453C15.0624 8.38849 13.7193 7.04535 12.0624 7.04535C10.4056 7.04535 9.06241 8.38849 9.06241 10.0453C9.06241 11.7022 10.4056 13.0453 12.0624 13.0453Z"
+                  d="M12 22C14.6 22 17 21 18.7 19.4C17.9 16.9 15.2 15 12 15C8.8 15 6.09999 16.9 5.29999 19.4C6.99999 21 9.4 22 12 22Z"
                   fill="black"></path>
               </svg>
             </span>
-            {{ $company->city ?? '' }}</a
+            {{ $employee->employee_position_id ?? '' }}</a
           >
           <a
             href="#"
@@ -77,7 +78,7 @@
                   d="M3.654 1.328a.678.678 0 0 0-1.015-.063L1.605 2.3c-.483.484-.661 1.169-.45 1.77a17.6 17.6 0 0 0 4.168 6.608 17.6 17.6 0 0 0 6.608 4.168c.601.211 1.286.033 1.77-.45l1.034-1.034a.678.678 0 0 0-.063-1.015l-2.307-1.794a.68.68 0 0 0-.58-.122l-2.19.547a1.75 1.75 0 0 1-1.657-.459L5.482 8.062a1.75 1.75 0 0 1-.46-1.657l.548-2.19a.68.68 0 0 0-.122-.58zM1.884.511a1.745 1.745 0 0 1 2.612.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z" />
               </svg>
             </span>
-            {{ $company->phone ?? '' }}</a
+            {{ $employee->phone ?? '' }}</a
           >
           <a
             href="#"
@@ -98,7 +99,7 @@
                   fill="black"></path>
               </svg>
             </span>
-            {{ $company->email ?? '' }}</a
+            {{ $employee->email ?? '' }}</a
           >
         </div>
       </div>
@@ -109,35 +110,24 @@
           <div
             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
             <div class="fs-2 fw-bolder counted" data-kt-countup-value="123">
-              {{ number_format($company->total_employee ?? 0, 0, ',', '.') }}
+              0
             </div>
-            <div class="fw-bold fs-6 text-gray-400">Total Employee</div>
+            <div class="fw-bold fs-8 text-gray-400">Total Leave</div>
           </div>
           <div
             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
             <div class="fs-2 fw-bolder counted" data-kt-countup-value="123">
-              {{ number_format($company->total_user ?? 0, 0, ',', '.') }}
+              {{ number_format($employee->total_user ?? 0, 0, ',', '.') }}
             </div>
-            <div class="fw-bold fs-6 text-gray-400">Total User</div>
+            <div class="fw-bold fs-8 text-gray-400">Total Overtime</div>
           </div>
-        </div>
-      </div>
-      <div
-        class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
-        <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-          <span class="fw-bold fs-6 text-gray-400">Days Left Subscription</span>
-          <span
-            class="fw-bolder fs-6"
-            >{{ $company->day_left_subscription() ?? '0' }}</span
-          >
-        </div>
-        <div class="h-5px mx-3 w-100 bg-light mb-3">
           <div
-            class="{{ $company->day_left_percent_subscription() >= 40 ? 'bg-success' : 'bg-warning' }} rounded h-5px"
-            role="progressbar"
-            style="width: {{ $company->day_left_percent_subscription() }}%"
-            aria-valuemin="0"
-            aria-valuemax="{{ $company->total_day_subscription() ?? '0' }}"></div>
+            class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+            <div class="fs-2 fw-bolder counted" data-kt-countup-value="123">
+              {{ number_format($employee->total_user ?? 0, 0, ',', '.') }}
+            </div>
+            <div class="fw-bold fs-8 text-gray-400">Total Reimbursement</div>
+          </div>
         </div>
       </div>
     </div>
