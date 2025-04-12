@@ -11,7 +11,7 @@
     </div>
 
     <div class="card border round-3">
-      <div class="card-body pt-0">
+      <div class="card-body">
         <form
           id="crud-form"
           action="{{ $action ?? route(explode('.', Route::currentRouteName())[0] . '.update', $form->id) }}"

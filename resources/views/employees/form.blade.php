@@ -1,6 +1,6 @@
 <div class="">
   @if (isset($form))
-  <div class="pt-8">
+  <div class="">
     <x-employee-info-detail :employeeid="$form->id" />
     <div class="separator mb-6"></div>
   </div>

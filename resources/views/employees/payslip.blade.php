@@ -7,7 +7,7 @@
   </x-slot>
 
   <x-slot name="tab_header">
-    <div class="pt-8">
+    <div class="w-full">
       <x-employee-info-detail :employeeid="$employee->id" />
       <div class="separator mb-6"></div>
     </div>
