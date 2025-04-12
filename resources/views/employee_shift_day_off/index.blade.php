@@ -1,10 +1,8 @@
-<x-table.index>
+<x-card>
   <x-slot name="title">{{ __("Shift Day Off") }}</x-slot>
-
   <x-slot name="header">
     <b>{{ __("Shift Day Off") }}</b>
   </x-slot>
-  <x-slot name="header_toolbar"> </x-slot>
   <x-slot name="tab_header">
     {{-- <x-web.shift-day-off-calendar /> --}}
   </x-slot>
