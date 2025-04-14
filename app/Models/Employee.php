@@ -496,4 +496,21 @@ class Employee extends Authenticatable
 
         return $leave;
     }
+
+
+    public function getLeaveRequestCountAttribute()
+    {
+        return LeaveRequest::where('employee_id', $this->id)->count();
+    }
+
+    public function getOvertimeRequestCountAttribute()
+    {
+        return OvertimeRequest::where('employee_id', $this->id)->count();
+    }
+
+
+    public function getReimbursementRequestCountAttribute()
+    {
+        return ReimbursementRequest::where('employee_id', $this->id)->count();
+    }
 }

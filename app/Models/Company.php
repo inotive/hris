@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 
 class Company extends Model
 {
@@ -236,13 +237,14 @@ class Company extends Model
         try {
             $active_subscription = $this->active_subscriptions()->first();
             if ($active_subscription) {
-                if ($this->total_day_subscription() >= 0) {
+                if ($this->total_day_subscription() <= 0) {
                     return 0;
                 }
                 return round(($this->day_left_subscription() / $this->total_day_subscription()) * 100, 0);
             }
             return 0;
         } catch (Exception $e) {
+            Log::info($e);
             return 0;
         }
     }
