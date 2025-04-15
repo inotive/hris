@@ -101,7 +101,7 @@
   <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')" />
 
   <div class="col-12 col-lg-6 mb-4 row">
-    <x-form.input-map />
+    <x-form.input-map :lat="$form->lat" :lng="$form->lng" />
   </div>
 
   <h4>{{ __("Company Menu Config") }}</h4>

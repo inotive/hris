@@ -99,6 +99,8 @@ class Company extends Model
         'is_attendance' => 'boolean',
         'is_ewa' => 'boolean',
         'is_payslip' => 'boolean',
+        'lat'   => 'double',
+        'lng'   => 'double',
     ];
 
     // public function scopeWithinRadiusInMeters($query, $latitude, $longitude, $radius = 1000)

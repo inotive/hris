@@ -1,64 +1,134 @@
-
+<style>
+.leaflet-control-attribution {
+  display:none;
+}
+</style>
 <script>
   let map;
-    let marker;
-  
-    $('#mapModal').on('shown.bs.modal', function () {
-      setTimeout(() => {
-        if (!map) {
-          map = L.map('map').setView([-6.200000, 106.816666], 13); // Jakarta default
-  
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-          }).addTo(map);
-  
-          map.on('click', function (e) {
-            setMarker(e.latlng.lat, e.latlng.lng);
-          });
-        } else {
-          map.invalidateSize();
-        }
-      }, 200);
-    });
-  
-    function setMarker(lat, lng) {
-      if (marker) {
-        marker.setLatLng([lat, lng]);
-      } else {
-        marker = L.marker([lat, lng], { draggable: true }).addTo(map);
-      }
+let marker;
+let mapView;
+let markerView;
+
+var defaultLat = -6.200000;
+var defaultLng = 106.816666;
+
+$(document).ready(function() {
+  // Initialize mapView outside modal (read-only map)
+  var lat = $("#lat").val() || defaultLat;
+  var lng = $("#lng").val() || defaultLng;
+
+
+  setMapView(lat,lng);
+});
+
+function setMapView(lat, lng){
+  if (!mapView) {
+    mapView = L.map('mapview').setView([lat, lng], 16); // Default to Jakarta
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '',
+      maxZoom: 19
+    }).addTo(mapView);
+    setMarkerView(lat,lng);
+  } else {
+    mapView.invalidateSize();
+  }
+    
+}
+
+// Handle modal map initialization
+$('#mapModal').on('shown.bs.modal', function () {
+  setTimeout(() => {
+    var lat = $("#lat").val() || defaultLat;
+    var lng = $("#lng").val() || defaultLng;
+
+    if (!map) {
+      map = L.map('map').setView([lat, lng], 19); // Default to Jakarta
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '',
+        maxZoom: 19
+      }).addTo(map);
+
+      setMarker(lat, lng);
+      fetchAddress(lat, lng);
+
+      map.on('click', function (e) {
+        const { lat, lng } = e.latlng;
+        setMarker(lat, lng);
+        fetchAddress(lat, lng);
+      });
+
+      console.log("Map initialized inside modal");
+    } else {
+      map.invalidateSize(); // Trigger resize if map already exists
     }
-  
-    $('#searchBox').on('keypress', function (e) {
-      if (e.which === 13) {
-       
-            
-        const query = $(this).val();
-        $.get(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`, function (data) {
-          if (data && data.length > 0) {
-            const place = data[0];
-            const lat = place.lat;
-            const lon = place.lon;
-            map.setView([lat, lon], 16);
-            setMarker(lat, lon);
-          }
-        });
+  }, 200);
+});
 
-        e.preventDefault();
-      }
+// Set marker for both view and modal maps
+function setMarker(lat, lng) {
+  // For modal map
+  if (marker) {
+    marker.setLatLng([lat, lng]);
+  } else {
+    marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+
+    marker.on('dragend', function (e) {
+      const pos = e.target.getLatLng();
+      fetchAddress(pos.lat, pos.lng);
     });
-  
-    $('#saveLocation').on('click', function () {
-      if (marker) {
-        const latlng = marker.getLatLng();
-        alert(`Selected Location:\nLatitude: ${latlng.lat}\nLongitude: ${latlng.lng}`);
-        $('#mapModal').modal('hide');
-      }
-    });
+  }
+
+}
+
+function setMarkerView(lat, lng) {
+
+  // For view map (read-only marker)
+  if (markerView) {
+    markerView.setLatLng([lat, lng]);
+  } else {
+    markerView = L.marker([lat, lng], { draggable: false }).addTo(mapView);
+  }
+}
+
+// Fetch address from coordinates using OpenStreetMap API
+function fetchAddress(lat, lon) {
+  $.get('https://nominatim.openstreetmap.org/reverse', {
+    lat: lat,
+    lon: lon,
+    format: 'json'
+  }, function (data) {
+    const address = data.display_name || 'Address not found';
+    showAddress(lat, lon, address);
+  });
+}
+
+// Show the selected address
+function showAddress(lat, lon, address) {
+  $('#selectedAddress').html(`<strong>Selected Address:</strong><br>${address}`);
+}
+
+// Handle save location
+$('#saveLocation').on('click', function () {
+  if (marker) {
+    const latlng = marker.getLatLng();
+
+    // Set the values of the hidden lat/lng fields
+    $('#lat').val(latlng.lat);
+    $('#lng').val(latlng.lng);
 
 
-    $('#searchBox').autocomplete({
-  appendTo: "body", // Always attach to body to avoid container clipping
+    $("#mapModal").modal('hide');
+    $('.modal-backdrop').remove();
+    $('body').removeClass('modal-open');
+
+    mapView.setView([latlng.lat, latlng.lng], 16);
+    setMarkerView(latlng.lat, latlng.lng);
+  }
+});
+
+// Autocomplete for searching addresses
+$('#searchBox').autocomplete({
+  appendTo: "body",
   source: function (request, response) {
     $.get('https://nominatim.openstreetmap.org/search', {
       q: request.term,
@@ -79,14 +149,16 @@
     const lon = ui.item.lon;
     map.setView([lat, lon], 16);
     setMarker(lat, lon);
+    showAddress(lat, lon, ui.item.label);
   },
   minLength: 3,
   position: {
-    my: "left top+5",     // position of dropdown relative to input
-    at: "left bottom",    // anchor dropdown to bottom of input
-    collision: "none"     // don't auto-flip above
+    my: "left top",
+    at: "left bottom",
+    collision: "none"
   }
 });
+
 
 
 </script>

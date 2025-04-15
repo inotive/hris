@@ -3,4 +3,4 @@
     'value' => null,
 ])
     <input type="hidden"
-        name="{{ $name }}" class="{{ $name }}" value="{{ $value ?? ''}}">
+        name="{{ $name }}" id="{{ $name }}" class="{{ $name }}" value="{{ $value ?? ''}}">
