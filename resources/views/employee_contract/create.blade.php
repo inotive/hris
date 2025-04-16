@@ -2,6 +2,7 @@
     :title="__('Add') . ' ' . __('Contract')"
     :action="route('contract.store', $employee)" 
     :cancel="route('contract.index', $employee)" 
+    :back_route="route('contract.index', $employee)" 
     
     >
 

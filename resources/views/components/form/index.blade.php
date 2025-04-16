@@ -21,8 +21,9 @@
       <div id="kt_content_container" class="container-fluid">
         <div class="row">
           <div class="col-12">
+
             <x-back
-              href="{{ $back_route ?? route(explode('.', Route::currentRouteName())[0] . '.index') }}" />
+              href="{{ $back_route ?? $cancel ?? route(explode('.', Route::currentRouteName())[0] . '.index') }}" />
           </div>
         </div>
 

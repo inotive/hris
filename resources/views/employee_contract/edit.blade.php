@@ -2,6 +2,7 @@
     :title="__('Edit') . ' ' . __('Contract')" 
     :action="route('contract.update', [$employee, $form->id])" 
     :cancel="route('contract.index', $employee)"
+    :back_route="route('contract.index', $employee)"
     
     >
 

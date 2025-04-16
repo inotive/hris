@@ -12,18 +12,14 @@
       <div class="separator mb-6"></div>
     </div>
     <div class="w-full mb-6">
-      <div
-        class="card px-6 border-0 rounded-lg"
-        style="background-color: #eef3ff">
+      <div class="card px-6 border-0 rounded-lg" style="background-color: #eef3ff">
         <x-employee-edit-tab :employeeid="$employee->id" :tab="'contract'" />
       </div>
     </div>
   </x-slot>
 
   <x-slot name="toolbar">
-    <x-table.add-button
-      :label="__('Add Contract')"
-      :href="route('contract.create', $employee->id)" />
+    <x-table.add-button :label="__('Add Contract')" :href="route('contract.create', $employee->id)" />
   </x-slot>
 
   <x-slot name="body">
@@ -57,16 +53,12 @@
             </td>
             <td>{{ strip_tags($value->notes) }}</td>
             <td>
-              <a target="_blank" href="{{ Storage::url($value->file) }}"
-                >File</a
-              >
+              <a target="_blank" href="{{ Storage::url($value->file) }}">File</a>
             </td>
             <td class="text-end">
               <x-table.actions>
-                <x-table.edit-button
-                  :href="route('contract.edit', [$employee, $value->id])" />
-                <x-table.delete-button
-                  :href="route('contract.destroy', [$employee, $value->id])" />
+                <x-table.edit-button :href="route('contract.edit', [$employee, $value->id])" />
+                <x-table.delete-button :href="route('contract.destroy', [$employee, $value->id])" />
               </x-table.actions>
             </td>
           </tr>
