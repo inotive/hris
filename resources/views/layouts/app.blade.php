@@ -11,6 +11,12 @@
     <title>PeopleIn | #1 HR System for your company</title>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net" />
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet" />
@@ -18,7 +24,9 @@
 
     <link href="{{ asset('template/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('template/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
-    {{-- <link href="{{ asset('template/plugins/fullcalendar/main.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+    {{--
+    <link href="{{ asset('template/plugins/fullcalendar/main.min.css') }}" rel="stylesheet" type="text/css" /> --}}
+
 
 
     <link href="{{ asset('assets/css/flash.css') }}" rel="stylesheet" type="text/css" />
@@ -27,6 +35,21 @@
         body {
             background: white !important;
         }
+    </style>
+    <style>
+        /* Make sure autocomplete dropdown has a high z-index and is always on top */
+        #searchBox {
+  position: relative; /* or absolute if placed manually */
+  z-index: 10010; /* higher than map/modal */
+}
+.ui-autocomplete {
+  z-index: 99999 !important;
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: white;
+  border: 1px solid #ccc;
+}
     </style>
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
@@ -76,8 +99,8 @@
                 @include('layouts.header')
 
                 {{-- class: content --}}
-                <div class="content d-flex flex-column flex-column-fluid bg-white"  id="kt_content">
-                    @include('layouts.toolbar-new') 
+                <div class="content d-flex flex-column flex-column-fluid bg-white" id="kt_content">
+                    @include('layouts.toolbar-new')
 
 
                     @yield('content')
@@ -89,6 +112,7 @@
 
     @include('layouts.js')
     @yield('js')
+
 </body>
 
 </html>
