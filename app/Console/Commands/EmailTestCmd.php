@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\TestEmail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
@@ -28,10 +29,11 @@ class EmailTestCmd extends Command
      */
     public function handle()
     {
-        Mail::raw('This is a test email', function ($message) {
-            $message->to('bayuly94@gmail.com')
-                    ->subject('Test Email');
-        });
+        Mail::to('bayuly94@gmail.com')->queue(new TestEmail());
+
+        $this->info('Email has been queued successfully.');
+
+        
 
         return Command::SUCCESS;
     }
