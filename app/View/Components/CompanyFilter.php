@@ -31,7 +31,7 @@ class CompanyFilter extends Component
         $list = [];
 
         $value_name = null;
-        if (request()->filter != null && request()->filter['company_id'] != null) {
+        if (request()->filter != null && isset(request()->filter['company_id'] )) {
             $value_name = Company::where('id', request()->filter['company_id'])->first()->name ?? '';
         }
         

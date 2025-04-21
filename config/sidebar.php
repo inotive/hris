@@ -154,7 +154,7 @@ return [
                 ],
                 [
                     'label' => 'Report Attendances',
-                    'route' => '',
+                    'route' => 'attendance-report',
                     'roles' => ['superadmin', 'admin', 'finance'],
                 ],
             ],

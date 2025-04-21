@@ -29,13 +29,13 @@ class MonthYearFilter extends Component
         $years = \App\Models\Attendance::yearDropdown();
 
         $month_selected = null;
-        if (request()->filter != null && request()->filter['month'] != null) {
+        if (request()->filter != null && isset(request()->filter['month'])) {
             $month_selected = request()->filter['month'];
         }
 
 
         $year_selected = null;
-        if (request()->filter != null && request()->filter['year'] != null) {
+        if (request()->filter != null && isset(request()->filter['year']) ) {
             $year_selected = request()->filter['year'];
         }
 
