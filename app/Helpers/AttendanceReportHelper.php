@@ -1,0 +1,71 @@
+<?php
+
+namespace App\Helpers;
+
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
+class AttendanceReportHelper
+{
+    public static function report($company_id, $year, $month)
+    {
+        $select = [];
+
+      
+        $date = Carbon::parse($year . "-" . $month . "-01");
+
+        $start = $date->format('Y-m-d');
+
+        $end_str = $date->format('Y-m-t');
+
+        $selects = [];
+
+
+        $days = range(1, $date->format("t"));
+
+        foreach ($days as $day) {
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_time END) AS day".$day."_in_time";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_image END) AS day".$day."_in_image";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_lat END) AS day".$day."_in_lat";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_long END) AS day".$day."_in_long";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_status END) AS day".$day."_in_status";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_range_status END) AS day".$day."_in_range_status";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_time END) AS day".$day."_out_time";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_image END) AS day".$day."_out_image";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_lat END) AS day".$day."_out_lat";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_long END) AS day".$day."_out_long";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_status END) AS day".$day."_out_status";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_range_status END) AS day".$day."_out_range_status";
+        }
+
+
+        $query = "SELECT 
+            a.employee_id,
+            concat(e.first_name,e.last_name) AS employee_name,
+            e.image AS employee_image,
+            employee_departments.name AS department_name,
+            employee_positions.name AS position_name,
+            ".max($days)." as total_day,
+
+
+            " . implode(",", $selects) . "
+
+        FROM 
+            attendances a
+        JOIN 
+            employees e ON a.employee_id = e.id
+        LEFT JOIN employee_departments ON employee_departments.id = e.department_id
+        LEFT JOIN employee_positions ON employee_positions.id = e.employee_position_id
+        WHERE 
+            a.date BETWEEN '" . $start . "' AND '" . $end_str. "'
+            AND a.company_id = '".$company_id."'
+        GROUP BY 
+            a.employee_id;
+        ";
+
+
+        $list = DB::select($query);
+
+        return $list;
+    }
+}

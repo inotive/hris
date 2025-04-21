@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive overflow-auto">
     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_customers_table">
         <!--begin::Table head-->
         <thead>
