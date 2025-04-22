@@ -235,14 +235,6 @@ return [
 
                 ],
                 [
-                    'label' => 'Master Reimbursment Expenses',
-                    'route' => 'reimbursement-expenses.index',
-                    'roles' => ['superadmin', 'admin'],
-                    'routes' => [
-                        'reimbursement-expenses.*' => ['superadmin', 'admin'],
-                    ],
-                ],
-                [
                     'label' => 'Master Reimbursment Types',
                     'route' => 'reimbursement-types.index',
                     'roles' => ['superadmin', 'admin'],
@@ -250,6 +242,15 @@ return [
                         'reimbursement-types.*' => ['superadmin', 'admin'],
                     ],
                 ],
+                [
+                    'label' => 'Master Reimbursment Expenses',
+                    'route' => 'reimbursement-expenses.index',
+                    'roles' => ['superadmin', 'admin'],
+                    'routes' => [
+                        'reimbursement-expenses.*' => ['superadmin', 'admin'],
+                    ],
+                ],
+               
 
             ],
         ],
@@ -269,6 +270,17 @@ return [
                         'employee-payslips.*' => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
+
+                [
+                    'label' => 'Generate Payslip',
+                    'route' => 'employee-payslip-generate.index',
+                    'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes' => [
+                        'employee-payslip-generate.*' => ['superadmin', 'admin', 'finance'],
+                        'payslip-generate-detail' => ['superadmin', 'admin', 'finance'],
+                    ],
+                ],
+                
                 [
                     'label' => 'Master Category Payslips',
                     'route' => 'employee-payslip-masters.index',
@@ -288,15 +300,7 @@ return [
                     ],
                 ],
 
-                [
-                    'label' => 'Generate Payslip',
-                    'route' => 'employee-payslip-generate.index',
-                    'roles' => ['superadmin', 'admin', 'finance'],
-                    'routes' => [
-                        'employee-payslip-generate.*' => ['superadmin', 'admin', 'finance'],
-                        'payslip-generate-detail' => ['superadmin', 'admin', 'finance'],
-                    ],
-                ],
+              
             ],
         ],
 

@@ -7,7 +7,7 @@
             <th>{{ __('Department') }}</th>
             <th>{{ __('Position') }}</th>
             @for ($i = 1; $i <= ($list[0]->total_day ?? 0); $i++)
-                <th class="text-center " colspan="2" style="min-width:100px;">
+                <th class="text-center " colspan="1" style="min-width:100px;">
                     {{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
                     <br>
                     {{ \Carbon\Carbon::parse($year . '-' . $month . '-' . $i)->format('D') }}
@@ -31,9 +31,7 @@
                         @else
                             -
                         @endif
-
-                    </td>
-                    <td class="text-center">
+                        /
                         @if (((array) $value)['day' . $i . '_out_time'])
                             {{ \Carbon\Carbon::parse(((array) $value)['day' . $i . '_out_time'])->format('H:m') ?? '-' }}
                         @else
