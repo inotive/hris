@@ -10,7 +10,7 @@
     <a href="#" class="btn  btn-flex btn-light  fw-bolder show menu-dropdown" data-kt-menu-trigger="click"
         data-kt-menu-placement="bottom-end">
         <!--begin::Svg Icon | path: icons/duotune/general/gen031.svg-->
-        <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-1">
+        <span class="svg-icon svg-icon-5 svg-icon-gray-500 me-3">
             <svg height="800px" width="800px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 26 26" xml:space="preserve">
                 <g>
@@ -41,10 +41,10 @@
         <!--begin::Form-->
         <div class="px-7 py-5">
             @if ($import_url != null)
-                <a class="btn btn-light w-100" target="_blank" href="{{ $export_url ?? '' }}">{{ __('Import') }}</a>
+                <a class="btn btn-light w-100" target="_blank" href="{{ $import_url ?? '' }}">{{ __('Import') }}</a>
             @endif
             @if ($export_url != null)
-                <a class="btn btn-light w-100" target="_blank" href="{{ $export_url ?? '' }}">{{ __('Export') }}</a>
+                <a class="btn btn-light w-100" target="_blank" href="{!! $export_url ?? '' !!}">{{ __('Export') }}</a>
             @endif
         </div>
     </div>
