@@ -147,6 +147,7 @@ Route::middleware([
     
     Route::resource('/attendances', AttendanceContrller::class);
     Route::get('/attendance/report', [AttendanceContrller::class,'report'])->name('attendance-report');
+    Route::get('/attendance/report/export', [AttendanceContrller::class,'export'])->name('attendance-export');
     
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);

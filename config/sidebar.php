@@ -156,6 +156,10 @@ return [
                     'label' => 'Report Attendances',
                     'route' => 'attendance-report',
                     'roles' => ['superadmin', 'admin', 'finance'],
+                    'routes' => [
+                        'attendance-report' => ['superadmin', 'admin', 'finance'],
+                        'attendance-export' => ['superadmin', 'admin', 'finance'],
+                    ],
                 ],
             ],
         ],

@@ -9,10 +9,11 @@ class AttendanceReportHelper
 {
     public static function report($company_id, $year, $month)
     {
-        $select = [];
 
-      
+
         $date = Carbon::parse($year . "-" . $month . "-01");
+
+        
 
         $start = $date->format('Y-m-d');
 
@@ -20,22 +21,22 @@ class AttendanceReportHelper
 
         $selects = [];
 
+        $days = range(1, (int) $date->format("t"));
 
-        $days = range(1, $date->format("t"));
 
         foreach ($days as $day) {
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_time END) AS day".$day."_in_time";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_image END) AS day".$day."_in_image";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_lat END) AS day".$day."_in_lat";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_long END) AS day".$day."_in_long";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_status END) AS day".$day."_in_status";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockin_range_status END) AS day".$day."_in_range_status";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_time END) AS day".$day."_out_time";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_image END) AS day".$day."_out_image";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_lat END) AS day".$day."_out_lat";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_long END) AS day".$day."_out_long";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_status END) AS day".$day."_out_status";
-            $selects[] = "MAX(CASE WHEN DAY(a.date) = ".$day." THEN a.clockout_range_status END) AS day".$day."_out_range_status";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockin_time END) AS day" . $day . "_in_time";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockin_image END) AS day" . $day . "_in_image";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockin_lat END) AS day" . $day . "_in_lat";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockin_long END) AS day" . $day . "_in_long";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockin_status END) AS day" . $day . "_in_status";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockin_range_status END) AS day" . $day . "_in_range_status";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockout_time END) AS day" . $day . "_out_time";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockout_image END) AS day" . $day . "_out_image";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockout_lat END) AS day" . $day . "_out_lat";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockout_long END) AS day" . $day . "_out_long";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockout_status END) AS day" . $day . "_out_status";
+            $selects[] = "MAX(CASE WHEN DAY(a.date) = " . $day . " THEN a.clockout_range_status END) AS day" . $day . "_out_range_status";
         }
 
 
@@ -45,7 +46,7 @@ class AttendanceReportHelper
             e.image AS employee_image,
             employee_departments.name AS department_name,
             employee_positions.name AS position_name,
-            ".max($days)." as total_day,
+            " . max($days) . " as total_day,
 
 
             " . implode(",", $selects) . "
@@ -57,14 +58,34 @@ class AttendanceReportHelper
         LEFT JOIN employee_departments ON employee_departments.id = e.department_id
         LEFT JOIN employee_positions ON employee_positions.id = e.employee_position_id
         WHERE 
-            a.date BETWEEN '" . $start . "' AND '" . $end_str. "'
-            AND a.company_id = '".$company_id."'
+            a.date BETWEEN '" . $start . "' AND '" . $end_str . "'
+            AND a.company_id = '" . $company_id . "'
         GROUP BY 
             a.employee_id;
         ";
 
+      
 
         $list = DB::select($query);
+
+        $list = collect($list)->map(function ($row) use ($days) {
+
+            foreach ($days as $day) {
+                $clockin_status = "day" . $day . "_in_status";
+                $clockin_status_code = $clockin_status . "_code";
+
+                $clockout_status = "day" . $day . "_out_status";
+                $clockout_status_code = $clockout_status . "_code";
+
+
+                $row->$clockin_status_code = $row->$clockin_status != null ? ($row->$clockin_status == "LATE" ? "LIN" : "PRS") : null;
+                $row->$clockout_status_code = $row->$clockout_status != null ? ($row->$clockout_status == "EARLY" ? "EOT" : "PRS") : null;
+            }
+            return $row;
+        })->collect();
+
+      
+
 
         return $list;
     }
