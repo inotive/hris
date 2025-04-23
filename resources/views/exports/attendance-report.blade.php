@@ -3,6 +3,7 @@
 
         <tr>
             <th>{{ __('ID') }}</th>
+            <th>{{ __('NIK') }}</th>
             <th>{{ __('Employee') }}</th>
             <th>{{ __('Department') }}</th>
             <th>{{ __('Position') }}</th>
@@ -20,24 +21,14 @@
         @foreach ($list as $key => $value)
             <tr>
                 <td>{{ $key + 1 }}</td>
+                <td>{{ $value->nik }}</td>
                 <td>{{ $value->employee_name }}</td>
                 <td>{{ $value->department_name }}</td>
                 <td>{{ $value->position_name }}</td>
 
                 @for ($i = 1; $i <= ($value->total_day ?? 0); $i++)
                     <td class="text-center">
-                        @if (((array) $value)['day' . $i . '_in_time'])
-                            {{ \Carbon\Carbon::parse(((array) $value)['day' . $i . '_in_time'])->format('H:m') ?? '-' }}
-                        @else
-                            -
-                        @endif
-                        /
-                        @if (((array) $value)['day' . $i . '_out_time'])
-                            {{ \Carbon\Carbon::parse(((array) $value)['day' . $i . '_out_time'])->format('H:m') ?? '-' }}
-                        @else
-                            -
-                        @endif
-
+                       {{ ((array) $value)['day' . $i . '_dates']  }}
 
                     </td>
                 @endfor
