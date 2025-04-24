@@ -44,6 +44,7 @@ class User extends Authenticatable
         'role',
         'image',
         'company_id',
+        'phone',
     ];
 
     public $rules = [
@@ -53,6 +54,7 @@ class User extends Authenticatable
         'email' => 'required',
         'role'  => 'required',
         'company_id'  => '',
+        'phone'  => '',
     ];
 
     /**

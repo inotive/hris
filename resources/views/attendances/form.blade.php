@@ -10,8 +10,13 @@
         'clockin_time',
         $form?->clockin_time != null ? \Carbon\Carbon::parse($form->clockin_time)->format('H:i:s') : '',
     )" />
-    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock In Latitude')" name="clockin_lat" :value="old('clockin_lat', $form->clockin_lat ?? '')" />
-    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock In Longitude')" name="clockin_long" :value="old('clockin_long', $form->clockin_long ?? '')" />
+    {{-- <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock In Latitude')" name="clockin_lat" :value="old('clockin_lat', $form->clockin_lat ?? '')" />
+    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock In Longitude')" name="clockin_long" :value="old('clockin_long', $form->clockin_long ?? '')" /> --}}
+
+        <div class="col-12 col-lg-6 mb-4 row">
+            <x-form.input-map :label="__('Clock In Coordinate')" :lat="$form->clockin_lat??0" :lng="$form->clockin_long??0" />
+        </div>
+
 
 
 
@@ -31,8 +36,11 @@
     {{-- <x-form.image-picker :label="__('Clock In Image')" folder="attendances" name="clockout_image" :value="old('clockout_image', $form->clockout_image ?? '')" /> --}}
 
 
-    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock Out Latitude')" name="clockout_lat" :value="old('clockout_lat', $form->clockout_lat ?? '')" />
-    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock Out Longitude')" name="clockout_long" :value="old('clockout_long', $form->clockout_long ?? '')" />
+    {{-- <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock Out Latitude')" name="clockout_lat" :value="old('clockout_lat', $form->clockout_lat ?? '')" />
+    <x-form.input class="col-12 col-lg-3" type="text" :label="__('Clock Out Longitude')" name="clockout_long" :value="old('clockout_long', $form->clockout_long ?? '')" /> --}}
 
+        <div class="col-12 col-lg-6 mb-4 row">
+            <x-form.input-map :label="__('Clock Out Coordinate')" :lat="$form->clockout_lat??0" :lng="$form->clockout_long??0" />
+        </div>
 
 </div>

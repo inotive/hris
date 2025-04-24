@@ -76,13 +76,13 @@ class EmployeeEditTab extends Component
             [
                 'code'  => 'approver',
                 'route' => route('approver.index', $this->employeeid),
-                'label' => __('Approver'),
+                'label' => __('Master Approver'),
             ],
 
             [
                 'code'  => 'leave',
                 'route' => route('leave.index', $this->employeeid),
-                'label' => __('Leave'),
+                'label' => __('Master Leave'),
             ],
 
 

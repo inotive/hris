@@ -39,22 +39,30 @@
     <style>
         /* Make sure autocomplete dropdown has a high z-index and is always on top */
         #searchBox {
-  position: relative; /* or absolute if placed manually */
-  z-index: 10010; /* higher than map/modal */
-}
-.ui-autocomplete {
-  z-index: 99999 !important;
-  max-height: 200px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  background-color: white;
-  border: 1px solid #ccc;
-}
+            position: relative;
+            /* or absolute if placed manually */
+            z-index: 10010;
+            /* higher than map/modal */
+        }
+
+        .ui-autocomplete {
+            z-index: 99999 !important;
+            max-height: 200px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: white;
+            border: 1px solid #ccc;
+        }
     </style>
 
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.css" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <!-- jQuery UI (for autocomplete) -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
     <script>
         var defaultThemeMode = "light";
         var themeMode;
