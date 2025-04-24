@@ -66,6 +66,7 @@
 
 
             {{ $prefix }}_setMapView(lat, lng);
+            
         });
 
         function {{ $prefix }}_setMapView(lat, lng) {
@@ -76,14 +77,19 @@
                     maxZoom: 19
                 }).addTo({{ $prefix }}_mapView);
                 {{ $prefix }}_setMarkerView(lat, lng);
+
+                console.log("init set map view");
             } else {
+                console.log("Init map");
+
                 {{ $prefix }}_mapView.invalidateSize();
             }
 
         }
 
         // Handle modal map initialization
-        $('#{{ $prefix }}_mapModal').on('shown.bs.modal', function() {
+        document.getElementById('{{ $prefix }}_mapModal').addEventListener('shown.bs.modal', function () {
+            console.log("open modal");
             setTimeout(() => {
                 var lat = $("#{{ $lat_input }}").val() || {{ $prefix }}_defaultLat;
                 var lng = $("#{{ $lng_input }}").val() || {{ $prefix }}_defaultLng;
@@ -109,11 +115,12 @@
 
                     console.log("Map initialized inside modal");
                 } else {
+                    console.log("map init");
                     {{ $prefix }}_map.invalidateSize(); // Trigger resize if map already exists
                 }
-            }, 200);
+            }, 500);
         });
-
+     
         // Set marker for both view and modal maps
         function {{ $prefix }}_setMarker(lat, lng) {
             // For modal map
