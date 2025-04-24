@@ -95,16 +95,16 @@
                         maxZoom: 19
                     }).addTo({{ $prefix }}_map);
 
-                    setMarker(lat, lng);
-                    fetchAddress(lat, lng);
+                    {{ $prefix }}_setMarker(lat, lng);
+                    {{ $prefix }}_fetchAddress(lat, lng);
 
                     {{ $prefix }}_map.on('click', function(e) {
                         const {
                             lat,
                             lng
                         } = e.latlng;
-                        setMarker(lat, lng);
-                        fetchAddress(lat, lng);
+                        {{ $prefix }}_setMarker(lat, lng);
+                        {{ $prefix }}_fetchAddress(lat, lng);
                     });
 
                     console.log("Map initialized inside modal");
@@ -126,7 +126,7 @@
 
                 {{ $prefix }}_marker.on('dragend', function(e) {
                     const pos = e.target.getLatLng();
-                    fetchAddress(pos.lat, pos.lng);
+                    {{ $prefix }}_fetchAddress(pos.lat, pos.lng);
                 });
             }
 
