@@ -116,7 +116,7 @@ class Employee extends Authenticatable
             //     'required',
             //     Rule::unique('employees')->ignore($this->id)
             // ],
-            'phone' => 'required',
+            'phone' => ['required','min:10'],
             'department_id' => 'required',
             'employee_position_id' => 'required',
             'employee_level_id' => 'required',
@@ -158,7 +158,7 @@ class Employee extends Authenticatable
             'token_forget_password' => '',
             'head_departmen_id' => '',
             'document_file' => '',
-            'nik' => '',
+            'nik' => ['required','min:10'],
 
             'is_attendance_location' => '',
             'is_leave_request' => '',

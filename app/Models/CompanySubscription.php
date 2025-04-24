@@ -37,6 +37,7 @@ class CompanySubscription extends Model
         'payment_bank_account_logo',
         'payment_at',
         'payment_status',
+        'bank',
     ];
 
     public $rules = [
@@ -51,5 +52,6 @@ class CompanySubscription extends Model
         'payment_bank_account_logo'  => '',
         'payment_at'  => '',
         'payment_status'  => '',
+        'bank'  => 'required',
     ];
 }

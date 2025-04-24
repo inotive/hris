@@ -4,6 +4,8 @@
     'label'  => '',
     'value'  => '',
     'class' => 'col-12 col-lg-6 mb-4',
+    'disabled'  => false,
+    'required'  => false,
 ])
 
     
@@ -13,6 +15,8 @@
     :add_class="$add_class"
     :value="$value"
     :class="$class"
+    :disabled="$disabled"
+    :required="$required"
     data_name="{{ \App\Models\Company::where('id', $value)->first()->name ?? '' }}"
 />
 

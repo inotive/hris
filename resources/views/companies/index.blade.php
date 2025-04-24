@@ -21,9 +21,9 @@
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
             <td>
                 <div class="d-flex align-items-center">
-                    <img class="rounded" src="{{ Storage::url($value->logo) }}"
+                    <img class="rounded object-contain" src="{{ Storage::url($value->logo) }}"
                         onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';"
-                        width="50" />
+                        width="50" height="50" />
                     <div class="ms-5">
                         <b>{{ $value->name }}</b>
                     </div>

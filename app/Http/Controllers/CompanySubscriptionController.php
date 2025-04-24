@@ -7,6 +7,7 @@ use App\Models\Company;
 use App\Models\CompanySubscription;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CompanySubscriptionController extends Controller
 {

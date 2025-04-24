@@ -32,6 +32,7 @@
           <th class="min-w-125px">{{ __("Subscription Type") }}</th>
           <th class="min-w-125px">{{ __("Start") }}</th>
           <th class="min-w-125px">{{ __("End") }}</th>
+          <th class="min-w-125px">{{ __("Bank") }}</th>
           <th class="min-w-125px">{{ __("Payment Status") }}</th>
           <th class="text-end min-w-70px">{{ __("Action") }}</th>
         </x-slot>
@@ -50,6 +51,7 @@
             <td>
               {{ \App\Helpers\DateFormatHelper::format($value->end_date_at) }}
             </td>
+            <td>{{ $value->bank ?? '-' }}</td>
             <td>{{ $value->payment_status == 1 ? __('Yes') : __('No') }}</td>
 
             <td class="text-end">
