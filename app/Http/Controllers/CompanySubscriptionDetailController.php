@@ -27,8 +27,12 @@ class CompanySubscriptionDetailController extends Controller
 
     public function create(Company $company, Request $request)
     {
+        $form = new CompanySubscription([
+            'company_id'    => $company->id,
+        ]);
         return view('company_subscription_detail.create',[
             'company'  => $company,
+            'form'  => $form,
         ]);
     }
 
