@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Jobs\PayoutSettingJob;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -127,6 +128,16 @@ class Company extends Model
         static::saving(function ($model) {
             if ($model->tax_calculation_method != null && $model->tax_calculation_method == 'none') {
                 $model->tax_calculation_method = null;
+            }
+        });
+
+        static::created(function ($model) {
+            $model->refresh();
+            if ($model->id != null) {
+                Log::info($model->id);
+                for ($i = date('Y'); $i < date('Y') + 5; $i++) {
+                    PayoutSettingJob::dispatch($model->id, $i, $model->created_by_user_id ?? null);
+                }
             }
         });
     }
