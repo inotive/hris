@@ -41,10 +41,13 @@
             <td>
                 {{ $value->clockin_time != null ? \App\Helpers\DateFormatHelper::formatWithTime($value->clockin_time) : '-' }}
                 @if ($value->clockin_range_status != null)
-                    <span
-                        class="badge badge-light-{{ $value->clockin_range_status == 'IN' ? 'success' : 'danger' }} badge-dot">
-                        {{ $value->clockin_range_status == 'IN' ? __('IN') : __('OUT') }}
-                    </span>
+                    <div>
+                        <span
+                            class="badge fs-9 badge-light-{{ $value->clockin_range_status == 'IN' ? 'success' : 'danger' }} badge-dot">
+                        {{ $value->clockin_range_status == 'IN' ? __('IN AREA') : __('OUT AREA') }}
+                        </span>
+                    </div>
+
                 @endif
             </td>
             <td>
