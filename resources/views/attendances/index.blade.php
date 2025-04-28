@@ -38,21 +38,21 @@
             <td>{{ $value->employee->full_name ?? '-' }}</td>
             <td>{{ $value->employee_shift->name ?? '-' }}</td>
             <td>{{ \Carbon\Carbon::parse($value->date)->format('d M Y') }}</td>
-            <td>
-                {{ $value->clockin_time != null ? \App\Helpers\DateFormatHelper::formatWithTime($value->clockin_time) : '-' }}
+            <td class="fs-8">
+                {{ $value->clockin_time != null ? \App\Helpers\DateFormatHelper::formatTime($value->clockin_time) : '-' }}
                 @if ($value->clockin_range_status != null)
                     <span
                         class="badge badge-light-{{ $value->clockin_range_status == 'IN' ? 'success' : 'danger' }} badge-dot">
-                        {{ $value->clockin_range_status == 'IN' ? __('IN') : __('OUT') }}
+                        {{ $value->clockin_range_status == 'IN' ? __('IN AREA') : __('OUT AREA') }}
                     </span>
                 @endif
             </td>
-            <td>
-                {{ $value->clockout_time != null ? \App\Helpers\DateFormatHelper::formatWithTime($value->clockout_time) : '-' }}
+            <td class="fs-8">
+                {{ $value->clockout_time != null ? \App\Helpers\DateFormatHelper::formatTime($value->clockout_time) : '-' }}
                 @if ($value->clockout_range_status != null)
                     <span
                         class="badge badge-light-{{ $value->clockout_range_status == 'IN' ? 'success' : 'danger' }} badge-dot">
-                        {{ $value->clockout_range_status == 'IN' ? __('IN') : __('OUT') }}
+                        {{ $value->clockout_range_status == 'IN' ? __('IN AREA') : __('OUT AREA') }}
                     </span>
                 @endif
             </td>

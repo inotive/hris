@@ -12,6 +12,12 @@ class DateFormatHelper
         return $date->format('d M Y');
     }
 
+    static public function formatTime($date) 
+    {
+        $date = Carbon::parse($date);
+        return $date->format('H:i');
+    }
+
     static public function formatWithTime($date) 
     {
         $date = Carbon::parse($date);
