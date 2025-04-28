@@ -23,8 +23,15 @@
                     <div class="alert alert-warning">
                         {{ session('messages.warning') }}
                     </div>
-                @endif @yield('header')
+                @endif 
+                
                 <form method="GET">
+                    <div class="w-full">
+                        <h1 class="fs-2 fw-bold mb-4">
+                            @yield('header')
+                        </h1>
+                    </div>
+
                     <!--begin::Card-->
                     <div class="card border round-3">
                         <!--begin::Card body-->
