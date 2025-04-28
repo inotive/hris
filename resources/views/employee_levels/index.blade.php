@@ -1,5 +1,8 @@
 @extends('crud.index')
 
+@section('header')
+    <b>{{ __('Levels') }}</b>
+@endsection
 
 @section('toolbar')
 

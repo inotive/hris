@@ -1,5 +1,8 @@
 @extends('crud.index')
 
+@section('header')
+    <b>{{ __('Employees') }}</b>
+@endsection
 
 @section('page_title')
     {{ __($page_title) }}

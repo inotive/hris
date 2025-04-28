@@ -1,6 +1,10 @@
 @extends('crud.index')
 
 
+@section('header')
+    <b>{{ __('Departments') }}</b>
+@endsection
+
 @section('page_title')
     {{ __($page_title) }}
 @stop

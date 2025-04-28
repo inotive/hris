@@ -1,5 +1,9 @@
 @extends('crud.index')
 
+@section('header')
+    <b>{{ __('Positions') }}</b>
+@endsection
+
 @section('toolbar')
     <x-table.filter-dropdown :company="true" />
 @stop
