@@ -6,7 +6,7 @@
 
 @section('page_title')
     {{ __($page_title) }}
-@stop
+@stop       
 
 @section('page_subtitle')
     Terakhir data di perbarui : <b>5 menit yang lalu</b>

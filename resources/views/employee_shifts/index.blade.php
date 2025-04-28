@@ -35,9 +35,9 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $value->name ?? '-' }}</td>
-                                <td>{{ $value->start_time != null ? \Carbon\Carbon::parse($value->start_time)->format('d M Y h:m') : '-' }}
+                                <td>{{ $value->start_time != null ? \Carbon\Carbon::parse($value->start_time)->format('H:m') : '-' }}
                                     -
-                                    {{ $value->end_time != null ? \Carbon\Carbon::parse($value->end_time)->format('d M Y h:m') : '-' }}
+                                    {{ $value->end_time != null ? \Carbon\Carbon::parse($value->end_time)->format('H:m') : '-' }}
                                 </td>
                                 <td>{{ $value->default == 1 ? __('YES') : __('ID') }}</td>
                                 @if (auth()->user()->company_id == null)
