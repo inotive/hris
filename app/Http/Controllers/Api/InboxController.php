@@ -19,31 +19,40 @@ class InboxController extends Controller
                         (
                             (
                             SELECT
-                                announcements.id,
+                                a.id,
                                 '' AS type,
                                 NULL AS module,
-                                announcements.title,
-                                announcements.content,
-                                announcement_reads.read_at,
-                                announcements.created_at
+                                a.title,
+                                a.content,
+                                ar.read_at,
+                                NULL AS approved_at,
+                                NULL AS approver_employee_id,
+                                NULL AS approver_employee_name,
+                                a.created_at
                             FROM
-                                `announcement_reads`
-                                JOIN announcements ON announcements.id = announcement_reads.announcement_id
-                                JOIN employees ON employees.id = announcement_reads.employee_id
+                                `announcement_reads` ar
+                                JOIN announcements a ON a.id = ar.announcement_id
+                                JOIN employees e ON e.id = ar.employee_id
                             )
 
                             UNION ALL
                             (
                             SELECT
-                                requests.id,
-                                requests.`status` as 'type',
-                                requests.module,
-                                requests.title,
-                                requests.content,
-                                NULL AS readt_at,
-                                requests.created_at
+                                r.id,
+                                r.`status` as 'type',
+                                r.module,
+                                r.title,
+                                r.content,
+
+                                NULL AS read_at,
+                                ra.approved_at,
+                                ra.approver_employee_id,
+                                IF(e.id is null, null, concat(e.first_name, e.last_name)) as approver_employee_name,
+                                r.created_at
                             FROM
-                                requests
+                                requests r
+                              LEFT JOIN   request_approvers ra ON ra.request_id = r.id AND ra.active =1 AND ra.approver_status != 'pending'
+                              JOIN employees e ON e.id = ra.approver_employee_id
                             )
                         ) notification
 

@@ -141,5 +141,9 @@
     "You have not changed your password yet, please change your password first.": "You have not changed your password yet, please change your password first.",
 
     "Are you sure want to send password, to employee?":"Are you sure want to send password, to employee?",
-    "Data not found" :"Data not found"
+    "Data not found" :"Data not found",
+
+    "leave_not_found" : "Leave type not found",
+    "leave_insufficient_days" : "Insufficient leave days for year :year. Available: :available, Requested: :requested"
+
 }

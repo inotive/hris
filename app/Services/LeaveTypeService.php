@@ -30,7 +30,7 @@ class LeaveTypeService
             if (empty($leaveType)) {
                 return [
                     'status' => false,
-                    'message' => 'Leave type not found'
+                    'message' => __('leave_not_found')
                 ];
             }
             
@@ -39,7 +39,11 @@ class LeaveTypeService
             if ($days > $remaining && $remaining != null) {
                 return [
                     'status' => false,
-                    'message' => "Insufficient leave days for year {$current->year}. Available: {$remaining}, Requested: {$days}"
+                    'message' => __('leave_insufficient_days', [
+                        'year' => $current->year,
+                        'available' => $remaining,
+                        'requested' => $days
+                    ])
                 ];
             }
             

@@ -130,5 +130,7 @@
     "September": "September",
     "October": "Oktober",
     "November": "November",
-    "December": "Desember"
+    "December": "Desember",
+"leave_not_found" : "Jenis cuti tidak ditemukan",
+"leave_insufficient_days" : "Hari cuti tidak mencukupi untuk tahun :year. Tersedia: :available, Diminta: :requested"
 }

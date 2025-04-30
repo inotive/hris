@@ -24,7 +24,7 @@ class LeaveRequestResource extends JsonResource
             'reason'    => $this->reason,
             'files' => FilesResource::collection($this->files),
             'status'    => $this->status,
-            'approvers'   => RequestApproverResource::collection($this->request->approvers),
+            'approvers'   => $this->request?->approvers != null ? RequestApproverResource::collection($this->request->approvers) : null,
             'created_at'    => $this->created_at,
         ];
     }
