@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\SearchTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -68,6 +69,17 @@ class EmployeeOrganizationExperience extends Model
         'start_period'=> 'date:Y-m-d',
         'end_period'=> 'date:Y-m-d',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('filter_by_empoyee', function (Builder $builder) {
+            if (auth()->user() instanceof Employee) {
+                $builder->where('employee_id', auth()->user()->id);
+            }
+        });
+    }
     
 
     public function employee()
@@ -75,5 +87,6 @@ class EmployeeOrganizationExperience extends Model
         return $this->belongsTo(Employee::class,'employee_id','id');
     }
 
+    
 
 }

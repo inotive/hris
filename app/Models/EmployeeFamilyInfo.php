@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Traits\SearchTrait;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -45,6 +46,18 @@ class EmployeeFamilyInfo extends Model
         'birth_place' => 'required',
         'marital_status' => 'required',
     ];
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('filter_by_empoyee', function (Builder $builder) {
+            if (auth()->user() instanceof Employee) {
+                $builder->where('employee_id', auth()->user()->id);
+            }
+        });
+    }
 
 
     public function employee()
