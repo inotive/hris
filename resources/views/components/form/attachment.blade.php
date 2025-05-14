@@ -4,12 +4,13 @@
     'name' => '',
     'folder' => '',
     'files' => [],
+    'required' => false,
 ])
 <div class="{{ $class }}">
 
 
     <div class="form-group mb-2">
-        <label for="image" class="form-label">{{ $label }}</label>
+        <label for="image" class="{{ $required == true ? 'required ' : '' }} form-label">{{ $label }}</label>
 
 
         <input class="form-control" type="file" id="{{ $name }}_file" multiple>
