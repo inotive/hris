@@ -10,6 +10,8 @@ class InboxController extends Controller
 {
     public function notifications(Request $request)
     {
+        $auth = auth()->user();
+
         $limit = 10;
         $offset = (($request->page ?? 1)-1) * $limit;
 
@@ -18,21 +20,22 @@ class InboxController extends Controller
                         FROM
                         (
                             (
-                            SELECT
-                                a.id,
-                                '' AS type,
-                                NULL AS module,
-                                a.title,
-                                a.content,
-                                ar.read_at,
-                                NULL AS approved_at,
-                                NULL AS approver_employee_id,
-                                NULL AS approver_employee_name,
-                                a.created_at
-                            FROM
-                                `announcement_reads` ar
-                                JOIN announcements a ON a.id = ar.announcement_id
-                                JOIN employees e ON e.id = ar.employee_id
+                                SELECT
+                                    a.id,
+                                    '' AS type,
+                                    NULL AS module,
+                                    a.title,
+                                    a.content,
+                                    ar.read_at,
+                                    NULL AS approved_at,
+                                    NULL AS approver_employee_id,
+                                    NULL AS approver_employee_name,
+                                    a.created_at
+                                FROM
+                                    `announcement_reads` ar
+                                    JOIN announcements a ON a.id = ar.announcement_id
+                                    JOIN employees e ON e.id = ar.employee_id
+                                WHERE ar.employee_id = '".$auth->id."'
                             )
 
                             UNION ALL
@@ -53,6 +56,8 @@ class InboxController extends Controller
                                 requests r
                               LEFT JOIN   request_approvers ra ON ra.request_id = r.id AND ra.active =1 AND ra.approver_status != 'pending'
                               JOIN employees e ON e.id = ra.approver_employee_id
+                            WHERE 
+                                r.employee_id =  '".$auth->id."'
                             )
                         ) notification
 
@@ -61,6 +66,23 @@ class InboxController extends Controller
 
                           LIMIT $limit OFFSET $offset
                         ");
+
+        $data = collect($data)->map(function ($item) {
+            $data =  (array)$item;
+            $data['module_name'] = $data['module'] != null ? ucfirst($data['module']) . " Request" : null;
+
+
+            $message = null;
+
+            if ($data['type'] === 'approved') {
+                $message = "Your leave request has been approved. Please ensure all pending tasks are handed over to the appropriate team members before your leave period.";
+            } else if ($data['type'] === 'rejected') {
+                $message = "Your leave request has been rejected.";
+            }
+            
+            $data['message'] = $message;
+            return $data;
+        });
         return [
             'status'    => 'success',
             'data'  => $data,
