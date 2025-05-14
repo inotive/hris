@@ -4,6 +4,7 @@
     'label'  => __('Employee'),
     'value'  => '',
     'class' => 'col-12 col-lg-6 mb-4',
+    'required' => false,
 ])
 
 
@@ -13,6 +14,7 @@
                :add_class="$add_class"
                :value="$value"
                :class="$class"
+               :required="$required"
                data_name="{{ \App\Models\Employee::where('id', $value)->first()->full_name ?? '' }}"
 />
 

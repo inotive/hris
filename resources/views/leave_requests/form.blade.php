@@ -1,11 +1,11 @@
 <div class="row">
 
 
-    <x-company-dropdown :value="old('company_id', $form->company_id ?? '')" />
+    <x-company-dropdown  :value="old('company_id', $form->company_id ?? '')" />
     <x-employee-dropdown :value="old('employee_id', $form->employee_id ?? '')" />
     <x-leave-type-dropdown :value="old('leave_type_id', $form->leave_type_id ?? '')" />
-    <x-form.datepicker label="Start Date" name="start_date" :value="old('date', $form->start_date ?? '')"  />
-    <x-form.datepicker label="End Date" name="end_date" :value="old('date', $form->end_date ?? '')"  />
+    <x-form.datepicker required label="Start Date" name="start_date" :value="old('date', $form->start_date ?? '')"  />
+    <x-form.datepicker required label="End Date" name="end_date" :value="old('date', $form->end_date ?? '')"  />
 
     {{-- <x-manager-dropdown label="Approver" :value="old('manager_id', $form->manager_id ?? '')" /> --}}
 
