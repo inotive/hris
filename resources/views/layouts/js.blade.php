@@ -115,6 +115,7 @@
     $(".phone").each(function() {
         formatted(this);
     });
+
 </script>
 
 <script>

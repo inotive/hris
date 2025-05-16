@@ -47,6 +47,7 @@ class CompanyDropdown extends Component
         $list = [];
 
         return view('components.form.company',[
+            'required'  => true,
             'list'  => $list,
             'name'  => 'company_id',
             'label' => __('Company'),

@@ -40,6 +40,7 @@ class EmployeeDropdown extends Component
             
         return view('components.form.employee',[
             'list'  => $list,
+            'required' => true,
             'name'  => 'employee_id',
             'add_class' => 'employee_id',
         

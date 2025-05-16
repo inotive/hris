@@ -9,16 +9,16 @@
     <x-company-dropdown :value="old('company_id', $form->company_id ?? '')" />
     <x-employee-dropdown :value="old('employee_id', $form->employee_id ?? '')" />
 
-    <x-form.datepicker :label="__('Date')" name="date" :value="old('date', $form->date ?? '')" />
+    <x-form.datepicker required :label="__('Date')" name="date" :value="old('date', $form->date ?? '')" />
 
-    <x-form.select :label="__('Type')" :list="\App\Models\ReimbursementType::pluck('name', 'id')" name="reimbursement_type_id" :value="old('reimbursement_type_id', $form->reimbursement_type_id ?? '')" />
+    <x-form.select required :label="__('Type')" :list="\App\Models\ReimbursementType::pluck('name', 'id')" name="reimbursement_type_id" :value="old('reimbursement_type_id', $form->reimbursement_type_id ?? '')" />
 
 
-    <x-manager-dropdown :label="__('Approver')" :value="old('manager_id', $form->manager_id ?? '')" />
+    {{-- <x-manager-dropdown :label="__('Approver')" :value="old('manager_id', $form->manager_id ?? '')" /> --}}
 
     <div class="row">
         <div class="col-12 col-lg-6">
-            <x-form.attachment class="" label="Files" name="files" :files="$files ?? []" folder="leave_request" />
+            <x-form.attachment required class="" label="Files" name="files" :files="$files ?? []" folder="leave_request" />
         </div>
     </div>
 

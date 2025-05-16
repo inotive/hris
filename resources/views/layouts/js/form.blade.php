@@ -55,7 +55,11 @@
     $("#crud-form").on('submit', function(event) {
         event.preventDefault();
 
-
+        $(".phone").each(function() {
+            // Ensure only numbers are submitted (remove all non-numeric characters)
+            let value = $(this).val().replace(/[^0-9]/g, '');
+            $(this).val(value);
+        });
 
         var submitButton = $("button[type='submit']");
         submitButton.prop('disabled', true);
@@ -111,6 +115,10 @@
                     });
 
                     submitButton.prop('disabled', false);
+
+                    $(".phone").each(function() {
+                        formatted(this);
+                    });
                 }
                 // window.location.reload();
             },
@@ -149,6 +157,10 @@
                             },
                         });
                     }
+
+                    $(".phone").each(function() {
+                        formatted(this);
+                    });
                 }
 
                 submitButton.prop('disabled', false);
@@ -156,4 +168,20 @@
 
         });
     });
+
+
+    function formatted(selector) {
+        let value = $(selector).val();
+
+        // Remove any non-numeric characters
+        value = value.replace(/[^0-9]/g, '');
+
+        // Format the number with a thousands separator
+        let formattedValue = value.replace(/\B(?=(\d{4})+(?!\d))/g, '-');
+
+        // Update the input field with the formatted value
+        $(selector).val(formattedValue);
+    }
+
+   
 </script>

@@ -59,6 +59,7 @@ class ApproveController extends Controller
                 ];
             }
 
+            $req->approved_at = Carbon::now();
             $req->approver_status = 'approved';
             $req->save();
 
@@ -79,7 +80,7 @@ class ApproveController extends Controller
 
                     if ($module == 'leave') {
                         LeaveRequest::where('id', $module_id)->update([
-                            'status'    => 'approved'
+                            'status'    => 'approved',
                         ]);
                     } else if ($module == 'overtime') {
                         OvertimeRequest::where('id', $module_id)->update([
