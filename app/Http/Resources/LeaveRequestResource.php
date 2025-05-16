@@ -19,7 +19,11 @@ class LeaveRequestResource extends JsonResource
 
         return [
             'id'    => $this->id,
+            'employee_id'   => $this->employee_id,
+            'employee_name' => $this->employee != null ? $this->employee->full_name : null,
             'date'  => Carbon::parse($this->date)->format('Y-m-d'),
+            'start_date'  => Carbon::parse($this->start_date)->format('Y-m-d'),
+            'end_date'  => Carbon::parse($this->end_date)->format('Y-m-d'),
             'leave_type'    => $this->leave_type,
             'reason'    => $this->reason,
             'files' => FilesResource::collection($this->files),

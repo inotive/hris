@@ -19,6 +19,8 @@ class RequestApproverResource extends JsonResource
         return [
             'id'   => $this->approver_employee_id,
             'name'  => $this->employee->full_name,
+            'image'  => $this->employee->image != null ? Storage::url($this->employee->image) : null,
+            
             'approver_status'   => $this->approver_status,
             'approver_level'    => $this->approver_level,
             'approved_at'    => $this->approved_at,
