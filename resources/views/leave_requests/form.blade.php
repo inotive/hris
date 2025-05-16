@@ -14,7 +14,7 @@
 
     <div class="row">
         <div class="col-12 col-lg-6">
-            <x-form.attachment class="" label="Files" name="files" :files="$files ?? []"  folder="leave_request" />
+            <x-form.attachment required class="" label="Files" name="files" :files="$files ?? []"  folder="leave_request" />
         </div>
     </div>
 
