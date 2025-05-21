@@ -19,6 +19,13 @@ class LeaveTypeService
         
         $years = [];
         $current = $start->copy();
+
+        if (empty($leave_type_id)) {
+            return [
+                'status' => false,
+                'message' => __('leave_type_empty')
+            ];
+        }
         
         while ($current->year <= $end->year) {
             $yearStart = $current->year === $start->year ? $start : Carbon::createFromDate($current->year, 1, 1);
@@ -27,6 +34,9 @@ class LeaveTypeService
             $days = $yearStart->diffInDays($yearEnd) + 1;
             $leaveType = self::leaveTypeByEmployee($employee_id, $leave_type_id, $current->year);
             
+
+        
+
             if (empty($leaveType)) {
                 return [
                     'status' => false,

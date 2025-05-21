@@ -17,6 +17,7 @@ use Illuminate\Validation\Rule;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
@@ -26,11 +27,14 @@ class Company extends Model
     use SearchTrait;
     use CreatedByUserTrait;
     use HasMyCompany;
+    use SoftDeletes;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing
     protected $keyType = 'string'; // Since UUID is a string
+
+
 
 
     public $fillable = [

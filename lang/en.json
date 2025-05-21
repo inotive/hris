@@ -144,6 +144,7 @@
     "Data not found" :"Data not found",
 
     "leave_not_found" : "Leave type not found",
+    "leave_type_empty" : "Leave type is empty",
     "leave_insufficient_days" : "Insufficient leave days for year :year. Available: :available, Requested: :requested"
 
 }
