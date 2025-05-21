@@ -7,7 +7,7 @@
 
 
 @section('toolbar')
-    <x-table.filter-dropdown :company="true" />
+    <x-table.filter-dropdown />
 @stop
 
 @section('table_header')

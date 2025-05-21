@@ -132,5 +132,7 @@
     "November": "November",
     "December": "Desember",
 "leave_not_found" : "Jenis cuti tidak ditemukan",
+"leave_type_empty" : "Jenis cuti masih kosong",
+
 "leave_insufficient_days" : "Hari cuti tidak mencukupi untuk tahun :year. Tersedia: :available, Diminta: :requested"
 }
