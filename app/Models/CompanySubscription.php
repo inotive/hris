@@ -54,4 +54,19 @@ class CompanySubscription extends Model
         'payment_status'  => '',
         'bank'  => 'required',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($model) {
+            $model->refresh();
+            if ($model->id != null) {
+                Log::info($model->id);
+                for ($i = date('Y'); $i < date('Y') + 5; $i++) {
+                    PayoutSettingJob::dispatch($model->company_id, $i, auth()->user()->id ?? null);
+                }
+            }
+        });
+    }
 }
