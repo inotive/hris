@@ -119,6 +119,6 @@ class ReimbursementRequest extends Model
 
     public function request()
     {
-        return $this->belongsTo(Request::class, 'id','module_id')->where('module','leave');
+        return $this->belongsTo(Request::class, 'id','module_id')->where('module','reimbursement');
     }
 }
