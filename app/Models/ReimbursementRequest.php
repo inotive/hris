@@ -75,7 +75,9 @@ class ReimbursementRequest extends Model
                 'module_id'  => $row->id,
             ]);
 
-            $approver = Approver::where('employee_id', $row->employee_id)->orderBy('approver_level','desc')->get();
+            $approver = Approver::where('employee_id', $row->employee_id)
+                ->where('request_type','reimbursement')
+                ->orderBy('approver_level','desc')->get();
             foreach($approver as $key => $value) {
                 $active = $key == 0 ? true : false;
                 RequestApprover::create([
@@ -113,5 +115,10 @@ class ReimbursementRequest extends Model
     public function expenses()
     {
         return $this->hasMany(ReimbursementExpenseList::class, 'reimbursement_request_id', 'id');
+    }
+
+    public function request()
+    {
+        return $this->belongsTo(Request::class, 'id','module_id')->where('module','leave');
     }
 }
