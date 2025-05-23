@@ -8,6 +8,13 @@
 
     'prefix' => 'map' . uniqid(),
 ])
+
+@php
+if ($lat == 0) {
+    $lat = -6.175605558491494;
+    $lng = 106.82693230874003;
+}
+@endphp
 <div>
 
 
@@ -87,12 +94,46 @@
 
         }
 
+        async function getCurrentLocation() {
+            if (!navigator.geolocation) {
+                console.log('Geolocation is not supported by this browser.');
+                return { lat: null, lng: null };
+            }
+
+            try {
+                const position = await new Promise((resolve, reject) =>
+                navigator.geolocation.getCurrentPosition(resolve, reject)
+                );
+
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                console.log('Latitude:', lat);
+                console.log('Longitude:', lng);
+                return { lat, lng };
+            } catch (error) {
+                console.error('Error getting location:', error.message);
+                return { lat: null, lng: null };
+            }
+        }
+
         // Handle modal map initialization
-        document.getElementById('{{ $prefix }}_mapModal').addEventListener('shown.bs.modal', function () {
+        document.getElementById('{{ $prefix }}_mapModal').addEventListener('shown.bs.modal', function  ()  {
             console.log("open modal");
-            setTimeout(() => {
+            setTimeout(async () => {
                 var lat = $("#{{ $lat_input }}").val() || {{ $prefix }}_defaultLat;
                 var lng = $("#{{ $lng_input }}").val() || {{ $prefix }}_defaultLng;
+
+                if (lat == 0 && navigator.geolocation) {
+                    var reslat = await getCurrentLocation();
+
+                    if (reslat != null) {
+                        lat = reslat.lat;
+                        lng = reslat.lng;
+                        
+                    }
+                } else {
+                console.log('Geolocation is not supported by this browser.');
+                }
 
                 if (!{{ $prefix }}_map) {
                     {{ $prefix }}_map = L.map('{{ $prefix }}_map').setView([lat, lng], 19); // Default to Jakarta
