@@ -18,6 +18,8 @@ class ReimbursementRequestResource extends JsonResource
 
         return [
             'id'    => $this->id,
+            'employee_id'   => $this->employee_id,
+            'employee_name' => $this->employee != null ? $this->employee->full_name : null,
             'reimbursement_type'    => [
                 'id'    => $this->reimbursement_type->id,
                 'name'  => $this->reimbursement_type->name,
@@ -38,6 +40,7 @@ class ReimbursementRequestResource extends JsonResource
             }),
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
+            'approvers'   => $this->request?->approvers != null ? RequestApproverResource::collection($this->request->approvers) : null,
         ];
     }
 }

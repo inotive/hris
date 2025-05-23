@@ -177,6 +177,11 @@ trait CrudTrait
         }catch(Exception $e) {
             Log::error($e);
             $message = $e->errorInfo[2] ?? 'Error';
+
+
+            if (str_contains($message, 'foreign key')) {
+                $message = 'Cannot delete this record as it is being referenced by other records';
+            }
             return [
                 'success'   => false,
                 'error' => $e,

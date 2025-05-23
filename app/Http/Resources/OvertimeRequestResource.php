@@ -18,6 +18,8 @@ class OvertimeRequestResource extends JsonResource
 
         return [
             'id'    => $this->id,
+            'employee_id'   => $this->employee_id,
+            'employee_name' => $this->employee != null ? $this->employee->full_name : null,
             'overtime_shift_request'    => [
                 'id'    => $this->overtime_shift_request?->id ?? null,
                 'name'  => $this->overtime_shift_request?->name ?? "Shift",
@@ -33,6 +35,7 @@ class OvertimeRequestResource extends JsonResource
             'status'    => $this->status,
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
+            'approvers'   => $this->request?->approvers != null ? RequestApproverResource::collection($this->request->approvers) : null,
         ];
     }
 }

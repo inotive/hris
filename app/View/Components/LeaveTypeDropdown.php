@@ -41,6 +41,7 @@ class LeaveTypeDropdown extends Component
             
         return view('components.form.select',[
             'list'  => $list,
+            'required'  => true,
             'name'  => 'leave_type_id',
             'label' => __('Leave Type'),
             'value' => $this->value,

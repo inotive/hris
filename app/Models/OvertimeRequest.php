@@ -93,7 +93,9 @@ class OvertimeRequest extends Model
                 'module_id'  => $row->id,
             ]);
 
-            $approver = Approver::where('employee_id', $row->employee_id)->orderBy('approver_level','desc')->get();
+            $approver = Approver::where('employee_id', $row->employee_id)
+                ->where('request_type','overtime')
+                ->orderBy('approver_level','desc')->get();
             foreach($approver as $key => $value) {
                 $active = $key == 0 ? true : false;
                 RequestApprover::create([
@@ -151,5 +153,10 @@ class OvertimeRequest extends Model
     public function files()
     {
         return $this->hasMany(File::class,'module_id','id');
+    }
+
+    public function request()
+    {
+        return $this->belongsTo(Request::class, 'id','module_id')->where('module','overtime');
     }
 }

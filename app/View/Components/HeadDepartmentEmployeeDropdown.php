@@ -34,6 +34,7 @@ class HeadDepartmentEmployeeDropdown extends Component
             'name' => 'head_departmen_id',
             'label' => $label,
             'add_class' => 'manager_id',
+            'required' => true,
         ]);
     }
 }

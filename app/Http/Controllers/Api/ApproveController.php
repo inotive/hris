@@ -59,7 +59,7 @@ class ApproveController extends Controller
                 ];
             }
 
-            $req->approved_at = Carbon::now();
+            $req->approved_at = \Carbon\Carbon::now();
             $req->approver_status = 'approved';
             $req->save();
 

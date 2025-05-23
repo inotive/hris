@@ -18,8 +18,8 @@
     <x-form.input type="text" :label="__('Name')" name="name" :value="old('name', $form->name ?? '')" :required="true" />
     <x-form.input type="email" :label="__('Email')" name="email" :value="old('email', $form->email ?? '')"   :required="true"/>
     <x-form.phone :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')"  :required="true"/>
-    <x-form.select :list="['backward' => 'Backward', 'current' => 'Current']" label="Cut Off Payroll Method" name="cut_off_payroll_method" :value="old('cut_off_payroll_method', $form->cut_off_payroll_method ?? '')"   :required="true"/>
-    <x-form.number min="1" max="31" :label="__('Cut Off Payroll Date')" name="cut_off_payroll_date" :value="old('cut_off_payroll_date', $form->cut_off_payroll_date ?? '')" />
+    <x-form.select :required="true" :list="['backward' => 'Backward', 'current' => 'Current']" label="Cut Off Payroll Method" name="cut_off_payroll_method" :value="old('cut_off_payroll_method', $form->cut_off_payroll_method ?? '')"   :required="true"/>
+    <x-form.number :required="true" min="1" max="31" :label="__('Cut Off Payroll Date')" name="cut_off_payroll_date" :value="old('cut_off_payroll_date', $form->cut_off_payroll_date ?? '')" />
     <x-form.select :list="['none' => 'None', 'gross' => 'Gross', 'gross-up' => 'Gross Up']" label="Tax Calculation Method" name="tax_calculation_method" :value="old('tax_calculation_method', $form->tax_calculation_method ?? '')" />
 
     <x-form.image-picker :label="__('Logo')" name="logo" folder="companies" :value="old('logo', $form->logo ?? '')" />

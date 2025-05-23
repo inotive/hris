@@ -53,6 +53,10 @@ class ReimbursementRequestController extends Controller
 
     private function _save(Request $request)
     {
+
+        $validate = (new ReimbursementRequest())->rules;
+        $validated = $request->validate($validate);
+
         try{
 
             $total = 0;
