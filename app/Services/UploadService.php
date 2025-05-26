@@ -19,7 +19,7 @@ class UploadService
 
         Storage::putFileAs($visibility.$folder, $file, $filename);
 
-        return $folder . '/' . $filename;
+        return $folder ? $folder . '/' . $filename : $filename;
 
     }
 }
