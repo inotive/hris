@@ -46,7 +46,20 @@ class EmployeeController extends Controller
         $values = $request->all();
 
         foreach ($values as $key => $value) {
-            $employee->$key = $value;
+
+            if ($key == "image") {
+                // base64 image
+                $image = $value;
+                $image = str_replace('data:image/jpeg;base64,', '', $image);
+                $image = str_replace('data:image/png;base64,', '', $image);
+                $image = str_replace('data:image/jpg;base64,', '', $image);
+                $image = base64_decode($image);
+                $image_name = time() . '.png';
+                file_put_contents(public_path('images/employee/' . $image_name), $image);
+                $employee->$key = $image_name;
+            } else {
+                $employee->$key = $value;
+            }
         }
 
 
