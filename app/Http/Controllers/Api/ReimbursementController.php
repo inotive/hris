@@ -42,6 +42,7 @@ class ReimbursementController extends Controller
             ->when($request->year != null, function ($query) use ($request) {
                 return $query->whereYear('date', $request->year);
             })
+            ->where('employee_id', $auth->id)
             ->orderBy('date', $request->sort ?? 'desc')
             ->paginate($request->per_page ?? 10);
 
