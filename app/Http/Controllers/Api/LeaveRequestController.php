@@ -49,7 +49,7 @@ class LeaveRequestController extends Controller
                 $yearEnd = Carbon::create($request->year, 12, 31, $timezone)->endOfYear()->setTimezone('UTC')->toIso8601String();
                 return $query->whereBetween('created_at', [$yearStart, $yearEnd]);
             })
-
+            ->where('employee_id', $auth->id)
             ->orderBy('created_at', $request->sort ?? 'desc')
             ->paginate($request->per_page ?? 10);
 
