@@ -19,10 +19,16 @@ trait CrudApiTrait
         $validator = $this->validateRequest($request);
 
         if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $error_message = 'Invalid Request';
+
+            if (count($errors) > 0) {
+                $error_message = $errors[0];
+            }
             return response()->json([
                 'status' => 'error',
-                'message'   => 'Invalid Request Data',
-                'errors' => $validator->errors(),
+                'message' => $error_message,
+                'errors' => $validator->errors()
             ], 422);
         }
 
