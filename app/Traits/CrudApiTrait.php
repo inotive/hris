@@ -93,15 +93,22 @@ trait CrudApiTrait
     public function update(Request $request, $id)
     {
         
-        $validator = $this->validateRequest($request, $id);
+        $validator = $this->validateRequest($request);
 
         if ($validator->fails()) {
+            $errors = $validator->errors()->all();
+            $error_message = 'Invalid Request';
+
+            if (count($errors) > 0) {
+                $error_message = $errors[0];
+            }
             return response()->json([
                 'status' => 'error',
-                'errors' => $validator->errors(),
+                'message' => $error_message,
+                'errors' => $validator->errors()
             ], 422);
         }
-
+        
         $model = $this->model::find($id);
 
         if (!$model) {
