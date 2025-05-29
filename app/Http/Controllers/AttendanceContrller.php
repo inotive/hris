@@ -34,7 +34,7 @@ class AttendanceContrller extends Controller
             ]);
             return;
         }
-        $company_id = $request->filter['company_id'] ?? null;
+        $company_id = $request->filter['company_id'] ?? auth()->user()->company_id ?? null;
         $year = $request->filter['year'] ?? date('Y');
         $month = $request->filter['month'] ?? date('m');
 

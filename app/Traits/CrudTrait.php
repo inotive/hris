@@ -137,11 +137,17 @@ trait CrudTrait
         $r =  $this->route;
         $r = str_replace("_","-", $r);
         
-        if (method_exists((new $this->model), "rules")) {
-            $validate = (new $this->model)->rules();
+        // Get the model instance and set its ID for validation
+        $model = new $this->model;
+        $model->id = $id;
+        
+        // Get validation rules with the model's ID set
+        if (method_exists($model, "rules")) {
+            $validate = $model->rules();
         } else {
-            $validate = (new $this->model)->rules;
+            $validate = $model->rules;
         }
+        
         $validated = $request->validate($validate);
 
         Log::info($request->all());

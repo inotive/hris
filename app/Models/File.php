@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class File extends Model
 {
@@ -43,23 +44,27 @@ class File extends Model
         parent::boot();
 
         static::creating(function($row){
-            $filePath = $row->file ?? null;
-            if ($filePath != null) {
+            try{
+                $filePath = $row->file ?? null;
+                if ($filePath != null) {
 
-                // Get the file extension
-                $extension = pathinfo(Storage::path($filePath), PATHINFO_EXTENSION);
+                    // Get the file extension
+                    $extension = pathinfo(Storage::path($filePath), PATHINFO_EXTENSION);
 
-                // Get the file size (in bytes)
-                $size = Storage::size($filePath);
+                    // Get the file size (in bytes)
+                    $size = Storage::size($filePath);
 
-                // Get the filename with extension
-                $filename = pathinfo(Storage::path($filePath), PATHINFO_BASENAME);
+                    // Get the filename with extension
+                    $filename = pathinfo(Storage::path($filePath), PATHINFO_BASENAME);
 
-                $row->extension = $extension;
-                $row->size = $size;
-                $row->name = $filename;
-            
-               
+                    $row->extension = $extension;
+                    $row->size = $size;
+                    $row->name = $filename;
+                
+                
+                }
+            }catch(Exception $e){
+                Log::error($e);
             }
         });
     }
