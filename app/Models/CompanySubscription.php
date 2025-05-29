@@ -8,6 +8,7 @@ use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Jobs\PayoutSettingJob;
 
 class CompanySubscription extends Model
 {
@@ -62,7 +63,6 @@ class CompanySubscription extends Model
         static::created(function ($model) {
             $model->refresh();
             if ($model->id != null) {
-                Log::info($model->id);
                 for ($i = date('Y'); $i < date('Y') + 5; $i++) {
                     PayoutSettingJob::dispatch($model->company_id, $i, auth()->user()->id ?? null);
                 }

@@ -51,7 +51,7 @@ class EmployeePosition extends Model
         // auto dummy employee department
         $departments = EmployeeDepartment::dummy_data($company_id);
         foreach($departments as $key => $value) {
-            EmployeeDepartment::firstOrCreate($value);
+            // EmployeeDepartment::firstOrCreate($value);
         }
 
         $company_id = $company_id ?? auth()->user()->company_id ?? null;

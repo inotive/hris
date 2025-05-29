@@ -37,9 +37,11 @@ trait CrudTrait
                 }
 
 
-                return redirect()->route($this->route . '.index');
+               
             
             }
+
+            return redirect()->route($this->route . '.index');
         }
         $r =  $this->route;
         $r = str_replace("-","_", $r);
