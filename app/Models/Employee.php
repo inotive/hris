@@ -109,7 +109,7 @@ class Employee extends Authenticatable
             'email' => [
                 'required',
                 'email',
-                // Rule::unique('employees')->ignore($this->id),
+                Rule::unique('employees')->ignore($this->id),
             ],
             'username' => 'required',
             // 'username' => [
