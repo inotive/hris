@@ -24,6 +24,18 @@ trait CrudTrait
         if ($request->generate_dummy == 1) {
          
             if ($rows_count == 0) {
+
+                $message = method_exists($this->model, 'dummy_data_validation_message') ? $this->model::dummy_data_validation_message() : null;
+
+                if ($message) {
+                    session()->flash('messages', [
+                        'warning'   =>  $message
+                    ]);
+
+                    
+                     return redirect()->route($this->route . '.index');
+                }
+
                 // can generate if zero data
                 $inserts = $this->model::dummy_data() ?? [];
                 if (count($inserts) > 0) {

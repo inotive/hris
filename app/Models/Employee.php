@@ -416,31 +416,31 @@ class Employee extends Authenticatable
     public static function religionDropdown()
     {
         return [
-            'Islam' => 'Islam',
-            'Kristen Katolik' => 'Kristen Katolik',
-            'Kristen Protestan' => 'Kristen Protestan',
-            'Hindu' => 'Hindu',
-            'Budha' => 'Budha',
-            'Konghuchu' => 'Konghuchu',
-            'Lainnya' => 'Lainnya',
+            'Islam' => __('Islam'),
+            'Kristen Katolik' => __('Kristen Katolik'),
+            'Kristen Protestan' => __('Kristen Protestan'),
+            'Hindu' => __('Hindu'),
+            'Budha' => __('Budha'),
+            'Konghuchu' => __('Konghuchu'),
+            'Lainnya' => __('Lainnya'),
         ];
     }
 
     public static function genderDropdown()
     {
         return [
-            'Laki-laki' => 'Laki-laki',
-            'Perempuan' => 'Perempuan',
+            'Laki-laki' => __('Laki-laki'),
+            'Perempuan' => __('Perempuan'),
         ];
     }
 
     public static function maritalStatusDropdown()
     {
         return [
-            'Lajang' => 'Lajang',
-            'Menikah' => 'Menikah',
-            'Cerai Hidup' => 'Cerai Hidup',
-            'Cerai Mati' => 'Cerai Mati',
+            'Lajang' => __('Lajang'),
+            'Menikah' => __('Menikah'),
+            'Cerai Hidup' => __('Cerai Hidup'),
+            'Cerai Mati' => __('Cerai Mati'),
         ];
     }
 

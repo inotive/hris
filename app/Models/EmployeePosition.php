@@ -45,15 +45,32 @@ class EmployeePosition extends Model
         return $this->belongsTo(EmployeeDepartment::class,'department_id','id');
     }
 
+
+    public static function dummy_data_validation_message($company_id = null)
+    {
+
+        $company_id = $company_id ?? auth()->user()->company_id ?? null;
+
+        $check = EmployeeDepartment::where('company_id', $company_id)->count();
+        if($check <= 0) {
+
+            return __('department_not_exist');
+        }
+
+        return null;
+    }
+
    // data array to show button dummy data
     public static function dummy_data($company_id = null) : array
     {
         // auto dummy employee department
-        $departments = EmployeeDepartment::dummy_data($company_id);
-        foreach($departments as $key => $value) {
+        // $departments = EmployeeDepartment::dummy_data($company_id);
+        // foreach($departments as $key => $value) {
             // EmployeeDepartment::firstOrCreate($value);
-        }
+        // }
 
+
+        
         $company_id = $company_id ?? auth()->user()->company_id ?? null;
 
         $data = [];
