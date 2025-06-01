@@ -145,6 +145,7 @@
 
     "leave_not_found" : "Leave type not found",
     "leave_type_empty" : "Leave type is empty",
-    "leave_insufficient_days" : "Insufficient leave days for year :year. Available: :available, Requested: :requested"
+    "leave_insufficient_days" : "Insufficient leave days for year :year. Available: :available, Requested: :requested",
+    "department_not_exist": "Department data is empty"
 
 }
