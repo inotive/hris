@@ -41,7 +41,7 @@
             
             lat_input="clockin_lat"
             lng_input="clockin_long"
-            :lat="$form->clockin_lat??0" :lng="$form->clockin_long??0" />
+            :lat="$form->clockin_lat ?? auth()->user()->company->lat ?? 0" :lng="$form->clockin_long ?? auth()->user()->company->lng ?? 0" />
         </div>
 
 
@@ -51,7 +51,7 @@
                 lat_input="clockout_lat"
                 lng_input="clockout_long"
 
-                :lat="$form->clockout_lat??0" :lng="$form->clockout_long??0" />
+                :lat="$form->clockout_lat ?? auth()->user()->company->lat ?? 0" :lng="$form->clockout_long ?? auth()->user()->company->lng ?? 0" />
         </div>
 
 </div>

@@ -44,27 +44,38 @@ class File extends Model
         parent::boot();
 
         static::creating(function($row){
-            try{
+            try {
                 $filePath = $row->file ?? null;
-                if ($filePath != null) {
-
+                
+                if ($filePath && Storage::exists($filePath)) {
                     // Get the file extension
-                    $extension = pathinfo(Storage::path($filePath), PATHINFO_EXTENSION);
-
+                    $extension = pathinfo($filePath, PATHINFO_EXTENSION);
+                    
                     // Get the file size (in bytes)
                     $size = Storage::size($filePath);
-
+                    
                     // Get the filename with extension
-                    $filename = pathinfo(Storage::path($filePath), PATHINFO_BASENAME);
-
-                    $row->extension = $extension;
+                    $filename = basename($filePath);
+                    
+                    $row->extension = strtolower($extension);
                     $row->size = $size;
                     $row->name = $filename;
-                
-                
+                } else {
+                    // Set default values if file doesn't exist
+                    $row->extension = $row->extension ?? null;
+                    $row->size = $row->size ?? 0;
+                    $row->name = $row->name ?? basename($filePath);
                 }
-            }catch(Exception $e){
-                Log::error($e);
+            } catch (\Exception $e) {
+                Log::error('Error processing file: ' . $e->getMessage(), [
+                    'file_path' => $filePath ?? null,
+                    'exception' => $e
+                ]);
+                
+                // Set default values on error
+                $row->extension = $row->extension ?? null;
+                $row->size = $row->size ?? 0;
+                $row->name = $row->name ?? ($filePath ? basename($filePath) : null);
             }
         });
     }
