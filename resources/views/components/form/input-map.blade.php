@@ -66,10 +66,15 @@ if ($lat == 0) {
         var {{ $prefix }}_defaultLat = -6.200000;
         var {{ $prefix }}_defaultLng = 106.816666;
 
+        
+
         $(document).ready(function() {
             // Initialize mapView outside modal (read-only map)
             var lat = $("#{{ $lat_input }}").val() || {{ $prefix }}_defaultLat;
             var lng = $("#{{ $lng_input }}").val() || {{ $prefix }}_defaultLng;
+
+            console.log({{ $lat }});
+            console.log({{ $lng }});
 
 
             {{ $prefix }}_setMapView(lat, lng);

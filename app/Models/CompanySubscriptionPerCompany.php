@@ -13,7 +13,7 @@ class CompanySubscriptionPerCompany extends CompanySubscription
 {
     
 
-    protected static function boot()
+    public static function boot()
     {
         parent::boot();
 

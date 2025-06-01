@@ -48,6 +48,7 @@ class File extends Model
                 $filePath = $row->file ?? null;
                 if ($filePath != null) {
 
+                    
                     // Get the file extension
                     $extension = pathinfo(Storage::path($filePath), PATHINFO_EXTENSION);
 
