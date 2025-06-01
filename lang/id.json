@@ -135,5 +135,21 @@
     "leave_type_empty" : "Jenis cuti masih kosong",
 
     "leave_insufficient_days" : "Hari cuti tidak mencukupi untuk tahun :year. Tersedia: :available, Diminta: :requested",
-    "department_not_exist" : "Data departement masih kosong"
+    "department_not_exist" : "Data departement masih kosong",
+
+    "Islam" : "Islam",
+    "Kristen Katolik" : "Kristen Katolik",
+    "Kristen Protestan" : "Kristen Protestan",
+    "Hindu" : "Hindu",
+    "Budha" : "Budha",
+    "Konghuchu" : "Konghuchu",
+    "Lainnya" : "Lainnya",
+
+    "Laki-laki" : "Male",
+    "Perempuan" : "Female",
+
+    "Lajang" : "Single",
+    "Menikah" : "Married",
+    "Cerai Hidup" : "Divorced",
+    "Cerai Mati" : "Widowed"
 }
