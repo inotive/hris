@@ -91,7 +91,7 @@
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
                         data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}"
+                        <img src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}" onerror="this.onerror=null; this.src='{{ asset('template/media/avatars/300-1.jpg') }}';" 
                             alt="user" 
                             onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';"
                             />
@@ -102,7 +102,8 @@
                             <div class="menu-content d-flex align-items-center px-3">
                                 <div class="symbol symbol-50px me-5">
                                     <img alt="Logo"
-                                        src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}" />
+                                        src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}"
+                                        onerror="this.onerror=null; this.src='{{ asset('template/media/avatars/300-1.jpg') }}';" />
                                 </div>
                                 <div class="d-flex flex-column">
                                     <div class="fw-bolder d-flex align-items-center fs-5">
