@@ -42,7 +42,7 @@ class ApproverEmployeeDropdown extends Component
             'list'  => $list,
             'name'  => 'approver_employee_id',
             'add_class' => 'employee_id',
-        
+            'required' => true,
         ]);
     }
 }

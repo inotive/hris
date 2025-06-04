@@ -30,11 +30,11 @@ class Approver extends Model
     ];
 
     public $rules = [
-        'company_id'=>'',
-        'request_type'=>'',
+        'company_id'=>'required',
+        'request_type'=>'required',
         'employee_id'=>'',
-        'approver_level'=>'',
-        'approver_employee_id'=>'',
+        'approver_level'=>'required',
+        'approver_employee_id'=>'required',
     ];
 
 
