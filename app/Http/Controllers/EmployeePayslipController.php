@@ -45,8 +45,10 @@ class EmployeePayslipController extends Controller
 
     private function _save(Request $request)
     {
+        $request->validate((new EmployeePayslip())->rules);
+        
         try{
-            $request->validate((new EmployeePayslip())->rules);
+          
 
             $redirect = $request->redirect ?? null;
 
