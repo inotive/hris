@@ -68,7 +68,7 @@ class ReimbursementController extends Controller
 
         return [
             'success'   => true,
-            'reimbursement_limit' => $reimbursement_limit,
+            'monthly_reimbursement_limit' => $reimbursement_limit,
             'data'  => ReimbursementRequestResource::collection($list),
             'pagination'    => $pagination,
         ];
