@@ -18,6 +18,39 @@ use Illuminate\Support\Facades\Storage;
 
 class ReimbursementController extends Controller
 {
+
+    public function limit(Request $request)
+    {
+        $auth = auth()->user();
+        $reimbursement_limit = null;
+
+        if ($request->month != null && $request->year != null) {
+            $total = ReimbursementRequest::where('employee_id', $auth->id)
+                    ->whereMonth('date', $request->month)
+                    ->whereYear('date', $request->year)
+                    ->get()
+                    ->map(function ($item) {
+                        $expenses = $item->expenses;
+                        $total = $expenses->sum('value');
+                        return $total;
+                    })->sum();
+
+                $limit = $auth->reimbursement_limit;
+                $reimbursement_limit  = [
+                    'limit' => $limit,
+                    'total' => $total,
+                    'remaining' => $limit - $total,
+                ];
+
+        }
+
+
+        return [
+            'success'   => true,
+            'data'  => $reimbursement_limit,
+        ];
+    }
+
     public function index(Request $request)
     {
         $auth = auth()->user();
@@ -49,26 +82,9 @@ class ReimbursementController extends Controller
         $pagination = $list->toArray();
         unset($pagination['data']);
 
-        $reimbursement_limit = null;
-
-        if ($request->month != null && $request->year != null) {
-            $total = ReimbursementRequest::where('employee_id', $auth->id)
-                    ->whereMonth('date', $request->month)
-                    ->whereYear('date', $request->year)
-                    ->sum('total');
-
-                $limit = $auth->reimbursement_limit;
-                $reimbursement_limit  = [
-                    'limit' => $limit,
-                    'total' => $total,
-                    'remaining' => $limit - $total,
-                ];
-
-        }
-
+   
         return [
             'success'   => true,
-            'monthly_reimbursement_limit' => $reimbursement_limit,
             'data'  => ReimbursementRequestResource::collection($list),
             'pagination'    => $pagination,
         ];
