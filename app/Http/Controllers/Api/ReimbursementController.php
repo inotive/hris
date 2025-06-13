@@ -49,8 +49,26 @@ class ReimbursementController extends Controller
         $pagination = $list->toArray();
         unset($pagination['data']);
 
+        $reimbursement_limit = null;
+
+        if ($request->month != null && $request->year != null) {
+            $total = ReimbursementRequest::where('employee_id', $auth->id)
+                    ->whereMonth('date', $request->month)
+                    ->whereYear('date', $request->year)
+                    ->sum('total');
+
+                $limit = $auth->reimbursement_limit;
+                $reimbursement_limit  = [
+                    'limit' => $limit,
+                    'total' => $total,
+                    'remaining' => $limit - $total,
+                ];
+
+        }
+
         return [
             'success'   => true,
+            'reimbursement_limit' => $reimbursement_limit,
             'data'  => ReimbursementRequestResource::collection($list),
             'pagination'    => $pagination,
         ];
@@ -145,6 +163,7 @@ class ReimbursementController extends Controller
             }
 
             $reimbursement->total = ReimbursementExpenseList::where('reimbursement_request_id', $reimbursement->id)->sum('value');
+            $reimbursement->save();
 
             DB::commit();
 

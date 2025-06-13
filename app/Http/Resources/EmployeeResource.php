@@ -18,7 +18,7 @@ class EmployeeResource extends JsonResource
         $data = parent::toArray($request);
 
         if ($this->image != null) {
-            $data['image'] = Storage::url($this->image);
+            $data['image'] = str_contains('http', $this->image) ? $this->image : Storage::url($this->image);
         }
 
         $data['sallary'] = $this->sallary;
