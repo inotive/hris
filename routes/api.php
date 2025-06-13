@@ -84,6 +84,7 @@ Route::middleware([
     Route::delete('/overtime-request', [OvertimeRequestController::class, 'delete']);
 
 
+    Route::get('/reimbursement-limit', [ReimbursementController::class, 'limit']);
     Route::get('/reimbursement-requests', [ReimbursementController::class, 'index']);
     Route::get('/reimbursement-request/{id}', [ReimbursementController::class, 'detail']);
     Route::post('/reimbursement-request', [ReimbursementController::class, 'create']);
