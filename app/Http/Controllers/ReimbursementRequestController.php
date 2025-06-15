@@ -16,7 +16,7 @@ class ReimbursementRequestController extends Controller
 {
     public function index( Request $request)
     {
-        $list = ReimbursementRequest::search($request->search)->paginate();
+        $list = ReimbursementRequest::search($request->search)->orderBy('created_at', 'desc')->paginate();
 
         return view('reimbursement_requests.index',[
             'list'  => $list,
@@ -136,6 +136,7 @@ class ReimbursementRequestController extends Controller
             return [
                 'success'   => false,
                 'message'   => __('Error'),
+                'error' => $e->getMessage(),
             ];
         }
     }

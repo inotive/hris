@@ -142,6 +142,7 @@
 @include('layouts.js.company-dropdown')
 @include('layouts.js.manager-dropdown')
 @include('layouts.js.employee-dropdown')
+@include('layouts.js.leave-type-dropdown')
 
 @include('layouts.js.reimbursement-request')
 @include('layouts.js.employee-payslip')

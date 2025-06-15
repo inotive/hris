@@ -41,8 +41,8 @@ class ReimbursementRequest extends Model
     public $rules = [
         'company_id'  => 'required',
         'employee_id'  => 'required',
-        'date'  => '',
-        'reimbursement_type_id'  => '',
+        'date'  => 'required',
+        'reimbursement_type_id'  => 'required',
         'total'  => '',
         'status'  => '',
     ];

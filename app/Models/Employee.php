@@ -513,4 +513,5 @@ class Employee extends Authenticatable
     {
         return ReimbursementRequest::where('employee_id', $this->id)->count();
     }
+
 }

@@ -155,6 +155,7 @@ Route::middleware([
 
 
     Route::resource('/leave-types', LeaveTypeController::class);
+    Route::get('/leave-types/get/select2', [LeaveTypeController::class, 'select2'])->name('leave-types.select2');
     Route::resource('/leave-requests', LeaveRequestController::class);
 
     Route::resource('/overtime-requests', OvertimeRequestController::class);

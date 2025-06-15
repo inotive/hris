@@ -21,6 +21,11 @@ class LeaveRequestController extends Controller
 
     public function store(Request $request)
     {
+        
+        // Then proceed with model validation
+        $validate = (new $this->model)->rules;
+        $validated = $request->validate($validate);
+        
         // Check leave day limits first
         $check_limit = LeaveTypeService::checkDayLimit(
             $request->employee_id, 
@@ -39,9 +44,6 @@ class LeaveRequestController extends Controller
             ];
         }
 
-        // Then proceed with model validation
-        $validate = (new $this->model)->rules;
-        $validated = $request->validate($validate);
 
         $create = $request->all();
         unset($create['files']);

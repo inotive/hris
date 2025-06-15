@@ -157,6 +157,7 @@ trait CrudTrait
         if (method_exists($model, "rules")) {
             $validate = $model->rules();
         } else {
+            Log::info("rules status");
             $validate = $model->rules;
         }
         
@@ -188,6 +189,15 @@ trait CrudTrait
     {
         try{
 
+            $validation_message = $this->destroy_validation_message($id);
+
+            if ($validation_message) {
+                return [
+                    'success'   => false,
+                    'message'  => $validation_message,
+                ];
+            }
+
             $this->model::where('id', $id)->delete();
         
             return [
@@ -212,6 +222,11 @@ trait CrudTrait
 
     // change create button link
     public function addButtonHref()
+    {
+        return null;
+    }
+
+    public function destroy_validation_message($id) : ?string
     {
         return null;
     }

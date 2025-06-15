@@ -7,7 +7,7 @@
 
 
 @section('toolbar')
-    <x-table.filter-dropdown />
+    <x-table.filter-dropdown :payment_status="true" />
 @stop
 
 @section('table_header')

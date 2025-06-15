@@ -47,7 +47,7 @@ class CompanySubscriptionDetailController extends Controller
 
     public function store(Company $company, Request $request)
     {
-        $request->validate((new CompanySubscription())->rules);
+        $request->validate((new CompanySubscription())->rules());
 
         $form = new CompanySubscription();
         $form->fill($request->all());
@@ -64,7 +64,7 @@ class CompanySubscriptionDetailController extends Controller
     public function update(Company $company, $id, Request $request)
     {
 
-        $request->validate((new CompanySubscription())->rules);
+        $request->validate((new CompanySubscription())->rules($id));
 
         $form = CompanySubscription::find($id);
         $form->fill($request->all());
