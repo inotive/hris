@@ -151,5 +151,6 @@
     "Lajang" : "Lajang",
     "Menikah" : "Menikah",
     "Cerai Hidup" : "Cerai Hidup",
-    "Cerai Mati" : "Cerai Mati"
+    "Cerai Mati" : "Cerai Mati",
+    "Cannot delete company as it has employees" : "Tidak bisa hapus perusahaan karena ada data karyawan"
 }

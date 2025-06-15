@@ -45,6 +45,7 @@ class LeaveTypeDropdown extends Component
             'name'  => 'leave_type_id',
             'label' => __('Leave Type'),
             'value' => $this->value,
+            'add_class' => 'leave_type_id'
         ]);
     }
 }

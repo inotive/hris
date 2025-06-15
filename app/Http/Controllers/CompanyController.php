@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Traits\CrudTrait;
+use Exception;
 use Illuminate\Http\Request;
 
 class CompanyController extends Controller
@@ -38,5 +39,17 @@ class CompanyController extends Controller
             'items' => $items,
             'more' => ($totalItems > $page * $limit) // Check if there are more results to load
         ]);
+    }
+
+    public function destroy_validation_message($id)
+    {
+
+        $company = Company::find($id);
+
+        if ($company->employees()->count() > 0) {
+            return __('Cannot delete company as it has employees');
+        }
+
+        return null;
     }
 }

@@ -3,6 +3,8 @@
     'role' => false,
     'monthyear' => false,
 
+    'payment_status' => false,
+
 
     'filter_count'  => collect(request()->filter ?? [])
             ->filter(function($row) {
@@ -64,6 +66,10 @@
 
             @if ($monthyear == true)
                 <x-month-year-filter />
+            @endif
+
+            @if ($payment_status == true)
+                <x-payment-status-filter />
             @endif
 
 

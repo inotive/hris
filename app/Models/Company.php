@@ -108,6 +108,13 @@ class Company extends Model
         'lng'   => 'double',
     ];
 
+    public $search_columns = [
+        'name',
+        'phone',
+        'email',
+        'status',
+    ];
+
     // public function scopeWithinRadiusInMeters($query, $latitude, $longitude, $radius = 1000)
     // {
     //     return $query->selectRaw("

@@ -11,6 +11,7 @@
     <th class="min-w-125px">{{ __('Phone') }}</th>
     <th class="min-w-125px">{{ __('Email') }}</th>
     <th class="min-w-125px">{{ __('City') }}</th>
+    <th class="min-w-125px">{{ __('Employees') }}</th>
     <th class="min-w-125px">{{ __('Status') }}</th>
     <th class="text-end min-w-70px">{{ __('Action') }}</th>
 @stop
@@ -32,7 +33,8 @@
             <td><a href="tel:{{ $value->phone ?? '' }}" target="_blank">{{ $value->phone ?? '' }}</a></td>
             <td><a href="mailto:{{ $value->email ?? '' }}" target="_blank">{{ $value->email ?? '' }}</a></td>
             <td>{{ $value->city ?? '' }}</td>
-            <td>{{ $value->status ? __('YES') : __('ID') }}</td>
+            <td>{{ $value->employees()->count() }}</td>
+            <td>{{ $value->status ? 'YES' : 'NO' }}</td>
             <td class="text-end">
                 <a href="#" class="btn btn-sm btn-light btn-active-light-primary" data-kt-menu-trigger="click"
                     data-kt-menu-placement="bottom-end">{{ __('Actions') }}

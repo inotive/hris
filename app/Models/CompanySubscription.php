@@ -41,19 +41,63 @@ class CompanySubscription extends Model
         'bank',
     ];
 
-    public $rules = [
-        'company_id'  => 'required',
-        'start_date_at'  => 'required',
-        'end_date_at'  => 'required',
-        'subscription_type'  => 'required',
-        'subscription_description'  => 'required',
-        'price'  => 'required',
-        'payment_bank_account_no'  => 'required',
-        'payment_bank_account_name'  => 'required',
-        'payment_bank_account_logo'  => '',
-        'payment_at'  => '',
-        'payment_status'  => '',
-        'bank'  => 'required',
+    public function rules($id = null)
+    {
+        return [
+            'company_id'  => 'required',
+            'start_date_at'  => [
+                'required',
+                'date',
+                function ($attribute, $value, $fail) use ($id) {
+                    $query = self::where('company_id', request('company_id'))
+                        ->where(function($q) use ($value) {
+                            $q->where('start_date_at', '<=', $value)
+                              ->where('end_date_at', '>=', $value);
+                        });
+                    
+                    if ($id) {
+                        $query->where('id', '!=', $id);
+                    }
+                    
+                    if ($query->exists()) {
+                        $fail('The selected date range conflicts with an existing subscription for this company.');
+                    }
+                },
+            ],
+            'end_date_at'  => [
+                'required',
+                'date',
+                'after:start_date_at',
+                function ($attribute, $value, $fail) use ($id) {
+                    $query = self::where('company_id', request('company_id'))
+                        ->where(function($q) use ($value) {
+                            $q->where('start_date_at', '<=', $value)
+                              ->where('end_date_at', '>=', $value);
+                        });
+                    
+                    if ($id) {
+                        $query->where('id', '!=', $id);
+                    }
+                    
+                    if ($query->exists()) {
+                        $fail('The selected date range conflicts with an existing subscription for this company.');
+                    }
+                },
+            ],
+            'subscription_type'  => 'required',
+            'subscription_description'  => 'required',
+            'price'  => 'required|numeric|min:0',
+            'payment_bank_account_no'  => 'required',
+            'payment_bank_account_name'  => 'required',
+            'payment_bank_account_logo'  => 'nullable',
+            'payment_at'  => 'nullable|date',
+            'payment_status'  => 'boolean',
+            'bank'  => 'required',
+        ];
+    }
+
+    public $casts = [
+        'payment_status'  => 'boolean',
     ];
 
     public static function boot()

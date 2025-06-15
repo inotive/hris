@@ -162,6 +162,7 @@
     "Lajang" : "Single",
     "Menikah" : "Married",
     "Cerai Hidup" : "Divorced life",
-    "Cerai Mati" : "Divorce dead"
+    "Cerai Mati" : "Divorce dead",
+    "Cannot delete company as it has employees" : "Cannot delete company as it has employees"
 
 }
