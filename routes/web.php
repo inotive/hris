@@ -31,6 +31,7 @@ use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\OvertimeRequestController;
 use App\Http\Controllers\OvertimeShiftRequestController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\PtkpController;
 use App\Http\Controllers\ReimbursementExpenseController;
 use App\Http\Controllers\ReimbursementRequestController;
@@ -170,3 +171,6 @@ Route::middleware([
 
 
 });
+
+
+Route::get('/privacy',[PrivacyController::class, 'index'])->name('privacy');
