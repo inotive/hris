@@ -57,7 +57,7 @@
     <img src="{{ public_path('logo.png') }}" alt="Logo" width="30"><br>
 
     <div class="header">
-        <img class="rounded object-contain" src="{{ Storage::path($company->logo) }}"
+        <img class="rounded object-contain" src="{{ $company->logo_base64 }}"
             onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="80"
             height="80" />
         <br>
