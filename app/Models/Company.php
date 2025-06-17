@@ -283,18 +283,26 @@ class Company extends Model
 
     public function getLogoBase64Attribute()
     {
-        $url = Storage::url($this->logo);
-      
-        $response = Http::get($url);
-
-        if ($response->successful()) {
-            $mime = $response->header('Content-Type');
-            $base64 = base64_encode($response->body());
-            $base64Image = "data:$mime;base64,$base64";
-
-            return $base64Image;
+        if ($this->logo == null) {
+            return null;
         }
 
-        return null;
+        try {
+            $url = Storage::url($this->logo);
+        
+            $response = Http::get($url);
+
+            if ($response->successful()) {
+                $mime = $response->header('Content-Type');
+                $base64 = base64_encode($response->body());
+                $base64Image = "data:$mime;base64,$base64";
+
+                return $base64Image;
+            }
+
+            return null;
+        } catch (Exception $e) {
+            return null;
+        }
     }
 }
