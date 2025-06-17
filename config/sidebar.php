@@ -268,6 +268,8 @@ return [
                     'roles' => ['superadmin', 'admin', 'finance'],
                     'routes' => [
                         'employee-payslips.*' => ['superadmin', 'admin', 'finance'],
+                        'payslip.view' => ['superadmin', 'admin', 'finance'],
+                        'payslip.print' => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
 

@@ -18,6 +18,8 @@ use Illuminate\Validation\Rule;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class Company extends Model
 {
@@ -277,5 +279,22 @@ class Company extends Model
     public function employees()
     {
         return $this->hasMany(Employee::class, 'company_id', 'id');
+    }
+
+    public function getLogoBase64Attribute()
+    {
+        $url = Storage::url($this->logo);
+      
+        $response = Http::get($url);
+
+        if ($response->successful()) {
+            $mime = $response->header('Content-Type');
+            $base64 = base64_encode($response->body());
+            $base64Image = "data:$mime;base64,$base64";
+
+            return $base64Image;
+        }
+
+        return null;
     }
 }

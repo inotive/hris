@@ -51,6 +51,14 @@
                                 </td>
                                 <td class="text-end">
                                     <x-table.actions>
+
+                                        <div class="menu-item px-3 text-start">
+                                            <a href="javascript:void(0);" 
+                                               class="menu-link px-3 text-left view-payslip" 
+                                               data-url="{{ route('payslip.view', $value->id) }}">
+                                                {{ __('View') }}
+                                            </a>
+                                        </div>
                                         <x-table.edit-button :href="route('employee-payslips.edit', [$value->id])" />
                                         <x-table.delete-button :href="route('employee-payslips.destroy', [$value->id])" />
                                     </x-table.actions>
