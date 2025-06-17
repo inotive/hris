@@ -20,11 +20,10 @@ class CheckAuhRole
         $user = auth()->user();
 
 
-        $route = \Route::currentRouteName();
+        $route = \Route::currentRouteName();        
 
         $check_route = AuthService::isValid($route);
 
-        // dd($check_route);
 
         if ($user && $check_route == false) {
             // Redirect to a password change page if the password has not been changed

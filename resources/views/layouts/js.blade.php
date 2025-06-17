@@ -149,7 +149,7 @@
 @include('layouts.js.employee')
 @include('layouts.js.employee-shift-dropdown')
 @include('layouts.js.employee-payslip-generate')
-
+@include('layouts.js.payslip-js')
 
 <script>
     // Get the input element

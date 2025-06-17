@@ -30,6 +30,7 @@ use App\Http\Controllers\LeaveRequestController;
 use App\Http\Controllers\LeaveTypeController;
 use App\Http\Controllers\OvertimeRequestController;
 use App\Http\Controllers\OvertimeShiftRequestController;
+use App\Http\Controllers\PayslipController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\PtkpController;
@@ -170,6 +171,8 @@ Route::middleware([
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 
 
+    Route::get('/payslip/download/{id}', [PayslipController::class, 'print'])->name('payslip.print');
+    Route::get('/payslip/view/{id}', [PayslipController::class, 'view'])->name('payslip.view');
 });
 
 
