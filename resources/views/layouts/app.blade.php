@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <title>PeopleIn | #1 HR System for your company</title>
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo.png') }}">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
