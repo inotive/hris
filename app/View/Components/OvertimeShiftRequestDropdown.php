@@ -45,6 +45,7 @@ class OvertimeShiftRequestDropdown extends Component
             'name'  => 'overtime_shift_request_id',
             'label' => __('Shift Type'),
             'value' => $this->value,
+            'add_class' => 'overtime_shift_request_id'
         ]);
     }
 }
