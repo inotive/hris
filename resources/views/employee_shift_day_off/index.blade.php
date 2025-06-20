@@ -8,6 +8,8 @@
   </x-slot>
 
   <x-slot name="toolbar">
+    <x-table.filter-dropdown :company="true" />
+
     <x-table.add-button
       :label="__('Add Day Off')"
       href="{{ route('employee-shifts-day-off.create') }}" />
@@ -24,6 +26,9 @@
           <th>{{ __("Shift") }}</th>
           <th>{{ __("Date") }}</th>
           <th>{{ __("Description") }}</th>
+          @if (auth()->user()->company_id == null)
+          <th>{{ __("Company") }}</th>
+      @endif
 
           <th class="text-end">{{ __("Actions") }}</th>
         </x-slot>
@@ -37,6 +42,9 @@
             <td>{{ $value->shift->name ?? '' }}</td>
             <td>{{ \Carbon\Carbon::parse($value->date)->format('d/M') }}</td>
             <td>{{ $value->description }}</td>
+            @if (auth()->user()->company_id == null)
+            <td>{{ $value->company->name ?? '-' }}</td>
+        @endif
             <td class="text-end">
               <x-table.actions>
                 <x-table.delete-button

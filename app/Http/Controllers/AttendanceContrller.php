@@ -64,12 +64,12 @@ class AttendanceContrller extends Controller
 
         $company = Company::find($company_id);
 
-        $filename = 'Attendance Report ' . Carbon::parse($year . '-' . $month . '-01')->format('M Y') . ' ' . $company->name ;
+        $filename = 'Attendance Report ' . Carbon::parse($year . '-' . $month . '-01')->format('M Y') . ' ' . ($company->name??'');
 
         return (new AttendanceReportExport(
             company_id: $company_id,
             year: $year,
             month: $month,
-        ))->download($filename .'.csv', ExcelExcel::CSV, ['Content-Type' => 'text/csv']);
+        ))->download($filename . '.xlsx');
     }
 }

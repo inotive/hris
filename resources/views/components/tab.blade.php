@@ -1,7 +1,7 @@
 @props([ 'tabs' => [], 'tab' => null, 'align' => 'right' ])
 <div class="">
   {{-- FOR LARGE SCREEN --}}
-  <div class="w-full">
+  <div class="w-full d-none d-lg-inline">
     <div class="card" style="background: none">
       <div class="card-body p-0">
         <ul
@@ -32,7 +32,7 @@
 
   {{-- FOR MOBILE --}}
   <ul
-    class="nav nav-pills justify-content-center mb-6 d-inline-flex d-lg-none"
+    class="nav nav-pills justify-content-center mb-2 d-inline-flex d-lg-none mt-4"
     role="tablist">
     @foreach ($tabs as $key => $value)
     <li class="nav-item mb-2">
