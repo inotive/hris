@@ -8,6 +8,7 @@ use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class EmployeePosition extends Model
 {
@@ -58,6 +59,44 @@ class EmployeePosition extends Model
         }
 
         return null;
+    }
+
+
+    // custom query index
+    public static function tableQuery()
+    {
+        $search = request()->search;
+
+        $filter = request()->filter;
+
+        $company_id = $filter['company_id'] ?? null;
+
+        $positions = DB::table('employee_positions as ep')
+            ->select(
+                'ep.id',
+                'ep.name',
+                'ep.company_id',
+                'c.name as company_name',
+                'ep.department_id',
+                'ed.name as department_name',
+                'ed.description'
+            )
+            ->leftJoin('employee_departments as ed', 'ed.id', '=', 'ep.department_id')
+            ->leftJoin('companies as c', 'c.id', '=', 'ep.company_id')
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('ep.name', 'like', "%{$search}%")
+                    ->orWhere('ed.name', 'like', "%{$search}%")
+                    ->orWhere('c.name', 'like', "%{$search}%")
+                    ->orWhere('ed.description', 'like', "%{$search}%");
+                });
+            })
+            ->when($company_id, function ($query, $company_id) {
+                $query->where('ep.company_id', $company_id);
+            })
+            ->paginate(10);
+
+            return $positions;
     }
 
    // data array to show button dummy data
