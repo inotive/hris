@@ -13,13 +13,17 @@ class EmployeeShiftDayOffController extends Controller
 {
     public function index(Request $request)
     {
-        $company_id = $request->company_id ?? null;
+        $company_id = $request->company_id ?? $request->filter['company_id'] ?? null;
+
+        $search = $request->search ?? null;
+        
 
         $year = $request->year ?? date('Y');
         $list = EmployeeShiftDayOff::whereYear('date', $year)
             ->when($company_id != null, function ($query) use ($company_id) {
                 $query->where('company_id', $company_id);
             })
+
             ->orderBy('date', 'asc')
             ->paginate();
         return view('employee_shift_day_off.index', [

@@ -62,10 +62,18 @@ trait CrudTrait
 
 
         $search = $request->search;
-        $list = $this->model::search($search)
-            ->filter($filter)
-            ->orderBy('created_at','desc')
-            ->paginate(10);
+
+
+        if (method_exists($this->model,'tableQuery')) {
+            $list = $this->model::tableQuery();
+        } else {
+            $list = $this->model::search($search)
+                ->filter($filter)
+                ->orderBy('created_at','desc')
+                ->paginate(10);
+        }
+
+      
 
 
         $add_button_href = $this->addButtonHref();

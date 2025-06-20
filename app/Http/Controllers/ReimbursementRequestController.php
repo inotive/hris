@@ -16,7 +16,15 @@ class ReimbursementRequestController extends Controller
 {
     public function index( Request $request)
     {
-        $list = ReimbursementRequest::search($request->search)->orderBy('created_at', 'desc')->paginate();
+
+        $company_id = $request->filter['company_id'] ?? null;
+
+        $list = ReimbursementRequest::search($request->search)
+            ->when($company_id, function($query) use($company_id){
+                $query->where('company_id', $company_id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate();
 
         return view('reimbursement_requests.index',[
             'list'  => $list,

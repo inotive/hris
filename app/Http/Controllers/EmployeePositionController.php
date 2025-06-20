@@ -11,6 +11,8 @@ class EmployeePositionController extends Controller
 {
     use CrudTrait;
 
+
+    public $modelIndex = EmployeePosition::class;
     public $model = EmployeePosition::class;
     public $route = 'employee-positions'; 
     public $page_title = 'Employee Position';

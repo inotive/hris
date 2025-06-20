@@ -1,17 +1,18 @@
 <table>
     <thead>
-        <tr>
+        {{-- <tr>
             @for ($i = 1; $i <= 5; $i++)
                 <th>{{ $i }}</th>
             @endfor
-        </tr>
-    <tr>
-        <th>{{ __('NIK') }}</th>
-        <th>{{ __('First Name') }}</th>
-        <th>{{ __('Last Name') }}</th>
-        <th>{{ __('Email') }}</th>
-        <th>{{ __('Username') }}</th>
-        {{-- <th>{{ __('Status (YES/NO)') }}</th>
+        </tr> --}}
+        <tr>
+            <th>{{ __('NIK') }}</th>
+            <th>{{ __('First Name') }}</th>
+            <th>{{ __('Last Name') }}</th>
+            <th>{{ __('Email') }}</th>
+            <th>{{ __('Username') }}</th>
+            <th>Company</th>
+            {{-- <th>{{ __('Status (YES/NO)') }}</th>
         <th>{{ __('Gender') }}</th>
         <th>{{ __('Birth Place') }}</th>
         <th>{{ __('Birth Date') }}</th>
@@ -39,17 +40,18 @@
         <th>{{ __('Document Expiry') }}</th>
         <th>{{ __('Tax Number') }}</th>
         <th>{{ __('Tax Registered Name') }}</th> --}}
-    </tr>
+        </tr>
     </thead>
     <tbody>
-    @foreach($employees as $row)
-        <tr>
-            <td>{{ $row->nik }}</td>
-            <td>{{ $row->first_name }}</td>
-            <td>{{ $row->last_name }}</td>
-            <td>{{ $row->email }}</td>
-            <td>{{ $row->username }}</td>
-        </tr>
-    @endforeach
+        @foreach ($employees as $row)
+            <tr>
+                <td>{{ $row->nik }}</td>
+                <td>{{ $row->first_name }}</td>
+                <td>{{ $row->last_name }}</td>
+                <td>{{ $row->email }}</td>
+                <td>{{ $row->username }}</td>
+                <td>{{ $row->company->name ?? '' }}</td>
+            </tr>
+        @endforeach
     </tbody>
 </table>

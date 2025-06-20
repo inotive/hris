@@ -24,11 +24,11 @@
     @foreach ($list as $key => $value)
         <tr>
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
-            <td>{{ $value->department->name ?? '-' }}</td>
+            <td>{{ $value->department_name ?? '-' }}</td>
             <td>{{ $value->name ?? '-' }}</td>
             <td>{{ $value->description ?? '-' }}</td>
             @if (auth()->user()->company_id == null)
-                <td>{{ $value->company->name ?? '-' }}</td>
+                <td>{{ $value->company_name ?? '-' }}</td>
             @endif
 
             <td class="text-end">
