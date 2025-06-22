@@ -23,7 +23,16 @@ class EmployeeShiftDayOffController extends Controller
             ->when($company_id != null, function ($query) use ($company_id) {
                 $query->where('company_id', $company_id);
             })
-
+            ->when($search != null, function ($query) use ($search) {
+                $query->where('description', 'like', '%' . $search . '%')
+                ->orWhereHas('shift', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                })
+                ->orWhereHas('company', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                })
+                ->orWhere('date', 'like', '%' . $search . '%');
+            })
             ->orderBy('date', 'asc')
             ->paginate();
         return view('employee_shift_day_off.index', [
