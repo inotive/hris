@@ -270,6 +270,7 @@ return [
                         'employee-payslips.*' => ['superadmin', 'admin', 'finance'],
                         'payslip.view' => ['superadmin', 'admin', 'finance'],
                         'payslip.print' => ['superadmin', 'admin', 'finance'],
+                        'payslip.download' => ['superadmin', 'admin', 'finance'],
                     ],
                 ],
 

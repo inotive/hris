@@ -10,7 +10,7 @@
                     <img alt="Logo" src="assets/media/logos/logo-1.svg" class="h-40px" />
                 </a> -->
                 <div class="mb-12 fw-bolder lh-lg">
-                    <img class="" src="{{ asset('logo.png') }}"/>
+                    <img class="" src="{{ asset('logo.png') }}" width="100"/>
                 </div>
 
 

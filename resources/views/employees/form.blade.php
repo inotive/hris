@@ -68,6 +68,7 @@
         <x-form.file label="Document File" name="document_file" folder="document_file" :value="$form->document_file ?? ''" />
         <x-form.switch label="Document is Unlimited" name="document_is_unlimited" :value="$form->document_is_unlimited ?? 0" />
 
+        <x-form.input type="text" label="NPWP Number" name="npwp_number" :value="$form->npwp_number ?? ''" />
         <x-form.input type="text" label="BPJS Number" name="document_bpjs_no" :value="$form->document_bpjs_no ?? ''" />
         <x-form.input type="text" label="BPJS Name" name="document_bpjs_name" :value="$form->document_bpjs_name ?? ''" />
         <x-form.file label="Document File BPJS" name="document_bpjs_file" folder="document_bpjs_file"

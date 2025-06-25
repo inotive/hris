@@ -59,6 +59,20 @@
                                                 {{ __('View') }}
                                             </a>
                                         </div>
+                                        <div class="menu-item px-3 text-start">
+                                            <a href="javascript:void(0);" 
+                                               class="menu-link px-3 text-left view-payslip" 
+                                               data-url="{{ route('payslip.print', $value->id) }}">
+                                                {{ __('Print') }}
+                                            </a>
+                                        </div>
+                                        <div class="menu-item px-3 text-start">
+                                            <a href="{{ route('payslip.download', $value->id) }}" 
+                                               class="menu-link px-3 text-left" 
+                                               target="_blank">
+                                                {{ __('Download') }}
+                                            </a>
+                                        </div>
                                         <x-table.edit-button :href="route('employee-payslips.edit', [$value->id])" />
                                         <x-table.delete-button :href="route('employee-payslips.destroy', [$value->id])" />
                                     </x-table.actions>

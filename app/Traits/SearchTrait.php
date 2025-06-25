@@ -80,6 +80,23 @@ trait SearchTrait
             }
 
 
+            if (in_array('company_id', $columns)) {
+                $fnc = function($query) use($search){
+                    $query->where('name','like','%'.$search.'%');
+                };
+
+                try{
+                    if ($k == 0) {
+                        $query = $query->whereHas('company',$fnc);
+                    } else {
+                        $query = $query->orWhereHas('company', $fnc);
+                    }
+                }catch(Exception $e){
+                    
+                }
+            }
+
+
             return $query;
         });
 

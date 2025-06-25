@@ -171,8 +171,9 @@ Route::middleware([
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
 
 
-    Route::get('/payslip/download/{id}', [PayslipController::class, 'print'])->name('payslip.print');
+    Route::get('/payslip/download/{id}', [PayslipController::class, 'download'])->name('payslip.download');
     Route::get('/payslip/view/{id}', [PayslipController::class, 'view'])->name('payslip.view');
+    Route::get('/payslip/print/{id}', [PayslipController::class, 'print'])->name('payslip.print');
 });
 
 
