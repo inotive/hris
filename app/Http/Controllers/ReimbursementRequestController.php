@@ -71,6 +71,13 @@ class ReimbursementRequestController extends Controller
 
             $expenses = $request->expenses ?? [];
 
+            if (count($expenses) == 0) {
+                return [
+                    'success'   => false,
+                    'message'   => __('Expenses is required'),
+                ];
+            }
+
 
             foreach($expenses as $k => $v) {
                 $total += (float) $v['amount'];
