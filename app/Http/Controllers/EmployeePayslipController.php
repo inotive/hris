@@ -15,7 +15,17 @@ class EmployeePayslipController extends Controller
 {
     public function index( Request $request)
     {
-        $list = EmployeePayslip::search($request->search)->orderBy('created_at','desc')->paginate();
+        $filter = $request->filter;
+
+        $company_id = $filter['company_id'] ?? null;
+
+        $list = EmployeePayslip::search($request->search)
+        
+            ->when($company_id, function($query) use($company_id){
+                $query->where('company_id', $company_id);
+            })
+            ->orderBy('created_at','desc')
+            ->paginate();
 
         return view('employee_payslips.index',[
             'list'  => $list,

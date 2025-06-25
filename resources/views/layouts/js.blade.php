@@ -59,6 +59,8 @@
     $(".datetimepickerinput").daterangepicker({
         singleDatePicker: true,
         timePicker: true,
+        timePicker24Hour: true,
+        timePickerSeconds: true,
         showDropdowns: true,
         minYear: 1901,
         maxYear: parseInt(moment().format("YYYY"), 12),

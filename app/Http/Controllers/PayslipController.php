@@ -6,13 +6,18 @@ use App\Helpers\PayslipHelper;
 
 class PayslipController extends Controller
 {
-    public function print($id)
+    public function download($id)
     {
-        return (new PayslipHelper())->print($id);
+        return (new PayslipHelper())->download($id);
     }
 
     public function view($id)
     {
         return (new PayslipHelper())->view($id);
+    }
+
+    public function print($id)
+    {
+        return view('employee_payslips.print', compact('id'));
     }
 }

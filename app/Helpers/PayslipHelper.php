@@ -25,7 +25,7 @@ class PayslipHelper
         return $pdf->stream('payslip-' . $payslip->employee->fullname . '-' . $period . '.pdf');
     }
 
-    public function print($id)
+    public function download($id)
     {
         $payslip = EmployeePayslip::find($id);
         $period = Carbon::parse($payslip->year . '-' . $payslip->month  . '-01')->format('F Y');
@@ -38,4 +38,7 @@ class PayslipHelper
 
         return $pdf->download('payslip-' . $payslip->employee->fullname . '-' . $period . '.pdf');
     }
+
+
+
 }

@@ -88,6 +88,7 @@ class Employee extends Authenticatable
         'head_departmen_id',
         'document_file',
         'nik',
+        'npwp_number',
 
         'is_attendance_location',
         'is_leave_request',

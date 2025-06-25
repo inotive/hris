@@ -57,9 +57,8 @@
     <img src="{{ public_path('logo.png') }}" alt="Logo" width="30"><br>
 
     <div class="header">
-        <img class="rounded object-contain" src="{{ $company->logo_base64 }}"
-            onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="80"
-            height="80" />
+        <img class="company-logo" src="{{ $company->logo_base64 }}"
+            onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="80" />
         <br>
         <h2>{{ $company->name ?? '' }}</h2>
         <p>{{ $company->address ?? '' }}</p>
@@ -74,6 +73,7 @@
         </tr>
         <tr>
             <td>Nama: {{ $employee->full_name ?? '' }}</td>
+            <td>NPWP: {{ $employee->npwp_number ?? '' }}</td>
         </tr>
         <tr>
             <td>Jabatan: {{ $employee->position->name ?? '' }}</td>
