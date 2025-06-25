@@ -19,9 +19,17 @@ class ReimbursementRequestController extends Controller
 
         $company_id = $request->filter['company_id'] ?? null;
 
+
+        $daterange = $request->filter['daterange'] ?? null;
+
+        
+        
         $list = ReimbursementRequest::search($request->search)
             ->when($company_id, function($query) use($company_id){
                 $query->where('company_id', $company_id);
+            })
+            ->when($daterange, function($query) use($daterange){
+                $query->whereBetween('date', explode(' - ', $daterange));
             })
             ->orderBy('created_at', 'desc')
             ->paginate();
