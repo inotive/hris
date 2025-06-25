@@ -4,7 +4,7 @@
     <b>{{ __("Generate Payslip") }}</b>
   </x-slot>
   <x-slot name="toolbar">
-    <x-table.filter-dropdown :company="true" :monthyear="true" />
+    <x-table.filter-dropdown :company="true" :daterange="true" :monthyear="true" />
     <x-table.add-button
       :label="__('Add')"
       :href="route('employee-payslip-generate.create')" />

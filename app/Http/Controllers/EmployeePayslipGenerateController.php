@@ -14,7 +14,39 @@ class EmployeePayslipGenerateController extends Controller
 {
     public function index(Request $request)
     {
-        $list = EmployeePayslipGenerate::orderBy('created_at','desc')->paginate();
+
+        $company_id = $request->filter['company_id'] ?? null;
+        $month = $request->filter['month'] ?? null;
+        $year = $request->filter['year'] ?? null;
+        $daterange = $request->filter['daterange'] ?? null;
+
+        $search = $request->search;
+
+        $list = EmployeePayslipGenerate::orderBy('created_at','desc')
+        ->when($company_id, function($query) use($company_id){
+            $query->where('company_id', $company_id);
+        })
+        ->when($month, function($query) use($month){
+            $query->where('month', $month);
+        })
+        ->when($year, function($query) use($year){
+            $query->where('year', $year);
+        })
+        ->when($search, function($query) use($search){
+            $query->whereHas('company', function($query) use($search){
+                $query->where('name', 'like', '%'.$search.'%');
+            })
+            ->orWhereHas('created_by', function($query) use($search){
+                $query->whereRaw("concat(first_name, ' ', last_name) like '%".$search."%'");
+            });
+        })
+        ->when($daterange, function($query) use($daterange){
+            $query->whereBetween('created_at', [
+                \Carbon\Carbon::parse(explode(' - ', $daterange)[0])->format('Y-m-d 00:00:00'),
+                \Carbon\Carbon::parse(explode(' - ', $daterange)[1])->format('Y-m-d 23:59:59')
+            ]);
+        })
+        ->paginate();
 
         return view('employee_payslip_generate.index',[
             'list'  => $list,
@@ -54,7 +86,40 @@ class EmployeePayslipGenerateController extends Controller
         $month = $request->month;
         $year = $request->year;
 
-        $employees_ids = $request->employee_ids;
+        $employees_ids = $request->employee_ids ?? [];
+
+
+        if ($company_id == null) {
+            return [
+                'success'   => false,
+                'message'   => __('Company is required'),
+            ];
+        }
+
+
+        if ($month == null) {
+            return [
+                'success'   => false,
+                'message'   => __('Month is required'),
+            ];
+        }
+
+
+        if ($year == null) {
+            return [
+                'success'   => false,
+                'message'   => __('Year is required'),
+            ];
+        }
+
+
+        if (count($employees_ids) == 0) {
+            return [
+                'success'   => false,
+                'message'   => __('Employee is required'),
+            ];
+        }   
+
         $result = array_filter($employees_ids, function($value) {
             return $value !== '0';
         });
