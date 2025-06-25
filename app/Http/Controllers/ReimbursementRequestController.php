@@ -78,6 +78,16 @@ class ReimbursementRequestController extends Controller
                 ];
             }
 
+            $files = $request->all()['files'] ?? [];
+
+
+            if (count($files) == 0) {
+                return [
+                    'success'   => false,
+                    'message'   => __('Files is required'),
+                ];
+            }
+
 
             foreach($expenses as $k => $v) {
                 $total += (float) $v['amount'];
@@ -117,7 +127,7 @@ class ReimbursementRequestController extends Controller
 
             // upload file
             File::reimbursement($form->id)->delete();
-            $files = $request->all()['files'] ?? [];
+         
 
             foreach($files as $key => $value) {
                 $row = json_decode($value);

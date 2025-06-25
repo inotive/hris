@@ -164,6 +164,7 @@
     "Cerai Hidup" : "Divorced life",
     "Cerai Mati" : "Divorce dead",
     "Cannot delete company as it has employees" : "Cannot delete company as it has employees",
-    "Expenses is required" : "Expenses is required"
+    "Expenses is required" : "Expenses is required",
+    "Please Select Company in Filter" : "Please Select Company in Filter"
 
 }

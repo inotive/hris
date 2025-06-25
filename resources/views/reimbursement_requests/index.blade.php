@@ -6,7 +6,7 @@
   </x-slot>
 
   <x-slot name="toolbar">
-    <x-table.filter-dropdown :company="true" />
+    <x-table.filter-dropdown :company="true" :daterange="true" />
     <x-table.add-button
       :label="__('Add Reimbursement Request')"
       :href="route('reimbursement-requests.create')" />
