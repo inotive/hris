@@ -2,6 +2,7 @@
     'company' => false,
     'role' => false,
     'monthyear' => false,
+    'daterange' => false,
 
     'payment_status' => false,
 
@@ -63,6 +64,11 @@
             @if ($role == true)
                 <x-role-filter />
             @endif
+
+            @if ($daterange == true)
+                <x-table.filter-daterange />
+            @endif
+       
 
             @if ($monthyear == true)
                 <x-month-year-filter />

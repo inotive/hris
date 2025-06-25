@@ -9,7 +9,7 @@
 <script src="{{ asset('template/js/custom/widgets.js') }}"></script>
 <script src="{{ asset('assets/js/pace.min.js') }}"></script>
 <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script> --}}
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote.min.js"></script>
 
 
@@ -54,6 +54,30 @@
         },
     });
 
+
+    $(".table-daterangepicker").daterangepicker({
+        singleDatePicker: false,
+        showDropdowns: true,
+        minYear: 1901,
+        maxYear: parseInt(moment().format("YYYY"), 12),
+        locale: {
+            format: "DD/MM/Y"
+        },
+
+    });
+
+    $(".table-daterangepicker").on('apply.daterangepicker', function(ev, picker) {
+        // Access selected start and end dates
+        var startDate = picker.startDate.format('YYYY-MM-DD');
+        var endDate = picker.endDate.format('YYYY-MM-DD');
+
+        // Your custom function
+        console.log("Selected date range:", startDate, "to", endDate);
+
+        $(".table-daterangepicker").val(startDate + ' - ' + endDate);
+
+        $("form").submit();
+    });
 
 
     $(".datetimepickerinput").daterangepicker({

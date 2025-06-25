@@ -152,5 +152,7 @@
     "Menikah" : "Menikah",
     "Cerai Hidup" : "Cerai Hidup",
     "Cerai Mati" : "Cerai Mati",
-    "Cannot delete company as it has employees" : "Tidak bisa hapus perusahaan karena ada data karyawan"
+    "Cannot delete company as it has employees" : "Tidak bisa hapus perusahaan karena ada data karyawan",
+    "Expenses is required" : "Biaya diperlukan",
+    "Please Select Company in Filter" : "Silahkan Pilih Perusahaan di Filter"
 }

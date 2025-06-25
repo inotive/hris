@@ -54,14 +54,16 @@
 <body>
 
 
-    <img src="{{ public_path('logo.png') }}" alt="Logo" width="30"><br>
+    <img src="{{ public_path('logo-withtext.png') }}" alt="Logo" height="30"><br>
 
     <div class="header">
         <img class="company-logo" src="{{ $company->logo_base64 }}"
             onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" width="80" />
         <br>
-        <h2>{{ $company->name ?? '' }}</h2>
-        <p>{{ $company->address ?? '' }}</p>
+        <br>
+        
+        <h2 style="padding-bottom:0px; margin-bottom:8px;">{{ $company->name ?? '' }}</h2>
+        <p style="padding-top:0px; margin-top:0px;">{{ $company->address ?? '' }}</p>
     </div>
 
     <hr>

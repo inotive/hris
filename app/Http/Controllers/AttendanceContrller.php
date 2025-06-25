@@ -41,7 +41,7 @@ class AttendanceContrller extends Controller
         if ($company_id) {
 
             $list = AttendanceReportHelper::report(
-                company_id: $company_id,
+                company_ids: [$company_id],
                 year: $year,
                 month: $month,
             );

@@ -51,7 +51,7 @@ class User extends Authenticatable
         'image' => '',
         'first_name' => 'required',
         'last_name' => 'required',
-        'email' => 'required',
+        'email' => 'required|unique:users,email',
         'role'  => 'required',
         'company_id'  => '',
         'phone'  => '',

@@ -19,9 +19,17 @@ class ReimbursementRequestController extends Controller
 
         $company_id = $request->filter['company_id'] ?? null;
 
+
+        $daterange = $request->filter['daterange'] ?? null;
+
+        
+        
         $list = ReimbursementRequest::search($request->search)
             ->when($company_id, function($query) use($company_id){
                 $query->where('company_id', $company_id);
+            })
+            ->when($daterange, function($query) use($daterange){
+                $query->whereBetween('date', explode(' - ', $daterange));
             })
             ->orderBy('created_at', 'desc')
             ->paginate();
@@ -71,6 +79,23 @@ class ReimbursementRequestController extends Controller
 
             $expenses = $request->expenses ?? [];
 
+            if (count($expenses) == 0) {
+                return [
+                    'success'   => false,
+                    'message'   => __('Expenses is required'),
+                ];
+            }
+
+            $files = $request->all()['files'] ?? [];
+
+
+            if (count($files) == 0) {
+                return [
+                    'success'   => false,
+                    'message'   => __('Files is required'),
+                ];
+            }
+
 
             foreach($expenses as $k => $v) {
                 $total += (float) $v['amount'];
@@ -110,7 +135,7 @@ class ReimbursementRequestController extends Controller
 
             // upload file
             File::reimbursement($form->id)->delete();
-            $files = $request->all()['files'] ?? [];
+         
 
             foreach($files as $key => $value) {
                 $row = json_decode($value);
