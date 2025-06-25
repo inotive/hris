@@ -13,7 +13,7 @@
     </x-slot>
     <x-slot name="body">
         @if (count($list) == 0)
-            <x-table.empty />
+            <x-table.empty message="{{ request()->filter['company_id'] ? __('Data not found') : __('Please Select Company in Filter') }}" />
         @else
             <style>
 

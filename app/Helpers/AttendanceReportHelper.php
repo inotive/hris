@@ -4,11 +4,35 @@ namespace App\Helpers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AttendanceReportHelper
 {
-    public static function report($company_id, $year, $month)
+    public static function report($company_ids, $year, $month)
     {
+
+        $where = [];
+
+        if ($company_ids) {
+            $where[] = "AND a.company_id IN ('" . implode("','", $company_ids) . "')";
+        }
+
+
+        $search = request()->search ?? null;
+
+
+        if ($search) {
+            $where[] = "AND 
+            (
+                (e.nik LIKE '%" . $search . "%' OR concat(e.first_name,' ',e.last_name) LIKE '%" . $search . "%')
+                OR 
+                (employee_departments.name LIKE '%" . $search . "%')
+                OR 
+                (employee_positions.name LIKE '%" . $search . "%')
+            
+            ) ";
+        }
+
 
 
         $date = Carbon::parse($year . "-" . $month . "-01");
@@ -43,7 +67,7 @@ class AttendanceReportHelper
         $query = "SELECT 
             a.employee_id,
             e.nik,
-            concat(e.first_name,e.last_name) AS employee_name,
+            concat(e.first_name,' ',e.last_name) AS employee_name,
             e.image AS employee_image,
             employee_departments.name AS department_name,
             employee_positions.name AS position_name,
@@ -60,11 +84,13 @@ class AttendanceReportHelper
         LEFT JOIN employee_positions ON employee_positions.id = e.employee_position_id
         WHERE 
             a.date BETWEEN '" . $start . "' AND '" . $end_str . "'
-            AND a.company_id = '" . $company_id . "'
+             " . implode(" ", $where) . "
         GROUP BY 
             a.employee_id;
         ";
 
+
+        // Log::info($query);
       
 
         $list = DB::select($query);
