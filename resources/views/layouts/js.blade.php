@@ -68,8 +68,8 @@
 
     $(".table-daterangepicker").on('apply.daterangepicker', function(ev, picker) {
         // Access selected start and end dates
-        var startDate = picker.startDate.format('YYYY-MM-DD');
-        var endDate = picker.endDate.format('YYYY-MM-DD');
+        var startDate = picker.startDate.format('DD/MM/YYYY');
+        var endDate = picker.endDate.format('DD/MM/YYYY');
 
         // Your custom function
         console.log("Selected date range:", startDate, "to", endDate);

@@ -22,6 +22,15 @@ class ReimbursementRequestController extends Controller
 
         $daterange = $request->filter['daterange'] ?? null;
 
+        if ($daterange) {
+            // 01/06/2025 - 30/06/2025
+
+            $daterange = explode(' - ', $daterange);
+            $start = \Carbon\Carbon::createFromFormat('d/m/Y', $daterange[0])->format('Y-m-d');
+            $end = \Carbon\Carbon::createFromFormat('d/m/Y', $daterange[1])->format('Y-m-d');
+            $daterange = $start . ' - ' . $end;
+        }
+
         
         
         $list = ReimbursementRequest::search($request->search)
@@ -190,7 +199,23 @@ class ReimbursementRequestController extends Controller
     {
         try{
 
-            ReimbursementRequest::where('id', $id)->delete();
+            $reimbursement = ReimbursementRequest::where('id', $id)->first();
+
+            if ($reimbursement == null) {
+                return [
+                    'success'   => false,
+                    'message'  => 'Not Found',
+                ];
+            }
+
+            if ($reimbursement->status != 'pending') {
+                return [
+                    'success'   => false,
+                    'message'  => 'Cannot delete Reimbursement Request on status ' . $reimbursement->status,
+                ];
+            }
+
+            $reimbursement->delete();
         
             return [
                 'success'   => true,
