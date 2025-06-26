@@ -14,7 +14,9 @@ class CompanySubscriptionDetailController extends Controller
 {
     public function index(Company $company, Request $request)
     {
-        $list = CompanySubscription::search($request->search)->where('company_id', $company->id)
+        $list = CompanySubscription::search($request->search)
+        
+            ->where('company_id', $company->id)
             ->paginate();
 
         return view('company_subscription_detail.index',[

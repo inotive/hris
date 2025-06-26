@@ -7,7 +7,7 @@
 
 
 @section('toolbar')
-    <x-table.filter-dropdown :payment_status="true" />
+    <x-table.filter-dropdown :daterange="true" :payment_status="true" />
 @stop
 
 @section('table_header')
@@ -23,6 +23,8 @@
 @stop
 
 @section('table_body')
+
+
     @foreach ($list as $key => $value)
         <tr>
 

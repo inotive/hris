@@ -53,7 +53,7 @@ class User extends Authenticatable
         'last_name' => 'required',
         'email' => 'required|unique:users,email',
         'role'  => 'required',
-        'company_id'  => '',
+        'company_id'  => 'required_if:role,admin,finance,content',
         'phone'  => '',
     ];
 

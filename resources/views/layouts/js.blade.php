@@ -150,7 +150,7 @@
 
         if (data_id != null) {
             var data_name = target.data('data-name');
-            if (data_name.length == 0) {
+            if (!data_name || data_name.length == 0) {
                 data_name = data_id;
             }
 
