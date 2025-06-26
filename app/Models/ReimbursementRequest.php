@@ -9,6 +9,7 @@ use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ReimbursementRequest extends Model
 {
@@ -19,6 +20,8 @@ class ReimbursementRequest extends Model
     use CreatedByUserTrait;
     use HasCompany;
     use HasRequestNo;
+
+    use SoftDeletes;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key

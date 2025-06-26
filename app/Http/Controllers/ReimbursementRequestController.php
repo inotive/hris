@@ -190,7 +190,23 @@ class ReimbursementRequestController extends Controller
     {
         try{
 
-            ReimbursementRequest::where('id', $id)->delete();
+            $reimbursement = ReimbursementRequest::where('id', $id)->first();
+
+            if ($reimbursement == null) {
+                return [
+                    'success'   => false,
+                    'message'  => 'Not Found',
+                ];
+            }
+
+            if ($reimbursement->status != 'pending') {
+                return [
+                    'success'   => false,
+                    'message'  => 'Cannot delete Reimbursement Request on status ' . $reimbursement->status,
+                ];
+            }
+
+            $reimbursement->delete();
         
             return [
                 'success'   => true,
