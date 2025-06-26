@@ -194,13 +194,14 @@ class ReimbursementRequestController extends Controller
         
             return [
                 'success'   => true,
-                'meessage'  => 'Deleted',
+                'message'  => 'Deleted',
             ];
         }catch(Exception $e) {
 
             return [
                 'success'   => false,
-                'meessage'  => 'Error',
+                'message'  => 'Error',
+                'error' => $e->getMessage(),
             ];
         }
     }

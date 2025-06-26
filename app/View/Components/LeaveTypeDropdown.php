@@ -15,15 +15,7 @@ class LeaveTypeDropdown extends Component
 {
 
     public $value;
-    /**
-     * Create a new component instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        //
-    }
+
 
     /**
      * Get the view / contents that represent the component.
@@ -38,6 +30,9 @@ class LeaveTypeDropdown extends Component
         ])
             ->orderBy('name','asc')
             ->pluck('name','id');
+
+       
+        
             
         return view('components.form.select',[
             'list'  => $list,
