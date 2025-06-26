@@ -3,6 +3,8 @@
 
     <x-company-dropdown  :value="old('company_id', $form->company_id ?? '')" />
     <x-employee-dropdown :value="old('employee_id', $form->employee_id ?? '')" />
+
+        
     <x-leave-type-dropdown :value="old('leave_type_id', $form->leave_type_id ?? '')" />
     <x-form.datepicker required label="Start Date" name="start_date" :value="old('date', $form->start_date ?? '')"  />
     <x-form.datepicker required label="End Date" name="end_date" :value="old('date', $form->end_date ?? '')"  />
