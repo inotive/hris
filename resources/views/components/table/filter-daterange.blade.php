@@ -11,12 +11,14 @@
 
 
     @php
-        $defaultStart = now()->startOfMonth()->format('d/m/Y');
-        $defaultEnd = now()->endOfMonth()->format('d/m/Y');
+        $defaultStart = now()->startOfYear()->format('d/m/Y');
+        $defaultEnd = now()->addYear(2)->endOfYear()->format('d/m/Y');
         $daterange = request()->input('filter.daterange');
 
+  
         if ($daterange && strpos($daterange, ' - ') !== false) {
             [$start, $end] = explode(' - ', $daterange);
+
             try {
                 $startFormatted = \Carbon\Carbon::createFromFormat('d/m/Y', trim($start))->format('d/m/Y');
                 $endFormatted = \Carbon\Carbon::createFromFormat('d/m/Y', trim($end))->format('d/m/Y');
@@ -25,7 +27,7 @@
                 $value = "$defaultStart - $defaultEnd";
             }
         } else {
-            $value = "$defaultStart - $defaultEnd";
+            $value = "";
         }
     @endphp
 

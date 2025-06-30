@@ -8,6 +8,7 @@ use App\Models\EmployeeLevel;
 use App\Models\EmployeePosition;
 use App\Models\EmployeeShift;
 use App\Models\LeaveType;
+use App\Models\OvertimeRequest;
 use App\Models\OvertimeShiftRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\Component;
@@ -21,9 +22,11 @@ class OvertimeShiftRequestDropdown extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($value = null)
     {
-        //
+        $this->value = $value;
+
+
     }
 
     /**
@@ -39,13 +42,17 @@ class OvertimeShiftRequestDropdown extends Component
         ])
             ->orderBy('name','asc')
             ->pluck('name','id');
+
+
+
             
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'overtime_shift_request_id',
             'label' => __('Shift Type'),
             'value' => $this->value,
-            'add_class' => 'overtime_shift_request_id'
+            'add_class' => 'overtime_shift_request_id',
+            'data_name' => OvertimeShiftRequest::where('id', $this->value)->first()->name ?? 'Select'
         ]);
     }
 }

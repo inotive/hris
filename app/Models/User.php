@@ -47,15 +47,29 @@ class User extends Authenticatable
         'phone',
     ];
 
-    public $rules = [
-        'image' => '',
-        'first_name' => 'required',
-        'last_name' => 'required',
-        'email' => 'required|unique:users,email',
-        'role'  => 'required',
-        'company_id'  => 'required_if:role,admin,finance,content',
-        'phone'  => '',
-    ];
+    // For backward compatibility with CrudTrait
+    public function rules()
+    {
+        $userId = $this->id ?? null;
+        
+        return [
+            'image' => '',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $userId,
+            'role'  => 'required',
+            'company_id'  => 'required_if:role,admin,finance,content',
+            'phone'  => 'required|unique:users,phone,' . $userId,
+        ];
+    }
+    
+    // Static method for manual validation if needed
+    public static function getRules($userId = null)
+    {
+        $rules = new static();
+        $rules->id = $userId;
+        return $rules->rules();
+    }
 
     /**
      * The attributes that should be hidden for serialization.

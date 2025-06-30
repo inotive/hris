@@ -165,6 +165,7 @@ Route::middleware([
 
 
     Route::resource('/reimbursement-types', ReimbursementTypeController::class);
+    Route::get('/reimbursement-types/get/select2', [ReimbursementTypeController::class, 'select2'])->name('reimbursement-types.select2');
     Route::resource('/reimbursement-expenses', ReimbursementExpenseController::class);
     Route::resource('/reimbursement-requests', ReimbursementRequestController::class);
 

@@ -21,15 +21,22 @@
 
 <script>
     $('#role').on('change', function() {
-        var val = $(this).val();
+       roleCheckCompanyHide();
+    });
 
-        if (val != "superadmin") {
+    function roleCheckCompanyHide() 
+    {
+        var val = $('#role').val();
+
+        console.log(val);
+
+        if (val == "admin" || val == "finance" || val == "content") {
             $("#company_id_div").show();
         } else {
             $("#company_id_div").hide();
         }
-    });
-    $("#role").trigger('change');
+    }
+    roleCheckCompanyHide();
 </script>
 
 <script>
@@ -58,12 +65,33 @@
     $(".table-daterangepicker").daterangepicker({
         singleDatePicker: false,
         showDropdowns: true,
+        autoUpdateInput: false,
         minYear: 1901,
         maxYear: parseInt(moment().format("YYYY"), 12),
         locale: {
-            format: "DD/MM/Y"
+            format: "DD/MM/YYYY",
+            cancelLabel: 'Clear',
+            applyLabel: 'Apply',
+            fromLabel: 'From',
+            toLabel: 'To',
+            customRangeLabel: 'Date Filter',
+            daysOfWeek: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+            monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+            firstDay: 1
         },
+        opens: 'right',
+        drops: 'down',
+        buttonClasses: ['btn', 'btn-sm'],
+        applyClass: 'btn-primary',
+        cancelClass: 'btn-secondary',
+        alwaysShowCalendars: false,
+        showCustomRangeLabel: true
+    });
 
+    // Clear the date range when clicking the clear button
+    $('.table-daterangepicker').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
+        $(this).trigger('change');
     });
 
     $(".table-daterangepicker").on('apply.daterangepicker', function(ev, picker) {
