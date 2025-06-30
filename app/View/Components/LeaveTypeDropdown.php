@@ -16,6 +16,12 @@ class LeaveTypeDropdown extends Component
 
     public $value;
 
+    public function __construct($value = null)
+    {
+        $this->value = $value;
+        
+    }
+
 
     /**
      * Get the view / contents that represent the component.
@@ -40,7 +46,8 @@ class LeaveTypeDropdown extends Component
             'name'  => 'leave_type_id',
             'label' => __('Leave Type'),
             'value' => $this->value,
-            'add_class' => 'leave_type_id'
+            'add_class' => 'leave_type_id',
+            'data_name' => LeaveType::where('id', $this->value)->first()->name ?? 'Select'
         ]);
     }
 }

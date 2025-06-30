@@ -21,9 +21,11 @@ class ReimbursementTypeDropdown extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($value = null)
     {
-        //
+        $this->value = $value;
+
+
     }
 
     /**
@@ -45,7 +47,8 @@ class ReimbursementTypeDropdown extends Component
             'name'  => 'reimbursement_type_id',
             'label' => __('Type'),
             'value' => $this->value,
-            'add_class' => 'reimbursement_type_id'
+            'add_class' => 'reimbursement_type_id',
+            'data_name' => ReimbursementType::where('id', $this->value)->first()->name ?? 'Select'
         ]);
     }
 }
