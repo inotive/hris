@@ -11,7 +11,10 @@
 
     <x-form.datepicker required :label="__('Date')" name="date" :value="old('date', $form->date ?? '')" />
 
-    <x-form.select required :label="__('Type')" :list="\App\Models\ReimbursementType::pluck('name', 'id')" name="reimbursement_type_id" :value="old('reimbursement_type_id', $form->reimbursement_type_id ?? '')" />
+    {{-- <x-form.select required :label="__('Type')" :list="\App\Models\ReimbursementType::pluck('name', 'id')" name="reimbursement_type_id" :value="old('reimbursement_type_id', $form->reimbursement_type_id ?? '')" /> --}}
+
+        
+    <x-reimbursement-type-dropdown required :value="old('reimbursement_type_id', $form->reimbursement_type_id ?? '')" />
 
 
     {{-- <x-manager-dropdown :label="__('Approver')" :value="old('manager_id', $form->manager_id ?? '')" /> --}}
