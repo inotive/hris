@@ -100,12 +100,12 @@ class CompanySubscriptionParent extends Model
 
         $query = CompanySubscriptionParent::query()
             ->search($search)
-            ->when($payment_status, function($query) use($payment_status){
+            ->when($payment_status, function($query) use($payment_status) {
                 $query->whereExists(function($subQuery) use($payment_status) {
                     $subQuery->select(DB::raw(1))
                         ->from('company_subscriptions as cs')
                         ->whereRaw('cs.company_id = companies.id')
-                        ->where('cs.payment_status', $payment_status == 'YES' ? 1 :0)
+                        ->where('cs.payment_status', $payment_status == 'YES' ? 1 : 0)
                         ->whereRaw('cs.created_at = (
                             SELECT MAX(created_at) 
                             FROM company_subscriptions 
@@ -113,9 +113,9 @@ class CompanySubscriptionParent extends Model
                         )');
                 });
             })
-            ->when($daterange, function($query) use($daterange) {
+            ->when($daterange, function ($query) use ($daterange) {
                 $dates = explode(' - ', $daterange);
-                $query->whereExists(function($subQuery) use($dates) {
+                $query->whereExists(function ($subQuery) use ($dates) {
                     $subQuery->select(DB::raw(1))
                         ->from('company_subscriptions as cs')
                         ->whereRaw('cs.company_id = companies.id')
