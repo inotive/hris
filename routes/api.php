@@ -93,8 +93,8 @@ Route::middleware([
 
     // Payslip
     Route::get('/payslips', [PayslipController::class,'index']);
-    Route::get('/payslip/{id}', [PayslipController::class,'detail']);
-
+    Route::get('/payslip/view/{id}', [PayslipController::class,'detail']);
+    Route::get('/payslip/download/{id}', [PayslipController::class,'download']);
 
     // MASTER
     Route::get('/master/gender', [EmployeeController::class, 'gender']);
