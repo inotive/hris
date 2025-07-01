@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Helpers\PayslipHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PayslipDetailResource;
 use App\Http\Resources\PayslipResource;
@@ -39,5 +40,10 @@ class PayslipController extends Controller
             'status'    => 'success',
             'data'  => new PayslipDetailResource($data),
         ];
+    }
+
+    public function download($id)
+    {
+        return (new PayslipHelper())->download($id);
     }
 }
