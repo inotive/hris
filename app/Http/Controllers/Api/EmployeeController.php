@@ -126,8 +126,8 @@ class EmployeeController extends Controller
                     'message' => 'Login successful',
                     'data' => [
                         'token' => $token,
-                        // 'user'  => new EmployeeResource($user),
-                        'user' => $user,
+                        'user'  => new EmployeeResource($user),
+                        // 'user' => $user,
                     ]
                 ];
             } else {

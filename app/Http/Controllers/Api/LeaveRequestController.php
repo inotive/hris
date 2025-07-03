@@ -109,7 +109,7 @@ class LeaveRequestController extends Controller
                 return response()->json([
                     'success'   => 'error',
                     'message'   => $check_limit['message'],
-                ], 404);
+                ], 400);
             }
 
             $leave_request = LeaveRequest::create($validated);
