@@ -62,7 +62,7 @@ class InboxController extends Controller
                         ) notification
 
 
-                        ORDER  BY notification.created_at DESC
+                        ORDER  BY notification.created_at ASC
 
                           LIMIT $limit OFFSET $offset
                         ");
@@ -119,6 +119,7 @@ class InboxController extends Controller
                              OR (request_approvers.active = 0 AND request_approvers.approver_status NOT IN('pending'))
                              )
                         AND request_approvers.approver_employee_id = '".$auth->id."'
+                    ORDER BY request_approvers.created_at ASC
                 ");
 
         return [
