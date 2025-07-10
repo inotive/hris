@@ -58,7 +58,7 @@
 
     <div class="header">
         <img class="company-logo" src="{{ public_path('storage/' . $company->logo) }}"
-            onerror="this.onerror=null; this.src='{{ public_path('assets/images/no_image.jpg') }}';" width="80" height="80" style="object-fit: contain;" />
+            onerror="this.onerror=null; this.src='{{ public_path('assets/images/no_image.jpg') }}';" height="80" />
         <br>
         <br>
         
