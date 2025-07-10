@@ -135,6 +135,7 @@
     "leave_type_empty" : "Jenis cuti masih kosong",
 
     "leave_insufficient_days" : "Hari cuti tidak mencukupi untuk tahun :year. Tersedia: :available, Diminta: :requested",
+    "leave_insufficient_days_simple":"Hari cuti telah habis untuk tahun :year.",
     "department_not_exist" : "Data departement masih kosong",
 
     "Islam" : "Islam",

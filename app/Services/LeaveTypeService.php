@@ -49,7 +49,7 @@ class LeaveTypeService
             if ($days > $remaining && $remaining != null) {
                 return [
                     'status' => false,
-                    'message' => __('leave_insufficient_days', [
+                    'message' => __('leave_insufficient_days_simple', [
                         'year' => $current->year,
                         'available' => $remaining,
                         'requested' => $days
