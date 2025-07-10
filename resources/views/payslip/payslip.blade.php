@@ -57,7 +57,7 @@
     <img src="{{ public_path('logo-withtext.png') }}" alt="Logo" height="30"><br>
 
     <div class="header">
-        <img class="company-logo" src="{{ public_path('storage/' .$company->logo) }}"
+        <img class="company-logo" src="{{ $company->logo_base64 }}"
             onerror="this.onerror=null; this.src='{{ public_path('assets/images/no_image.jpg') }}';" width="80" />
         <br>
         <br>
