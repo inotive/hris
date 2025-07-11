@@ -6,6 +6,7 @@
     'class' => 'col-12 col-lg-6 mb-4',
     'disabled'  => false,
     'required'  => false,
+    'div_id'    => null,
 ])
 
     
@@ -17,6 +18,7 @@
     :class="$class"
     :disabled="$disabled"
     :required="$required"
+    :div_id="$div_id"
     data_name="{{ \App\Models\Company::where('id', $value)->first()->name ?? '' }}"
 />
 

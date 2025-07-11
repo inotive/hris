@@ -1,4 +1,5 @@
 @props([
+    'div_id'    => null,
     'name' => '',
     'label' => __('Select'),
     'value' => null,
@@ -11,7 +12,7 @@
     'disabled'  => false,
 ])
 
-<div class="{{ $class }}" id="{{ $name }}_div">
+<div class="{{ $class }}" id="{{ $div_id ?? $name }}_div">
 
     @if ($label != null && strlen($label) > 0)
         <label class="{{ $required == true ? 'required ' : '' }} fs-6 fw-bold mb-2">{{ __($label) }}</label>

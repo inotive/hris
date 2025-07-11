@@ -127,6 +127,21 @@ class User extends Authenticatable
     
     }
 
+    public function getCompanyIdAttribute()
+    {
+        $company_id = $this->attributes['company_id'] ?? null;
+
+        if ($company_id == null) {
+            return null;
+        }
+
+        if ($this->attributes['role'] == 'superadmin') {
+            return null;
+        }
+
+        return $company_id;
+    }
+
     public function getFullNameAttribute()
     {
         return collect([$this->first_name, $this->last_name])->join(' ');

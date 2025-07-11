@@ -8,7 +8,7 @@
 
 
     <x-role-dropdown :required="true" :value="old('role', $form->role ?? '')" />
-    <x-company-dropdown :required="true" :value="old('company_id', $form->company_id ?? '')" />
+    <x-company-dropdown div_id="'company_id_form_user'" :required="true" :value="old('company_id', $form->company_id ?? '')" />
 
 
     <x-form.image-picker :label="__('Image')" name="image" folder="users" :value="old('image', $form->image ?? '')" />

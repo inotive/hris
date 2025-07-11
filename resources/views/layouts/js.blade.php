@@ -31,9 +31,9 @@
         console.log(val);
 
         if (val == "admin" || val == "finance" || val == "content") {
-            $("#company_id_div").show();
+            $("#company_id_form_user").show();
         } else {
-            $("#company_id_div").hide();
+            $("#company_id_form_user").hide();
         }
     }
     roleCheckCompanyHide();

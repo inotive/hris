@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Slip Gaji</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo.png') }}">
+    
     <style>
         body {
             font-family: sans-serif;
