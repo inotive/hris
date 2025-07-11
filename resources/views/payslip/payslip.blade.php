@@ -79,6 +79,7 @@
         </tr>
         <tr>
             <td>Jabatan: {{ $employee->position->name ?? '' }}</td>
+            <td>Bulan: {{ date('F Y', strtotime($payslip->year . '-' . $payslip->month . '-01')) }}</td>
         </tr>
     </table>
 
