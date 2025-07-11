@@ -167,6 +167,7 @@ Route::middleware([
     Route::resource('/reimbursement-types', ReimbursementTypeController::class);
     Route::get('/reimbursement-types/get/select2', [ReimbursementTypeController::class, 'select2'])->name('reimbursement-types.select2');
     Route::resource('/reimbursement-expenses', ReimbursementExpenseController::class);
+    Route::get('/reimbursement-expenses/get/select2', [ReimbursementExpenseController::class, 'select2'])->name('reimbursement-expenses.select2');
     Route::resource('/reimbursement-requests', ReimbursementRequestController::class);
 
     Route::get('/change-language/{locale}', [ChangeLanguageController::class, 'changeLang'])->name('change-language');
