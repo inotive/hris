@@ -31,7 +31,7 @@ class CompanyDropdown extends Component
     {
         // if user has company_id
         // use input hide 
-        if (auth()->user()->company_id != null) {
+        if ( auth()->user()->company_id != null) {
             return view('components.form.hidden',[
                 'name'  => 'company_id',
                 'value' => auth()->user()->company_id,

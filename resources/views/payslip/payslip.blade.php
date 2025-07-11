@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Slip Gaji</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo.png') }}">
+    
     <style>
         body {
             font-family: sans-serif;
@@ -79,6 +82,7 @@
         </tr>
         <tr>
             <td>Jabatan: {{ $employee->position->name ?? '' }}</td>
+            <td>Bulan: {{ date('F Y', strtotime($payslip->year . '-' . $payslip->month . '-01')) }}</td>
         </tr>
     </table>
 

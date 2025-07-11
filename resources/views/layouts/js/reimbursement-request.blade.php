@@ -48,8 +48,8 @@
 
 
             var insert = `<div class="row row-expense">
-            <x-form.select add_class="expense-type-` + row_expense +
-                `" class="col-12 col-lg-6" label="Type" name="expenses[` + row_expense + `][type]" :list="\App\Models\ReimbursementExpense::pluck('name','id')" />
+            <x-form.select add_class="expenses expense-type-` + row_expense +
+                `" class="col-12 col-lg-6" label="Type" name="expenses[` + row_expense + `][type]" :list="[]" />
            <x-form.currency class="col-12 col-lg-5" add_class="expense-amount-` + row_expense +
                 `" :label="__('Amount')" name="expenses[` + row_expense + `][amount]" value="" />
             <div class="col-12 col-lg-1">
@@ -58,6 +58,10 @@
             </div>
         </div>`;
             $(".expense_div .form").append(insert);
+
+            if (typeof initializeExpenseSelects === 'function') {
+                initializeExpenseSelects($(".expense-type-" + row_expense));
+            }
 
 
             $(".expense-type-" + row_expense).select2();
@@ -149,5 +153,62 @@
 
 
     });
+</script>
+
+<script>
+
+$(document).ready(function() {
+    // Initialize existing selects
+    initializeExpenseSelects($(".expenses"));
+    
+    // Function to initialize selects
+    function initializeExpenseSelects(selects) {
+        selects.each(function() {
+            if (!$(this).hasClass('select2-hidden-accessible')) {
+                setDefaultSelect2($(this));
+                
+                $(this).select2({
+                    placeholder: 'Search Expenses',
+                    ajax: {
+                        url: '{{ route('reimbursement-expenses.select2') }}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                query: params.term,
+                                page: params.page || 1,
+                                company_id: $('select[name="company_id"]').val() // Get company_id from form
+                            };
+                        },
+                        processResults: function(data, params) {
+                            params.page = params.page || 1;
+                            return {
+                                results: $.map(data.items, function(item) {
+                                    return {
+                                        id: item.id,
+                                        text: item.name
+                                    };
+                                }),
+                                pagination: {
+                                    more: data.more
+                                }
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 0
+                });
+            }
+        });
+    }
+    
+    // Re-initialize when new selects are added
+    $(document).on('select2:open', () => {
+        document.querySelector('.select2-search__field').focus();
+    });
+    
+    // Expose the function to global scope so it can be called when adding new rows
+    window.initializeExpenseSelects = initializeExpenseSelects;
+});
 </script>
 @endif
