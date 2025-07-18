@@ -174,4 +174,11 @@ class LeaveRequest extends Model
             'Berakhir'  => 'Berakhir',
         ];
     }
+
+    public function getStatusTextAttribute()
+    {
+        $status = $this->attributes['status'];
+
+        return __('leave_request_status_'.$status);
+    }
 }

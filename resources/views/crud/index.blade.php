@@ -86,7 +86,7 @@
                             @endif
                             <!--end::Table-->
 
-                            {{ $list->links() }}
+                            {{ $list->appends(request()->query())->links() }}
                         </div>
                         <!--end::Card body-->
                     </div>

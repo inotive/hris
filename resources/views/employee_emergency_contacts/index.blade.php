@@ -67,7 +67,7 @@
         </x-slot>
       </x-table.table>
 
-      {{ $list->links() }}
+      {{ $list->appends(request()->query())->links() }}
     </div>
 
     @endif

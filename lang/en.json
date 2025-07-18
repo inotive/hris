@@ -167,6 +167,10 @@
     "Cerai Mati" : "Divorce dead",
     "Cannot delete company as it has employees" : "Cannot delete company as it has employees",
     "Expenses is required" : "Expenses is required",
-    "Please Select Company in Filter" : "Please Select Company in Filter"
+    "Please Select Company in Filter" : "Please Select Company in Filter",
+
+    "leave_request_status_pending" : "Pending",
+    "leave_request_status_approved" : "Approved",
+    "leave_request_status_rejected" : "Rejected"
 
 }

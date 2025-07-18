@@ -59,13 +59,13 @@
                 <x-table.delete-button
                   :href="route('approver.destroy', [$employee, $value->id])" />
               </x-table.actions>
-            </td>
+            </td>w
           </tr>
           @endforeach
         </x-slot>
       </x-table.table>
 
-      {{ $list->links() }}
+      {{ $list->appends(request()->query())->links() }}
     </div>
     @endif
   </x-slot>
