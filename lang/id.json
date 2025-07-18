@@ -133,6 +133,7 @@
     "December": "Desember",
     "leave_not_found" : "Jenis cuti tidak ditemukan",
     "leave_type_empty" : "Jenis cuti masih kosong",
+    "leave_overlap" : "Tanggal permohonan cuti bersinggungan dengan permohonan cuti lainnya",
 
     "leave_insufficient_days" : "Hari cuti tidak mencukupi untuk tahun :year. Tersedia: :available, Diminta: :requested",
     "leave_insufficient_days_simple":"Hari cuti telah habis untuk tahun :year.",
