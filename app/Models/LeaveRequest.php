@@ -27,6 +27,11 @@ class LeaveRequest extends Model
     protected $keyType = 'string'; // Since UUID is a string
 
 
+    public static $STATUS_PENDING = 'pending';
+    public static $STATUS_APPROVED = 'approved';
+    public static $STATUS_REJECTED = 'rejected';
+
+
     public $fillable = [
         'company_id',
         'employee_id',
@@ -78,7 +83,7 @@ class LeaveRequest extends Model
             if ($row->start_date && $row->end_date) {
                 $start_date = Carbon::parse($row->start_date);
                 $end_date = Carbon::parse($row->end_date);
-                $row->total_days = $start_date->diffInDays($end_date);
+                $row->total_days = $start_date->diffInDays($end_date) + 1;
             }
         });
 

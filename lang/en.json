@@ -145,6 +145,7 @@
 
     "leave_not_found" : "Leave type not found",
     "leave_type_empty" : "Leave type is empty",
+    "leave_overlap" : "Leave request date overlaps with another leave request",
     "leave_insufficient_days" : "Insufficient leave days for year :year. Available: :available, Requested: :requested",
     "leave_insufficient_days_simple":"Insufficient leave days for year :year.",
     "department_not_exist": "Department data is empty",

@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Jobs\AttendanceInitJob;
-use App\Models\Attendance;
-use App\Models\Employee;
+use App\Models\LeaveRequest;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -16,6 +14,23 @@ class LeaveTypeService
     {
         $start = Carbon::parse($start_date);
         $end = Carbon::parse($end_date);
+
+
+        $exists = LeaveRequest::where('employee_id', $employee_id)
+            ->where(function ($query) use ($start, $end) {
+                $query->whereDate('start_date', '<=', $end)
+                    ->whereDate('end_date', '>=', $start);
+            })
+            ->where('leave_type_id', $leave_type_id)
+            ->whereIn('status', [LeaveRequest::$STATUS_PENDING, LeaveRequest::$STATUS_APPROVED])
+            ->exists();
+
+        if ($exists) {
+            return [
+                'status' => false,
+                'message' => __('leave_overlap')
+            ];
+        }        
         
         $years = [];
         $current = $start->copy();
