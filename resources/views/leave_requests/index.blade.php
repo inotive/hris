@@ -52,7 +52,7 @@
                     <a href="{{ $value->files()->first()->url }}" target="_blank">File</a>
                 @endif
             </td>
-            <td>{{ $value->status ?? '-' }}</td>
+            <td>{{ $value->status_text ?? '-' }}</td>
 
             <td>{{ $value->reason ?? '-' }}</td>
 

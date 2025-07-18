@@ -156,5 +156,9 @@
     "Cerai Mati" : "Cerai Mati",
     "Cannot delete company as it has employees" : "Tidak bisa hapus perusahaan karena ada data karyawan",
     "Expenses is required" : "Biaya diperlukan",
-    "Please Select Company in Filter" : "Silahkan Pilih Perusahaan di Filter"
+    "Please Select Company in Filter" : "Silahkan Pilih Perusahaan di Filter",
+
+    "leave_request_status_pending" : "Menunggu",
+    "leave_request_status_approved" : "Disetujui",
+    "leave_request_status_rejected" : "Ditolak"
 }
