@@ -29,6 +29,8 @@ class EmployeeResource extends JsonResource
         $data['shift'] = $this->shift;
         $data['company'] = new CompanyResource($this->company);
         $data['head'] = new HeadEmployeeResource($this->head_department);
+
+        $data['reimbursement_limit'] = $this->reimbursement_limit ?? 0;
         return $data;
     }
 }
