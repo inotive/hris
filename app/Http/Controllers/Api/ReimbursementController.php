@@ -35,7 +35,7 @@ class ReimbursementController extends Controller
                         return $total;
                     })->sum();
 
-                $limit = $auth->reimbursement_limit;
+                $limit = $auth->reimbursement_limit ?? 0;
                 $reimbursement_limit  = [
                     'limit' => $limit,
                     'total' => $total,
