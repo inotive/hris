@@ -74,6 +74,14 @@ class EmployeePayslipController extends Controller
             $earning = $request->earning ?? [];
             $deduction = $request->deduction ?? [];
 
+            if (count($earning) == 0) {
+                throw new Exception("Earning is required");
+            }
+
+            if (count($deduction) == 0) {
+                throw new Exception("Deduction is required");
+            }
+
 
             foreach($earning as $k => $v) {
                 $total_payslip_earning += (float) $v['amount'];
@@ -154,8 +162,7 @@ class EmployeePayslipController extends Controller
             DB::rollBack();
             return [
                 'success'   => false,
-                'message'   => __('Error'),
-                'exception' => $e->getMessage(),
+                'message' => $e->getMessage(),
             ];
         }
     }
