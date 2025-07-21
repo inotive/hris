@@ -1,4 +1,3 @@
-
 @if (strpos(Route::currentRouteName(), 'reimbursement-requests.') === 0)
     <script>
         var row_expense = 0;
@@ -64,7 +63,7 @@
             }
 
 
-            $(".expense-type-" + row_expense).select2();
+            // $(".expense-type-" + row_expense).select2();
 
 
             var type = '';
@@ -113,102 +112,107 @@
 
 
 
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
 
-        setDefaultSelect2($(".reimbursement_type_id"));
+            setDefaultSelect2($(".reimbursement_type_id"));
 
-        $('.reimbursement_type_id').select2({
-            placeholder: 'Search Type',
-            ajax: {
-                url: '{{ route('reimbursement-types.select2') }}', // Server endpoint
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
+            $('.reimbursement_type_id').select2({
+                placeholder: 'Search Type',
+                ajax: {
+                    url: '{{ route('reimbursement-types.select2') }}', // Server endpoint
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
 
-                    return {
-                        company_id: $("[name='company_id']").val(),
-                        query: params.term, // Search query
-                        page: params.page || 1 // Pagination
-                    };
-                },
-                processResults: function(data, params) {
-                    params.page = params.page || 1;
-                    return {
-                        results: $.map(data.items, function(item) {
-                            return {
-                                id: item.id,
-                                text: item.name // Display name in the dropdown
-                            };
-                        }),
-                        pagination: {
-                            more: data.more // Whether there are more results to load
-                        }
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 0 // Start search after typing 1 character
-        });
-
-
-    });
-</script>
-
-<script>
-
-$(document).ready(function() {
-    // Initialize existing selects
-    initializeExpenseSelects($(".expenses"));
-    
-    // Function to initialize selects
-    function initializeExpenseSelects(selects) {
-        selects.each(function() {
-            if (!$(this).hasClass('select2-hidden-accessible')) {
-                setDefaultSelect2($(this));
-                
-                $(this).select2({
-                    placeholder: 'Search Expenses',
-                    ajax: {
-                        url: '{{ route('reimbursement-expenses.select2') }}',
-                        dataType: 'json',
-                        delay: 250,
-                        data: function(params) {
-                            return {
-                                query: params.term,
-                                page: params.page || 1,
-                                company_id: $('select[name="company_id"]').val() // Get company_id from form
-                            };
-                        },
-                        processResults: function(data, params) {
-                            params.page = params.page || 1;
-                            return {
-                                results: $.map(data.items, function(item) {
-                                    return {
-                                        id: item.id,
-                                        text: item.name
-                                    };
-                                }),
-                                pagination: {
-                                    more: data.more
-                                }
-                            };
-                        },
-                        cache: true
+                        return {
+                            company_id: $("[name='company_id']").val(),
+                            query: params.term, // Search query
+                            page: params.page || 1 // Pagination
+                        };
                     },
-                    minimumInputLength: 0
-                });
-            }
+                    processResults: function(data, params) {
+                        params.page = params.page || 1;
+                        return {
+                            results: $.map(data.items, function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.name // Display name in the dropdown
+                                };
+                            }),
+                            pagination: {
+                                more: data.more // Whether there are more results to load
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 0 // Start search after typing 1 character
+            });
+
+
         });
-    }
-    
-    // Re-initialize when new selects are added
-    $(document).on('select2:open', () => {
-        document.querySelector('.select2-search__field').focus();
-    });
-    
-    // Expose the function to global scope so it can be called when adding new rows
-    window.initializeExpenseSelects = initializeExpenseSelects;
-});
-</script>
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Initialize existing selects
+            initializeExpenseSelects($(".expenses"));
+
+            // Function to initialize selects
+            function initializeExpenseSelects(selects) {
+                selects.each(function() {
+                    if (!$(this).hasClass('select2-hidden-accessible')) {
+                        setDefaultSelect2($(this));
+
+
+        
+
+                        $(this).select2({
+                            placeholder: 'Search Expenses',
+                            ajax: {
+                                url: '{{ route('reimbursement-expenses.select2') }}',
+                                dataType: 'json',
+                                delay: 250,
+                                data: function(params) {
+                                    return {
+                                        query: params.term,
+                                        page: params.page || 1,
+                                        company_id: $('select[name="company_id"]')
+                                        .val() // Get company_id from form
+                                    };
+                                },
+                                processResults: function(data, params) {
+                                    params.page = params.page || 1;
+                                    return {
+                                        results: $.map(data.items, function(item) {
+                                            return {
+                                                id: item.id,
+                                                text: item.name
+                                            };
+                                        }),
+                                        pagination: {
+                                            more: data.more
+                                        }
+                                    };
+                                },
+                                cache: true
+                            },
+                            minimumInputLength: 0
+                        });
+                    }
+                });
+
+
+            }
+
+            // Re-initialize when new selects are added
+            $(document).on('select2:open', () => {
+                document.querySelector('.select2-search__field').focus();
+            });
+
+            // Expose the function to global scope so it can be called when adding new rows
+            window.initializeExpenseSelects = initializeExpenseSelects;
+        });
+    </script>
 @endif
