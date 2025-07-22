@@ -19,11 +19,13 @@
             $("[name='employee_id']").append(option).trigger('change');
         }
 
-        if (expenses_data.length > 0) {
-            $.each(expenses_data, function(key, value) {
-                add_expense(value);
-            });
-        }
+       $(document).ready(function() {
+            if (expenses_data.length > 0) {
+                $.each(expenses_data, function(key, value) {
+                    add_expense(value);
+                });
+            }
+        });
 
 
         state_empty();
@@ -46,9 +48,10 @@
             row_expense++;
 
 
+    
+
             var insert = `<div class="row row-expense">
-            <x-form.select add_class="expenses expense-type-` + row_expense +
-                `" class="col-12 col-lg-6" label="Type" name="expenses[` + row_expense + `][type]" :list="[]" />
+            <x-form.select add_class="expenses expense-type-` + row_expense +`" class="col-12 col-lg-6" label="Type" name="expenses[` + row_expense + `][type]" :list="[]" />
            <x-form.currency class="col-12 col-lg-5" add_class="expense-amount-` + row_expense +
                 `" :label="__('Amount')" name="expenses[` + row_expense + `][amount]" value="" />
             <div class="col-12 col-lg-1">
@@ -64,6 +67,10 @@
 
 
             // $(".expense-type-" + row_expense).select2();
+
+            $(".expense-type-" + row_expense).val(value.reimbursement_expense_id).trigger('change');
+            $(".expense-type-" + row_expense).data('data-id', value.reimbursement_expense_id);
+            $(".expense-type-" + row_expense).data('data-name', value.name);
 
 
             var type = '';
