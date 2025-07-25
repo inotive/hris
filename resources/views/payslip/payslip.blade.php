@@ -94,9 +94,9 @@
                 <table class="table">
                     @foreach ($payslip->earning_details as $payslip_earning)
                         <tr>
-                            <td>{{ $payslip_earning->master->name }}</td>
+                            <td>{{ $payslip_earning->master->name ?? '' }}</td>
                             <td>Rp</td>
-                            <td style="text-align: right">{{ number_format($payslip_earning->value, 0, ',', '.') }}</td>
+                            <td style="text-align: right">{{ number_format($payslip_earning->value ?? 0, 0, ',', '.') }}</td>
                         </tr>
                     @endforeach
                     <tr>
@@ -111,9 +111,9 @@
                 <table class="table">
                     @foreach ($payslip->deduction_details as $payslip_deduction)
                         <tr>
-                            <td>{{ $payslip_deduction->master->name }}</td>
+                            <td>{{ $payslip_deduction->master->name ?? '' }}</td>
                             <td>Rp</td>
-                            <td style="text-align: right">{{ number_format($payslip_deduction->value, 0, ',', '.') }}</td>
+                            <td style="text-align: right">{{ number_format($payslip_deduction->value ?? 0, 0, ',', '.') }}</td>
                         </tr>
                     @endforeach
                     <tr>
