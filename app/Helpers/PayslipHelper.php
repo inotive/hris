@@ -12,7 +12,7 @@ class PayslipHelper
     public function view($id)
     {
         $payslip = EmployeePayslip::find($id);
-        $period = Carbon::parse($payslip->year . '-' . $payslip->month  . '-01')->format('F Y');
+        $period = $payslip->year != null ? Carbon::parse($payslip->year . '-' . $payslip->month  . '-01')->format('F Y') : '';
         $pdf = Pdf::loadView('payslip.payslip', [
             'payslip' => $payslip,
             'period' => $period,
@@ -28,7 +28,7 @@ class PayslipHelper
     public function download($id)
     {
         $payslip = EmployeePayslip::find($id);
-        $period = Carbon::parse($payslip->year . '-' . $payslip->month  . '-01')->format('F Y');
+        $period = $payslip->year != null ? Carbon::parse($payslip->year . '-' . $payslip->month  . '-01')->format('F Y') : '';
         $pdf = Pdf::loadView('payslip.payslip', [
             'payslip' => $payslip,
             'period' => $period,

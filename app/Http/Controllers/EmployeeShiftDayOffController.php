@@ -62,6 +62,11 @@ class EmployeeShiftDayOffController extends Controller
             Log::info($request->dayoff);
             
             foreach ($request->dayoff as $key => $value) {
+
+                if ($value['shift_id'] == null || $value['date'] == null) {
+                    throw new Exception('Shift or Date is required');
+                }
+
                 $first = EmployeeShiftDayOff::firstOrCreate([
                     'company_id'    => $request->company_id,
                     'shift_id'  => $value['shift_id'],
@@ -91,7 +96,7 @@ class EmployeeShiftDayOffController extends Controller
             Log::error($e);
             return [
                 'success'   => false,
-                'message'   => 'Error',
+                'message'   => $e->getMessage(),
             ];
         }
     }

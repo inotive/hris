@@ -178,11 +178,11 @@
             row_dayoff++;
 
             var row = `<div class="row row-dayoff">
-                <x-form.datepicker class="col-12 col-lg-2" add_class="datepickersingle-` + row_dayoff +
+                <x-form.datepicker required="true" class="col-12 col-lg-2" add_class="datepickersingle-` + row_dayoff +
                 `" label="" name="dayoff[` + row_dayoff + `][date]" />
-                <x-form.select class="col-12 col-lg-3" add_class="shift_id shift-id-` + row_dayoff +
+                <x-form.select required="true" class="col-12 col-lg-3" add_class="shift_id shift-id-` + row_dayoff +
                 `" label="" name="dayoff[` + row_dayoff + `][shift_id]" />
-                <x-form.input class="col-12 col-lg-6" name="dayoff[` + row_dayoff + `][desc]" label="" placeholder="Description" />
+                <x-form.input required="true" class="col-12 col-lg-6" name="dayoff[` + row_dayoff + `][desc]" label="" placeholder="Description*" />
                  <div class="col-12 col-lg-1">
                 <button type="button" class="btn btn-danger w-100 btn-delete-day-off">X</button>
                 </div>
