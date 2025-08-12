@@ -16,10 +16,12 @@
         <hr />
     </div>
     <x-form.input type="text" :label="__('Name')" name="name" :value="old('name', $form->name ?? '')" :required="true" />
-    <x-form.input type="email" :label="__('Email')" name="email" :value="old('email', $form->email ?? '')"   :required="true"/>
-    <x-form.phone :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')"  :required="true"/>
-    <x-form.select :required="true" :list="['backward' => 'Backward', 'current' => 'Current']" label="Cut Off Payroll Method" name="cut_off_payroll_method" :value="old('cut_off_payroll_method', $form->cut_off_payroll_method ?? '')"   :required="true"/>
-    <x-form.number :required="true" min="1" max="31" :label="__('Cut Off Payroll Date')" name="cut_off_payroll_date" :value="old('cut_off_payroll_date', $form->cut_off_payroll_date ?? '')" />
+    <x-form.input type="email" :label="__('Email')" name="email" :value="old('email', $form->email ?? '')" :required="true" />
+    <x-form.phone :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')" :required="true" />
+    <x-form.select :required="true" :list="['backward' => 'Backward', 'current' => 'Current']" label="Cut Off Payroll Method" name="cut_off_payroll_method"
+        :value="old('cut_off_payroll_method', $form->cut_off_payroll_method ?? '')" :required="true" />
+    <x-form.number :required="true" min="1" max="31" :label="__('Cut Off Payroll Date')" name="cut_off_payroll_date"
+        :value="old('cut_off_payroll_date', $form->cut_off_payroll_date ?? '')" />
     <x-form.select :list="['none' => 'None', 'gross' => 'Gross', 'gross-up' => 'Gross Up']" label="Tax Calculation Method" name="tax_calculation_method" :value="old('tax_calculation_method', $form->tax_calculation_method ?? '')" />
 
     <x-form.image-picker :label="__('Logo')" name="logo" folder="companies" :value="old('logo', $form->logo ?? '')" />
@@ -30,7 +32,7 @@
     <div>
         <hr />
     </div>
-    <x-form.textarea :label="__('Address')" name="address" :value="old('address', $form->address ?? '')"   :required="true"/>
+    <x-form.textarea :label="__('Address')" name="address" :value="old('address', $form->address ?? '')" :required="true" />
     <x-form.input type="text" label="Sub District" name="sub_district" :value="$form->sub_district ?? ''" />
     <x-form.input type="text" label="District" name="district" :value="$form->district ?? ''" />
     <x-form.input type="text" label="City" name="city" :value="$form->city ?? ''" />
@@ -41,7 +43,7 @@
     <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')" />
 
     <div class="col-12 col-lg-6 mb-4 row">
-        <x-form.input-map :lat="$form->lat??0" :lng="$form->lng??0" />
+        <x-form.input-map :lat="$form->lat ?? 0" :lng="$form->lng ?? 0" />
     </div>
 
     <h4>{{ __('Company Menu Config') }}</h4>

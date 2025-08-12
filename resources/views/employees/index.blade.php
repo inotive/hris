@@ -6,7 +6,7 @@
 
 @section('page_title')
     {{ __($page_title) }}
-@stop       
+@stop
 
 @section('page_subtitle')
     Terakhir data di perbarui : <b>5 menit yang lalu</b>
@@ -14,7 +14,7 @@
 
 @section('toolbar')
     <x-table.bulk-data-dropdown :export_url="route('employees.export', ['company_id' => request()->filter['company_id'] ?? null])" />
-    <x-table.filter-dropdown :company="true" />
+    <x-table.filter-dropdown :company="auth()->user()->company_id == null" :department="true" :employee_status="true" />
 @stop
 
 @section('table_header')

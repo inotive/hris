@@ -117,7 +117,7 @@ class Employee extends Authenticatable
             //     'required',
             //     Rule::unique('employees')->ignore($this->id)
             // ],
-            'phone' => ['required','min:10'],
+            'phone' => ['required', 'min:10'],
             'department_id' => 'required',
             'employee_position_id' => 'required',
             'employee_level_id' => 'required',
@@ -159,7 +159,7 @@ class Employee extends Authenticatable
             'token_forget_password' => '',
             'head_departmen_id' => '',
             'document_file' => '',
-            'nik' => ['required','min:10'],
+            'nik' => ['required', 'min:10'],
 
             'is_attendance_location' => '',
             'is_leave_request' => '',
@@ -515,4 +515,45 @@ class Employee extends Authenticatable
         return ReimbursementRequest::where('employee_id', $this->id)->count();
     }
 
+
+
+    // custom query index
+    public static function tableQuery()
+    {
+        $search = request()->search;
+
+        $filter = request()->filter;
+
+
+        $query = Employee::query()
+            ->when(auth()->user()->company_id != null, function ($query) {
+                $query->where('company_id', auth()->user()->company_id);
+            })
+            ->when($search != null, function ($query) use ($search) {
+                return $query->where(function ($query) use ($search) {
+
+                    $query->whereHas('department', function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%');
+                    })
+                        ->orWhere('first_name', 'like', '%' . $search . '%')
+                        ->orWhere('last_name', 'like', '%' . $search . '%')
+                        ->orWhereRaw('concat(first_name, " ", last_name) like "%' . $search . '%"')
+                        ->orWhere('nik', 'like', '%' . $search . '%')
+                        ->orWhere('phone', 'like', '%' . $search . '%')
+                        ->orWhere('email', 'like', '%' . $search . '%')
+                        ->orWhere('username', 'like', '%' . $search . '%');
+                });
+            })
+            ->when($filter != null && isset($filter['filter_department_id']), function ($query) use ($filter) {
+                return $query->whereHas('department', function ($query) use ($filter) {
+                    $query->where('id', $filter['filter_department_id']);
+                });
+            })
+            ->when($filter != null && isset($filter['filter_status']) && $filter['filter_status'] != '3', function ($query) use ($filter) {
+                return $query->where('status', $filter['filter_status']);
+            })
+            ->paginate();
+
+        return $query;
+    }
 }

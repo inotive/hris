@@ -24,8 +24,11 @@ class EmployeeDepartmentDropdown extends Component
      */
     public function render()
     {
-        $list = EmployeeDepartment::orderBy('name','asc')->pluck('name','id');
-        return view('components.form.employee-department',[
+        $list = EmployeeDepartment::orderBy('name', 'asc')
+
+        
+            ->pluck('name', 'id');
+        return view('components.form.employee-department', [
             'list'  => $list,
             'name'  => 'department_id',
             'label' => __('Department'),

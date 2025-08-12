@@ -130,6 +130,9 @@ class CompanySubscriptionParent extends Model
                         )');
                 });
             })
+            ->when(auth()->user()->company_id != null, function($query)  {
+                $query->where('id', auth()->user()->company_id);
+            })
             ->paginate();
 
         return $query;
