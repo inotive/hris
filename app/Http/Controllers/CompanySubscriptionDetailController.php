@@ -47,6 +47,16 @@ class CompanySubscriptionDetailController extends Controller
     }
 
 
+    public function show(Company $company, $id, Request $request)
+    {
+        return view('company_subscription_detail.detail',[
+            'company'  => $company,
+            'form'  => CompanySubscription::find($id),
+            'readonly'  => true,
+        ]);
+    }
+
+
     public function store(Company $company, Request $request)
     {
         $request->validate((new CompanySubscription())->rules());

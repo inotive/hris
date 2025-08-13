@@ -87,7 +87,7 @@ class LeaveTypeService
         ];
     }
 
-    static public function leaveTypeByEmployee($employee_id, $leave_type_id = null, $year = null)
+    static public function leaveTypeByEmployee($employee_id, $leave_type_id = null, $year = null, $search = null)
     {
         if ($year === null) {
             $year = Carbon::now()->year;
@@ -126,6 +126,10 @@ class LeaveTypeService
 
                 employee_leave_types
         ";
+
+        if ($search != null) {
+            $query .= " WHERE employee_leave_types.name LIKE '%$search%'";
+        }
 
 
 
