@@ -52,6 +52,7 @@
               endDate: '{{ \Carbon\Carbon::parse($value->date)->format('Y-m-t') }}',
               language: '{{ session('app_locale')['code'] ?? 'en' }}',
           });
+          
           $('#inline-datepicker-{{ $key }}').on('changeDate', function() {
               $('#payouts_{{ $key }}').val(
                   $('#inline-datepicker-{{ $key }}').datepicker('getFormattedDate')

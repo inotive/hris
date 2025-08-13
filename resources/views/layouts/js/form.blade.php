@@ -141,10 +141,19 @@
 
                     if (errors != null) {
 
+                        var firstKey = "";
                         // Display errors
                         $.each(errors, function(key, value) {
+                            if (firstKey == "") {
+                                firstKey = key;
+                            }
                             $('.' + key + '-error').append('<p>' + value + '</p>');
                         });
+
+
+                        // focus input
+                        console.log(firstKey);
+                        $('[name="' + firstKey + '"]').first().focus();
 
                     } else {
                         // Handle the error response

@@ -12,9 +12,8 @@
 
 @section('table_header')
     <th class="min-w-10px">{{ __('ID') }}</th>
-    @if (auth()->user()->company_id == null)
-        <th class="min-w-125px">{{ __('Company') }}</th>
-    @endif
+    <th class="min-w-125px">{{ __('Company') }}</th>
+
     <th class="min-w-125px">{{ __('Start') }}</th>
     <th class="min-w-125px">{{ __('End') }}</th>
     <th class="min-w-125px">{{ __('Day Left') }}</th>
@@ -29,9 +28,8 @@
         <tr>
 
             <td>{{ ($list->currentPage() - 1) * $list->perPage() + $key + 1 }}</td>
-            @if (auth()->user()->company_id == null)
-                <td>{{ $value->name ?? '-' }}</td>
-            @endif
+            <td>{{ $value->name ?? '-' }}</td>
+
 
             <td>
                 @if ($value->active_subscriptions()->first()->start_date_at ?? null != null)
@@ -42,10 +40,10 @@
             </td>
 
             <td>
-                @if ($value->active_subscriptions()->first()->end_date_at ?? null  != null)
-                    {{ \App\Helpers\DateFormatHelper::format($value->active_subscriptions()->first()->end_date_at) }} 
-                @else 
-                -
+                @if ($value->active_subscriptions()->first()->end_date_at ?? null != null)
+                    {{ \App\Helpers\DateFormatHelper::format($value->active_subscriptions()->first()->end_date_at) }}
+                @else
+                    -
                 @endif
             </td>
             <td>{{ $value->day_left_subscription() ?? '-' }}</td>
