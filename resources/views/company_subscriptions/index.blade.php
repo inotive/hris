@@ -7,7 +7,9 @@
 
 
 @section('toolbar')
-    <x-table.filter-dropdown :daterange="true" :payment_status="true" />
+    @if (auth()->user()->company_id == null)
+        <x-table.filter-dropdown :daterange="true" :payment_status="true" />
+    @endif
 @stop
 
 @section('table_header')
@@ -54,6 +56,7 @@
                 <x-table.actions>
                     <x-table.action-button href="{{ route('company-subscriptions-detail.index', [$value->id]) }}"
                         label="{{ __('Detail') }}" />
+
                     {{-- <x-table.edit-button :id="$value->id" />
                     <x-table.delete-button :id="$value->id" /> --}}
                 </x-table.actions>

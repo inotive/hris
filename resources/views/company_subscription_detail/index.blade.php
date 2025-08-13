@@ -58,6 +58,10 @@
               <x-table.actions>
                 <x-table.edit-button
                   :href="route('company-subscriptions-detail.edit', [$company, $value->id])" />
+
+                  <x-table.edit-button
+                  :href="route('company-subscriptions-detail.show', [$company, $value->id])" route_name="company-subscriptions-detail.show" label="Detail" />
+
                 <x-table.delete-button
                   :href="route('company-subscriptions-detail.destroy', [$company, $value->id])" />
               </x-table.actions>

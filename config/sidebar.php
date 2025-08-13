@@ -53,11 +53,12 @@ return [
                         'company-subscriptions-detail.edit' => ['superadmin'],
                         'company-subscriptions-detail.update' => ['superadmin'],
                         'company-subscriptions-detail.destroy' => ['superadmin'],
+                        'company-subscriptions-detail.show' => ['superadmin','admin'],
                    
                         'company-subscriptions.index' => ['superadmin', 'admin'],
                         'company-subscriptions.create' => ['superadmin'],
                         'company-subscriptions.store' => ['superadmin'],
-                        'company-subscriptions.edit' => ['superadmin'],
+                        'company-subscriptions.edit' => ['superadmin',],
                         'company-subscriptions.update' => ['superadmin'],
                         'company-subscriptions.destroy' => ['superadmin'],
                     ],

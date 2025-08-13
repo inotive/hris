@@ -16,7 +16,10 @@ class EmployeeLeaveController extends Controller
 {
     public function index(Employee $employee, Request $request)
     {
-        $list = collect(LeaveTypeService::leaveTypeByEmployee($employee->id));
+        $search = $request->search;
+
+        
+        $list = collect(LeaveTypeService::leaveTypeByEmployee($employee->id, null, null, $search));
 
         return view('employee_leave.index',[
             'list'  => $list,
