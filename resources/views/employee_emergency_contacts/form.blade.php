@@ -2,10 +2,10 @@
 
 
     <x-form.hidden name="employee_id" :value="old('employee_id', $employee->id ?? '')" />
-    <x-family-relation-dropdown :value="old('family_relation', $form->family_relation ?? '')" />
+    <x-family-relation-dropdown :required="true" :value="old('family_relation', $form->family_relation ?? '')" />
 
-    <x-form.input type="text" :label="__('Name')" name="name" :value="old('name', $form->name ?? '')" />
-    <x-form.phone  :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')" />
+    <x-form.input :required="true" type="text" :label="__('Name')" name="name" :value="old('name', $form->name ?? '')" />
+    <x-form.phone :required="true"  :label="__('Phone')" name="phone" :value="old('phone', $form->phone ?? '')" />
 
 
     <x-form.textarea type="text" label="Address" name="address" :value="$form->address??''" />

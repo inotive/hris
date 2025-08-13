@@ -13,6 +13,9 @@ use Illuminate\View\Component;
 class ApproverEmployeeDropdown extends Component
 {
 
+
+    public $value;
+
     /**
      * Create a new component instance.
      *
@@ -30,19 +33,18 @@ class ApproverEmployeeDropdown extends Component
      */
     public function render()
     {
-        // $list = Employee::select([
-        //     DB::raw('CONCAT(first_name, " ", last_name, " (" , username , ")") as name'),
-        //     'id'
-        // ])
-        //     ->orderBy('first_name','asc')
-        //     ->pluck('name','id');
-        $list = [];
-            
-        return view('components.form.employee',[
+        $list = Employee::select([
+            DB::raw('CONCAT(first_name, " ", last_name, " (" , username , ")") as name'),
+            'id'
+        ])
+            ->orderBy('first_name','asc')
+            ->pluck('name','id');
+        return view('components.form.select',[
             'list'  => $list,
             'name'  => 'approver_employee_id',
-            'add_class' => 'employee_id',
+            'add_class' => 'approver_employee_id',
             'required' => true,
+            'value' => old('approver_employee_id', $this->value ?? '')
         ]);
     }
 }
