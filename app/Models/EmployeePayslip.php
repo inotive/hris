@@ -1,0 +1,101 @@
+<?php
+
+namespace App\Models;
+
+use App\Traits\CreatedByUserTrait;
+use App\Traits\HasCompany;
+use App\Traits\SearchTrait;
+use Exception;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class EmployeePayslip extends Model
+{
+    use HasFactory;
+
+    use HasUuids;
+
+    use SearchTrait;
+    use CreatedByUserTrait;
+    use HasCompany;
+
+
+    protected $primaryKey = 'id'; // Use 'id' as the primary key
+    public $incrementing = false;  // Disable auto-incrementing
+    protected $keyType = 'string'; // Since UUID is a string
+
+    public $fillable = [
+        'company_id',
+        'employee_id',
+        'total_payslip_earning',
+        'total_payslip_deduction',
+        'sub_total_payslip',
+        'tax',
+        'take_home_pay',
+        'pay_date',
+        'metode',
+        'account_number',
+        'account_name',
+        'file',
+        'employee_payslip_generate_id',
+        'month',
+        'year',
+        'approved_at',
+        'approved_by_user_id',
+    ];
+
+    public $rules = [
+        'company_id'  => 'required',
+        'employee_id'  => 'required',
+        'total_payslip_earning'  => '',
+        'total_payslip_deduction'  => '',
+        'sub_total_payslip'  => '',
+        'tax'  => '',
+        'take_home_pay'  => '',
+        'pay_date'  => '',
+        'metode'  => '',
+        'account_number'  => '',
+        'account_name'  => '',
+        'file'  => '',
+        'employee_payslip_generate_id'  => '',
+        'month'  => '',
+        'year'  => '',
+        'approved_at' => '',
+        'approved_by_user_id' => '',
+    ];
+
+    public $casts = [
+        'total_payslip_earning' => 'integer',
+        'total_payslip_deduction' => 'integer',
+        'sub_total_payslip' => 'integer',
+        'tax' => 'integer',
+        'take_home_pay' => 'integer',
+    ];
+
+    public function earning_details()
+    {
+        return $this->hasMany(EmployeePayslipDetail::class, 'employee_payslip_id', 'id')->where('payslip_type','earning');
+    }
+
+    public function deduction_details()
+    {
+        return $this->hasMany(EmployeePayslipDetail::class, 'employee_payslip_id', 'id')->where('payslip_type','deduction');
+    }
+
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'employee_id','id');
+    }
+
+    public function getApprovedOvertimeHoursAttribute()
+    {
+        return OvertimeRequest::where('employee_id', $this->employee_id)
+            ->where('start_shift_date_time','>=', $this->month_period_start)
+            ->where('start_shift_date_time','<=', $this->month_period_end)
+            ->where('status','approved')->sum('work_hours');
+    }
+
+}
+

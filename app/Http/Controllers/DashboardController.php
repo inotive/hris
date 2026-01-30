@@ -2,6 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
+use App\Models\Company;
+use App\Models\Employee;
+use App\Models\LeaveRequest;
+use App\Models\OvertimeRequest;
+use App\Models\ReimbursementRequest;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -14,6 +20,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('role:superadmin,admin,finance,content');
     }
 
     /**
@@ -21,8 +28,72 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard');
+        $auth = auth()->user();
+
+        if ($auth->role == 'superadmin'){
+            return $this->indexSuperadmin($request);
+        }else if ($auth->role == 'admin') {
+            return $this->indexAdmin($request);
+        }
+        return view('dashboard.dashboard');
+    }
+
+
+    private function indexSuperadmin(Request $request)
+    {
+        $total_company = Company::count();
+        $total_employee = Employee::count();
+        $total_attendance = Attendance::count();
+        $total_leave = LeaveRequest::count();
+        $total_overtime = OvertimeRequest::count();
+        $total_reimbursement = ReimbursementRequest::count();
+
+        $top_companies = Company::when(request()->search_company != null, function($query){
+            $query->where('name', 'like', '%' . request()->search_company . '%');
+        })
+        ->get();
+
+        return view('dashboard.dashboard-superadmin',[
+            'total_company'    => $total_company,
+            'total_employee'    => $total_employee,
+            'total_attendance'    => $total_attendance,
+            'total_leave'    => $total_leave,
+            'total_overtime'    => $total_overtime,
+            'total_reimbursement'    => $total_reimbursement,
+
+
+            'top_companies' => $top_companies,
+        ]);
+    }
+
+
+
+    private function indexAdmin(Request $request)
+    {
+        $total_company = Company::count();
+        $total_employee = Employee::count();
+        $total_attendance = Attendance::count();
+        $total_leave = LeaveRequest::count();
+        $total_overtime = OvertimeRequest::count();
+        $total_reimbursement = ReimbursementRequest::count();
+
+        $top_companies = Company::when(request()->search_company != null, function($query){
+            $query->where('name', 'like', '%' . request()->search_company . '%');
+        })
+        ->get();
+
+        return view('dashboard.dashboard-admin',[
+            'total_company'    => $total_company,
+            'total_employee'    => $total_employee,
+            'total_attendance'    => $total_attendance,
+            'total_leave'    => $total_leave,
+            'total_overtime'    => $total_overtime,
+            'total_reimbursement'    => $total_reimbursement,
+
+
+            'top_companies' => $top_companies,
+        ]);
     }
 }

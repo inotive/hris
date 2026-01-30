@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Models;
+
+use App\Traits\SearchTrait;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class EmployeeFamilyInfo extends Model
+{
+    use HasFactory;
+
+    use HasUuids;
+
+    use SearchTrait;
+
+
+    protected $primaryKey = 'id'; // Use 'id' as the primary key
+    public $incrementing = false;  // Disable auto-incrementing
+    protected $keyType = 'string'; // Since UUID is a string
+
+
+
+    public $fillable = [
+        'employee_id',
+        'family_relation',
+        'name',
+
+        'gender',
+        'birth_date',
+        'birth_place',
+        'marital_status',
+        'address',
+        'photo',
+    ];
+
+
+    public $rules = [
+        'employee_id' => 'required',
+        'family_relation' => 'required',
+        'name' => 'required',
+        'gender' => 'required',
+        'birth_date' => 'required',
+        'birth_place' => 'required',
+        'marital_status' => 'required',
+    ];
+
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('filter_by_empoyee', function (Builder $builder) {
+            if (auth()->user() instanceof Employee) {
+                $builder->where('employee_id', auth()->user()->id);
+            }
+        });
+    }
+
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class,'employee_id','id');
+    }
+
+    public static function familyRelationDropdown()
+    {
+        return [
+            'Ayah'  => 'Ayah',
+            'Ibu'  => 'Ibu',
+            'Kakak Laki-laki'  => 'Kakak Laki-laki',
+            'Kakak Perempuan'  => 'Kakak Perempuan',
+            'Adik Laki-laki'  => 'Adik Laki-laki',
+            'Adik Perempuan'  => 'Adik Perempuan',
+            'Kakek'  => 'Kakek',
+            'Nenek'  => 'Nenek',
+            'Sepupu Laki-laki'  => 'Sepupu Laki-laki',
+            'Sepupu Perempuan'  => 'Sepupu Perempuan',
+            'Tante'  => 'Tante',
+            'Paman'  => 'Paman',
+            'Lainnya'  => 'Lainnya',
+        ];
+    }
+}

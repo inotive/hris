@@ -12,7 +12,7 @@ export default defineConfig({
                 // 'resources/template/js/custom/widgets.js',
                 // 'resources/template/js/custom/authentication/sign-in/general.js',
 
-                'resources/sass/app.scss', 
+                'resources/css/app.css', 
                 // 'resources/template/plugins/global/plugins.bundle.css', 
                 // 'resources/template/css/style.bundle.css',
             ],

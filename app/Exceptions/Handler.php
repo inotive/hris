@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -47,4 +50,50 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+
+    public function render($request, Throwable $exception)
+    {
+        if ($request->expectsJson()) {
+
+            if ($exception instanceof AuthenticationException) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $exception->getMessage(),
+                ], 401);
+            }
+
+            if ($exception instanceof ValidationException) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $exception->getMessage(),
+                    'errors' => $exception->errors(),
+                ], 400);
+            }
+
+            if ($exception instanceof HttpException) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $exception->getMessage(),
+                ], $exception->getStatusCode());
+            }
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Something went wrong',
+                'exception' => $exception->getMessage(), // Optional: hide in production
+                'class' => get_class($exception),
+            ], 500);
+        }
+
+        return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, \Illuminate\Auth\AuthenticationException $exception)
+    {
+        return $request->expectsJson()
+            ? response()->json(['error' => 'Unauthenticated.'], 401)
+            : redirect()->guest(route('login')); // This line is what causes the redirect, change it for API
+    }
+
 }
