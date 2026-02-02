@@ -83,7 +83,10 @@ if ($lat == 0) {
 
         function {{ $prefix }}_setMapView(lat, lng) {
             if (!{{ $prefix }}_mapView) {
-                {{ $prefix }}_mapView = L.map('{{ $prefix }}_mapview').setView([lat, lng], 16); // Default to Jakarta
+                {{ $prefix }}_mapView = L.map('{{ $prefix }}_mapview', {
+                    scrollWheelZoom: false, // Disable scroll zooming for inline map
+                    dragging: false, // Disable panning/dragging for inline map
+                }).setView([lat, lng], 16); // Default to Jakarta
                 L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                     attribution: '',
                     maxZoom: 19
@@ -128,20 +131,24 @@ if ($lat == 0) {
                 var lat = $("#{{ $lat_input }}").val() || {{ $prefix }}_defaultLat;
                 var lng = $("#{{ $lng_input }}").val() || {{ $prefix }}_defaultLng;
 
-                if (lat == 0 && navigator.geolocation) {
-                    var reslat = await getCurrentLocation();
-
-                    if (reslat != null) {
-                        lat = reslat.lat;
-                        lng = reslat.lng;
-                        
-                    }
-                } else {
-                console.log('Geolocation is not supported by this browser.');
+                // Auto-detect if value is empty/zero or default
+                if ((lat == 0 || lat == {{ $prefix }}_defaultLat) && navigator.geolocation) {
+                    console.log("Auto-detecting location...");
+                    try {
+                        var reslat = await getCurrentLocation();
+                        if (reslat && reslat.lat != null) {
+                            lat = reslat.lat;
+                            lng = reslat.lng;
+                            // Update input fields immediately if auto-detected
+                            // $("#{{ $lat_input }}").val(lat);
+                            // $("#{{ $lng_input }}").val(lng);
+                        }
+                    } catch(e) { console.error(e); }
                 }
 
                 if (!{{ $prefix }}_map) {
-                    {{ $prefix }}_map = L.map('{{ $prefix }}_map').setView([lat, lng], 19); // Default to Jakarta
+                    {{ $prefix }}_map = L.map('{{ $prefix }}_map').setView([lat, lng], 19); 
+                    
                     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
                         attribution: '',
                         maxZoom: 19
@@ -215,6 +222,7 @@ if ($lat == 0) {
         }
 
         // Handle save location
+        // Handle save location
         $('#{{ $prefix }}_saveLocation').on('click', function() {
             if ({{ $prefix }}_marker) {
                 const latlng = {{ $prefix }}_marker.getLatLng();
@@ -223,14 +231,26 @@ if ($lat == 0) {
                 $('#{{ $lat_input }}').val(latlng.lat);
                 $('#{{ $lng_input }}').val(latlng.lng);
 
-
-                $("#{{ $prefix }}_mapModal").modal('hide');
-                $('.modal-backdrop').remove();
-                $('body').removeClass('modal-open');
-
+                // Update view map
                 {{ $prefix }}_mapView.setView([latlng.lat, latlng.lng], 16);
                 {{ $prefix }}_setMarkerView(latlng.lat, latlng.lng);
+
+                // Hide Modal (triggers hidden.bs.modal)
+                $("#{{ $prefix }}_mapModal").modal('hide');
             }
+        });
+
+        // Robust cleanup when modal is fully hidden
+        document.getElementById('{{ $prefix }}_mapModal').addEventListener('hidden.bs.modal', function () {
+            // Remove backdrop manual artifacts if any
+            $('.modal-backdrop').remove();
+            
+            // Force reset body styles to allow scrolling
+            $('body').removeClass('modal-open');
+            $('body').css({
+                'overflow': 'auto',
+                'padding-right': '0'
+            });
         });
 
         // Autocomplete for searching addresses
