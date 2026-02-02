@@ -2,307 +2,125 @@
 
 namespace App\Models;
 
-use App\Jobs\PayoutSettingJob;
-use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
-use App\Traits\SearchTrait;
-use App\Traits\CreatedByUserTrait;
-use App\Traits\HasMyCompany;
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\Rule;
-
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Storage;
+use Ramsey\Uuid\Uuid;
 
 class Company extends Model
 {
-    use HasFactory;
-    use HasUuids;
+    use HasFactory, SoftDeletes, SearchTrait;
 
-    use SearchTrait;
-    use CreatedByUserTrait;
-    use HasMyCompany;
-    use SoftDeletes;
+    public $incrementing = false;
+    protected $keyType = 'string';
 
-
-    protected $primaryKey = 'id'; // Use 'id' as the primary key
-    public $incrementing = false;  // Disable auto-incrementing
-    protected $keyType = 'string'; // Since UUID is a string
-
-
-
-
-    public $fillable = [
+    protected $fillable = [
         'name',
-        'address',
-        'phone',
         'email',
+        'phone',
+        'address',
+        'country',
+        'province',
+        'city',
+        'district', // Text
+        'sub_district', // Text
+        'zip_code',
+        'time_zone',
+        'lat',
+        'lng',
         'logo',
+        'created_by_user_id',
         'cut_off_payroll_date',
         'cut_off_payroll_method',
+        'tax_calculation_method',
+        'status',
         'is_overtime_request',
         'is_leave_request',
         'is_reimbursement_request',
         'is_attendance',
         'is_ewa',
         'is_payslip',
-        'status',
-        'country',
-        'province',
-        'city',
-        'district',
-        'sub_district',
-        'zip_code',
-        'time_zone',
-        'tax_calculation_method',
-        'lat',
-        'lng',
     ];
 
-    public $rules = [
-        'name' => 'required',
-        'address' => 'required',
-        'phone' => 'required',
-        'email' => [
-            'required',
-            'email',
-        ],
+    protected static function booted()
+    {
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = Uuid::uuid4()->toString();
+            }
+        });
+    }
 
-        'logo' => '',
-        'cut_off_payroll_date' => 'required',
-        'cut_off_payroll_method' => 'required',
-        'is_overtime_request' => '',
-        'is_leave_request' => '',
-        'is_reimbursement_request' => '',
-        'is_attendance' => '',
-        'is_ewa' => '',
-        'is_payslip' => '',
-        'status' => '',
-        'time_zone' => '',
-        'country' => '',
-        'province' => '',
-        'city' => '',
-        'district' => '',
-        'sub_district' => '',
-        'zip_code' => '',
-        'tax_calculation_method' => '',
-        'lat' => '',
-        'lng' => '',
-    ];
-
-    public $casts = [
-        'is_overtime_request' => 'boolean',
-        'status' => 'boolean',
-        'cut_off_payroll_date' => 'integer',
-        'is_leave_request' => 'boolean',
-        'is_reimbursement_request' => 'boolean',
-        'is_attendance' => 'boolean',
-        'is_ewa' => 'boolean',
-        'is_payslip' => 'boolean',
-        'lat'   => 'double',
-        'lng'   => 'double',
-    ];
-
-    public $search_columns = [
-        'name',
-        'phone',
-        'email',
-        'status',
-    ];
-
-    // public function scopeWithinRadiusInMeters($query, $latitude, $longitude, $radius = 1000)
+    // Relationships to Location
+    // public function country()
     // {
-    //     return $query->selectRaw("
-    //             *,
-    //             (6371000 * acos(
-    //                 cos(radians(?)) *
-    //                 cos(radians(latitude)) *
-    //                 cos(radians(longitude) - radians(?)) +
-    //                 sin(radians(?)) *
-    //                 sin(radians(latitude))
-    //             )) AS distance
-    //         ", [$latitude, $longitude, $latitude])
-    //         ->having('distance', '<=', $radius)
-    //         ->orderBy('distance', 'asc');
+    //     return $this->belongsTo(Country::class);
     // }
 
+    // public function province()
+    // {
+    //     return $this->belongsTo(Province::class);
+    // }
 
-    public static function boot()
+    // public function city()
+    // {
+    //     return $this->belongsTo(City::class);
+    // }
+
+    // Accessors for backward compatibility
+    public function getCountryNameAttribute()
     {
-        parent::boot();
-
-        static::saving(function ($model) {
-            if ($model->tax_calculation_method != null && $model->tax_calculation_method == 'none') {
-                $model->tax_calculation_method = null;
-            }
-        });
-
-        static::created(function ($model) {
-            $model->refresh();
-            if ($model->id != null) {
-                Log::info($model->id);
-                for ($i = date('Y'); $i < date('Y') + 5; $i++) {
-                    PayoutSettingJob::dispatch($model->id, $i, $model->created_by_user_id ?? null);
-                }
-            }
-        });
+        return $this->country ?? '';
     }
 
-
-    public function getMonthPeriod($year, $month)
+    public function getProvinceNameAttribute()
     {
-        $cut_off_payroll_method = $this->cut_off_payroll_method;
-
-        $month_period_start = Carbon::parse($year . "-" . $month . "-01")->format('Y-m-01');
-        $month_period_end = Carbon::parse($year . "-" . $month . "-01")->format('Y-m-t');
-
-        if ($cut_off_payroll_method == 'backward') {
-            // mundur sebulan
-            $month = Carbon::parse($year . "-" . $month . "-01");
-            $prev_month = $month->subMonth();
-            // cari tanggal awal
-            $start_cutoff = CompanyPayoutSetting::where('company_id', $this->company_id)
-                ->whereYear('date', $prev_month->format('Y'))
-                ->whereMonth('date', $prev_month->format('m'))
-                ->first();
-
-            $end_cutoff = CompanyPayoutSetting::where('company_id', $this->company_id)
-                ->whereYear('date', $month->format('Y'))
-                ->whereMonth('date', $month->format('m'))
-                ->first();
-
-            if ($start_cutoff != null && $end_cutoff != null) {
-                $month_period_start = $start_cutoff->date;
-                $month_period_end = $end_cutoff->date;
-            }
-        }
-
-
-        return [$month_period_start, $month_period_end];
+        return $this->province ?? '';
     }
 
-
-    public function getDateTimeLocationAttribute()
+    public function getCityNameAttribute()
     {
-        return Carbon::now()->setTimezone($this->time_zone)->toIso8601String();
+        return $this->city ?? '';
     }
 
-    public function getTotalUserAttribute(): int
+    public function users()
     {
-        return User::where('company_id', $this->id)->count();
+        return $this->hasMany(User::class);
     }
 
-    public function getTotalEmployeeAttribute(): int
+    public function departments()
     {
-        return Employee::where('company_id', $this->id)->count();
+        return $this->hasMany(EmployeeDepartment::class);
     }
 
-    public function getTotalDepartmentAttribute()
+    public function positions()
     {
-        return EmployeeDepartment::where('company_id', $this->id)->count();
+        return $this->hasMany(EmployeePosition::class);
+    }
+
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
     }
 
     public function active_contracts()
     {
-        return collect(DB::select('SELECT employee_contracts.id,
-                                    employee_contracts.date_start,
-                                    employee_contracts.date_end,
-                                    employee_contracts.employee_id,
-                                    employee_contracts.created_at,
-                                    employee_contracts.`status`
-
-                                     FROM `employee_contracts`
-                                     JOIN employees ON employees.id = employee_contracts.employee_id
-                                     where employees.company_id = "' . $this->id . '"
-                                     and  date_start <= now() and date_end >= now()'));
+        return $this->hasManyThrough(EmployeeContract::class, Employee::class);
     }
 
-    public function subscriptions()
+    public function getTotalEmployeeAttribute()
     {
-        return $this->hasMany(CompanySubscription::class, 'company_id');
+        return $this->employees()->count();
     }
 
-    public function active_subscriptions()
+    public function getTotalDepartmentAttribute()
     {
-        return $this->subscriptions
-            ->where('start_date_at', '<=', Carbon::now()->format('Y-m-d'))
-            ->where('end_date_at', '>=', Carbon::now()->format('Y-m-d'));
-    }
-
-    public function day_left_subscription()
-    {
-        try {
-            $active_subscription = $this->active_subscriptions()->first();
-            if ($active_subscription) {
-                return Carbon::now()->diffInDays($active_subscription->end_date_at);
-            }
-            return 0;
-        } catch (Exception $e) {
-            return 0;
-        }
-    }
-
-    public function total_day_subscription()
-    {
-        $active_subscription = $this->active_subscriptions()->first();
-        if ($active_subscription) {
-            return Carbon::parse($active_subscription->start_date_at)->diffInDays($active_subscription->end_date_at);
-        }
-        return 0;
-    }
-
-    public function day_left_percent_subscription()
-    {
-        try {
-            $active_subscription = $this->active_subscriptions()->first();
-            if ($active_subscription) {
-                if ($this->total_day_subscription() <= 0) {
-                    return 0;
-                }
-                return round(($this->day_left_subscription() / $this->total_day_subscription()) * 100, 0);
-            }
-            return 0;
-        } catch (Exception $e) {
-            Log::info($e);
-            return 0;
-        }
-    }
-
-
-    public function employees()
-    {
-        return $this->hasMany(Employee::class, 'company_id', 'id');
-    }
-
-    public function getLogoBase64Attribute()
-    {
-        if ($this->logo == null) {
-            return null;
-        }
-
-        try {
-            $url = Storage::url($this->logo);
-        
-            $response = Http::get($url);
-
-            if ($response->successful()) {
-                $mime = $response->header('Content-Type');
-                $base64 = base64_encode($response->body());
-                $base64Image = "data:$mime;base64,$base64";
-
-                return $base64Image;
-            }
-
-            return null;
-        } catch (Exception $e) {
-            return null;
-        }
+        return $this->departments()->count();
     }
 }

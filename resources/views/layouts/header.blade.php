@@ -88,6 +88,7 @@
 {{--                        <i class="fonticon-sun fs-2"></i>--}}
 {{--                    </a>--}}
 {{--                </div>--}}
+                @if(auth()->check())
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
                         data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
@@ -170,6 +171,7 @@
                         <div class="separator my-2"></div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

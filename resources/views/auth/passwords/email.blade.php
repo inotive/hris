@@ -1,47 +1,52 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+    <div class="d-flex flex-column flex-root">
+        <div
+            class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed"
+            style="background-image: url(assets/media/illustrations/sketchy-1/14.png">
+            <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
+                <div class="mb-12 fw-bolder lh-lg">
+                    <img class="" src="{{ asset('logo-withtext.png') }}" height="50"/>
+                </div>
 
-                <div class="card-body">
+                <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
+
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form class="form w-100" method="POST" action="{{ route('password.email') }}">
                         @csrf
-
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="text-center mb-10">
+                            <h1 class="text-dark mb-3">Reset Password</h1>
                         </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
+                        <div class="fv-row mb-10">
+                            <label class="form-label fs-6 fw-bolder text-dark">Email Address</label>
+                            <input id="email" type="email"
+                                   class="form-control form-control-lg form-control-solid @error('email') is-invalid @enderror"
+                                   name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                            @error('email')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-lg btn-primary w-100 mb-5">
+                                <span class="indicator-label">Send Password Reset Link</span>
+                            </button>
+                            <a class="link-primary fs-6 fw-bolder" href="{{ route('login') }}">
+                                Back to Sign In
+                            </a>
                         </div>
                     </form>
                 </div>
             </div>
+            <div class="d-flex flex-center flex-column-auto p-10">
+            </div>
         </div>
     </div>
-</div>
 @endsection

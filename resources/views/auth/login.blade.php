@@ -6,13 +6,9 @@
             class="d-flex flex-column flex-column-fluid bgi-position-y-bottom position-x-center bgi-no-repeat bgi-size-contain bgi-attachment-fixed"
             style="background-image: url(assets/media/illustrations/sketchy-1/14.png">
             <div class="d-flex flex-center flex-column flex-column-fluid p-10 pb-lg-20">
-                <!-- <a href="../../demo1/dist/index.html" class="mb-12">
-                    <img alt="Logo" src="assets/media/logos/logo-1.svg" class="h-40px" />
-                </a> -->
                 <div class="mb-12 fw-bolder lh-lg">
                     <img class="" src="{{ asset('logo-withtext.png') }}" height="50"/>
                 </div>
-
 
                 <div class="w-lg-500px bg-body rounded shadow-sm p-10 p-lg-15 mx-auto">
 
@@ -22,13 +18,10 @@
                         </div>
                     @endif
 
-
                     <form class="form w-100" id="kt_sign_in_form" method="POST" action="{{ route('login') }}">
                         @csrf
                         <div class="text-center mb-10">
                             <h1 class="text-dark mb-3">Sign In to Apps</h1>
-                            <!-- <div class="text-gray-400 fw-bold fs-4">New Here?
-                            <a href="../../demo1/dist/authentication/layouts/basic/sign-up.html" class="link-primary fw-bolder">Create an Account</a></div> -->
                         </div>
                         <div class="fv-row mb-10">
                             <label class="form-label fs-6 fw-bolder text-dark">Email</label>
@@ -82,11 +75,6 @@
                 </div>
             </div>
             <div class="d-flex flex-center flex-column-auto p-10">
-                <!-- <div class="d-flex align-items-center fw-bold fs-6">
-                    <a href="https://keenthemes.com" class="text-muted text-hover-primary px-2">About</a>
-                    <a href="mailto:support@keenthemes.com" class="text-muted text-hover-primary px-2">Contact</a>
-                    <a href="https://1.envato.market/EA4JP" class="text-muted text-hover-primary px-2">Contact Us</a>
-                </div> -->
             </div>
         </div>
     </div>

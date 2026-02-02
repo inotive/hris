@@ -60,6 +60,16 @@ Route::get('/', function () {
 
 Route::post('/upload', [UploadController::class, 'uploadImage'])->name('upload');
 
+// Location API routes for cascading dropdown
+Route::prefix('api/locations')->group(function () {
+    Route::get('/countries', [App\Http\Controllers\LocationController::class, 'getCountries'])->name('api.locations.countries');
+    Route::get('/provinces', [App\Http\Controllers\LocationController::class, 'getProvinces'])->name('api.locations.provinces');
+    Route::get('/cities', [App\Http\Controllers\LocationController::class, 'getCities'])->name('api.locations.cities');
+    Route::get('/districts', [App\Http\Controllers\LocationController::class, 'getDistricts'])->name('api.locations.districts');
+    Route::get('/sub-districts', [App\Http\Controllers\LocationController::class, 'getSubDistricts'])->name('api.locations.sub-districts');
+});
+
+
 
 Route::get('/simulate/attendance-init', function () {
     return Artisan::call('attendance:init');

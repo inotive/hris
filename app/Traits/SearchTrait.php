@@ -20,8 +20,9 @@ trait SearchTrait
 
             $k = 0;
             foreach($search_field as $key => $value) {
+                if (!in_array($value, $columns)) continue;
                 try{
-                    $is_boolean = $this->casts[$value] == 'boolean' ?? false;
+                    $is_boolean = ($this->casts[$value] ?? null) == 'boolean';
                 }catch(Exception $e){
                     $is_boolean = false;
                 }
@@ -120,7 +121,7 @@ trait SearchTrait
                     if (in_array($key, $columns)) {
                  
                         try{
-                            $is_boolean = $this->casts[$key] == 'boolean' ?? false;
+                            $is_boolean = ($this->casts[$key] ?? null) == 'boolean';
                         }catch(Exception $e){
                             $is_boolean = false;
                         }

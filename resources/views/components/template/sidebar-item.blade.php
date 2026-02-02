@@ -2,7 +2,7 @@
     'menu' => null,
 ])
 <div>
-    @if (isset($menu['roles']) && in_array(auth()->user()->role, $menu['roles']))
+    @if (isset($menu['roles']) && auth()->check() && in_array(auth()->user()->role, $menu['roles']))
 
 
         @if (isset($menu['children']) && isset($menu['dropdown_menu']) == true)
@@ -22,7 +22,7 @@
                 <div class="menu-sub menu-sub-accordion menu-active-bg">
 
                     @foreach ($menu['children'] as $key => $value)
-                        @if (isset($value['roles']) && in_array(auth()->user()->role, $value['roles']))
+                        @if (isset($value['roles']) && auth()->check() && in_array(auth()->user()->role, $value['roles']))
                             <div class="menu-item">
                                 <a class="menu-link {{ \App\Services\SidebarService::isActiveSubmenu($value) ? ' active ' : '' }}"
                                     href="{{ isset($value['route']) != null && strlen($value['route']) > 0 ? route($value['route']) : $value['url'] ?? '#' }}">

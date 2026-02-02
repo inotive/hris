@@ -33,12 +33,19 @@
         <hr />
     </div>
     <x-form.textarea :label="__('Address')" name="address" :value="old('address', $form->address ?? '')" :required="true" />
-    <x-form.input type="text" label="Sub District" name="sub_district" :value="$form->sub_district ?? ''" />
-    <x-form.input type="text" label="District" name="district" :value="$form->district ?? ''" />
-    <x-form.input type="text" label="City" name="city" :value="$form->city ?? ''" />
-    <x-form.input type="text" label="Province" name="province" :value="$form->province ?? ''" />
-    <x-form.input type="text" label="Country" name="country" :value="$form->country ?? ''" />
+    
+    {{-- Cascading Dropdowns for Province/City/District/SubDistrict --}}
+    <x-location-cascading-dropdown 
+        :country="old('country', $form->country ?? '')"
+        :province="old('province', $form->province ?? '')"
+        :city="old('city', $form->city ?? '')"
+        :district="old('district', $form->district ?? '')"
+        :subDistrict="old('sub_district', $form->sub_district ?? '')"
+    />
+
     <x-form.number type="text" label="Postal Code" name="zip_code" :value="$form->zip_code ?? ''" />
+
+
 
     <x-time-zone-dropdown :value="old('time_zone', $form->time_zone ?? '')" />
 

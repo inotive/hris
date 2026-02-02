@@ -113,10 +113,10 @@
               --}}
               <td>{{ $value->total_employee }}</td>
               <td>
-                {{ $value->active_contracts()->where('status','permanent')->count() }}
+                {{ $value->active_contracts()->where('employee_contracts.status','permanent')->count() }}
               </td>
               <td>
-                {{ $value->active_contracts()->where('status','contract')->count() }}
+                {{ $value->active_contracts()->where('employee_contracts.status','contract')->count() }}
               </td>
               <td>{{ $value->total_department }}</td>
               <td></td>
