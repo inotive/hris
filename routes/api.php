@@ -43,6 +43,15 @@ Route::post('/reset-password', [EmployeeController::class, 'resetPassword']);
 Route::post('/confirm-code-reset-password', [EmployeeController::class, 'confirmCodeResetPassword']);
 Route::put('/reset-password', [EmployeeController::class, 'resetPasswordNew']);
 
+// Public Location Routes for Mobile
+Route::prefix('mobile/locations')->group(function () {
+    Route::get('/countries', [\App\Http\Controllers\LocationController::class, 'getCountries']);
+    Route::get('/provinces', [\App\Http\Controllers\LocationController::class, 'getProvinces']);
+    Route::get('/cities', [\App\Http\Controllers\LocationController::class, 'getCities']);
+    Route::get('/districts', [\App\Http\Controllers\LocationController::class, 'getDistricts']);
+    Route::get('/sub-districts', [\App\Http\Controllers\LocationController::class, 'getSubDistricts']);
+});
+
 Route::middleware([
     'auth:sanctum',
 ])->group(function () {
@@ -92,9 +101,9 @@ Route::middleware([
     Route::delete('/reimbursement-request', [ReimbursementController::class, 'delete']);
 
     // Payslip
-    Route::get('/payslips', [PayslipController::class,'index']);
-    Route::get('/payslip/view/{id}', [PayslipController::class,'detail']);
-    Route::get('/payslip/download/{id}', [PayslipController::class,'download']);
+    Route::get('/payslips', [PayslipController::class, 'index']);
+    Route::get('/payslip/view/{id}', [PayslipController::class, 'detail']);
+    Route::get('/payslip/download/{id}', [PayslipController::class, 'download']);
 
     // MASTER
     Route::get('/master/gender', [EmployeeController::class, 'gender']);
@@ -122,6 +131,6 @@ Route::middleware([
     // approve
     Route::post('/approve', [ApproveController::class, 'approve']);
     Route::post('/reject', [ApproveController::class, 'reject']);
-    
+
 
 });
