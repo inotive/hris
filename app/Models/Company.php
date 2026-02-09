@@ -50,6 +50,12 @@ class Company extends Model
                 $model->id = Uuid::uuid4()->toString();
             }
         });
+
+        static::deleting(function ($company) {
+            $company->subscriptions()->each(function ($subscription) {
+                $subscription->delete();
+            });
+        });
     }
 
     // Relationships to Location
@@ -122,5 +128,10 @@ class Company extends Model
     public function getTotalDepartmentAttribute()
     {
         return $this->departments()->count();
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(CompanySubscription::class);
     }
 }

@@ -8,6 +8,7 @@ use App\Traits\SearchTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Jobs\PayoutSettingJob;
 
 class CompanySubscription extends Model
@@ -15,7 +16,7 @@ class CompanySubscription extends Model
     use HasFactory;
     use HasUuids;
 
-    use SearchTrait;
+    use SearchTrait, SoftDeletes;
     use HasCompany;
 
 

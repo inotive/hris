@@ -63,8 +63,8 @@ if ($lat == 0) {
         let {{ $prefix }}_mapView;
         let {{ $prefix }}_markerView;
 
-        var {{ $prefix }}_defaultLat = -6.200000;
-        var {{ $prefix }}_defaultLng = 106.816666;
+        var {{ $prefix }}_defaultLat = -6.175605558491494;
+        var {{ $prefix }}_defaultLng = 106.82693230874003;
 
         
 
@@ -73,13 +73,54 @@ if ($lat == 0) {
             var lat = $("#{{ $lat_input }}").val() || {{ $prefix }}_defaultLat;
             var lng = $("#{{ $lng_input }}").val() || {{ $prefix }}_defaultLng;
 
-            console.log({{ $lat }});
-            console.log({{ $lng }});
+            console.log("Current Value:", lat, lng);
 
 
             {{ $prefix }}_setMapView(lat, lng);
             
+            // Trigger auto-detection on load
+            {{ $prefix }}_checkAndSetAutoLocation();
         });
+
+        async function {{ $prefix }}_checkAndSetAutoLocation() {
+            var lat = $("#{{ $lat_input }}").val();
+            var lng = $("#{{ $lng_input }}").val();
+            
+            // Parse as float to ensure comparison works
+            var currentLat = parseFloat(lat);
+            var currentLng = parseFloat(lng);
+            var defLat = parseFloat({{ $prefix }}_defaultLat);
+            var defLng = parseFloat({{ $prefix }}_defaultLng);
+
+            // Auto-detect if value is empty/zero or exactly the default (Monas)
+            if (!lat || lat == 0 || (Math.abs(currentLat - defLat) < 0.0001 && Math.abs(currentLng - defLng) < 0.0001)) {
+                console.log("Auto-detecting location on load...");
+                
+                let location = await getBrowserLocation();
+                
+                if (!location) {
+                    location = await getIPLocation();
+                }
+
+                if (location) {
+                    console.log("Location detected:", location);
+                    
+                    // Update input fields
+                    $("#{{ $lat_input }}").val(location.lat);
+                    $("#{{ $lng_input }}").val(location.lng);
+                    
+                    // Update inline map (view map) immediately
+                    if ({{ $prefix }}_mapView) {
+                        {{ $prefix }}_mapView.setView([location.lat, location.lng], 16);
+                        {{ $prefix }}_setMarkerView(location.lat, location.lng);
+                    }
+                    
+                    // Note: Modal map (_map) is not init yet, but it will read from inputs when opened
+                } else {
+                     console.log("Could not detect location, using default.");
+                }
+            }
+        }
 
         function {{ $prefix }}_setMapView(lat, lng) {
             if (!{{ $prefix }}_mapView) {
@@ -102,26 +143,35 @@ if ($lat == 0) {
 
         }
 
-        async function getCurrentLocation() {
-            if (!navigator.geolocation) {
-                console.log('Geolocation is not supported by this browser.');
-                return { lat: null, lng: null };
-            }
-
+        async function getBrowserLocation() {
+            if (!navigator.geolocation) return null;
             try {
-                const position = await new Promise((resolve, reject) =>
-                navigator.geolocation.getCurrentPosition(resolve, reject)
-                );
-
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                console.log('Latitude:', lat);
-                console.log('Longitude:', lng);
-                return { lat, lng };
-            } catch (error) {
-                console.error('Error getting location:', error.message);
-                return { lat: null, lng: null };
+                const position = await new Promise((resolve, reject) => {
+                    navigator.geolocation.getCurrentPosition(resolve, reject, {
+                        timeout: 5000,
+                        maximumAge: 0
+                    });
+                });
+                return { lat: position.coords.latitude, lng: position.coords.longitude };
+            } catch (e) {
+                console.warn("Browser geolocation failed/denied:", e.message);
+                return null;
             }
+        }
+
+        async function getIPLocation() {
+            try {
+                console.log("Attempting IP Geolocation fallback...");
+                const response = await fetch('https://ipapi.co/json/');
+                if (!response.ok) throw new Error('IP API failed');
+                const data = await response.json();
+                if (data.latitude && data.longitude) {
+                    return { lat: data.latitude, lng: data.longitude };
+                }
+            } catch (e) {
+                console.warn("IP geolocation failed:", e.message);
+            }
+            return null;
         }
 
         // Handle modal map initialization
@@ -131,20 +181,6 @@ if ($lat == 0) {
                 var lat = $("#{{ $lat_input }}").val() || {{ $prefix }}_defaultLat;
                 var lng = $("#{{ $lng_input }}").val() || {{ $prefix }}_defaultLng;
 
-                // Auto-detect if value is empty/zero or default
-                if ((lat == 0 || lat == {{ $prefix }}_defaultLat) && navigator.geolocation) {
-                    console.log("Auto-detecting location...");
-                    try {
-                        var reslat = await getCurrentLocation();
-                        if (reslat && reslat.lat != null) {
-                            lat = reslat.lat;
-                            lng = reslat.lng;
-                            // Update input fields immediately if auto-detected
-                            // $("#{{ $lat_input }}").val(lat);
-                            // $("#{{ $lng_input }}").val(lng);
-                        }
-                    } catch(e) { console.error(e); }
-                }
 
                 if (!{{ $prefix }}_map) {
                     {{ $prefix }}_map = L.map('{{ $prefix }}_map').setView([lat, lng], 19); 

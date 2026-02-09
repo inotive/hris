@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Log;
 
 class CompanySubscriptionParent extends Model
 {
     use HasFactory;
     use SearchTrait;
+    use SoftDeletes;
 
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
