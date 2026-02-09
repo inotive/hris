@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
+use Carbon\Carbon;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class Company extends Model
 {
@@ -133,5 +136,49 @@ class Company extends Model
     public function subscriptions()
     {
         return $this->hasMany(CompanySubscription::class);
+    }
+
+    public function active_subscriptions()
+    {
+        return $this->subscriptions()->orderBy('created_at', 'desc');
+    }
+
+    public function day_left_subscription()
+    {
+        try {
+            $active_subscription = $this->active_subscriptions()->first();
+            if ($active_subscription) {
+                return Carbon::now()->diffInDays($active_subscription->end_date_at);
+            }
+            return 0;
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+
+    public function total_day_subscription()
+    {
+        $active_subscription = $this->active_subscriptions()->first();
+        if ($active_subscription) {
+            return Carbon::parse($active_subscription->start_date_at)->diffInDays($active_subscription->end_date_at);
+        }
+        return 0;
+    }
+
+    public function day_left_percent_subscription()
+    {
+        try {
+            $active_subscription = $this->active_subscriptions()->first();
+            if ($active_subscription) {
+                if ($this->total_day_subscription() <= 0) {
+                    return 0;
+                }
+                return round(($this->day_left_subscription() / $this->total_day_subscription()) * 100, 0);
+            }
+            return 0;
+        } catch (Exception $e) {
+            Log::info($e);
+            return 0;
+        }
     }
 }

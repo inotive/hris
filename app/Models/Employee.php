@@ -544,14 +544,23 @@ class Employee extends Authenticatable
                         ->orWhere('username', 'like', '%' . $search . '%');
                 });
             })
+            ->when($filter != null && isset($filter['company_id']), function ($query) use ($filter) {
+                return $query->where('company_id', $filter['company_id']);
+            })
             ->when($filter != null && isset($filter['filter_department_id']), function ($query) use ($filter) {
                 return $query->whereHas('department', function ($query) use ($filter) {
-                    $query->where('id', $filter['filter_department_id']);
+                    $val = $filter['filter_department_id'];
+                    if (\Illuminate\Support\Str::isUuid($val)) {
+                        $query->where('id', $val);
+                    } else {
+                        $query->where('name', $val);
+                    }
                 });
             })
             ->when($filter != null && isset($filter['filter_status']) && $filter['filter_status'] != '3', function ($query) use ($filter) {
                 return $query->where('status', $filter['filter_status']);
             })
+            ->orderBy('created_at', 'desc')
             ->paginate();
 
         return $query;

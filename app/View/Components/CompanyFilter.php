@@ -28,7 +28,7 @@ class CompanyFilter extends Component
             return null;
         }
 
-        $list = [];
+        $list = Company::pluck('name', 'id');
 
         $value_name = null;
         if (request()->filter != null && isset(request()->filter['company_id'] )) {

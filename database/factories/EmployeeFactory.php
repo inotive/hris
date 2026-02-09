@@ -27,7 +27,7 @@ class EmployeeFactory extends Factory
             'id'    => Uuid::uuid4()->toString(),
             'first_name' => 'DUMMY - ' . fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'company_id'    => Company::where('name','like','%DUMMY%')->inRandomOrder()->first()->id,
+            'company_id'    => Company::inRandomOrder()->first()->id ?? Company::factory()->create()->id,
             'gender'    => ["Laki-laki","Perempuan"][rand(0,1)],
             'religion'  => $religion,
             'status'    => rand(0,1),

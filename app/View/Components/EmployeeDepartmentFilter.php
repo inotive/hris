@@ -28,12 +28,15 @@ class EmployeeDepartmentFilter extends Component
     {
    
 
-        $list =EmployeeDepartment::orderBy('name', 'asc')
+        $company_id = auth()->user()->company_id ?? request()->filter['company_id'] ?? null;
 
-            ->when(auth()->user()->company_id != null, function ($query) {
-                $query->where('company_id', auth()->user()->company_id);
-            })
-            ->pluck('name', 'id');
+        if ($company_id == null) {
+            // Global filter: Group by Name
+            $list = EmployeeDepartment::distinct()->orderBy('name', 'asc')->pluck('name', 'name');
+        } else {
+            // Company specific filter: Filter by ID
+            $list = EmployeeDepartment::where('company_id', $company_id)->orderBy('name', 'asc')->pluck('name', 'id');
+        }
 
 
         $value_name = null;

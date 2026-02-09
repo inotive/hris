@@ -479,7 +479,8 @@ class EmployeePosition extends Model
         foreach($data as $key => $value) {
             $prefix = $value['prefix'] != null && strlen($value['prefix']) > 0 ? $value['prefix'] : 'other1';
             $value['prefix'] = $prefix;
-            $value['department_id'] = EmployeeDepartment::where('company_id', $company_id)->where('prefix', $prefix)->first()->id ?? null;
+            $department = EmployeeDepartment::where('company_id', $company_id)->where('prefix', $prefix)->first();
+            $value['department_id'] = $department ? $department->id : null;
             $data[$key] = $value;
         }
 

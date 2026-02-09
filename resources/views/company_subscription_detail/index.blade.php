@@ -6,7 +6,7 @@
   </x-slot>
 
   <x-slot name="back">
-    <x-back href="{{ URL::previous() }}" />
+    <x-back href="{{ route('company-subscriptions.index') }}" />
   </x-slot>
 
   <x-slot name="tab_header">
