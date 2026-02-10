@@ -143,6 +143,7 @@ Route::middleware([
 
     Route::resource('/employee-payslip-masters', EmployeePayslipMasterController::class);
     // Route::resource('/employee-payslip-details', EmployeePayslipDetailController::class);
+    Route::get('/employee-payslips/get-masters', [EmployeePayslipController::class, 'getMasters'])->name('employee-payslips.get-masters');
     Route::resource('/employee-payslips', EmployeePayslipController::class);
 
     Route::resource('/company-subscriptions', CompanySubscriptionController::class);

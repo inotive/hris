@@ -80,6 +80,7 @@
       id="form_data"
       value="{{ json_encode($form ?? []) }}" />
     <input type="hidden" name="employee_id" value="{{ $employee->id ?? '' }}" />
+    <input type="hidden" name="company_id" value="{{ $employee->company_id ?? '' }}" />
 
     <div class="row">
       <h4>{{ __("Earning Detail") }}</h4>

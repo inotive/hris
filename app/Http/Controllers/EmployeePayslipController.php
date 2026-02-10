@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\EmployeePayslip;
 use App\Models\EmployeePayslipDetail;
+use App\Models\EmployeePayslipMaster;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -201,5 +202,26 @@ class EmployeePayslipController extends Controller
                 'meessage'  => 'Error',
             ];
         }
+    }
+    public function getMasters(Request $request)
+    {
+        $company_id = $request->company_id;
+        $type = $request->type; // earning or deduction
+
+        if (!$company_id) {
+            return response()->json([]);
+        }
+
+        $query = EmployeePayslipMaster::where('company_id', $company_id);
+
+        if ($type === 'earning') {
+            $query->masterTypeEarning();
+        } elseif ($type === 'deduction') {
+            $query->masterTypeDeduction();
+        }
+
+        $masters = $query->orderBy('name')->get(['id', 'name']);
+
+        return response()->json($masters);
     }
 }
