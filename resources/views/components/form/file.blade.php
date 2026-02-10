@@ -3,12 +3,17 @@
     'label' => '',
     'name' => '',
     'value' => null,
+    'required' => false,
+    'class' => 'col-12 col-lg-6 mb-4',
+    'add_class' => '',
+    'placeholder' => null,
+    'disabled'  => false,
 ])
 <div class="col-12 col-lg-6 mb-4">
 
 
     <div class="form-group mb-2 mb20">
-        <label for="image" class="form-label">{{ $label }}</label>
+        <label for="image" class="form-label {{ $required ? 'required' : '' }}">{{ $label }}</label>
 
 
         <div class="input-group mb-3">
