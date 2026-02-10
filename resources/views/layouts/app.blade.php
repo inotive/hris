@@ -120,6 +120,7 @@
 
     @include('layouts.js')
     @yield('js')
+    @stack('scripts')
 
 </body>
 

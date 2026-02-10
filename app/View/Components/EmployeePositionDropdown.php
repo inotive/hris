@@ -13,9 +13,11 @@ class EmployeePositionDropdown extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $departmentId;
+
+    public function __construct($departmentId = null)
     {
-        //
+        $this->departmentId = $departmentId;
     }
 
     /**
@@ -26,6 +28,9 @@ class EmployeePositionDropdown extends Component
     public function render()
     {
         $list = [];
+        if($this->departmentId){
+             $list = EmployeePosition::where('department_id', $this->departmentId)->orderBy('name', 'asc')->pluck('name', 'id');
+        }
         return view('components.form.employee-position',[
             'list'  => $list,
             'name'  => 'employee_position_id',

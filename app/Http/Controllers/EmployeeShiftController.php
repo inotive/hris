@@ -17,6 +17,7 @@ class EmployeeShiftController extends Controller
     public function select2(Request $request)
     {
         $company_id = $request->get('company_id');
+        \Illuminate\Support\Facades\Log::info('EmployeeShiftController select2 company_id: ' . $company_id);
         $query = $request->get('query'); // Search query
         $page = $request->get('page', 1); // Pagination page
 

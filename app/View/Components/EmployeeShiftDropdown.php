@@ -15,9 +15,11 @@ class EmployeeShiftDropdown extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $companyId;
+
+    public function __construct($companyId = null)
     {
-        //
+        $this->companyId = $companyId;
     }
 
     /**
@@ -27,7 +29,10 @@ class EmployeeShiftDropdown extends Component
      */
     public function render()
     {
-        $list = EmployeeShift::orderBy('name','asc')->pluck('name','id');
+        $list = [];
+        if($this->companyId){
+             $list = EmployeeShift::where('company_id', $this->companyId)->orderBy('name','asc')->pluck('name','id');
+        }
         return view('components.form.select',[
             'list'  => $list,
             'name'  => 'employee_shift_id',

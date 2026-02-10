@@ -134,6 +134,7 @@ Route::middleware([
     Route::resource('/employee-positions', EmployeePositionController::class);
     Route::get('/employee-positions/get/select2', [EmployeePositionController::class, 'select2'])->name('employee-positions.select2');
     Route::resource('/employee-levels', EmployeeLevelController::class);
+    Route::get('/employee-levels/get/select2', [EmployeeLevelController::class, 'select2'])->name('employee-levels.select2');
     Route::resource('/employee-shifts', EmployeeShiftController::class);
     Route::get('/employee-shifts/get/select2', [EmployeeShiftController::class, 'select2'])->name('employee-shifts.select2');
 

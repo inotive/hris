@@ -143,7 +143,10 @@ class Employee extends Authenticatable
             'document_id' => 'required',
             'document_expiry' => '',
             'tax_registered_name' => 'required',
-            'tax_number' => 'required',
+            'tax_number' => [
+                'required',
+                Rule::unique('employees')->ignore($this->id),
+            ],
 
             'bank_account_name' => '',
             'bank_account_number' => '',
@@ -159,7 +162,11 @@ class Employee extends Authenticatable
             'token_forget_password' => '',
             'head_departmen_id' => '',
             'document_file' => '',
-            'nik' => ['required', 'min:10'],
+            'nik' => [
+                'required', 
+                'min:10',
+                Rule::unique('employees')->ignore($this->id),
+            ],
 
             'is_attendance_location' => '',
             'is_leave_request' => '',

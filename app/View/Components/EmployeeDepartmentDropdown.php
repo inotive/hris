@@ -12,9 +12,11 @@ class EmployeeDepartmentDropdown extends Component
      *
      * @return void
      */
-    public function __construct()
+    public $companyId;
+
+    public function __construct($companyId = null)
     {
-        //
+        $this->companyId = $companyId;
     }
 
     /**
@@ -24,10 +26,11 @@ class EmployeeDepartmentDropdown extends Component
      */
     public function render()
     {
-        $list = EmployeeDepartment::orderBy('name', 'asc')
+        $list = [];
+        if($this->companyId){
+             $list = EmployeeDepartment::where('company_id', $this->companyId)->orderBy('name', 'asc')->pluck('name', 'id');
+        }
 
-        
-            ->pluck('name', 'id');
         return view('components.form.employee-department', [
             'list'  => $list,
             'name'  => 'department_id',

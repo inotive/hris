@@ -52,11 +52,11 @@
     <hr />
     <div class="row">
         <x-company-dropdown required :value="old('company_id', $form->company_id ?? '')" />
-        <x-employee-department-dropdown required :value="old('department_id', $form->department_id ?? '')" />
-        <x-employee-position-dropdown required :value="old('employee_position_id', $form->employee_position_id ?? '')" />
-        <x-employee-level-dropdown required :value="old('employee_level_id', $form->employee_level_id ?? '')" />
-        <x-employee-shift-dropdown required :value="old('employee_shift_id', $form->employee_shift_id ?? '')" />
-        <x-head-department-employee-dropdown label="Manager" :value="$form->head_departmen_id ?? ''" />
+        <x-employee-department-dropdown required :value="old('department_id', $form->department_id ?? '')" :companyId="old('company_id', $form->company_id ?? '')" />
+        <x-employee-position-dropdown required :value="old('employee_position_id', $form->employee_position_id ?? '')" :departmentId="old('department_id', $form->department_id ?? '')" />
+        <x-employee-level-dropdown required :value="old('employee_level_id', $form->employee_level_id ?? '')" :companyId="old('company_id', $form->company_id ?? '')" />
+        <x-employee-shift-dropdown required :value="old('employee_shift_id', $form->employee_shift_id ?? '')" :companyId="old('company_id', $form->company_id ?? '')" />
+        <x-head-department-employee-dropdown label="Manager" :value="$form->head_departmen_id ?? ''" :companyId="old('company_id', $form->company_id ?? '')" />
     </div>
 
     <h4>{{ __('Employee Document Information') }}</h4>
@@ -103,3 +103,156 @@
         <x-form.switch class="col-4 col-lg-2" label="EWA" name="is_ewa" :value="old('is_ewa', $form->is_ewa ?? '')" />
     </div>
 </div>
+
+
+@push('styles')
+@endpush
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            console.log("DEBUG: Form script loaded and ready!");
+
+            // Mapping for dropdowns to their Select2 fetch URLs and placeholders
+            const dpMap = {
+                'department_id': {
+                    url: '{{ route('employee-departments.select2') }}',
+                    placeholder: 'Select Department'
+                },
+                'employee_position_id': {
+                    url: '{{ route('employee-positions.select2') }}',
+                    placeholder: 'Select Position'
+                },
+                'employee_level_id': {
+                    url: '{{ route('employee-levels.select2') }}',
+                    placeholder: 'Select Level'
+                },
+                'employee_shift_id': {
+                    url: '{{ route('employee-shifts.select2') }}',
+                    placeholder: 'Select Shift'
+                },
+                'head_departmen_id': {
+                    url: '{{ route('employees.select2') }}',
+                    placeholder: 'Select Manager'
+                },
+            };
+
+            const companySelect = $('select[name="company_id"]');
+            
+            // Elements to be reset/repopulated based on company
+            const dependents = [
+                'department_id',
+                'employee_position_id',
+                'employee_level_id',
+                'employee_shift_id',
+                'head_departmen_id'
+            ];
+
+            // Position depends on Department, so we handle it separately essentially
+            const departmentSelect = $('select[name="department_id"]');
+
+            function clearSelect(name) {
+                const el = $(`select[name="${name}"]`);
+                el.empty().trigger('change');
+            }
+
+            companySelect.on('change', function() {
+                const companyId = $(this).val();
+
+                dependents.forEach(name => {
+                    const el = $(`select[name="${name}"]`);
+                    // Create new option to ensure placeholder works and clear previous options
+                    el.empty().append(new Option('', '', true, true)).trigger('change');
+                    
+                    if (companyId) {
+                        // Re-initialize select2 with new ajax parameters if needed
+                        // But since we are using standard select2 with ajax, we might just need to ensure the ajax data function grabs the current company_id
+                    }
+                    el.val(null).trigger('change');
+                });
+            });
+            
+             departmentSelect.on('change', function() {
+                 // Clear position when department changes
+                 const el = $('select[name="employee_position_id"]');
+                 el.val(null).trigger('change');
+             });
+
+
+            // We need to hook into the select2 initialization or modify the ajax params dynamically.
+            // Assuming the components use a standard select2 class handling. 
+            // If the standard components init select2 on load, we need to make sure their `data` callback reads the current values.
+            
+            // Ideally, we re-initialize or intercept the request.
+            // Let's attach a pre-request hook if possible, or assume the components allow passing extra query params via a global or looking at DOM elements.
+            
+            // Since I can't easily see the component JS implementation, I will assume I need to 
+            // manually re-configure the select2 instances or ensure they read dynamic "data" function.
+            
+            // Standard approach: Destroy and Re-init OR rely on the fact that `data` callback in Select2 options usually checks the DOM at request time.
+            
+            // Let's try to override the ajax transport or parameters if the components expose them.
+            // Checking the components/select2.blade.php would be ideal, but assuming standard implementation:
+            
+            dependents.forEach(name => {
+                 const el = $(`select[name="${name}"]`);
+                 const url = dpMap[name].url;
+                 
+                 // Remove data-control="select2" to prevent auto-reinit by theme if we were to clone it, 
+                 // but mainly we just want to control it ourselves now.
+                 // Destroy existing select2 (initialized by theme via data-attribute)
+                 if (el.hasClass("select2-hidden-accessible")) {
+                     el.select2('destroy');
+                 }
+                 
+                 el.select2({
+                    // theme: "bootstrap-5", // Removed to fix styling conflict
+                    allowClear: true,
+                    width: '100%',
+                    placeholder: dpMap[name].placeholder,
+                    ajax: {
+                        url: url,
+                        dataType: 'json',
+                        delay: 250,
+                        data: function (params) {
+                            console.log('Select2 Request for ' + name, {
+                                term: params.term,
+                                page: params.page,
+                                company_id: companySelect.val(),
+                                department_id: (name === 'employee_position_id') ? departmentSelect.val() : null
+                            });
+                            return {
+                                query: params.term,
+                                page: params.page || 1,
+                                company_id: companySelect.val(), 
+                                department_id: (name === 'employee_position_id') ? departmentSelect.val() : null
+                            };
+                        },
+                        processResults: function (data, params) {
+                             console.log('Select2 Response ' + name, data);
+                             params.page = params.page || 1;
+                             
+                             if (!data || !data.items) {
+                                 console.warn('Select2: No items in response for ' + name, data);
+                                 return { results: [] };
+                             }
+
+                             return {
+                                 results: data.items.map(function(item) {
+                                     return {
+                                         id: item.id,
+                                         text: item.name || item.text || 'Unknown' // Fallback for text
+                                     };
+                                 }),
+                                 pagination: {
+                                     more: data.more || false // Fallback for more
+                                 }
+                             };
+                        },
+                        cache: true
+                    }
+                 });
+            });
+        });
+    </script>
+@endpush

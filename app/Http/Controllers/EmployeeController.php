@@ -42,6 +42,7 @@ class EmployeeController extends Controller
     {
 
         $company_id = $request->company_id;
+        \Illuminate\Support\Facades\Log::info('EmployeeController select2 company_id: ' . $company_id);
         $query = $request->get('query'); // Search query
         $page = $request->get('page', 1); // Pagination page
 
