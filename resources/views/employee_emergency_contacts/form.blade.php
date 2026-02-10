@@ -9,12 +9,16 @@
 
 
     <x-form.textarea type="text" label="Address" name="address" :value="$form->address??''" />
-    <x-form.input type="text" label="Country" name="country" :value="$form->country??''" />
-    <x-form.input type="text" label="Province" name="province" :value="$form->province??''" />
-    <x-form.input type="text" label="City" name="city" :value="$form->city??''" />
-    <x-form.input type="text" label="District" name="district" :value="$form->district??''" />
-    <x-form.input type="text" label="Sub District" name="sub_district" :value="$form->sub_district??''" />
-    <x-form.number type="text" label="Postal Code" name="zip_code" :value="$form->zip_code??''" />
+
+    {{-- Cascading Dropdowns for Location --}}
+    <x-location-cascading-dropdown 
+        :country="old('country', $form->country ?? '')"
+        :province="old('province', $form->province ?? '')"
+        :city="old('city', $form->city ?? '')"
+        :district="old('district', $form->district ?? '')"
+        :subDistrict="old('sub_district', $form->sub_district ?? '')"
+        :zipCode="old('zip_code', $form->zip_code ?? '')"
+    />
 
 
 

@@ -1,4 +1,4 @@
-@props(['country' => '', 'province' => '', 'city' => '', 'district' => '', 'subDistrict' => ''])
+@props(['country' => '', 'province' => '', 'city' => '', 'district' => '', 'subDistrict' => '', 'zipCode' => null])
 
 
 
@@ -34,12 +34,20 @@
         <datalist id="district_list"></datalist>
     </div>
 
-     {{-- Sub District (Hybrid) --}}
+    {{-- Sub District (Hybrid) --}}
     <div class="col-12 col-lg-6 mb-4">
         <label for="sub_district" class="fs-6 fw-bold mb-2">Sub District</label>
-         <input type="text" list="sub_district_list" name="sub_district" id="sub_district" class="form-control form-control-solid" value="{{ $subDistrict }}" placeholder="Select or Type Sub District" autocomplete="off">
+        <input type="text" list="sub_district_list" name="sub_district" id="sub_district" class="form-control form-control-solid" value="{{ $subDistrict }}" placeholder="Select or Type Sub District" autocomplete="off">
         <datalist id="sub_district_list"></datalist>
     </div>
+
+    {{-- Zip Code --}}
+    @if(!is_null($zipCode))
+    <div class="col-12 col-lg-6 mb-4">
+        <label for="zip_code" class="fs-6 fw-bold mb-2">Postal Code</label>
+        <input type="text" name="zip_code" id="zip_code" class="form-control form-control-solid" value="{{ $zipCode }}" placeholder="Postal Code" autocomplete="off">
+    </div>
+    @endif
 </div>
 
 <script>
