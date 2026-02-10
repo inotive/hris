@@ -118,6 +118,7 @@
         </div>
     </div>
 
+    @stack('modals')
     @include('layouts.js')
     @yield('js')
     @stack('scripts')

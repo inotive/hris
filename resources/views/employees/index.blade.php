@@ -13,6 +13,12 @@
 @stop
 
 @section('toolbar')
+    <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#import_modal">
+        {{ __('Import') }}
+    </button>
+    @push('modals')
+        @include('employees.import_modal')
+    @endpush
     <x-table.bulk-data-dropdown :export_url="route('employees.export', ['company_id' => request()->filter['company_id'] ?? null])" />
     <x-table.filter-dropdown :company="auth()->user()->company_id == null" :department="true" :employee_status="true" />
 @stop

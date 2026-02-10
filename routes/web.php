@@ -127,7 +127,10 @@ Route::middleware([
     Route::resource('/employees/{employee}/approver', EmployeeApproverController::class);
     Route::resource('/employees/{employee}/leave', \App\Http\Controllers\EmployeeLeaveController::class);
     Route::get('/employee/export', [EmployeeController::class, 'export'])->name('employees.export');
-    // Route::get('/employee/import', [EmployeeController::class, 'import'])->name('employees.import');
+    
+Route::get('/employee/import', [EmployeeController::class, 'import'])->name('employees.import');
+    Route::post('/employee/import', [EmployeeController::class, 'importCheck'])->name('employees.import-check');
+    Route::get('/employee/download-template', [EmployeeController::class, 'downloadTemplate'])->name('employees.download-template');
 
     Route::resource('/employee-departments', EmployeeDepartmentController::class);
     Route::get('/employee-departments/get/select2', [EmployeeDepartmentController::class, 'select2'])->name('employee-departments.select2');

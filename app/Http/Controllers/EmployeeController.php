@@ -19,6 +19,71 @@ class EmployeeController extends Controller
     public $model = Employee::class;
     public $route = 'employees';
     public $page_title = 'Employee';
+    
+    public function import(Request $request) {
+        return view('employees.import_modal');
+    }
+
+    public function downloadTemplate()
+    {
+        $filename = 'employee_import_template.xlsx';
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\EmployeeTemplateExport, $filename);
+    }
+
+    public function importCheck(Request $request) 
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        try {
+            DB::beginTransaction();
+            
+            $file = $request->file('file');
+            $import = new \App\Imports\EmployeeImport(auth()->user()->company_id);
+            
+            \Maatwebsite\Excel\Facades\Excel::import($import, $file);
+            
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Employees imported successfully'
+            ]);
+
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            DB::rollBack();
+            $failures = $e->failures();
+            $messages = [];
+            foreach ($failures as $failure) {
+                $messages[] = 'Row ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+            }
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation Failed',
+                'errors'  => $messages
+            ], 422);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            DB::rollBack();
+            $errors = [];
+            foreach ($e->errors() as $field => $messages) {
+                // Formatting to match the expected frontend format
+                $errors[] = $field . ': ' . implode(', ', $messages);
+            }
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation Failed',
+                'errors'  => $errors
+            ], 422);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Illuminate\Support\Facades\Log::error('Import Failed: ' . $e->getMessage() . "\n" . $e->getTraceAsString());
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+    }
 
 
     public function resetPassword($id, Request $request)
