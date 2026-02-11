@@ -128,6 +128,18 @@ class ReimbursementController extends Controller
             ]);
 
 
+            if ($request->has('expenses_id') && $request->has('expenses_value')) {
+                $expenses = [];
+                $ids = $request->expenses_id;
+                foreach($ids as $k => $id) {
+                     $expenses[] = [
+                         'expenses_id' => $id,
+                         'value' => $request->expenses_value[$k] ?? 0
+                     ];
+                }
+                $request->merge(['expenses' => $expenses]);
+            }
+
             $reimbursement_type_id = $request->reimbursement_type_id;
 
             $type = ReimbursementType::where('id', $reimbursement_type_id)->first();
@@ -141,8 +153,6 @@ class ReimbursementController extends Controller
             }
 
             $expenses = $request->expenses ?? [];
-            Log::info('Request All:', $request->all());
-            Log::info('Request Files:', $request->allFiles());
             Log::info('Expenses Payload:', ['expenses' => $expenses, 'type' => gettype($expenses)]);
 
             $expenses_temp = collect($expenses)->pluck('expenses_id')->unique()->toArray();
@@ -159,27 +169,41 @@ class ReimbursementController extends Controller
             $validate = (new ReimbursementRequest())->rules;
             $validated = $request->validate($validate);
 
-            $reimbursement = ReimbursementRequest::create($validated);
-
-
-
+            // Handle Created By User
+            $created_by = null;
+            if ($auth instanceof \App\Models\User) {
+                $created_by = $auth->id;
+            } elseif ($auth instanceof \App\Models\Employee) {
+                 $user = \App\Models\User::where('email', $auth->email)->first();
+                 if ($user) $created_by = $user->id;
+            }
+            
+            $reimbursement = new ReimbursementRequest($validated);
+            $reimbursement->created_by_user_id = $created_by;
+            $reimbursement->save();
 
             $total = 0;
             foreach ($expenses as $key => $value) {
                 // $row = json_decode($value);
+                
+                // Handle both array and string (json) format if necessary, though simpler is better
+                $expenseId = $value['expenses_id'] ?? null;
+                $expenseValue = $value['value'] ?? 0;
+                
+                if (!$expenseId) continue;
 
-                $expense = ReimbursementExpense::find($value['expenses_id']);
+                $expense = ReimbursementExpense::find($expenseId);
 
                 ReimbursementExpenseList::create([
                     'reimbursement_request_id'      => $reimbursement->id,
-                    'reimbursement_expense_id' => $value['expenses_id'],
-                    'value' => $value['value'],
+                    'reimbursement_expense_id' => $expenseId,
+                    'value' => $expenseValue,
                     'name' => $expense->name ?? null,
                     'company_id'    => $auth->company_id,
                     'employee_id'   => $auth->id,
                 ]);
 
-                $total += $value['value'] ?? 0;
+                $total += $expenseValue;
             }
 
             $reimbursement->total = ReimbursementExpenseList::where('reimbursement_request_id', $reimbursement->id)->sum('value');
