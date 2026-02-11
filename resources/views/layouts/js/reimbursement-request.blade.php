@@ -52,7 +52,7 @@
 
             var insert = `<div class="row row-expense">
             <x-form.select add_class="expenses expense-type-` + row_expense +`" class="col-12 col-lg-6" label="Type" name="expenses[` + row_expense + `][type]" :list="[]" />
-           <x-form.currency class="col-12 col-lg-5" add_class="expense-amount-` + row_expense +
+           <x-form.currency class="col-12 col-lg-5" required add_class="expense-amount-` + row_expense +
                 `" :label="__('Amount')" name="expenses[` + row_expense + `][amount]" value="" />
             <div class="col-12 col-lg-1">
             <button type="button" class="btn btn-danger w-100 btn-delete-expense" >X</button>

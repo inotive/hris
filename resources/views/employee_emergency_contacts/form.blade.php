@@ -19,9 +19,4 @@
         :subDistrict="old('sub_district', $form->sub_district ?? '')"
         :zipCode="old('zip_code', $form->zip_code ?? '')"
     />
-
-
-
-
-
 </div>
