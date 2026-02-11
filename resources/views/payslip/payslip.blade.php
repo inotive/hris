@@ -60,8 +60,19 @@
     <img src="{{ public_path('logo-withtext.png') }}" alt="Logo" height="30"><br>
 
     <div class="header">
-        <img class="company-logo" src="{{ public_path('storage/' . $company->logo) }}"
-            onerror="this.onerror=null; this.src='{{ public_path('assets/images/no_image.jpg') }}';" height="80" />
+@php
+        $logoPath = null;
+        if (!empty($company->logo)) {
+            $checkPath = public_path('storage/' . $company->logo);
+            if (file_exists($checkPath) && is_file($checkPath)) {
+                $logoPath = $checkPath;
+            }
+        }
+        if (!$logoPath) {
+            $logoPath = public_path('assets/images/no_image.jpg');
+        }
+    @endphp
+        <img class="company-logo" src="{{ $logoPath }}" height="80" />
         <br>
         <br>
         

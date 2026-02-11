@@ -141,6 +141,10 @@ class ReimbursementController extends Controller
             }
 
             $expenses = $request->expenses ?? [];
+            Log::info('Request All:', $request->all());
+            Log::info('Request Files:', $request->allFiles());
+            Log::info('Expenses Payload:', ['expenses' => $expenses, 'type' => gettype($expenses)]);
+
             $expenses_temp = collect($expenses)->pluck('expenses_id')->unique()->toArray();
             $count_in = ReimbursementExpense::whereIn('id', $expenses_temp)->count();
 
@@ -180,6 +184,25 @@ class ReimbursementController extends Controller
 
             $reimbursement->total = ReimbursementExpenseList::where('reimbursement_request_id', $reimbursement->id)->sum('value');
             $reimbursement->save();
+
+            if ($request->hasFile('files')) {
+                foreach ($request->file('files') as $file) {
+                    $path = $file->store('reimbursement_request', 'public');
+                    $url = url('storage/' . $path);
+
+                    File::create([
+                        'company_id' => $auth->company_id,
+                        'module' => 'reimburse',
+                        'module_id' => $reimbursement->id,
+                        'name' => $file->getClientOriginalName(),
+                        'file' => $path,
+                        'url' => $url,
+                        'extension' => $file->getClientOriginalExtension(),
+                        'size' => $file->getSize(),
+                        'employee_id' => $auth->id,
+                    ]);
+                }
+            }
 
             DB::commit();
 
@@ -246,6 +269,29 @@ class ReimbursementController extends Controller
         }
 
         $reimbursement->total = ReimbursementExpenseList::where('reimbursement_request_id', $reimbursement->id)->sum('value');
+        $reimbursement->save();
+
+        if ($request->hasFile('files')) {
+            // Delete existing files
+            File::where('module', 'reimburse')->where('module_id', $reimbursement->id)->delete();
+
+            foreach ($request->file('files') as $file) {
+                $path = $file->store('reimbursement_request', 'public');
+                $url = url('storage/' . $path);
+
+                File::create([
+                    'company_id' => $auth->company_id,
+                    'module' => 'reimburse',
+                    'module_id' => $reimbursement->id,
+                    'name' => $file->getClientOriginalName(),
+                    'file' => $path,
+                    'url' => $url,
+                    'extension' => $file->getClientOriginalExtension(),
+                    'size' => $file->getSize(),
+                    'employee_id' => $auth->id,
+                ]);
+            }
+        }
 
 
         return [

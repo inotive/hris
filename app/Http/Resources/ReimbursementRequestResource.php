@@ -41,6 +41,14 @@ class ReimbursementRequestResource extends JsonResource
             'created_at'    => $this->created_at,
             'updated_at'    => $this->updated_at,
             'approvers'   => $this->request?->approvers != null ? RequestApproverResource::collection($this->request->approvers) : null,
+            'files' => $this->files->map(function($file){
+                return [
+                    'id' => $file->id,
+                    'name' => $file->name,
+                    'file' => $file->file,
+                    'url' => $file->url,
+                ];
+            }),
         ];
     }
 }

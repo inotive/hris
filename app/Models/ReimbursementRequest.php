@@ -128,4 +128,9 @@ class ReimbursementRequest extends Model
     {
         return $this->belongsTo(Request::class, 'id','module_id')->where('module','reimbursement');
     }
+
+    public function files()
+    {
+        return $this->hasMany(File::class, 'module_id', 'id')->where('module', 'reimburse');
+    }
 }
