@@ -54,10 +54,11 @@ class InboxController extends Controller
                                 r.created_at
                             FROM
                                 requests r
-                              LEFT JOIN   request_approvers ra ON ra.request_id = r.id AND ra.active =1 AND ra.approver_status != 'pending'
-                              JOIN employees e ON e.id = ra.approver_employee_id
+                                LEFT JOIN request_approvers ra ON ra.request_id = r.id AND ra.active =1 AND ra.approver_status != 'pending'
+                                LEFT JOIN employees e ON e.id = ra.approver_employee_id
                             WHERE 
                                 r.employee_id =  '".$auth->id."'
+                                AND r.status IN ('approved', 'rejected')
                             )
                         ) notification
 

@@ -19,23 +19,33 @@ class ApproveController extends Controller
     {
 
         try {
-            if ($request->request_approver_id == null) {
+            $request_approver_id = $request->request_approver_id;
+            $request_id = $request->request_id;
+
+            if ($request_approver_id == null && $request_id == null) {
                 return [
                     'status'    => 'error',
-                    'message'   => 'request_approver_id required',
+                    'message'   => 'request_approver_id or request_id required',
                 ];
             }
 
             DB::beginTransaction();
 
-            $request_approver_id = $request->request_approver_id;
-
-            $req =  RequestApprover::where('id', $request_approver_id)->first();
+            $req = null;
+            if ($request_approver_id != null) {
+                $req =  RequestApprover::where('id', $request_approver_id)->first();
+            } else {
+                $req = RequestApprover::where('request_id', $request_id)
+                        ->where('approver_employee_id', auth()->user()->id)
+                        ->where('approver_status', 'pending')
+                        ->where('active', 1)
+                        ->first();
+            }
 
             if ($req == null) {
                 return [
                     'status'    => 'error',
-                    'message'   => 'Data Not Found',
+                    'message'   => 'Data Not Found or You are not authorized to approve this request',
                 ];
             }
 
@@ -117,13 +127,15 @@ class ApproveController extends Controller
     {
 
         try {
-            if ($request->request_approver_id == null) {
+            $request_approver_id = $request->request_approver_id;
+            $request_id = $request->request_id;
+
+            if ($request_approver_id == null && $request_id == null) {
                 return [
                     'status'    => 'error',
-                    'message'   => 'request_approver_id required',
+                    'message'   => 'request_approver_id or request_id required',
                 ];
             }
-
 
             if ($request->reason == null) {
                 return [
@@ -135,17 +147,21 @@ class ApproveController extends Controller
 
             DB::beginTransaction();
 
-            $request_approver_id = $request->request_approver_id;
-
-
-
-            $req =  RequestApprover::where('id', $request_approver_id)
-                    ->first();
+            $req = null;
+            if ($request_approver_id != null) {
+                $req =  RequestApprover::where('id', $request_approver_id)->first();
+            } else {
+                $req = RequestApprover::where('request_id', $request_id)
+                        ->where('approver_employee_id', auth()->user()->id)
+                        ->where('approver_status', 'pending')
+                        ->where('active', 1)
+                        ->first();
+            }
 
             if ($req == null) {
                 return [
                     'status'    => 'error',
-                    'message'   => 'Data Not Found',
+                    'message'   => 'Data Not Found or You are not authorized to reject this request',
                 ];
             }
 
