@@ -37,8 +37,8 @@ class EmployeeContract extends Model
     public $rules = [
         'employee_id' => 'required',
         'status' => 'required',
-        'date_start' => 'required',
-        'date_end' => 'required',
+        'date_start' => 'required|date|before_or_equal:date_end',
+        'date_end' => 'required|date|after_or_equal:date_start',
         'notes' => 'required',
         'file' => 'required',
     ];
@@ -57,17 +57,17 @@ class EmployeeContract extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class,'employee_id','id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
     public static function statusDropdown()
     {
         return [
-            'internship'=> 'Internship',
-            'probation'=> 'Probation',
-            'contract'=> 'Contract',
-            'permanent'=>'Permanent',
-            'resignation'   => 'Resignation',
+            'internship' => 'Internship',
+            'probation' => 'Probation',
+            'contract' => 'Contract',
+            'permanent' => 'Permanent',
+            'resignation' => 'Resignation',
         ];
     }
 
