@@ -12,21 +12,23 @@ class AttendanceReportExport implements FromView
 {
     use Exportable;
 
-    public function __construct(public $company_id, public $year, public $month) {}
+    public function __construct(public $company_id, public $year, public $month)
+    {
+    }
 
     public function view(): View
     {
 
         $list = AttendanceReportHelper::report(
-            company_id: $this->company_id,
+            company_ids: [$this->company_id],
             year: $this->year,
             month: $this->month,
         );
 
 
-        return view('exports.attendance-report',[
-            'list'  => $list,
-            'year'  => $this->year,
+        return view('exports.attendance-report', [
+            'list' => $list,
+            'year' => $this->year,
             'month' => $this->month,
         ]);
     }
