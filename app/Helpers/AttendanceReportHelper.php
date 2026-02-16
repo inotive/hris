@@ -37,7 +37,7 @@ class AttendanceReportHelper
 
         $date = Carbon::parse($year . "-" . $month . "-01");
 
-        
+
 
         $start = $date->format('Y-m-d');
 
@@ -86,12 +86,18 @@ class AttendanceReportHelper
             a.date BETWEEN '" . $start . "' AND '" . $end_str . "'
              " . implode(" ", $where) . "
         GROUP BY 
-            a.employee_id;
+            a.employee_id,
+            e.nik,
+            e.first_name,
+            e.last_name,
+            e.image,
+            employee_departments.name,
+            employee_positions.name;
         ";
 
 
         // Log::info($query);
-      
+
 
         $list = DB::select($query);
 
@@ -107,16 +113,16 @@ class AttendanceReportHelper
 
                 $row->$clockin_status_code = $row->$clockin_status != null ? ($row->$clockin_status == "LATE" ? "LIN" : "PRS") : null;
                 $row->$clockout_status_code = $row->$clockout_status != null ? ($row->$clockout_status == "EARLY" ? "EOT" : "PRS") : null;
-            
+
                 $dates = 'day' . $day . '_dates';
                 $date_1 = 'day' . $day . '_in_time';
                 $date_2 = 'day' . $day . '_out_time';
-                $row->$dates = ($row->$date_1 != null ? Carbon::parse($row->$date_1)->format('H:m') : '-') . '/' . ($row->$date_2 != null ? Carbon::parse($row->$date_2)->format('H:m') : '-'); 
+                $row->$dates = ($row->$date_1 != null ? Carbon::parse($row->$date_1)->format('H:m') : '-') . '/' . ($row->$date_2 != null ? Carbon::parse($row->$date_2)->format('H:m') : '-');
             }
             return $row;
         })->collect();
 
-      
+
 
 
         return $list;
