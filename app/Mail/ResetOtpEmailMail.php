@@ -31,7 +31,7 @@ class ResetOtpEmailMail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Reset Password',
+            subject: 'Reset Password / Reset Kata Sandi - PeopleC',
         );
     }
 
@@ -45,7 +45,7 @@ class ResetOtpEmailMail extends Mailable
         return new Content(
             view: 'email.reset-otp-email',
             with: [
-                'url'   => route('dashboard'),
+                'url' => route('dashboard'),
                 'message' => [
                     'email' => $this->email,
                     'otp' => $this->password,

@@ -24,7 +24,7 @@ class User extends Authenticatable
     use HasUuids;
 
     use SearchTrait;
-    
+
 
     protected $primaryKey = 'id'; // Use 'id' as the primary key
     public $incrementing = false;  // Disable auto-incrementing
@@ -51,18 +51,18 @@ class User extends Authenticatable
     public function rules()
     {
         $userId = $this->id ?? null;
-        
+
         return [
             'image' => '',
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email|unique:users,email,' . $userId,
-            'role'  => 'required',
-            'company_id'  => 'required_if:role,admin,finance,content',
-            'phone'  => 'required|unique:users,phone,' . $userId,
+            'role' => 'required',
+            'company_id' => 'required_if:role,admin,finance,content',
+            'phone' => 'required|unique:users,phone,' . $userId,
         ];
     }
-    
+
     // Static method for manual validation if needed
     public static function getRules($userId = null)
     {
@@ -93,38 +93,38 @@ class User extends Authenticatable
     public static function role_options()
     {
         return [
-            'superadmin'    => __('Superadmin'),
-            'admin'    => __('Admin'),
-            'finance'    => __('Finance'),
-            'content'    => __('Content'),
+            'superadmin' => __('Superadmin'),
+            'admin' => __('Admin'),
+            'finance' => __('Finance'),
+            'content' => __('Content'),
         ];
-    } 
+    }
 
     public static function boot()
     {
         parent::boot();
 
-        static::creating(function($row){
-          if ($row->password == null)  {
-            $new_pass = rand(100000,999999) . uniqid();
-            session()->flash('user',[
-                'new_pass'  => $new_pass,
-            ]);
-            $row->password = bcrypt($new_pass);
+        static::creating(function ($row) {
+            if ($row->password == null) {
+                $new_pass = rand(100000, 999999) . uniqid();
+                session()->flash('user', [
+                    'new_pass' => $new_pass,
+                ]);
+                $row->password = bcrypt($new_pass);
 
-          }
+            }
         });
 
-        static::created(function($row){
+        static::created(function ($row) {
             if (session('user.new_pass') != null) {
                 $new_pass = session('user.new_pass');
                 NewPasswordJob::dispatch($row->email, $new_pass);
             }
-           
+
 
         });
 
-    
+
     }
 
     public function getCompanyIdAttribute()
@@ -152,6 +152,16 @@ class User extends Authenticatable
         return self::role_options()[$this->role] ?? '-';
     }
 
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new \App\Notifications\ResetPasswordNotification($token));
+    }
 
     public function company()
     {
