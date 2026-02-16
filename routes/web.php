@@ -176,6 +176,7 @@ Route::get('/employee/import', [EmployeeController::class, 'import'])->name('emp
     Route::resource('/leave-requests', LeaveRequestController::class);
 
     Route::resource('/overtime-requests', OvertimeRequestController::class);
+    Route::get('/overtime-shift-requests/get/select2', [OvertimeShiftRequestController::class, 'select2'])->name('overtime-shift-requests.select2');
     Route::resource('/overtime-shift-requests', OvertimeShiftRequestController::class);
 
 

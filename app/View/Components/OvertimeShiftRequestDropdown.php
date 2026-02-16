@@ -36,19 +36,24 @@ class OvertimeShiftRequestDropdown extends Component
      */
     public function render()
     {
+        $company_id = auth()->user()->company_id ?? null;
+
         $list = OvertimeShiftRequest::select([
             'name',
             'id'
         ])
-            ->orderBy('name','asc')
-            ->pluck('name','id');
+            ->when($company_id, function ($query) use ($company_id) {
+                $query->where('company_id', $company_id);
+            })
+            ->orderBy('name', 'asc')
+            ->pluck('name', 'id');
 
 
 
-            
-        return view('components.form.select',[
-            'list'  => $list,
-            'name'  => 'overtime_shift_request_id',
+
+        return view('components.form.select', [
+            'list' => $list,
+            'name' => 'overtime_shift_request_id',
             'label' => __('Shift Type'),
             'value' => $this->value,
             'add_class' => 'overtime_shift_request_id',

@@ -7,7 +7,7 @@
         $('.overtime_shift_request_id').select2({
             placeholder: 'Search Shift Type',
             ajax: {
-                url: '{{ route('employee-shifts.select2') }}', // Server endpoint
+                url: '{{ route('overtime-shift-requests.select2') }}', // Server endpoint
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {
