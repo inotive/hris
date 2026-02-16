@@ -53,8 +53,8 @@ class EmployeeOrganizationExperience extends Model
         'line_of_business' => 'required',
         'position_held' => 'required',
         'job_description' => 'required',
-        'start_period' => 'required',
-        'end_period' => 'required',
+        'start_period' => 'required|date|before_or_equal:end_period',
+        'end_period' => 'required|date|after_or_equal:start_period',
         'initial_currency' => 'required',
         'initial_sallary' => 'required',
         'initial_period' => 'required',
@@ -66,8 +66,8 @@ class EmployeeOrganizationExperience extends Model
 
 
     public $casts = [
-        'start_period'=> 'date:Y-m-d',
-        'end_period'=> 'date:Y-m-d',
+        'start_period' => 'date:Y-m-d',
+        'end_period' => 'date:Y-m-d',
     ];
 
     public static function boot()
@@ -80,13 +80,13 @@ class EmployeeOrganizationExperience extends Model
             }
         });
     }
-    
+
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class,'employee_id','id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
-    
+
 
 }
