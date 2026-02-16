@@ -4,16 +4,17 @@
         <b>{{ __('Report Attendance') }}</b>
     </x-slot>
     <x-slot name="toolbar">
-        <x-table.bulk-data-dropdown export_url="{{ route('attendance-export',[
-            'company_id'    => request()->filter['company_id'] ?? null,
-            'year'    => request()->filter['year'] ?? null,
-            'month'    => request()->filter['month'] ?? null,
-        ]) }}" />
+        <x-table.bulk-data-dropdown export_url="{{ route('attendance-export', [
+    'company_id' => request()->filter['company_id'] ?? null,
+    'year' => request()->filter['year'] ?? null,
+    'month' => request()->filter['month'] ?? null,
+]) }}" />
         <x-table.filter-dropdown :company="true" :monthyear="true" />
     </x-slot>
     <x-slot name="body">
         @if (count($list) == 0)
-            <x-table.empty message="{{ isset(request()->filter['company_id']) && request()->filter['company_id'] != null ?  __('Data not found') : __('Please Select Company in Filter')  }}" />
+            <x-table.empty
+                message="{{ isset(request()->filter['company_id']) && request()->filter['company_id'] != null ? __('Data not found') : __('Please Select Company in Filter')  }}" />
         @else
             <style>
 
@@ -39,16 +40,23 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>
-                                    <x-table.employee-item-2 :image="$value->employee_image" :name="$value->employee_name" :department_name="$value->department_name"
-                                        :position_name="$value->position_name" />
+                                    <x-table.employee-item-2 :image="$value->employee_image" :name="$value->employee_name"
+                                        :department_name="$value->department_name" :position_name="$value->position_name" />
                                 </td>
 
                                 @for ($i = 1; $i <= ($value->total_day ?? 0); $i++)
                                     <td class="text-center">
                                         @if (((array) $value)['day' . $i . '_in_time'])
-                                            <div
-                                                class="badge badge-{{ ((array) $value)['day' . $i . '_in_status_code'] == 'PRS' ? 'success' : 'danger' }}">
-                                                {{ ((array) $value)['day' . $i . '_in_status_code'] }}</div>
+                                            @php
+                                                $status_code = ((array) $value)['day' . $i . '_in_status_code'];
+                                                $tooltip = $status_code == 'PRS' ? 'Present (Hadir Tepat Waktu)' : 'Late In (Terlambat Masuk)';
+                                            @endphp
+                                            <div class="badge badge-{{ $status_code == 'PRS' ? 'success' : 'danger' }}" 
+                                                 data-bs-toggle="tooltip" 
+                                                 data-bs-placement="top" 
+                                                 title="{{ $tooltip }}">
+                                                {{ $status_code }}
+                                            </div>
 
                                             <div class="mt-1">
                                                 {{ \Carbon\Carbon::parse(((array) $value)['day' . $i . '_in_time'])->format('H:m') ?? '-' }}
@@ -63,9 +71,16 @@
 
 
                                         @if (((array) $value)['day' . $i . '_out_time'])
-                                            <div
-                                                class="badge badge-{{ ((array) $value)['day' . $i . '_out_status_code'] == 'PRS' ? 'success' : 'danger' }}">
-                                                {{ ((array) $value)['day' . $i . '_out_status_code'] }}</div>
+                                            @php
+                                                $status_code = ((array) $value)['day' . $i . '_out_status_code'];
+                                                $tooltip = $status_code == 'PRS' ? 'Present (Hadir Tepat Waktu)' : 'Early Out (Pulang Lebih Awal)';
+                                            @endphp
+                                            <div class="badge badge-{{ $status_code == 'PRS' ? 'success' : 'danger' }}" 
+                                                 data-bs-toggle="tooltip" 
+                                                 data-bs-placement="top" 
+                                                 title="{{ $tooltip }}">
+                                                {{ $status_code }}
+                                            </div>
 
                                             <div class="mt-1">
                                                 {{ \Carbon\Carbon::parse(((array) $value)['day' . $i . '_out_time'])->format('H:m') ?? '-' }}
@@ -86,3 +101,15 @@
         @endif
     </x-slot>
 </x-card>
+
+@push('scripts')
+    <script>
+        // Initialize Bootstrap tooltips
+        $(document).ready(function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
+    </script>
+@endpush
