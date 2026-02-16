@@ -181,4 +181,36 @@ class Company extends Model
             return 0;
         }
     }
+
+    public function rules()
+    {
+        $companyId = $this->id ?? null;
+
+        return [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:companies,email,' . $companyId,
+            'phone' => 'required|string|max:20',
+            'address' => 'nullable|string',
+            'country' => 'nullable|string|max:255',
+            'province' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'district' => 'nullable|string|max:255',
+            'sub_district' => 'nullable|string|max:255',
+            'zip_code' => 'nullable|string|max:10',
+            'time_zone' => 'required|string|max:50',
+            'lat' => 'nullable|numeric',
+            'lng' => 'nullable|numeric',
+            'logo' => 'nullable|string',
+            'cut_off_payroll_date' => 'required|integer|min:1|max:31',
+            'cut_off_payroll_method' => 'required|in:current,previous',
+            'tax_calculation_method' => 'required|in:gross,nett',
+            'status' => 'required|boolean',
+            'is_overtime_request' => 'nullable|boolean',
+            'is_leave_request' => 'nullable|boolean',
+            'is_reimbursement_request' => 'nullable|boolean',
+            'is_attendance' => 'nullable|boolean',
+            'is_ewa' => 'nullable|boolean',
+            'is_payslip' => 'nullable|boolean',
+        ];
+    }
 }
