@@ -17,13 +17,22 @@
 
 
         <div class="input-group mb-3">
-            <input type="text" readonly name="{{ $name }}" id="{{ $name }}"
-                class="form-control form-control-solid @error($name) is-invalid @enderror"
-                value="{{ old($name, $value) }}" placeholder="{{ $label }}">
+            @if ($value != null)
+                <div class="form-control form-control-solid d-flex align-items-center" style="background-color: #f5f8fa;">
+                    <a href="{{ asset('storage/' . $value) }}" download target="_blank" 
+                       class="text-primary text-decoration-underline" 
+                       style="cursor: pointer; flex: 1;">
+                        {{ basename($value) }}
+                    </a>
+                </div>
+            @else
+                <input type="text" readonly id="{{ $name }}_display"
+                    class="form-control form-control-solid @error($name) is-invalid @enderror"
+                    value="" placeholder="{{ $label }}">
+            @endif
+            {{-- Hidden input that stores the actual file path for form submission --}}
+            <input type="hidden" name="{{ $name }}" id="{{ $name }}" value="{{ old($name, $value) }}">
             <div class="input-group-append">
-                @if ($value != null)
-                    {{-- <a class="btn btn-success" href="{{ Storage::url($value) }}" target="_blank">{{ __('Show') }}</a> --}}
-                @endif
                 <button class="btn btn-primary file_picker" 
                 
                 id="{{ $name }}_picker"

@@ -272,6 +272,11 @@
                         $(modal).modal('hide');
 
                         input_text.val(response.file);
+
+                        // Update display field to show filename
+                        var displayInput = input_text.attr('id') + '_display';
+                        var filename = response.file.split('/').pop(); // Get filename from path
+                        $('#' + displayInput).val(filename);
                     }
                 },
                 error: function(response) {

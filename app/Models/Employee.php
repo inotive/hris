@@ -87,6 +87,7 @@ class Employee extends Authenticatable
         'token_forget_password',
         'head_departmen_id',
         'document_file',
+        'document_is_unlimited',
         'nik',
         'npwp_number',
 
@@ -162,8 +163,10 @@ class Employee extends Authenticatable
             'token_forget_password' => '',
             'head_departmen_id' => '',
             'document_file' => '',
+            'document_is_unlimited' => '',
+            'npwp_number' => '',
             'nik' => [
-                'required', 
+                'required',
                 'min:10',
                 Rule::unique('employees')->ignore($this->id),
             ],
@@ -186,7 +189,7 @@ class Employee extends Authenticatable
     ];
 
     protected $casts = [
-        'status'    => 'boolean',
+        'status' => 'boolean',
         'document_is_unlimited' => 'boolean',
         'is_attendance_location' => 'boolean',
         'is_leave_request' => 'boolean',
@@ -349,9 +352,12 @@ class Employee extends Authenticatable
             $em->is_ewa = $em->is_ewa == 1 ? true : false;
 
 
-            if ($em->department != null) $em->department = json_decode($em->department);
-            if ($em->position != null) $em->position = json_decode($em->position);
-            if ($em->level != null) $em->level = json_decode($em->level);
+            if ($em->department != null)
+                $em->department = json_decode($em->department);
+            if ($em->position != null)
+                $em->position = json_decode($em->position);
+            if ($em->level != null)
+                $em->level = json_decode($em->level);
             if ($em->shift != null) {
                 $json = json_decode($em->shift, true);
                 $em->shift = new EmployeeShift($json);
