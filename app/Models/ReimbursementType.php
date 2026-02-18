@@ -29,11 +29,11 @@ class ReimbursementType extends Model
     ];
 
     public $rules = [
-        'company_id'  => 'required',
-        'name'  => '',
+        'company_id' => 'required',
+        'name' => 'required',
     ];
 
-    public static function dummy_data() : array
+    public static function dummy_data(): array
     {
         $company_id = auth()->user()->company_id;
 
@@ -52,13 +52,13 @@ class ReimbursementType extends Model
             'Lain-lain',
         ];
 
-        $data = collect($categories)->map(function($row) use ($company_id){
+        $data = collect($categories)->map(function ($row) use ($company_id) {
             return [
-                'company_id'    => $company_id,
-                'name'  => $row,
+                'company_id' => $company_id,
+                'name' => $row,
             ];
         })->all();
-        
+
         return $data;
     }
 }
