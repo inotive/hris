@@ -1,8 +1,8 @@
 <div class="d-flex flex-wrap flex-sm-nowrap">
   <div class="me-7 mb-4">
     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-      <img src="{{ Storage::url($employee->logo ?? '') }}" alt="image" onerror="this.onerror=null; this.src='{{
-          asset('assets/images/data-not-found.svg')
+      <img src="{{ Storage::url($employee->image ?? '') }}" alt="image" onerror="this.onerror=null; this.src='{{
+  asset('assets/images/data-not-found.svg')
         }}';" />
       <div
         class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border-4 border-white h-20px w-20px">
