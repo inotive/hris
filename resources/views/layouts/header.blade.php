@@ -4,8 +4,7 @@
             <div class="btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px"
                 id="kt_aside_mobile_toggle">
                 <span class="svg-icon svg-icon-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                         <path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z"
                             fill="black" />
                         <path opacity="0.3"
@@ -82,95 +81,97 @@
                     <!--end::Menu wrapper-->
                 </div>
 
-{{--                <div class="d-flex align-items-center ms-1 ms-lg-3">--}}
-{{--                    <a class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"--}}
-{{--                        href="">--}}
-{{--                        <i class="fonticon-sun fs-2"></i>--}}
-{{--                    </a>--}}
-{{--                </div>--}}
+                {{-- <div class="d-flex align-items-center ms-1 ms-lg-3">--}}
+                    {{-- <a
+                        class="btn btn-icon btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px"
+                        --}} {{-- href="">--}}
+                        {{-- <i class="fonticon-sun fs-2"></i>--}}
+                        {{-- </a>--}}
+                    {{-- </div>--}}
                 @if(auth()->check())
-                <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-                    <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
-                        data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <img src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}" onerror="this.onerror=null; this.src='{{ asset('template/media/avatars/300-1.jpg') }}';" 
-                            alt="user" 
-                            onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';"
-                            />
-                    </div>
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
-                        data-kt-menu="true">
-                        <div class="menu-item px-3">
-                            <div class="menu-content d-flex align-items-center px-3">
-                                <div class="symbol symbol-50px me-5">
-                                    <img alt="Logo"
-                                        src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}"
-                                        onerror="this.onerror=null; this.src='{{ asset('template/media/avatars/300-1.jpg') }}';" />
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <div class="fw-bolder d-flex align-items-center fs-5">
-                                        {{ auth()->user()->first_name ?? '' }}
-
+                    <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
+                        <div class="cursor-pointer symbol symbol-30px symbol-md-40px" data-kt-menu-trigger="click"
+                            data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                            <img src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}"
+                                onerror="this.onerror=null; this.src='{{ asset('template/media/avatars/300-1.jpg') }}';"
+                                alt="user"
+                                onerror="this.onerror=null; this.src='{{ asset('assets/images/no_image.jpg') }}';" />
+                        </div>
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px"
+                            data-kt-menu="true">
+                            <div class="menu-item px-3">
+                                <div class="menu-content d-flex align-items-center px-3">
+                                    <div class="symbol symbol-50px me-5">
+                                        <img alt="Logo"
+                                            src="{{ auth()->user()->image != null ? Storage::url(auth()->user()->image) : asset('template/media/avatars/300-1.jpg') }}"
+                                            onerror="this.onerror=null; this.src='{{ asset('template/media/avatars/300-1.jpg') }}';" />
                                     </div>
-                                    <a href="#"
-                                        class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email ?? '-' }}</a>
+                                    <div class="d-flex flex-column">
+                                        <div class="fw-bolder d-flex align-items-center fs-5">
+                                            {{ auth()->user()->first_name ?? '' }}
+
+                                        </div>
+                                        <a href="#"
+                                            class="fw-bold text-muted text-hover-primary fs-7">{{ auth()->user()->email ?? '-' }}</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="separator my-2"></div>
-                        <div class="menu-item px-5">
-                            <a href="{{ route('user.change-password') }}"
-                                class="menu-link px-5">{{ __('My Profile') }}</a>
-                        </div>
-{{--                        <div class="menu-item px-5">--}}
-{{--                            <a href="#" class="menu-link px-5">--}}
-{{--                                <span class="menu-text">{{ __('Subscription') }}</span>--}}
-{{--                                <span class="menu-badge">--}}
-{{--                                    <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>--}}
-{{--                                </span>--}}
-{{--                            </a>--}}
-{{--                        </div>--}}
-                        <div class="separator my-2"></div>
-                        <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start">
-                            <a href="#" class="menu-link px-5">
-                                <span class="menu-title position-relative">{{ __('Language') }}
-                                    <span
-                                        class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">{{ session('app_locale')['language'] }}
-                                        <img class="w-15px h-15px rounded-1 ms-2"
-                                            src="{{ asset(session('app_locale')['flag'] ?? '') }}"
-                                            alt=""></span></span>
-                            </a>
-                            <!--begin::Menu sub-->
-                            <div class="menu-sub menu-sub-dropdown w-175px py-4" style="">
-
-                                @foreach (config('locale.locales') as $key => $value)
-                                    <div class="menu-item px-3">
-                                        <a href="{{ route('change-language', $value['code']) }}"
-                                            class="menu-link d-flex px-5 {{ session('app_locale') == $value['code'] ? ' active ' : '' }}">
-                                            <span class="symbol symbol-20px me-4">
-                                                <img class="rounded-1" src="{{ asset($value['flag'] ?? '') }}"
-                                                    alt="">
-                                            </span>{{ $value['language'] }}</a>
-                                    </div>
-                                @endforeach
-
-
-                                <!--end::Menu item-->
-
+                            <div class="separator my-2"></div>
+                            <div class="menu-item px-5">
+                                <a href="{{ route('user.profile') }}" class="menu-link px-5">{{ __('My Profile') }}</a>
                             </div>
-                            <!--end::Menu sub-->
-                        </div>
+                            <div class="menu-item px-5">
+                                <a href="{{ route('user.change-password') }}"
+                                    class="menu-link px-5">{{ __('Change Password') }}</a>
+                            </div>
+                            {{-- <div class="menu-item px-5">--}}
+                                {{-- <a href="#" class="menu-link px-5">--}}
+                                    {{-- <span class="menu-text">{{ __('Subscription') }}</span>--}}
+                                    {{-- <span class="menu-badge">--}}
+                                        {{-- <span class="badge badge-light-danger badge-circle fw-bolder fs-7">3</span>--}}
+                                        {{-- </span>--}}
+                                    {{-- </a>--}}
+                                {{-- </div>--}}
+                            <div class="separator my-2"></div>
+                            <div class="menu-item px-5" data-kt-menu-trigger="hover" data-kt-menu-placement="left-start">
+                                <a href="#" class="menu-link px-5">
+                                    <span class="menu-title position-relative">{{ __('Language') }}
+                                        <span
+                                            class="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">{{ session('app_locale')['language'] }}
+                                            <img class="w-15px h-15px rounded-1 ms-2"
+                                                src="{{ asset(session('app_locale')['flag'] ?? '') }}" alt=""></span></span>
+                                </a>
+                                <!--begin::Menu sub-->
+                                <div class="menu-sub menu-sub-dropdown w-175px py-4" style="">
 
-                        <div class="menu-item px-5">
-                            <a href="{{ route('logout') }}" class="menu-link px-5"
-                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Sign Out') }}</a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                @csrf
+                                    @foreach (config('locale.locales') as $key => $value)
+                                        <div class="menu-item px-3">
+                                            <a href="{{ route('change-language', $value['code']) }}"
+                                                class="menu-link d-flex px-5 {{ session('app_locale') == $value['code'] ? ' active ' : '' }}">
+                                                <span class="symbol symbol-20px me-4">
+                                                    <img class="rounded-1" src="{{ asset($value['flag'] ?? '') }}" alt="">
+                                                </span>{{ $value['language'] }}</a>
+                                        </div>
+                                    @endforeach
 
-                            </form>
+
+                                    <!--end::Menu item-->
+
+                                </div>
+                                <!--end::Menu sub-->
+                            </div>
+
+                            <div class="menu-item px-5">
+                                <a href="{{ route('logout') }}" class="menu-link px-5"
+                                    onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{ __('Sign Out') }}</a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+
+                                </form>
+                            </div>
+                            <div class="separator my-2"></div>
                         </div>
-                        <div class="separator my-2"></div>
                     </div>
-                </div>
                 @endif
             </div>
         </div>

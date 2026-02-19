@@ -94,6 +94,9 @@ Route::middleware([
     Route::get('/user/change-password', [UserController::class, 'changePasswordMe'])->name('user.change-password');
     Route::put('/user/change-password/{id}', [UserController::class, 'changePasswordMeUpdate'])->name('user.change-password.update');
 
+    Route::get('/user/profile', [UserController::class, 'profile'])->name('user.profile');
+    Route::put('/user/profile', [UserController::class, 'profileUpdate'])->name('user.profile.update');
+
     Route::resource('/companies', CompanyController::class);
     Route::get('/companies/get/select2', [CompanyController::class, 'select2'])->name('companies.select2');
     Route::get('/companies/{company}/payout-setting/{year}', [CompanyPayoutSettingController::class, 'calendar'])->name('companies.payout-setting');
@@ -127,8 +130,8 @@ Route::middleware([
     Route::resource('/employees/{employee}/approver', EmployeeApproverController::class);
     Route::resource('/employees/{employee}/leave', \App\Http\Controllers\EmployeeLeaveController::class);
     Route::get('/employee/export', [EmployeeController::class, 'export'])->name('employees.export');
-    
-Route::get('/employee/import', [EmployeeController::class, 'import'])->name('employees.import');
+
+    Route::get('/employee/import', [EmployeeController::class, 'import'])->name('employees.import');
     Route::post('/employee/import', [EmployeeController::class, 'importCheck'])->name('employees.import-check');
     Route::get('/employee/download-template', [EmployeeController::class, 'downloadTemplate'])->name('employees.download-template');
 
@@ -161,11 +164,11 @@ Route::get('/employee/import', [EmployeeController::class, 'import'])->name('emp
             'destroy' => 'company-subscriptions-detail.destroy',
         ]
     ]);
-    
+
     Route::resource('/attendances', AttendanceContrller::class);
-    Route::get('/attendance/report', [AttendanceContrller::class,'report'])->name('attendance-report');
-    Route::get('/attendance/report/export', [AttendanceContrller::class,'export'])->name('attendance-export');
-    
+    Route::get('/attendance/report', [AttendanceContrller::class, 'report'])->name('attendance-report');
+    Route::get('/attendance/report/export', [AttendanceContrller::class, 'export'])->name('attendance-export');
+
     Route::resource('/banners', BannerController::class);
     Route::resource('/posts', PostController::class);
     Route::resource('/announcements', AnnouncementController::class);
@@ -195,4 +198,4 @@ Route::get('/employee/import', [EmployeeController::class, 'import'])->name('emp
 });
 
 
-Route::get('/privacy',[PrivacyController::class, 'index'])->name('privacy');
+Route::get('/privacy', [PrivacyController::class, 'index'])->name('privacy');
