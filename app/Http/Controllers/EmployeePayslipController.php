@@ -14,52 +14,52 @@ use Illuminate\Support\Facades\Log;
 
 class EmployeePayslipController extends Controller
 {
-    public function index( Request $request)
+    public function index(Request $request)
     {
         $filter = $request->filter;
 
         $company_id = $filter['company_id'] ?? null;
 
         $list = EmployeePayslip::search($request->search)
-        
-            ->when($company_id, function($query) use($company_id){
+
+            ->when($company_id, function ($query) use ($company_id) {
                 $query->where('company_id', $company_id);
             })
-            ->orderBy('created_at','desc')
+            ->orderBy('created_at', 'desc')
             ->paginate();
 
-        return view('employee_payslips.index',[
-            'list'  => $list,
+        return view('employee_payslips.index', [
+            'list' => $list,
 
         ]);
     }
 
 
-    public function create( Request $request)
+    public function create(Request $request)
     {
-        return view('employee_payslips.create',[
+        return view('employee_payslips.create', [
 
         ]);
     }
 
-    public function edit( $id, Request $request)
+    public function edit($id, Request $request)
     {
         $form = EmployeePayslip::find($id);
 
         // dd($form);
 
-        return view('employee_payslips.edit',[
+        return view('employee_payslips.edit', [
 
-            'form'  => $form,
+            'form' => $form,
         ]);
     }
 
     private function _save(Request $request)
     {
         $request->validate((new EmployeePayslip())->rules);
-        
-        try{
-          
+
+        try {
+
 
             $redirect = $request->redirect ?? null;
 
@@ -84,11 +84,11 @@ class EmployeePayslipController extends Controller
             }
 
 
-            foreach($earning as $k => $v) {
+            foreach ($earning as $k => $v) {
                 $total_payslip_earning += (float) $v['amount'];
             }
 
-            foreach($deduction as $k => $v) {
+            foreach ($deduction as $k => $v) {
                 $total_payslip_deduction += (float) $v['amount'];
             }
 
@@ -116,6 +116,9 @@ class EmployeePayslipController extends Controller
                 $company = Company::find($form->company_id);
                 $form->approved_at = $company->date_time_location;
                 $form->approved_by_user_id = auth()->user()->id;
+            } else {
+                $form->approved_at = null;
+                $form->approved_by_user_id = null;
             }
             $form->save();
 
@@ -126,25 +129,25 @@ class EmployeePayslipController extends Controller
 
             EmployeePayslipDetail::where('employee_payslip_id', $form->id)->delete();
 
-            foreach($earning as $k => $v) {
+            foreach ($earning as $k => $v) {
                 EmployeePayslipDetail::create([
-                    'company_id'    => $request->company_id,
-                    'employee_payslip_master_id'    => $v['master_id'],
-                    'payslip_type'  => 'earning',
-                    'type'  => $v['type'],
+                    'company_id' => $request->company_id,
+                    'employee_payslip_master_id' => $v['master_id'],
+                    'payslip_type' => 'earning',
+                    'type' => $v['type'],
                     'value' => (float) $v['amount'],
-                    'employee_payslip_id'   => $form->id,
+                    'employee_payslip_id' => $form->id,
                 ]);
             }
 
-            foreach($deduction as $k => $v) {
+            foreach ($deduction as $k => $v) {
                 EmployeePayslipDetail::create([
-                    'company_id'    => $request->company_id,
-                    'employee_payslip_master_id'    => $v['master_id'],
-                    'payslip_type'  => 'deduction',
-                    'type'  => $v['type'],
+                    'company_id' => $request->company_id,
+                    'employee_payslip_master_id' => $v['master_id'],
+                    'payslip_type' => 'deduction',
+                    'type' => $v['type'],
                     'value' => (float) $v['amount'],
-                    'employee_payslip_id'   => $form->id,
+                    'employee_payslip_id' => $form->id,
                 ]);
             }
 
@@ -152,54 +155,59 @@ class EmployeePayslipController extends Controller
 
             $redirect = $request->redirect ?? route('employee-payslips.index');
             return [
-                'success'   => true,
-                'message'   => __('Data Saved Successfully'),
-                'redirect'  => $redirect,
+                'success' => true,
+                'message' => __('Data Saved Successfully'),
+                'redirect' => $redirect,
             ];
 
 
-        }catch(Exception $e){
+        } catch (Exception $e) {
             Log::error($e);
             DB::rollBack();
             return [
-                'success'   => false,
+                'success' => false,
                 'message' => $e->getMessage(),
             ];
         }
     }
 
-    public function store( Request $request)
-    {
-       return $this->_save($request);
-    }
-
-
-    public function update( $id, Request $request)
+    public function store(Request $request)
     {
         return $this->_save($request);
     }
 
-    public function show( $id, Request $request)
+
+    public function update($id, Request $request)
+    {
+        return $this->_save($request);
+    }
+
+    public function show($id, Request $request)
     {
         return view('employee_payslips.show');
     }
 
 
-    public function destroy( $id, Request $request)
+    public function destroy($id, Request $request)
     {
-        try{
+        try {
+            DB::beginTransaction();
 
+            EmployeePayslipDetail::where('employee_payslip_id', $id)->delete();
             EmployeePayslip::where('id', $id)->delete();
 
-            return [
-                'success'   => true,
-                'meessage'  => 'Deleted',
-            ];
-        }catch(Exception $e) {
+            DB::commit();
 
             return [
-                'success'   => false,
-                'meessage'  => 'Error',
+                'success' => true,
+                'meessage' => 'Deleted',
+            ];
+        } catch (Exception $e) {
+            DB::rollBack();
+            Log::error($e);
+            return [
+                'success' => false,
+                'meessage' => $e->getMessage(),
             ];
         }
     }
