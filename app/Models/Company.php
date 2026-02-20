@@ -182,6 +182,44 @@ class Company extends Model
         }
     }
 
+    public function getMonthPeriod($year, $month)
+    {
+        $date = Carbon::createFromDate($year, $month, 1);
+        
+        $start_date = $date->copy()->startOfMonth();
+        $end_date = $date->copy()->endOfMonth();
+
+        if ($this->cut_off_payroll_date != null && $this->cut_off_payroll_date > 0 && $this->cut_off_payroll_date <= 31) {
+            $cutoff_date = $this->cut_off_payroll_date;
+            
+            // Adjust for end of month issues (e.g. Feb 30)
+            // If cutoff is 31 and month only has 30 days, Carbon handles it, but let's be safe: uses min(cutoff, daysInMonth)
+            
+            if ($this->cut_off_payroll_method == 'current') {
+                // Period ends on cutoff of current month
+                // Starts on cutoff+1 of previous month
+                $daysInMonth = $date->daysInMonth;
+                $effectiveCutoff = min($cutoff_date, $daysInMonth);
+                $end_date = Carbon::createFromDate($year, $month, $effectiveCutoff);
+                
+                $start_date = $end_date->copy()->subMonth()->addDay();
+            } elseif ($this->cut_off_payroll_method == 'previous') {
+                 // For 'previous', we shift back one month
+                $date = $date->subMonth();
+                $year = $date->year;
+                $month = $date->month;
+                
+                $daysInMonth = $date->daysInMonth;
+                $effectiveCutoff = min($cutoff_date, $daysInMonth);
+                $end_date = Carbon::createFromDate($year, $month, $effectiveCutoff);
+                
+                $start_date = $end_date->copy()->subMonth()->addDay();
+            }
+        }
+
+        return [$start_date->format('Y-m-d'), $end_date->format('Y-m-d')];
+    }
+
     public function rules()
     {
         $companyId = $this->id ?? null;

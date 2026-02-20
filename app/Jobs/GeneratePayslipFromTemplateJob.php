@@ -170,7 +170,10 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
                 $attendances = $employee->attendances($month_period_start, $month_period_end);
                 $tad = $attendances->count();
 
-                $daily_salary = $basic_sallary / $twd;
+                $daily_salary = 0;
+                if ($twd > 0) {
+                    $daily_salary = $basic_sallary / $twd;
+                }
 
                 $unpaid_sallary = 0;
                 $no_attendance_sallary = 0;
@@ -211,13 +214,18 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
                         ->where('value_end', '>=', $subtotal)
                         ->first();
                     Log::info($ptkp);
-                    $form->ter = $ptkp->value;
 
-                    // GROSS UP
-                    if ($tax_method == 'gross-up') {
-                        $form->tax = $subtotal * $form->ter / (100 - $form->ter);
+                    if ($ptkp) {
+                        $form->ter = $ptkp->value;
+                        // GROSS UP
+                        if ($tax_method == 'gross-up') {
+                            $form->tax = $subtotal * $form->ter / (100 - $form->ter);
+                        } else {
+                            $form->tax = $subtotal * $form->ter / 100;
+                        }
                     } else {
-                        $form->tax = $subtotal * $form->ter / 100;
+                        $form->ter = 0;
+                        $form->tax = 0;
                     }
                 }
 
@@ -235,7 +243,8 @@ class GeneratePayslipFromTemplateJob implements ShouldQueue
             // end update tax
 
             DB::commit();
-        } catch (Exception $e) {
+        } catch (\Throwable $e) {
+            Log::error("Failed to generate payslip for employee: " . $this->employee_id);
             Log::error($e);
             DB::rollBack();
         }
