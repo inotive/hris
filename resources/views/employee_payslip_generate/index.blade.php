@@ -4,7 +4,7 @@
     <b>{{ __("Generate Payslip") }}</b>
   </x-slot>
   <x-slot name="toolbar">
-    <x-table.filter-dropdown :company="true" :daterange="true" :monthyear="true" />
+    <x-table.filter-dropdown :company="true" daterange="Generated At" :monthyear="true" />
     <x-table.add-button
       :label="__('Add')"
       :href="route('employee-payslip-generate.create')" />
@@ -39,7 +39,7 @@
               {{ $value->data_generate_total > 1 ? __('Employees') : __('Employee') }}
             </td>
             <td>{{ $value->created_by->full_name ?? '-' }}</td>
-            <td>{{ $value->created_at->format('d M Y') }}</td>
+            <td>{{ $value->generated_at ? $value->generated_at->format('d M Y') : '-' }}</td>
             <td class="text-end">
               <a href="{{ route('payslip-generate-detail', [$value->id]) }}">
                 @include('icons.eye')

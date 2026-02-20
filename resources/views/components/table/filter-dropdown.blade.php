@@ -73,8 +73,8 @@
                     <x-employee-status-filter />
                 @endif
 
-                @if ($daterange == true)
-                    <x-table.filter-daterange />
+                @if ($daterange)
+                    <x-table.filter-daterange :label="is_string($daterange) ? $daterange : ''" />
                 @endif
 
 

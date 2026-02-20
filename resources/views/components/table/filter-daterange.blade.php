@@ -8,6 +8,9 @@
     'add_class' => '',
 ])
 <div class="{{ $class }}" id="{{ $name }}_div">
+    @if($label)
+        <label class="form-label fs-6 fw-bold">{{ $label }}</label>
+    @endif
 
 
     @php

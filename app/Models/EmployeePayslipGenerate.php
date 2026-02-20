@@ -45,4 +45,8 @@ class EmployeePayslipGenerate extends Model
         'approved_at'=>'',
         'generated_at'=>'',
     ];
+
+    protected $casts = [
+        'generated_at' => 'datetime',
+    ];
 }

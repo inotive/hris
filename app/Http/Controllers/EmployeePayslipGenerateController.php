@@ -52,7 +52,7 @@ class EmployeePayslipGenerateController extends Controller
             });
         })
         ->when($daterange, function($query) use($daterange){
-            $query->whereBetween('created_at', [
+            $query->whereBetween('generated_at', [
                 \Carbon\Carbon::parse(explode(' - ', $daterange)[0])->format('Y-m-d 00:00:00'),
                 \Carbon\Carbon::parse(explode(' - ', $daterange)[1])->format('Y-m-d 23:59:59')
             ]);
