@@ -3,6 +3,7 @@
     'role' => false,
     'monthyear' => false,
     'daterange' => false,
+    'daterange_as_placeholder' => false,
     'department' => false,
     'employee_status' => false,
     'payment_status' => false,
@@ -74,7 +75,10 @@
                 @endif
 
                 @if ($daterange)
-                    <x-table.filter-daterange :label="is_string($daterange) ? $daterange : ''" />
+                    <x-table.filter-daterange 
+                        :label="$daterange_as_placeholder ? '' : (is_string($daterange) ? $daterange : '')" 
+                        :placeholder="$daterange_as_placeholder && is_string($daterange) ? $daterange : ''"
+                    />
                 @endif
 
 
