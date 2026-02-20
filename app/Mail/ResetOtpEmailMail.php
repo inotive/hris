@@ -46,7 +46,7 @@ class ResetOtpEmailMail extends Mailable
             view: 'email.reset-otp-email',
             with: [
                 'url' => route('dashboard'),
-                'message' => [
+                'otpData' => [
                     'email' => $this->email,
                     'otp' => $this->password,
                 ],
