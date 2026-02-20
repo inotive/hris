@@ -157,14 +157,40 @@
 
                     } else {
                         // Handle the error response
-                        Swal.fire({
-                            title: '{{ __('Error!') }}',
-                            text: message ?? 'Error',
-                            icon: 'error',
-                            customClass: {
-                                confirmButton: "btn btn-primary",
-                            },
-                        });
+                        if (xhr.responseJSON.confirmation) {
+                            Swal.fire({
+                                title: xhr.responseJSON.title ?? 'Warning',
+                                html: '<div style="text-align: justify">' + message + '</div>',
+                                icon: xhr.responseJSON.icon ?? 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: '{{ __('Yes, Proceed') }}',
+                                cancelButtonText: '{{ __('Cancel') }}',
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                    cancelButton: "btn btn-secondary"
+                                },
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Re-submit with force
+                                    let form = $('#crud-form');
+                                    if (form.find('input[name="force"]').length === 0) {
+                                        form.append('<input type="hidden" name="force" value="1">');
+                                    }
+                                    form.submit();
+                                } else {
+                                    submitButton.prop('disabled', false); // Re-enable button
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: xhr.responseJSON.title ?? '{{ __('Error!') }}',
+                                text: message ?? 'Error',
+                                icon: xhr.responseJSON.icon ?? 'error',
+                                customClass: {
+                                    confirmButton: "btn btn-primary",
+                                },
+                            });
+                        }
                     }
 
                     $(".phone").each(function() {

@@ -139,6 +139,36 @@ class EmployeePayslipGenerateController extends Controller
 
         // Log::info($employees_ids);
 
+        // Check if employees have payslip template
+        if (!$request->has('force')) {
+            $employees_without_template = [];
+            foreach ($employees_ids as $employees_id) {
+                $template_count = \App\Models\EmployeePayslipTemplate::where('employee_id', $employees_id)->count();
+                if ($template_count == 0) {
+                    $employee = Employee::find($employees_id);
+                    if ($employee) {
+                        $employees_without_template[] = $employee->full_name;
+                    }
+                }
+            }
+
+            if (count($employees_without_template) > 0) {
+                $employee_list_html = '<ul style="text-align: left; margin-top: 10px;">';
+                foreach ($employees_without_template as $name) {
+                    $employee_list_html .= '<li>' . $name . '</li>';
+                }
+                $employee_list_html .= '</ul>';
+
+                return response()->json([
+                    'success' => false,
+                    'title'   => __('Warning'), 
+                    'message' => __('The following employees do not have payslip settings (Template):') . $employee_list_html,
+                    'icon'    => 'warning',
+                    'confirmation' => true, 
+                ], 422); 
+            }
+        }
+
         $id = EmployeePayslipGenerate::create([
             'company_id'    => $company_id,
             'month' => $month,
