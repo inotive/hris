@@ -28,6 +28,7 @@ class InboxController extends Controller
                                     a.content,
                                     ar.read_at,
                                     NULL AS approved_at,
+                                    NULL AS rejected_at,
                                     NULL AS approver_employee_id,
                                     NULL AS approver_employee_name,
                                     a.created_at
@@ -49,6 +50,7 @@ class InboxController extends Controller
 
                                 NULL AS read_at,
                                 ra.approved_at,
+                                ra.rejected_at,
                                 ra.approver_employee_id,
                                 IF(e.id is null, null, concat(e.first_name, e.last_name)) as approver_employee_name,
                                 r.created_at

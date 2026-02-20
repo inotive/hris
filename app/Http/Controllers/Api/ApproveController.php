@@ -187,6 +187,7 @@ class ApproveController extends Controller
 
             $req->approver_status = 'rejected';
             $req->reason = $request->reason;
+            $req->rejected_at = now();
             $req->save();
 
 

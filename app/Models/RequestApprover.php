@@ -28,6 +28,7 @@ class RequestApprover extends Model
         'approved_at',
         'active',
         'reason',
+        'rejected_at',
     ];
 
     public $rules = [
@@ -42,6 +43,7 @@ class RequestApprover extends Model
 
     protected $casts = [
         'active' => 'boolean',
+        'rejected_at' => 'datetime',
     ];
 
 
