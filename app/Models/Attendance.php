@@ -185,12 +185,12 @@ class Attendance extends Model
     public function getClockinTimeAttribute()
     {
         if (!isset($this->attributes['clockin_time']) || $this->attributes['clockin_time'] == null) return null;
-        return Carbon::parse($this->attributes['clockin_time']);
+        return Carbon::parse($this->attributes['clockin_time'])->format('H:i:s');
     }
 
     public function getClockoutTimeAttribute()
     {
         if (!isset($this->attributes['clockout_time']) || $this->attributes['clockout_time'] == null) return null;
-        return Carbon::parse($this->attributes['clockout_time']);
+        return Carbon::parse($this->attributes['clockout_time'])->format('H:i:s');
     }
 }

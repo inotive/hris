@@ -85,14 +85,17 @@ class AttendanceController extends Controller
     {
         $auth = auth()->user();
 
-
-        $company_date = Carbon::parse($auth->company->date_time_location);
+        // Gunakan timezone dari pengaturan perusahaan
+        // Admin mengatur time_zone perusahaan di panel admin (Asia/Jakarta / Asia/Makassar / Asia/Jayapura)
+        $tz  = $auth->company->time_zone ?? 'UTC';
+        $now = Carbon::now($tz);
+        $today = $now->format('Y-m-d');
 
         $attendance = Attendance::where('employee_id', $auth->id)
-            ->where('date', $company_date->format('Y-m-d'))
+            ->where('date', $today)
             ->first() ?? new Attendance([
             'employee_id' => $auth->id,
-            'date' => $company_date->format('Y-m-d'),
+            'date' => $today,
         ]);
 
         if ($attendance->clockin_time != null) {
@@ -128,7 +131,8 @@ class AttendanceController extends Controller
         $image = Base64FileService::saveBase64File($request->clockin_image, 'attendance_clockin');
 
 
-        $attendance->clockin_time = $auth->company->date_time_location;
+        // Waktu dari server berdasarkan zona GPS — tidak bisa dimanipulasi user
+        $attendance->clockin_time = $now->format('H:i:s');
         $attendance->clockin_lat = $request->clockin_lat;
         $attendance->clockin_long = $request->clockin_long;
         $attendance->clockin_image = $image;
@@ -146,9 +150,11 @@ class AttendanceController extends Controller
     {
         $auth = auth()->user();
 
-        $date = $auth->company->date_time_location;
+        // Gunakan timezone dari pengaturan perusahaan
+        $tz  = $auth->company->time_zone ?? 'UTC';
+        $now = Carbon::now($tz);
+        $today = $now->format('Y-m-d');
 
-        $company_date = Carbon::parse($auth->company->date_time_location);
 
         // $request->validate([
         //     'clockout_time'  => 'required',
@@ -158,7 +164,7 @@ class AttendanceController extends Controller
         // ]);
 
         $attendance = Attendance::where('employee_id', $auth->id)
-            ->where('date', $company_date->format('Y-m-d'))
+            ->where('date', $today)
             ->first();
 
         if ($attendance == null) {
@@ -202,7 +208,8 @@ class AttendanceController extends Controller
 
 
         if ($attendance != null) {
-            $attendance->clockout_time = $attendance->employee->company->date_time_location;
+            // Waktu dari server berdasarkan zona GPS — tidak bisa dimanipulasi user
+            $attendance->clockout_time = $now->format('H:i:s');
             $attendance->clockout_lat = $request->clockout_lat;
             $attendance->clockout_long = $request->clockout_long;
             $attendance->clockout_image = $image;
