@@ -3,7 +3,9 @@
     <x-company-dropdown :value="old('company_id', $form->employee->company_id ?? '')" />
     <x-employee-dropdown required :value="old('employee_id', $form->employee_id ?? '')" />
     <x-form.datepicker :label="__('Date')" name="date" :value="old('date', $form->date ?? '')" />
-    <div class="col-12 col-lg-6 mb-4"></div>
+    @if (auth()->user()->company_id == null)
+        <div class="col-12 col-lg-6 mb-4 d-none d-lg-block"></div>
+    @endif
 
 
     <x-form.timepicker required :label="__('Clock In Time')" name="clockin_time" :value="old(

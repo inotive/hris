@@ -75,50 +75,26 @@ if ($lat == 0) {
 
             console.log("Current Value:", lat, lng);
 
-
             {{ $prefix }}_setMapView(lat, lng);
-            
-            // Trigger auto-detection on load
-            {{ $prefix }}_checkAndSetAutoLocation();
         });
 
-        async function {{ $prefix }}_checkAndSetAutoLocation() {
-            var lat = $("#{{ $lat_input }}").val();
-            var lng = $("#{{ $lng_input }}").val();
+        // Auto-detect removed and refactored into a manual trigger function below
+        async function {{ $prefix }}_goToCurrentLocation() {
+            let location = await getBrowserLocation();
             
-            // Parse as float to ensure comparison works
-            var currentLat = parseFloat(lat);
-            var currentLng = parseFloat(lng);
-            var defLat = parseFloat({{ $prefix }}_defaultLat);
-            var defLng = parseFloat({{ $prefix }}_defaultLng);
+            if (!location) {
+                location = await getIPLocation();
+            }
 
-            // Auto-detect if value is empty/zero or exactly the default (Monas)
-            if (!lat || lat == 0 || (Math.abs(currentLat - defLat) < 0.0001 && Math.abs(currentLng - defLng) < 0.0001)) {
-                console.log("Auto-detecting location on load...");
-                
-                let location = await getBrowserLocation();
-                
-                if (!location) {
-                    location = await getIPLocation();
+            if (location) {
+                // Pin point marker inside the modal modal map
+                if ({{ $prefix }}_map) {
+                    {{ $prefix }}_map.setView([location.lat, location.lng], 16);
+                    {{ $prefix }}_setMarker(location.lat, location.lng);
+                    {{ $prefix }}_fetchAddress(location.lat, location.lng);
                 }
-
-                if (location) {
-                    console.log("Location detected:", location);
-                    
-                    // Update input fields
-                    $("#{{ $lat_input }}").val(location.lat);
-                    $("#{{ $lng_input }}").val(location.lng);
-                    
-                    // Update inline map (view map) immediately
-                    if ({{ $prefix }}_mapView) {
-                        {{ $prefix }}_mapView.setView([location.lat, location.lng], 16);
-                        {{ $prefix }}_setMarkerView(location.lat, location.lng);
-                    }
-                    
-                    // Note: Modal map (_map) is not init yet, but it will read from inputs when opened
-                } else {
-                     console.log("Could not detect location, using default.");
-                }
+            } else {
+                alert("Failed to get current location. Please allow location access in your browser.");
             }
         }
 
@@ -201,6 +177,33 @@ if ($lat == 0) {
                         {{ $prefix }}_setMarker(lat, lng);
                         {{ $prefix }}_fetchAddress(lat, lng);
                     });
+
+                    // Add custom button to map
+                    var customControl = L.Control.extend({
+                        options: { position: 'topright' },
+                        onAdd: function () {
+                            var btn = L.DomUtil.create('button', 'btn btn-light bg-white border-secondary shadow-sm');
+                            btn.innerHTML = '<i class="fas fa-crosshairs text-primary fs-3"></i>';
+                            btn.style.width = '34px';
+                            btn.style.height = '34px';
+                            btn.style.padding = '0';
+                            btn.style.display = 'flex';
+                            btn.style.alignItems = 'center';
+                            btn.style.justifyContent = 'center';
+                            btn.title = "Go to Current Location";
+                            btn.type = "button";
+                            
+                            btn.onclick = function(e){
+                                e.preventDefault();
+                                btn.innerHTML = '<i class="spinner-border spinner-border-sm text-primary"></i>';
+                                {{ $prefix }}_goToCurrentLocation().finally(() => {
+                                    btn.innerHTML = '<i class="fas fa-crosshairs text-primary fs-3"></i>';
+                                });
+                            };
+                            return btn;
+                        }
+                    });
+                    {{ $prefix }}_map.addControl(new customControl());
 
                     console.log("Map initialized inside modal");
                 } else {
