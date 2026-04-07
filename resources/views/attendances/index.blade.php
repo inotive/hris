@@ -46,6 +46,12 @@
                         {{ $value->clockin_range_status == 'IN' ? __('IN AREA') : __('OUT AREA') }}
                     </span>
                 @endif
+                @if ($value->clockin_image)
+                    <br>
+                    <a href="{{ Storage::url($value->clockin_image) }}" target="_blank">
+                        <img src="{{ Storage::url($value->clockin_image) }}" width="40" height="40" style="object-fit: cover; border-radius: 4px; margin-top: 5px;" alt="Check In">
+                    </a>
+                @endif
             </td>
             <td class="fs-8">
                 {{ $value->clockout_time != null ? \App\Helpers\DateFormatHelper::formatTime($value->clockout_time) : '-' }}
@@ -54,6 +60,12 @@
                         class="badge badge-light-{{ $value->clockout_range_status == 'IN' ? 'success' : 'danger' }} badge-dot">
                         {{ $value->clockout_range_status == 'IN' ? __('IN AREA') : __('OUT AREA') }}
                     </span>
+                @endif
+                @if ($value->clockout_image)
+                    <br>
+                    <a href="{{ Storage::url($value->clockout_image) }}" target="_blank">
+                        <img src="{{ Storage::url($value->clockout_image) }}" width="40" height="40" style="object-fit: cover; border-radius: 4px; margin-top: 5px;" alt="Check Out">
+                    </a>
                 @endif
             </td>
 
