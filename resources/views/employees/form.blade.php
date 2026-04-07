@@ -1,5 +1,5 @@
 <div class="">
-    @if (isset($form))
+    @if (isset($form) && isset($form->id))
         <div class="">
             <x-employee-info-detail :employeeid="$form->id" />
             <div class="separator mb-6"></div>
@@ -139,7 +139,7 @@
                 },
             };
 
-            const companySelect = $('select[name="company_id"]');
+            const companySelect = $('[name="company_id"]');
             
             // Elements to be reset/repopulated based on company
             const dependents = [

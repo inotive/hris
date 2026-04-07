@@ -190,7 +190,7 @@ class AttendanceController extends Controller
             $lat = $auth->company->lat;
             $lng = $auth->company->lng;
 
-            $distance = AttendanceService::getDistance($request->clockin_lat, $request->clockin_long, $lat, $lng);
+            $distance = AttendanceService::getDistance($request->clockout_lat, $request->clockout_long, $lat, $lng);
 
             if ($distance > 500) {
                 // return response()->json([

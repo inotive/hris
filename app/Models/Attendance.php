@@ -132,6 +132,19 @@ class Attendance extends Model
                 $row->total_working_hours = $clockInTime->diffInHours($clockOutTime);
             }
 
+            // Recalculate distance range status automatically
+            if (isset($employee->is_attendance_location) && $employee->is_attendance_location) {
+                if ($row->clockin_lat && $row->clockin_long && $employee->company && $employee->company->lat) {
+                    $distanceIn = \App\Services\AttendanceService::getDistance($row->clockin_lat, $row->clockin_long, $employee->company->lat, $employee->company->lng);
+                    $row->clockin_range_status = $distanceIn > 500 ? 'OUT' : 'IN';
+                }
+                
+                if ($row->clockout_lat && $row->clockout_long && $employee->company && $employee->company->lat) {
+                    $distanceOut = \App\Services\AttendanceService::getDistance($row->clockout_lat, $row->clockout_long, $employee->company->lat, $employee->company->lng);
+                    $row->clockout_range_status = $distanceOut > 500 ? 'OUT' : 'IN';
+                }
+            }
+
         });
 
     }
