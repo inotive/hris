@@ -229,20 +229,55 @@ class AttendanceController extends Controller
         $month = date('m');
         $year = date('Y');
 
-        $absent = Attendance::where('employee_id', $auth->id)
+        $present_count = Attendance::where('employee_id', $auth->id)
             ->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->whereNotNull('clockin_time')
             ->whereNotNull('clockout_time')
             ->count();
 
+        // Get employee's active shift to determine actual working days
+        $now = now();
+        $employeeShift = $auth->shift ?? null; // EmployeeShift model
+
+        // Map Carbon dayOfWeek (0=Sun..6=Sat) to shift wd_ fields
+        $workDayMap = [
+            0 => 'wd_sunday',
+            1 => 'wd_monday',
+            2 => 'wd_tuesday',
+            3 => 'wd_wednesday',
+            4 => 'wd_thursday',
+            5 => 'wd_friday',
+            6 => 'wd_saturday',
+        ];
+
+        $daysInMonth = ($now->month == $month && $now->year == $year)
+            ? $now->day
+            : \Carbon\Carbon::create($year, $month, 1)->daysInMonth;
+
+        $workingDaysPassed = 0;
+        for ($i = 1; $i <= $daysInMonth; $i++) {
+            $date = \Carbon\Carbon::create($year, $month, $i);
+            $wdField = $workDayMap[$date->dayOfWeek];
+
+            // If employee has a shift, use its working day config; otherwise default to Mon-Fri
+            $isWorkDay = $employeeShift
+                ? (bool) $employeeShift->$wdField
+                : !$date->isWeekend();
+
+            if ($isWorkDay) {
+                $workingDaysPassed++;
+            }
+        }
+
+        // Real absent = Working days passed this month - Days we actually showed up
+        $absent_count = max(0, $workingDaysPassed - $present_count);
 
         $no_clockin = Attendance::where('employee_id', $auth->id)
             ->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->whereNull('clockin_time')
             ->count();
-
 
         $no_clockout = Attendance::where('employee_id', $auth->id)
             ->whereYear('date', $year)
@@ -265,7 +300,8 @@ class AttendanceController extends Controller
         return [
             'status' => 'success',
             'data' => [
-                'absent' => $absent,
+                'present' => $present_count, // Also return present just in case
+                'absent' => $absent_count,
                 'late_clockin' => $late,
                 'early_clockin' => $early,
                 'no_clockin' => $no_clockin,

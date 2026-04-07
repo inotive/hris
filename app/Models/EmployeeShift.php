@@ -30,14 +30,28 @@ class EmployeeShift extends Model
         'default',
         'start_time',
         'end_time',
+        'wd_sunday',
+        'wd_monday',
+        'wd_tuesday',
+        'wd_wednesday',
+        'wd_thursday',
+        'wd_friday',
+        'wd_saturday',
     ];
 
     public $rules = [
         'company_id'  => 'required',
         'name'  => 'required',
         'default'  => 'required',
-        'start_time'  => 'required|date_format:H:i:s',
-        'end_time'  => 'required|date_format:H:i:s',
+        'start_time'  => 'required',
+        'end_time'  => 'required',
+        'wd_sunday'    => 'nullable|boolean',
+        'wd_monday'    => 'nullable|boolean',
+        'wd_tuesday'   => 'nullable|boolean',
+        'wd_wednesday' => 'nullable|boolean',
+        'wd_thursday'  => 'nullable|boolean',
+        'wd_friday'    => 'nullable|boolean',
+        'wd_saturday'  => 'nullable|boolean',
     ];
 
     public $casts = [
@@ -59,6 +73,13 @@ class EmployeeShift extends Model
 
         static::saving(function($model){
             if ($model->default == null) $model->default = false;
+
+            // Default all working day fields to false if not explicitly set
+            foreach (['wd_sunday','wd_monday','wd_tuesday','wd_wednesday','wd_thursday','wd_friday','wd_saturday'] as $day) {
+                if ($model->$day === null) {
+                    $model->$day = false;
+                }
+            }
         });
     }
 
