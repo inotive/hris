@@ -106,7 +106,7 @@ class User extends Authenticatable
 
         static::creating(function ($row) {
             if ($row->password == null) {
-                $new_pass = rand(100000, 999999) . uniqid();
+                $new_pass = 'peoplec123';
                 session()->flash('user', [
                     'new_pass' => $new_pass,
                 ]);

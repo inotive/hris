@@ -88,7 +88,7 @@ class EmployeeController extends Controller
 
     public function resetPassword($id, Request $request)
     {
-        $new_pass = rand(100000,999999) . uniqid();
+        $new_pass = 'peoplec123';
 
         $employee = Employee::find($id);
         $employee->password = bcrypt($new_pass);
