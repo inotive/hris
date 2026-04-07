@@ -24,11 +24,26 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         if (User::count() == 0) {
-             \App\Models\User::factory()->create([
-            'first_name' => 'Super Admin',
-            'email' => 'admin@admin.com',
-            'role'  => 'superadmin',
-        ]);
+            \App\Models\User::factory()->create([
+                'first_name' => 'Super Admin',
+                'email' => 'admin@admin.com',
+                'role' => 'superadmin',
+            ]);
         }
+
+        $this->call([
+                // Master Data
+            BankListSeeder::class,
+            LocationMasterSeeder::class,
+            LocationSeeder::class,
+
+            // Dummy Data & Testing
+            // CompanyAttributeSeeder::class,
+            // CompanyLocationSeeder::class,
+            // DummyDataSeeder::class,
+            // FilterTestSeeder::class,
+            // FullCompanyDataSeeder::class,
+            // ReimbursementSeeder::class,
+        ]);
     }
 }
