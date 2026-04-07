@@ -22,7 +22,7 @@ class CompanySubscriptionCheck
         try{
             $user = auth()->user();
             if ($user->role != 'superadmin') {
-                $active = $user->company?->active_subscriptions() ?? [];
+                $active = $user->company?->active_subscriptions ?? [];
                 if (count($active) <= 0) {
     //                return redirect()->route('no-active-subscription');
 

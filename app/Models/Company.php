@@ -251,4 +251,19 @@ class Company extends Model
             'is_payslip' => 'nullable|boolean',
         ];
     }
+
+    public static function tableQuery()
+    {
+        $query = static::query();
+        $user = auth()->user();
+        
+        if ($user && $user->role !== 'superadmin') {
+            $query->where('id', $user->company_id);
+        }
+
+        return $query->search(request('search'))
+            ->filter(request('filter'))
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+    }
 }

@@ -26,14 +26,20 @@ class CompanyController extends Controller
         // Define the number of results per page
         $limit = 10;
 
+        $user = auth()->user();
+        
+        $queryBuilder = Company::where('name', 'like', '%' . $query . '%');
+        if ($user && $user->role !== 'superadmin') {
+            $queryBuilder->where('id', $user->company_id);
+        }
+
         // Fetch items from the database based on the search query
-        $items = Company::where('name', 'like', '%' . $query . '%')
-                      ->skip(($page - 1) * $limit)
+        $items = $queryBuilder->skip(($page - 1) * $limit)
                       ->take($limit)
                       ->get();
 
         // Get the total count for pagination
-        $totalItems = Company::where('name', 'like', '%' . $query . '%')->count();
+        $totalItems = $queryBuilder->count();
 
         return response()->json([
             'items' => $items,
